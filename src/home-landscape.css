@@ -1,0 +1,17 @@
+/* Original map, local texture movement only. This decorative layer is a sibling
+   of the header/main/tabs, so their layout, hit targets and scroll remain intact. */
+.home-shell:has(>.home-landscape){position:relative;isolation:isolate}
+.home-landscape{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;user-select:none;-webkit-user-select:none;contain:paint}
+.home-landscape-map{display:block;width:100%;height:100%;overflow:hidden}
+.home-landscape-water{animation:home-water-current 8.6s ease-in-out infinite;transform-origin:390px 800px;opacity:.72}
+.home-landscape-water-light{animation:home-water-light 10.8s ease-in-out infinite;opacity:.06}
+.home-landscape-tree{transform-box:view-box;animation:home-tree-breeze 6.8s ease-in-out infinite;transform-origin:41px 629px}
+.home-landscape-tree-right{transform-origin:710px 470px;animation-duration:8.4s;animation-delay:-3.1s}
+.home-landscape[data-motion=running] .home-landscape-water,.home-landscape[data-motion=running] .home-landscape-tree{will-change:transform}
+.home-landscape[data-motion=running] .home-landscape-water-light{will-change:transform,opacity}
+.home-landscape[data-motion=paused] .home-landscape-water,.home-landscape[data-motion=paused] .home-landscape-tree,.home-landscape[data-motion=paused] .home-landscape-water-light{animation-play-state:paused;will-change:auto}
+.home-landscape[data-motion=reduced] .home-landscape-map{display:none}
+@keyframes home-water-current{0%,100%{transform:translate(0,0)}35%{transform:translate(2px,-1px)}70%{transform:translate(-1.5px,1.5px)}}
+@keyframes home-water-light{0%,100%{transform:translateX(-20px);opacity:.035}50%{transform:translateX(20px);opacity:.13}}
+@keyframes home-tree-breeze{0%,100%{transform:rotate(-.42deg) translateX(-.3px)}40%{transform:rotate(.55deg) translateX(.5px)}72%{transform:rotate(.1deg) translateX(.1px)}}
+@media(prefers-reduced-motion:reduce){.home-landscape-map{display:none}.home-landscape *{animation:none!important;will-change:auto!important}}

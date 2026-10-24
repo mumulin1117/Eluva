@@ -1,0 +1,31 @@
+/* Lanhu 41117856 v1 notice card. Settings and Avatar Frames opt in explicitly. */
+.modal-backdrop.centered-backdrop:is(.delete-account-backdrop,.avatar-premium-backdrop){
+ padding:max(16px,var(--safe-top)) 16px calc(max(16px,var(--safe-bottom)) + 29px);
+ background:rgba(0,0,0,.6)
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt){
+ width:100%;max-width:293px;padding:24px 10.5px 29px;
+ border:1.5px solid #ccc;border-radius:22px;
+ background:radial-gradient(ellipse 180px 110px at 75% 105%,rgba(236,216,255,.85),rgba(236,216,255,0) 100%),linear-gradient(180deg,#d1a9ff 0%,#fff 56%,#fff 100%);
+ box-shadow:0 0 10px rgba(0,0,0,.25)
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-header{margin:0 0 1px;flex-shrink:0}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-header h2{
+ font:700 20px/30px 'Poppins',sans-serif;color:rgba(0,0,0,1);overflow-wrap:anywhere
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-header .icon-button{display:none}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-body{
+ padding:0;text-align:center;overflow-wrap:anywhere;
+ font:400 15px/23px 'Poppins',sans-serif;color:rgba(71,71,71,1)
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-footer{
+ flex-direction:column;gap:16px;padding:20px 15px 0;flex-shrink:0
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-footer>.action-button{
+ flex:none;width:100%;min-height:44px;padding:12px 8px;
+ border:1px solid #000;border-radius:50px;background:#000;color:#fff;
+ font:600 14px/18px 'Plus Jakarta Sans',sans-serif;white-space:normal
+}
+.modal-panel:is(.delete-account-prompt,.avatar-premium-prompt) .modal-footer>.action-button.secondary{
+ border:1px solid #ccc;background:#fff;color:rgba(150,150,150,1)
+}

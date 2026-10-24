@@ -1,0 +1,743 @@
+{
+  "phase": "P2",
+  "checkedAt": "2026-10-17",
+  "status": "local implementation and automated/browser acceptance completed; formal visual and physical-device acceptance pending",
+  "designBase": {
+    "width": 390,
+    "height": 844,
+    "exportScale": 2,
+    "version": "版本1",
+    "latestGuide4": 9,
+    "retiredGuide4Duplicate": 6
+  },
+  "confirmed": [
+    "three primary tabs: Chats, Home default, Mine",
+    "echo/comment distinct from follow/request/friend",
+    "Private highest and failures/private do not spend publish quota",
+    "local-only data and unified Bridge",
+    "back/language retain in-session draft; no confirmed long-term drafts"
+  ],
+  "unconfirmedTechnicalAssumptions": [
+    "text-only/image-only/video-only permitted",
+    "body 2000 / comment 1000 graphemes",
+    "9 images OR one video",
+    "video 60 seconds and 50 MiB, image20MiB",
+    "collection name60/description300, report details500",
+    "optional future daily reset uses UTC day in current repository"
+  ],
+  "commercialRules": {
+    "dailyPublicPosts": null,
+    "dailyThreeConfirmed": false,
+    "freeCollectionsTwoEnforced": false,
+    "proAudienceEnabled": false
+  },
+  "limitations": [
+    "Chrome fresh Lanhu session required relogin; Mac locked prevented browser layer re-selection",
+    "MCP current list, versioned annotations, source images and slices were read; no fabricated browser signoff",
+    "full identical-state pixel comparison and physical iOS keyboard/permission/startup UI not completed"
+  ],
+  "pages": [
+    {
+      "key": "home",
+      "route": "/home",
+      "designs": [
+        {
+          "index": 80,
+          "designId": "53ecd7cf-131b-4976-b8c8-52c10658774e",
+          "name": "首页",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.25433Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 5,
+          "designId": "9ceb471c-970d-4817-b764-01eb22189114",
+          "name": "首页--默认进入",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.255995Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "login/registration success",
+        "Home tab",
+        "publish return"
+      ],
+      "actions": [
+        "Share/resume draft",
+        "refresh real local snapshot",
+        "open post",
+        "echo",
+        "discovery filters",
+        "help replay",
+        "language",
+        "Chats/Mine"
+      ],
+      "back": "Primary Home; retains vertical/horizontal scroll and account filter",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "new account empty",
+        "filtered empty",
+        "content",
+        "first guide",
+        "blocked/hidden recovery"
+      ],
+      "validation": [
+        "local demo fixtures only for stable test ID",
+        "filter uses stable media/topic IDs"
+      ],
+      "save": "guideDone/feedFilter saved only after successful preferences transaction; scroll memory per account; publication/echo/comment applies shared snapshot",
+      "native": "content.snapshot/preferences/echo; app.ready waits local map assets",
+      "supplement": "Map/typography/tab assets retained. Added language entry and explicit local-demo disclosure; full Chats/Mine remain P3/P5.",
+      "tabBar": true
+    },
+    {
+      "key": "guide",
+      "route": "/home modal",
+      "designs": [
+        {
+          "index": 10,
+          "designId": "3a0daf3b-d0ba-49b4-b871-0f0750bd5c09",
+          "name": "首页--默认进入-引导1",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:21:44.054417Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 7,
+          "designId": "4cc77907-de8a-43f3-9d55-7015be603ccc",
+          "name": "首页--默认进入-引导2",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:21:44.056945Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 8,
+          "designId": "32182980-4923-4ece-8c44-401e99be7e05",
+          "name": "首页--默认进入-引导3",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:21:44.059956Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 9,
+          "designId": "8c842253-8ba9-41cd-aa8c-01764c9669db",
+          "name": "首页--默认进入-引导4",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:01.243684Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 3,
+          "designId": "727eda9d-515f-4da1-8a8b-97826e75463c",
+          "name": "首页-使用帮助1",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.264728Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "first successful Home snapshot per account",
+        "help replay"
+      ],
+      "actions": [
+        "Next/Previous",
+        "Skip",
+        "Done"
+      ],
+      "back": "same Home, restore guide target scroll",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "steps 1–4",
+        "small-screen internal scroll"
+      ],
+      "validation": [
+        "#9 is latest guide4; #6 older duplicate not used"
+      ],
+      "save": "Skip/Done persists guideDone; intermediate index memory only",
+      "native": "content.preferences",
+      "supplement": "Real target bounds and scroll visibility drive highlight; unexported star/arrow/cloud not replaced by invented bitmap.",
+      "tabBar": true,
+      "tabBarInteractive": false,
+      "tabBarNote": "Underlying primary navigation remains visible but inert during modal; not a secondary route."
+    },
+    {
+      "key": "compose",
+      "route": "/compose",
+      "designs": [
+        {
+          "index": 22,
+          "designId": "1b8099f2-e3b5-4162-ab44-bd43e6e06507",
+          "name": "发布动态--默认",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.247949Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 4,
+          "designId": "9b3c1d65-b0b4-4693-be81-938b2a7b5374",
+          "name": "发布动态--已填写",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.245381Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Share/Share now",
+        "My Posts empty CTA",
+        "resume draft"
+      ],
+      "actions": [
+        "edit body/topics",
+        "add/remove media",
+        "collections/audience/visibility sheets",
+        "Post",
+        "continue/keep/discard on leave"
+      ],
+      "back": "draft.returnPath, private success -> /my-posts",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "empty disabled",
+        "dirty",
+        "uploading",
+        "validation error",
+        "quota exhausted",
+        "leave confirmation"
+      ],
+      "validation": [
+        "text OR image(s) OR one video required",
+        "body ≤2000 graphemes",
+        "≤9 images or one video, mutually exclusive",
+        "stable interest IDs",
+        "media/collection ownership",
+        "same commitId + payload for retry"
+      ],
+      "save": "memory body/settings only; staged media local temporary. Atomic publish stores post/media/collection reference/quota/idempotence together. Successful commit closes draft. Closing/reloading app does not promise draft recovery.",
+      "native": "content.beginDraft/publish/discardDraft; media.pick/import/remove",
+      "supplement": "Technical preview limits are implementation assumptions awaiting product confirmation. Daily 3 not adopted; shared policy dailyPublicPosts=null.",
+      "tabBar": false
+    },
+    {
+      "key": "visibility",
+      "route": "/compose modal",
+      "designs": [
+        {
+          "index": 2,
+          "designId": "500ef5ef-fbef-4f1d-8214-a28bc8692a98",
+          "name": "发布动态--可见性",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.271763Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "visibility row"
+      ],
+      "actions": [
+        "Private",
+        "Discover/Profile placement",
+        "Everyone/Friends",
+        "Save/Close"
+      ],
+      "back": "same compose with all other draft fields intact",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "private disables effective placements/audience"
+      ],
+      "validation": [
+        "private has highest priority",
+        "everyone/friends mutually exclusive",
+        "reader permissions independent of recommendation filter"
+      ],
+      "save": "sheet working copy; Save updates memory draft; Close restores prior; publish normalizes private placements false",
+      "native": "content.publish permission validation",
+      "supplement": "Only confirmed friends can read friends-only; echo/follow/request do not establish friendship.",
+      "tabBar": false
+    },
+    {
+      "key": "audience",
+      "route": "/compose modal",
+      "designs": [
+        {
+          "index": 39,
+          "designId": "4a029226-5e3e-4349-8e9a-f5c5d355fce5",
+          "name": "发布动态--筛选条件选择",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.259693Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Filters row"
+      ],
+      "actions": [
+        "Any selection",
+        "Save/Close"
+      ],
+      "back": "same compose",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "Pro options locked"
+      ],
+      "validation": [
+        "unsupported paid filters rejected with PRO_LOCKED",
+        "recommendation preferences never grant reading rights"
+      ],
+      "save": "memory working copy until Save; then included in atomic publish",
+      "native": "content.publish",
+      "supplement": "Gender options visually retained and disabled. No fake purchase or entitlement unlock.",
+      "tabBar": false
+    },
+    {
+      "key": "discovery-filter",
+      "route": "/home modal",
+      "designs": [],
+      "entry": [
+        "Home filter icon"
+      ],
+      "actions": [
+        "media all/text/image/video",
+        "topic",
+        "Save/reset/Close"
+      ],
+      "back": "same Home, previous values on cancel",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "empty result"
+      ],
+      "validation": [
+        "stable media/topic IDs"
+      ],
+      "save": "preferences saved in account transaction; after success recompute live feed and reset feed horizontal offset",
+      "native": "content.preferences",
+      "supplement": "No dedicated direct design; supplement using existing source sheet/chips/fonts and original filter icon. Does not change post visibility.",
+      "tabBar": true,
+      "tabBarInteractive": false,
+      "tabBarNote": "Underlying primary navigation remains visible but inert during modal; not a secondary route."
+    },
+    {
+      "key": "collection-picker",
+      "route": "/compose modal",
+      "designs": [
+        {
+          "index": 88,
+          "designId": "56f4cb76-d81b-4e53-8dde-04e7662076e3",
+          "name": "发布动态--选择合集",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.268346Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Collections row"
+      ],
+      "actions": [
+        "select own collection/no collection",
+        "Create",
+        "Save/Close"
+      ],
+      "back": "same compose",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "no collections"
+      ],
+      "validation": [
+        "only own account collections",
+        "unavailable reference fails without quota"
+      ],
+      "save": "selection staged until Save; new collection is independent durable container and selected on success",
+      "native": "content.snapshot/createCollection",
+      "supplement": "Full collection management/deletion reserved for P5.",
+      "tabBar": false
+    },
+    {
+      "key": "collection-create",
+      "route": "/compose modal",
+      "designs": [
+        {
+          "index": 89,
+          "designId": "0a49147b-bb2d-410d-bb96-3ef9c3368e2b",
+          "name": "选择合集--创建合集",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.269998Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Create from picker"
+      ],
+      "actions": [
+        "optional image cover",
+        "name/description",
+        "Save/Close"
+      ],
+      "back": "picker; creation success selects created container; cancel preserves post draft",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "cover unavailable"
+      ],
+      "validation": [
+        "trimmed name 1–60 graphemes",
+        "description ≤300",
+        "cover image and account ownership"
+      ],
+      "save": "successful atomic create saves collection+cover; failed/cancelled does not spend publishing quota; no post until Publish",
+      "native": "content.createCollection; media.pick/import",
+      "supplement": "Field limits are reversible technical preview assumptions; cover rights inherited by independent saved collection.",
+      "tabBar": false
+    },
+    {
+      "key": "post-detail",
+      "route": "/post/:id",
+      "designs": [
+        {
+          "index": 51,
+          "designId": "b8286fe3-7162-4708-8519-3e48ac42093e",
+          "name": "首页-同频动态详情（未点亮）",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.252058Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 58,
+          "designId": "cd70eece-7690-40a5-b5ea-468338856ab6",
+          "name": "首页-同频动态详情（点亮后）",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.263144Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 65,
+          "designId": "5668da27-b55c-4d61-8ed1-d1f16772a1a4",
+          "name": "首页-同频动态详情（点亮后）--回复",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.266701Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 17,
+          "designId": "bf781331-8a70-4ced-8dfd-711ec4ded211",
+          "name": "举报",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.248774Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 41,
+          "designId": "2b0eb787-a54d-468e-aaea-a5fe0d843b3b",
+          "name": "举报拉黑",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.24523Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Home card",
+        "My Posts",
+        "My Lights",
+        "echo event"
+      ],
+      "actions": [
+        "light/unlight",
+        "view safe author summary",
+        "public comment",
+        "media viewer",
+        "local report/hide/block"
+      ],
+      "back": "query.from allowlisted primary/list route",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "unlit",
+        "lit",
+        "own post",
+        "zero comments",
+        "POST_UNAVAILABLE"
+      ],
+      "validation": [
+        "canRead on every repository action",
+        "nonowner comment requires echo",
+        "self post cannot initiate unrelated social relation"
+      ],
+      "save": "echo/comment persist before shared cache updates; unlight removes echo event only; report local only; hide/block reversible",
+      "native": "content.post/echo/comment/report/hide/block",
+      "supplement": "Reply means public comment. No friend request, auto chat, fake online, translation substitute or remote moderation claim. Full profile P3.",
+      "tabBar": false
+    },
+    {
+      "key": "comment",
+      "route": "/post/:id modal",
+      "designs": [
+        {
+          "index": 65,
+          "designId": "5668da27-b55c-4d61-8ed1-d1f16772a1a4",
+          "name": "首页-同频动态详情（点亮后）--回复",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.266701Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Reply after echo, or own post"
+      ],
+      "actions": [
+        "edit",
+        "Publish",
+        "Close"
+      ],
+      "back": "same detail and post-specific unfinished text",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "empty disabled",
+        "ECHO_REQUIRED",
+        "STORAGE_FAILED"
+      ],
+      "validation": [
+        "trimmed 1–1000 graphemes",
+        "post permission rechecked",
+        "stable payload-bound commitId"
+      ],
+      "save": "unfinished comment memory per post; transaction succeeds then clears; failure/Close/language retains input; repeated retry creates one row",
+      "native": "content.comment",
+      "supplement": "1000 is technical preview limit. Comment does not send a private message.",
+      "tabBar": false
+    },
+    {
+      "key": "media",
+      "route": "/post/:id/media/:index",
+      "designs": [
+        {
+          "index": 51,
+          "designId": "b8286fe3-7162-4708-8519-3e48ac42093e",
+          "name": "首页-同频动态详情（未点亮）",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.252058Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        },
+        {
+          "index": 58,
+          "designId": "cd70eece-7690-40a5-b5ea-468338856ab6",
+          "name": "首页-同频动态详情（点亮后）",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:22:06.263144Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "detail media/expand"
+      ],
+      "actions": [
+        "previous/next",
+        "play/pause/seek",
+        "Back",
+        "retry decode"
+      ],
+      "back": "detail with final viewed image index",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "image",
+        "actual video",
+        "missing/decode error"
+      ],
+      "validation": [
+        "safe integer index normalized",
+        "media account and current post permissions",
+        "actual MP4/MOV metadata, ≤60s /50MB; images ≤20MB"
+      ],
+      "save": "only publish commits owned media; resolve returns permitted local URL; playback state not business event",
+      "native": "media.pick/import/resolve/remove; unified eluva channel named eluva",
+      "supplement": "Dedicated viewer/video controls are supplement. AVAsset validates imported video off UI thread; camera photo only. Physical permission and codec UI checks pending.",
+      "tabBar": false
+    },
+    {
+      "key": "my-posts",
+      "route": "/my-posts",
+      "designs": [
+        {
+          "index": 24,
+          "designId": "3412a0c6-c95f-4d3f-8ca6-486685ab185d",
+          "name": "我发布的帖子",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.220541Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Mine My Posts",
+        "private publish success"
+      ],
+      "actions": [
+        "open own post",
+        "Share when empty"
+      ],
+      "back": "/mine",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "empty",
+        "public/private own content"
+      ],
+      "validation": [
+        "account owner from repository session"
+      ],
+      "save": "read authoritative shared snapshot; no refresh required for successful publish",
+      "native": "content.snapshot",
+      "supplement": "P2 direct dependency only; full Mine design/edit/delete P5.",
+      "tabBar": false
+    },
+    {
+      "key": "my-lights",
+      "route": "/my-lights",
+      "designs": [
+        {
+          "index": 20,
+          "designId": "e41e4312-92c5-4d14-bc88-c307daa983b6",
+          "name": "我点亮的",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.231853Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Mine My Lights"
+      ],
+      "actions": [
+        "open readable lit post"
+      ],
+      "back": "/mine",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "empty",
+        "no-longer-readable filtered"
+      ],
+      "validation": [
+        "echo belongs viewer; hidden/private/blocked unreadable removed"
+      ],
+      "save": "actual echo timestamp shown; no fabricated source screenshot time",
+      "native": "content.snapshot",
+      "supplement": "Source white record cards and typography retained; actual local body/time varies by saved business state.",
+      "tabBar": false
+    },
+    {
+      "key": "safety-recovery",
+      "route": "/home modal",
+      "designs": [
+        {
+          "index": 41,
+          "designId": "2b0eb787-a54d-468e-aaea-a5fe0d843b3b",
+          "name": "举报拉黑",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.24523Z",
+          "reference": "evidence/p2/design-sources.json + lanhu-annotation-*.txt / lanhu-guides-latest.txt"
+        }
+      ],
+      "entry": [
+        "Hidden and blocked link shown when needed",
+        "fast undo"
+      ],
+      "actions": [
+        "unhide/unblock",
+        "Close"
+      ],
+      "back": "same Home",
+      "states": [
+        "initial",
+        "loading/busy",
+        "success",
+        "failure with retained input",
+        "retry",
+        "disabled",
+        "cancel when applicable",
+        "persistent hidden list",
+        "persistent blocked authors",
+        "empty after restore"
+      ],
+      "validation": [
+        "own preferences only",
+        "reader permissions still apply after unhide"
+      ],
+      "save": "transaction success restores shared feed; works after reload; never deletes account/post",
+      "native": "content.hide/block/snapshot",
+      "supplement": "Necessary supplement so safety actions are reversible; no remote appeal or moderation workflow added.",
+      "tabBar": true,
+      "tabBarInteractive": false,
+      "tabBarNote": "Underlying primary navigation remains visible but inert during modal; not a secondary route."
+    }
+  ]
+}

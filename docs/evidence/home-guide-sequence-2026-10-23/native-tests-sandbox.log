@@ -1,0 +1,63 @@
+2026-10-23 14:21:58.262 xcodebuild[42714:17930716]  DVTFilePathFSEvents: Failed to start fs event stream.
+2026-10-23 14:21:58.265 xcodebuild[42714:17930716]  DVTFilePathFSEvents: Failed to start fs event stream.
+2026-10-23 14:21:58.403 xcodebuild[42714:17930714] [MT] DVTDeveloperPaths: Failed to get length of DARWIN_USER_CACHE_DIR from confstr(3), error = Error Domain=NSPOSIXErrorDomain Code=5 "Input/output error". Using NSCachesDirectory instead.
+2026-10-23 14:21:58.691 xcodebuild[42714:17930717] CoreSimulatorService connection became invalid.  Simulator services will no longer be available.
+2026-10-23 14:21:58.692 xcodebuild[42714:17930754] Logging connecton invalid: <OS_xpc_error: <dictionary: 0x1f4775560> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x1f47756a0> { string cache = 0x0, length = 18, contents = "Connection invalid" }
+}>
+2026-10-23 14:21:58.692 xcodebuild[42714:17930754] Error opening log file (/Users/linqian/Library/Logs/CoreSimulator/CoreSimulator.com.apple.dt.xcodebuild.log): Operation not permitted
+[-[SimServiceContext sendRequest:]:1751] ERROR : Unable to deliver request ({
+    "developer_dir" = "/Applications/Xcode.app/Contents/Developer";
+    request = "set_developer_dir";
+}) because we are not connected to CoreSimulatorService.
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ios/Eluva.xcodeproj -scheme Eluva -configuration Debug -destination "platform=iOS Simulator,id=B35DAB5E-225E-46CF-939B-ACCF625E3770" -derivedDataPath .build/ios -resultBundlePath .build/home-guide-sequence-20261023.xcresult "-only-testing:EluvaTests/WebBundleTests/testEnglishHomeGuideAfterDiscovery" "-only-testing:EluvaTests/WebBundleTests/testFrenchHomeGuideAfterDiscovery" "-only-testing:EluvaTests/WebBundleTests/testEnglishHomeDiscoveryMotion" "-only-testing:EluvaTests/WebBundleTests/testFrenchHomeDiscoveryMotion" CODE_SIGN_IDENTITY=- test
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+
+2026-10-23 14:21:58.759 xcodebuild[42714:17930714] [MT] DVTAssertions: Warning in DVTFrameworks/DVTFoundation/FileTypes/DVTFileDataTypeDetection.m:80
+Details:  detectedTypeIdentifier (com.apple.xml-property-list) does not conform to matchedTypeIdentifier in MagicFileDataTypeDetector extenson com.apple.property-list. When both are specified, this conformance is required unless overridden by setting allowNonInheritance. extension.identifier:Xcode.MagicFileDataTypeDetector.XMLPlist
+Object:   <DVTFileDataTypeDetectionMagicCache: 0x942659620>
+Method:   -initWithExtension:
+Thread:   <_NSMainThread: 0x103679e90>{number = 1, name = main}
+Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
+2026-10-23 14:21:58.760 xcodebuild[42714:17930714] [MT] DVTAssertions: Warning in DVTFrameworks/DVTFoundation/FileTypes/DVTFileDataTypeDetection.m:80
+Details:  detectedTypeIdentifier (com.apple.binary-property-list) does not conform to matchedTypeIdentifier in MagicFileDataTypeDetector extenson com.apple.property-list. When both are specified, this conformance is required unless overridden by setting allowNonInheritance. extension.identifier:Xcode.MagicFileDataTypeDetector.BinaryPlist
+Object:   <DVTFileDataTypeDetectionMagicCache: 0x94265a730>
+Method:   -initWithExtension:
+Thread:   <_NSMainThread: 0x103679e90>{number = 1, name = main}
+Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
+[-[SimServiceContext initWithDeveloperDir:connectionType:error:]:432] WARN  : Unable to discover any Simulator runtimes. Developer Directory is /Applications/Xcode.app/Contents/Developer.
+[-[SimDiskImageManager _onQueue_checkConnection:]:239] ERROR : simdiskimaged returned error (invalid), marking disconnected.
+[-[SimDiskImageManager init]:175] ERROR : Could not kickstart simdiskimaged; SimDiskImageManager services will not be available: Error Domain=NSPOSIXErrorDomain Code=53 "Software caused connection abort" UserInfo={NSLocalizedDescription=Error returned in reply from CoreSimulatorService: Connection invalid}
+[-[SimServiceContext initWithDeveloperDir:connectionType:error:]_block_invoke:468] ERROR : Could not get list of trusted mount directories: Error Domain=com.apple.CoreSimulator.SimError Code=410 "The service used to manage runtime disk images (simdiskimaged) crashed or is not responding" UserInfo={NSLocalizedDescription=The service used to manage runtime disk images (simdiskimaged) crashed or is not responding}
+[-[SimDiskImageManager _onQueue_checkConnection:]:239] ERROR : simdiskimaged returned error (invalid), marking disconnected.
+[-[SimServiceContext sendRequest:reply:error:]:1771] ERROR : Unable to deliver request ({
+    request = "notification_subscription";
+    "set_path" = "/Users/linqian/Library/Developer/CoreSimulator/Devices";
+}) because we are not connected to CoreSimulatorService.
+2026-10-23 14:21:58.814 xcodebuild[42714:17930754] Error Domain=NSPOSIXErrorDomain Code=61 "Connection refused" UserInfo={NSLocalizedDescription=CoreSimulatorService connection became invalid.  Simulator services will no longer be available.}
+2026-10-23 14:21:58.815 xcodebuild[42714:17930754]  iOSSimulator: [SimServiceContext defaultDeviceSetWithError:] returned nil (Error Domain=NSPOSIXErrorDomain Code=61 "Connection refused" UserInfo={NSLocalizedFailureReason=Failed to subscribe to notifications from CoreSimulatorService., NSLocalizedDescription=Failed to initialize simulator device set., NSUnderlyingError=0x94264a220 {Error Domain=NSPOSIXErrorDomain Code=61 "Connection refused" UserInfo={NSLocalizedDescription=CoreSimulatorService connection became invalid.  Simulator services will no longer be available.}}}). Simulator device support disabled.
+[-[SimServiceContext sendRequest:reply:error:]:1771] ERROR : Unable to deliver request ({
+    request = "notification_subscription";
+    "set_path" = "/Users/linqian/Library/Developer/CoreSimulator/Devices";
+}) because we are not connected to CoreSimulatorService.
+2026-10-23 14:21:58.815 xcodebuild[42714:17930716] Error Domain=NSPOSIXErrorDomain Code=61 "Connection refused" UserInfo={NSLocalizedDescription=CoreSimulatorService connection became invalid.  Simulator services will no longer be available.}
+2026-10-23 14:21:58.815 xcodebuild[42714:17930716]  IDESimulatorAvailability: startObservingSimulatorUpdates() FAILED to register SimDeviceSet observer
+2026-10-23 14:21:58.844 xcodebuild[42714:17930766]  DVTProvisioningProfileManager: Failed to load profile "/Users/linqian/Library/Developer/Xcode/UserData/Provisioning Profiles/bc785c2c-c979-47d5-93ee-b0f0af5a11be.mobileprovision" (Error Domain=DVTProvisioningProfileProviderErrorDomain Code=1 "Failed to load profile." UserInfo={NSLocalizedDescription=Failed to load profile., NSLocalizedRecoverySuggestion=Profile is missing the required UUID property.})
+2026-10-23 14:21:58.844 xcodebuild[42714:17930767]  DVTProvisioningProfileManager: Failed to load profile "/Users/linqian/Library/Developer/Xcode/UserData/Provisioning Profiles/d7580975-fedb-479d-8073-8839caeb0a60.mobileprovision" (Error Domain=DVTProvisioningProfileProviderErrorDomain Code=1 "Failed to load profile." UserInfo={NSLocalizedDescription=Failed to load profile., NSLocalizedRecoverySuggestion=Profile is missing the required UUID property.})
+2026-10-23 14:21:58.844 xcodebuild[42714:17930760]  DVTProvisioningProfileManager: Failed to load profile "/Users/linqian/Library/Developer/Xcode/UserData/Provisioning Profiles/0bfc2790-5cca-4ad2-895d-482fa171afc4.mobileprovision" (Error Domain=DVTProvisioningProfileProviderErrorDomain Code=1 "Failed to load profile." UserInfo={NSLocalizedDescription=Failed to load profile., NSLocalizedRecoverySuggestion=Profile is missing the required UUID property.})
+2026-10-23 14:21:58.844 xcodebuild[42714:17930754]  DVTProvisioningProfileManager: Failed to load profile "/Users/linqian/Library/Developer/Xcode/UserData/Provisioning Profiles/25135551-357f-4dbe-9729-38192d9e3db6.mobileprovision" (Error Domain=DVTProvisioningProfileProviderErrorDomain Code=1 "Failed to load profile." UserInfo={NSLocalizedDescription=Failed to load profile., NSLocalizedRecoverySuggestion=Profile is missing the required UUID property.})
+Writing result bundle at path:
+	/Users/linqian/Documents/Eluva/.build/home-guide-sequence-20261023.xcresult
+
+xcodebuild: error: Unable to find a device matching the provided destination specifier:
+		{ platform:iOS Simulator, id:B35DAB5E-225E-46CF-939B-ACCF625E3770 }
+
+	The requested device could not be found because no available devices matched the request.
+
+	Available destinations for the "Eluva" scheme:
+		{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:00008132-0004601C34E0C01C, name:My Mac }
+		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+		{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }

@@ -1,0 +1,423 @@
+{
+  "files": [
+    {
+      "file": "src/social-state.js",
+      "kind": "modified",
+      "purpose": "Resolve canonical bundled persona avatars through existing profile state; keep real media Bridge resolution.",
+      "beforeSha256": "1ab928feb80ac15d957c567a0cd69e267e9a34cc81480d4af429722994e2370e",
+      "afterSha256": "f9edf729078e86a37f02663b981563d5b21b0ea704ca0dd7331fb5e2c78bece1"
+    },
+    {
+      "file": "src/data/demo-fixtures.js",
+      "kind": "added",
+      "purpose": "Single source for 20 fictional personas, 10 original posts and related local conversation data.",
+      "beforeSha256": null,
+      "afterSha256": "8c6921b6c753a380e96e760ecc57c560637fc452303cf895eff243bec5c6bb24"
+    },
+    {
+      "file": "src/data/social-demo.js",
+      "kind": "modified",
+      "purpose": "Reuse canonical persona data and retain existing sticker configuration.",
+      "beforeSha256": "579a34dcc6b7c95b17487690986b30de6e5a219d3ceaaf60aaac1cdd519961e1",
+      "afterSha256": "e9b3742bccb64b2aea3f68680f3a7ff64445031dc7ca283d13f51760bb145cb0"
+    },
+    {
+      "file": "src/data/content-demo.js",
+      "kind": "modified",
+      "purpose": "Reuse canonical ten-post data.",
+      "beforeSha256": "46cd2c6b27525436274006f537bb38d74e683d60c8d862df526c09b40da55880",
+      "afterSha256": "adeb4c8b16f9e6f5995dcc212dd8bbff3166dcd6ccacca4f9375c7c8d63b8438"
+    },
+    {
+      "file": "src/views/PostDetailView.vue",
+      "kind": "modified",
+      "purpose": "Use existing PersonAvatar for the actual post author.",
+      "beforeSha256": "f7ad2cd641fdc6ee8df087daf2d009f92e6c79fb7a85df77c69d5bd54ac9b20b",
+      "afterSha256": "3205a360466cbd219ee88a674e3e3bcd4ff0814df553a139a48aefd682f2f6b5"
+    },
+    {
+      "file": "src/domain/demo-upgrade.js",
+      "kind": "added",
+      "purpose": "Versioned scoped fixture migration preserving user data and blocked relationships.",
+      "beforeSha256": null,
+      "afterSha256": "78177c1ba22727930a5ff4aa7f8c590798dc2198ad4364ec55b876e9f4e50d9d"
+    },
+    {
+      "file": "src/domain/social.js",
+      "kind": "modified",
+      "purpose": "Apply migration and expose only canonical bundled demo avatar assets.",
+      "beforeSha256": "04f36e53377be9b96aa3d7f588aaf8bbe198889f6cbf5e7a2cbdfc6f676d29a5",
+      "afterSha256": "f5c6add5508e2a303e9c5bc1f0b28e17439008484f0a301f7201ae61656b8afa"
+    },
+    {
+      "file": "src/domain/content.js",
+      "kind": "modified",
+      "purpose": "Apply versioned demo post upgrade without changing original post IDs.",
+      "beforeSha256": "d94346b76b3ec5fe08d7251cd011ad10debc91913167833c8ec62efa7c75232d",
+      "afterSha256": "b78e3e4a7c7b0947ca1d132c2aefeec74f9d8ce684e9248b8b69c45b256a465a"
+    },
+    {
+      "file": "src/services/browser-repository.js",
+      "kind": "modified",
+      "purpose": "Persist old fixture upgrades atomically during initialization, with retry after failure.",
+      "beforeSha256": "5b6ec8702d8a80f5cbab6aa2e7932741639759e70ac6c96eb91a4a7e310ae30a",
+      "afterSha256": "ffb37b8cb5ae61945611c2fb0cc2a9e9971f740a167649068f91046c79a046a0"
+    },
+    {
+      "file": "scripts/import-demo-assets.py",
+      "kind": "added",
+      "purpose": "Import exactly 39 supplied PNGs byte-for-byte and record source hashes.",
+      "beforeSha256": null,
+      "afterSha256": "991526e95fab2f95d14341c688fd2e8bc21c139adfae432893fbfff2a9456e80"
+    },
+    {
+      "file": "scripts/prepare-assets.mjs",
+      "kind": "modified",
+      "purpose": "Generate shared native JSON from the canonical JavaScript fixture source.",
+      "beforeSha256": "d6ede94f93997e8679df3c6437aa811a899a25419b23126c5cfcdd021c1ca6db",
+      "afterSha256": "a0dfeec3be259c1ac2225a5848962ac53e1f79998a2d6fdae57730194e8ad6fe"
+    },
+    {
+      "file": "scripts/audit-demo-data.py",
+      "kind": "added",
+      "purpose": "Recheck saved evidence, original assets, counts and four built resource sets.",
+      "beforeSha256": null,
+      "afterSha256": "73d088509523bac9a80ee37d588f6444484a766f7b034ee69da57b97b795b145"
+    },
+    {
+      "file": "tests/demo-fixtures.test.js",
+      "kind": "added",
+      "purpose": "Test exact input data, migration rollback/idempotency, isolation and avatar asset safety.",
+      "beforeSha256": null,
+      "afterSha256": "b30080d47db0dcd0390e95ed87d86ac6061e0139b991ded9948bb1dfd9ce68b0"
+    },
+    {
+      "file": "public/config/content-demo.json",
+      "kind": "modified",
+      "purpose": "Generated canonical ten posts for the native repository.",
+      "beforeSha256": "e0d0bb7e0c41a525212c88fa8c1578465c3c90ee682028b0f68de22275d2b0d9",
+      "afterSha256": "9c2268ca19b3c4845139ade47eb261345913a1c62caf1a6be652039e36c55c0e"
+    },
+    {
+      "file": "public/config/social-demo.json",
+      "kind": "modified",
+      "purpose": "Generated canonical twenty personas for the native repository.",
+      "beforeSha256": "a03383b016edd4ba80ed0793236d87a7470c0850fcb768a26961a8f58b207835",
+      "afterSha256": "1bf1f15bf8527d0def584efe187c390874920d314cb93e7da2a883d55683665c"
+    },
+    {
+      "file": "public/config/demo-fixtures.json",
+      "kind": "added",
+      "purpose": "Generated migration version and local conversation/request configuration.",
+      "beforeSha256": null,
+      "afterSha256": "3e225a877f63cb0e0a5be3a6246899f2eda4bea8380dc40081ff588a2b953793"
+    },
+    {
+      "file": "ios/Eluva/SocialRepository.swift",
+      "kind": "modified",
+      "purpose": "Reuse the fixture upgrade and canonical avatar resource lookup.",
+      "beforeSha256": "506b636be25532a0bacf48bff5ce389866022de7432c74c966cadd7815fad809",
+      "afterSha256": "734a41f25d70834107c99b1cbd43f051beb6dca7c14b7c33a3e4925a0c7fc618"
+    },
+    {
+      "file": "ios/Eluva/ContentRepository.swift",
+      "kind": "modified",
+      "purpose": "Mark fresh content with the canonical fixture version.",
+      "beforeSha256": "6cc4cda71081b4a4734ee6ba4769ab7d3054cb0f612608587c6fc98e27b5ef99",
+      "afterSha256": "84d7116055a8bf638a0034a403e1d0e8a0c7c04ce918f2bd05166a2f78c17e9a"
+    },
+    {
+      "file": "ios/Eluva/DemoFixtures.swift",
+      "kind": "added",
+      "purpose": "Native counterpart of scoped fixture migration using shared bundled JSON.",
+      "beforeSha256": null,
+      "afterSha256": "c2819174edd53d11ea4831e2c7d92bc07f7ef3a9ffd40955872a70aaa5674339"
+    },
+    {
+      "file": "ios/Eluva/LocalRepository.swift",
+      "kind": "modified",
+      "purpose": "Atomically persist changed upgraded vault before publishing snapshot.",
+      "beforeSha256": "c7e1858f8bfba792979a0cd4bc2fd062fcc475df20ce8b6eb75f7369c754c59b",
+      "afterSha256": "4db2276532b08634b786b794481d9d3d393866d7a28ff1780d9dc86973c4c009"
+    },
+    {
+      "file": "ios/EluvaTests/DemoFixtureTests.swift",
+      "kind": "added",
+      "purpose": "Test native fixture resources, scope, old vault preservation and migration retry.",
+      "beforeSha256": null,
+      "afterSha256": "4c0d39448ced5edb205ea6d13a3b4e77a9b0fc3b8aa5629d084b9bcacdaff4cb"
+    },
+    {
+      "file": "ios/Eluva.xcodeproj/project.pbxproj",
+      "kind": "modified",
+      "purpose": "Generated Xcode source/test membership for new Swift files.",
+      "beforeSha256": "1be71f2341e738d15fc587047c64fcfdeeab54ae1606d01ce219fb56790376c9",
+      "afterSha256": "feb7e0c2218c26909e34e65acac7d5dead852832f42ca90751a85a68ac717c86"
+    },
+    {
+      "file": "README.md",
+      "kind": "modified",
+      "purpose": "Document latest data, fixed account usage and current validation boundaries.",
+      "beforeSha256": "8bee415c218fcd999f444484ab45b7518da2c420106f49bfac8c99e1cd3a1606",
+      "afterSha256": "d988f90c7a785ad864a7051ea380a3feb0398baa11aa7714ee29846f8e286fa2"
+    },
+    {
+      "file": "docs/demo-data-integration-report.md",
+      "kind": "added",
+      "purpose": "Record mapping, implementation, persistence and executed versus pending validation.",
+      "beforeSha256": null,
+      "afterSha256": "d37a7c9da0df7eb6a0b94364ba2fa0d9ed8de023beead4352215665c927de08c"
+    },
+    {
+      "file": "docs/demo-data-catalog.json",
+      "kind": "added",
+      "purpose": "Generated complete user/post/role/source correspondence.",
+      "beforeSha256": null,
+      "afterSha256": "55b4c6a182edae4792959ce6177ec7f3d32c0c03417142a773c354c11b98b3b1"
+    },
+    {
+      "file": "public/images/demo-users/female-10-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "e8eb8b11dd8566d0b713bc0b8daf080197aeed45d2dec23a937ddd100e9c1810"
+    },
+    {
+      "file": "public/images/demo-users/female-01-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "413d02e6cd85d5fecb9e9d9621b44edd7480127fa0b12240be6d24de951b6073"
+    },
+    {
+      "file": "public/images/demo-users/female-02-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "5c9c2d0abd39c041bcdcc7f5c3bb0ed6c6bd1b7c9eccde24747140c170d8de8d"
+    },
+    {
+      "file": "public/images/demo-users/female-03-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "0105291ff50f4de3d43d8f440c5bc7a46f9be13618ef10f0c1f3b4d4a5ae6d38"
+    },
+    {
+      "file": "public/images/demo-users/female-04-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "02aed64d62ecef3441b908e0a67c546adc49a54976b57c368efa52ac12b0248a"
+    },
+    {
+      "file": "public/images/demo-users/female-05-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "5e6db0f5363b6e51d0183da7e7cc7802802f3565650b10fc2b317ca24d23f26c"
+    },
+    {
+      "file": "public/images/demo-users/female-06-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "0f80ffa0f23a855f9e700111eb09a03f7b496122ace6f4bbcee74bc0f9231b7a"
+    },
+    {
+      "file": "public/images/demo-users/female-07-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "3a2fea2702200fb2fdaa8b50b46bf9d8a232c098b92d2559baddebe16003a473"
+    },
+    {
+      "file": "public/images/demo-users/female-08-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "bd23bd8050866a49bd615ab061e3f22cc6b493eaf2d7270d68428d8a4d1281c3"
+    },
+    {
+      "file": "public/images/demo-users/female-09-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "3c78910fa28b7aaac0599fb92e8ce65424a8dd7e7fa4d061ce5e979536896823"
+    },
+    {
+      "file": "public/images/demo-users/post-01-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "0a8b3ff06d2532be423538e042e9b03e0e1d4453d54ca96c15cb67e99e46eca8"
+    },
+    {
+      "file": "public/images/demo-users/post-02-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "4ad358f597561426cb5cf4457d0193d141a98a4acb4779c5c980c82d05910144"
+    },
+    {
+      "file": "public/images/demo-users/post-02-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "39aeb259f191d8b748c39ba68e14106a05102a241865380e5b0a454b648b40b5"
+    },
+    {
+      "file": "public/images/demo-users/post-03-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "d06ce6b29363e94d0e579b31ef0a324a49b98a065691cbec631658904e949f66"
+    },
+    {
+      "file": "public/images/demo-users/post-04-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "86009e4864b857cd426b54e4f7c8936d378b4714027a49c67e39f2d2b283a9e9"
+    },
+    {
+      "file": "public/images/demo-users/post-04-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "35a85a0259b0792507ecc2976666541473d5e479018dbe88d751487644b976ca"
+    },
+    {
+      "file": "public/images/demo-users/post-05-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "6f23282dff0046d41f13fd54e014531b0c1a632aaf9985101b240d240a681201"
+    },
+    {
+      "file": "public/images/demo-users/post-05-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "d3e7e92a49d5d79a5a084e04f10a8f40b7dddd9a3ac08b3c2ab976c34c40743c"
+    },
+    {
+      "file": "public/images/demo-users/post-05-03.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "3f7fd281e764668d35ffbbbd17eb227a9738367784db4366bdc40d375c681664"
+    },
+    {
+      "file": "public/images/demo-users/male-10-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "afed34011661dfed5f9b74aad680a833fb739c3268c3c01e51d2de05d71154de"
+    },
+    {
+      "file": "public/images/demo-users/male-01-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "d891109cd6ac677eee8337dcba8e04e176b0444e06aceb6d489474f85b7d0d4a"
+    },
+    {
+      "file": "public/images/demo-users/male-02-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "7ee74435fcae4f98dfacccda95d2fa5d70c188a4a18ab6d382ea79cb91748d68"
+    },
+    {
+      "file": "public/images/demo-users/male-03-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "5b1737348f4a16d70f532f1f4a86b4ed48827e6fd8f801d329fb119ed95a4fee"
+    },
+    {
+      "file": "public/images/demo-users/male-04-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "2ff232557d7be947101bb8a6bd58db1e2c9dfdb274518188b7aa3b39abfa23b4"
+    },
+    {
+      "file": "public/images/demo-users/male-05-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "7b2e615f615a578cdca46c4683a9e252cec552aa22ed0bb2198922676d2770a3"
+    },
+    {
+      "file": "public/images/demo-users/male-06-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "0a205db1bd70fc0ca9377e60703531c022d6ef5b6203ff650713a0e4ebe7f341"
+    },
+    {
+      "file": "public/images/demo-users/male-07-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "ffaf0bf1d5b462576da2699af5fc7af5c683661b5a8218ea4fda7ae5e2167ce3"
+    },
+    {
+      "file": "public/images/demo-users/male-08-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "b26365198b9ba3fec0adc0eb98bbb5f04e21a9b22c512577b26dd69f235faa61"
+    },
+    {
+      "file": "public/images/demo-users/male-09-avatar.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied avatar PNG; see source manifest.",
+      "afterSha256": "841de56ca891cd46da0a3e824d7eca23f76f31aca01527ab6c37386da9728c52"
+    },
+    {
+      "file": "public/images/demo-users/post-10-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "0ab9a243a3feda35f17d3cfe1bcd4cba7dde51607e50fe551fabae91325cbba8"
+    },
+    {
+      "file": "public/images/demo-users/post-10-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "abe8a5611a6baaf45b13921b41b4b6a5b89dd7a1eed9eebe1ecfbb487f5bca0d"
+    },
+    {
+      "file": "public/images/demo-users/post-10-03.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "5947050802a883ae5f815aaabeb32dd94010023d4cd42a0c1c404a8427fb8926"
+    },
+    {
+      "file": "public/images/demo-users/post-06-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "775a91b9eeb14b9aa02e32048f3dc509bd97122ec6d6fc93ebec40b3e7da4475"
+    },
+    {
+      "file": "public/images/demo-users/post-06-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "c433cf85eebfc365c0161b3a522e836675356403d873c1138c51f97ca6ba8ac6"
+    },
+    {
+      "file": "public/images/demo-users/post-07-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "fd7dbc771988bfb73246ea13023a6dd1f9ee9208a88aed0951c7d028f31e32f9"
+    },
+    {
+      "file": "public/images/demo-users/post-07-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "388e1f86d49ef95c16f2afba04798fe15e22433488a4209c26032cbae09843c4"
+    },
+    {
+      "file": "public/images/demo-users/post-08-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "365439e6e9aeed416a0cab182153abaa7740dfbf17b6ad13f04541894257dbe7"
+    },
+    {
+      "file": "public/images/demo-users/post-08-02.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "15f6b2696174daa5e6ec5ffab46182133f00dc7bfad677440fba8079998e713a"
+    },
+    {
+      "file": "public/images/demo-users/post-09-01.png",
+      "kind": "added-asset",
+      "purpose": "Unmodified supplied post PNG; see source manifest.",
+      "afterSha256": "dd767401d2e5e2695238535a620c33fdbf4280c308ed0ae9830cc9bdc8858b27"
+    }
+  ],
+  "generatedIOSWeb": {
+    "root": "ios/Eluva/Web",
+    "files": 213,
+    "manifest": "resource-hashes.json"
+  },
+  "evidence": {
+    "root": "docs/evidence/demo-data-2026-10-19",
+    "screenshotsAndObservations": "browser-matrix.json",
+    "logs": "logs/"
+  }
+}

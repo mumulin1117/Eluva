@@ -1,0 +1,90 @@
+/* Profile v2: 390×844 annotation coordinates; content remains in normal flow. */
+.content-shell.profile-shell{display:grid;grid-template: minmax(0,1fr)/minmax(0,1fr);background:#8653ff}
+.profile-shell>.content-header{grid-area:1/1;align-self:start;z-index:3;pointer-events:none;background:transparent;padding-inline:14px}
+.profile-shell>.content-header button{pointer-events:auto}
+.profile-shell>.page-content{grid-area:1/1;max-width:none;padding:0 15px calc(24px + var(--safe-bottom))}
+
+.profile-shell .profile-hero{aspect-ratio:390/520;min-height:0;align-items:stretch}
+.profile-shell .profile-hero>img{object-position:center;object-fit:cover}
+.profile-shell .public-profile-card{margin:clamp(-224px,-52.05vw,-166px) 10px 22px;padding:12px 23px 22px;gap:0;min-height:201px;border-radius:24px}
+.profile-shell .public-profile-card h2{font:800 24px/30px 'Plus Jakarta Sans',sans-serif;margin-bottom:4px}
+.profile-shell .public-profile-card>p{font:500 14px/18px 'Plus Jakarta Sans',sans-serif}
+.profile-shell .public-actions{margin:17px 0 16px;gap:12px}
+.profile-shell .public-actions>.action-button{padding:10px;min-height:44px;font:600 14px/18px 'Plus Jakarta Sans',sans-serif;border:0;background:#000 url('/images/profile/follow-background.png') center/100% 100% no-repeat}
+.profile-shell .public-actions>.following-button{background:#decfff;color:#b777ff}
+.profile-shell .profile-follow-image{width:18px;height:18px;object-fit:contain}
+.profile-shell .profile-chat-action,.profile-shell .profile-chat-action img{width:44px;height:44px}
+.profile-shell .profile-counts{gap:8px;padding:0}
+.profile-shell .profile-counts>div{gap:3px}
+.profile-shell .profile-counts strong{font:800 16px/20px 'Plus Jakarta Sans',sans-serif}
+.profile-shell .profile-counts span{font:500 12px/15px 'Plus Jakarta Sans',sans-serif;color:#d0bdff}
+.profile-shell .profile-collections{width:calc(100% - 20px);margin:0 10px 23px;padding:4px 11px 4px 25px;gap:9px;min-height:60px;border-radius:38px}
+.profile-shell .profile-collections>img{width:56.5px;height:51.3px;object-fit:contain}
+.profile-shell .profile-collections .profile-collection-arrow{width:14px;height:14px}
+.profile-shell .public-posts{gap:16px}
+.profile-shell .post-card.compact{border-bottom:0;padding-bottom:12px}
+.profile-shell .post-card-body{font:500 15px/23px 'Poppins',sans-serif;color:#fff;-webkit-line-clamp:unset;display:block;min-height:0}
+.profile-shell .post-stats{font:400 12px/18px 'Poppins',sans-serif;color:#e9e9e9;justify-content:space-between}
+.profile-shell .post-stats>span:nth-child(2){display:none}
+.profile-shell .post-stats>span:first-child{gap:8px}
+.profile-shell .post-stats svg{display:none}
+.profile-shell .post-stats>span:first-child::before{content:'';width:20px;height:20px;background:url('/images/profile/light-icon.png') center/contain no-repeat}
+@media(max-width:350px){.profile-shell .public-profile-card{padding-inline:16px}.profile-shell .public-profile-card h2{font-size:24px;line-height:30px}.profile-shell .profile-collections{padding-left:16px}}
+.modal-panel.safety-panel{padding:16px 15px calc(6px + var(--safe-bottom));border-radius:30px 30px 0 0;background:#fff;border:0;max-width:430px;width:100%}
+.safety-panel .modal-body{padding:0;flex:0 1 auto}
+.safety-action-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.safety-action{background:transparent;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;font:400 13px/20px 'Poppins',sans-serif}
+.safety-action>img{width:60px;height:60px;object-fit:contain}
+.safety-action>span{overflow-wrap:anywhere;text-align:center}
+.safety-panel .modal-footer{padding:0}
+.safety-panel .modal-footer>.action-button{min-height:44px;color:#969696;font:600 15px/19px 'Plus Jakarta Sans',sans-serif;border:1px solid #d9d9d9}
+.profile-shell .page-content>.content-state{padding-top:calc(var(--safe-top) + 100px);color:white}
+.report-shell,.profile-collections-shell{background:#fefcff url('/images/profile/surface-background.png') center/100% 100% no-repeat}
+.report-shell .content-header h1,.profile-collections-shell .content-header h1{font:600 18px/27px 'Poppins',sans-serif;text-align:center;letter-spacing:normal}
+.report-shell .page-content{padding:8px 15px 24px}
+.user-report-form{display:flex;flex-direction:column;gap:0}
+.user-report-form legend,.report-details-label{font:500 15px/23px 'Poppins',sans-serif;color:#a3a3a3;margin-bottom:12px}
+.user-report-form fieldset+fieldset{margin-top:26px}
+.report-options{display:flex;flex-wrap:wrap;gap:8px}
+.report-option{min-height:42px;padding:9px 13px;background:#fff;border:1px solid #e3d1ff;border-radius:9px;color:#d4b1e9;font:400 14px/21px 'Poppins',sans-serif;text-align:center;overflow-wrap:anywhere;max-width:100%}
+.report-option.selected{border-color:#a622ff;color:#000;font-weight:500}
+.report-details-label{margin-top:26px}
+.user-report-form textarea{width:100%;min-height:120px;resize:vertical;padding:12px 10px;border:0;border-radius:9px;box-shadow:0 2px 14px rgba(192,84,255,.08);background:white;font:400 16px/23px 'Poppins',sans-serif}
+.user-report-form textarea::placeholder{color:#bbb;font-size:14px;line-height:21px}
+.report-shell .page-footer{padding:12px 20px calc(19px + var(--safe-bottom))}
+.report-shell .page-footer>.purple-gradient{background:#a622ff url('/images/p2/purple-button.svg') center/100% 100% no-repeat;box-shadow:none}
+@media(max-width:350px){.report-option{padding-inline:11px}}
+.profile-collections-shell .page-content{padding:4px 15px calc(24px + var(--safe-bottom))}
+.profile-collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 11px;align-items:start}
+.profile-collection-tile{display:flex;flex-direction:column;gap:5px;padding:6px;border-radius:8px;background:#fff;box-shadow:0 2px 14px rgba(192,84,255,.08);text-align:left;min-width:0}
+.profile-collection-meta{display:flex;justify-content:space-between;align-items:baseline;gap:6px;min-width:0;width:100%}
+.profile-collection-meta small{font:400 12px/18px 'Poppins',sans-serif;color:#838383;flex-shrink:0}
+.profile-collection-meta strong{font:500 14px/21px 'Poppins',sans-serif;min-width:0;text-align:right;overflow-wrap:anywhere}
+.profile-collection-tile>img,.profile-collection-cover{width:100%;aspect-ratio:160/175;object-fit:cover;border-radius:5px}
+.profile-collection-cover{display:grid;place-items:center;background:#f3eaff}
+.profile-collection-cover>img{width:56px;height:51px;object-fit:contain}
+.profile-collections-empty{min-height:100%;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:24px 16px 32px}
+.profile-collections-empty h2{font:700 30px/45px 'Poppins',sans-serif}
+.profile-collections-empty p{font:500 14px/21px 'Poppins',sans-serif;overflow-wrap:anywhere}
+.profile-collections-empty>img{width:136px;height:144px;object-fit:contain;margin:40px 0}
+.profile-collections-empty p:last-child{font:400 13px/20px 'Poppins',sans-serif;color:#68616e;max-width:326px}
+
+.profile-shell>.profile-operation-error{grid-area:1/1;align-self:end;z-index:4;margin:12px 15px calc(12px + var(--safe-bottom))}
+
+.profile-shell>.page-content{overflow-anchor:none}
+.report-shell .content-header,.profile-collections-shell .content-header{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px}
+.report-shell .content-header-actions,.profile-collections-shell .content-header-actions{margin:0;width:44px}
+.report-reason-row{display:flex;gap:8px;margin-bottom:8px;align-items:stretch}
+.report-reason-row:last-child{margin-bottom:0}
+.report-reason-row>.report-option{flex:0 1 112px;min-width:0;padding:9px 6px}
+.report-reason-row:first-of-type>.report-option:last-child,.report-reason-row:last-child>.report-option{flex-basis:122px}
+
+.report-shell .page-content{padding-top:4px}
+.user-report-form legend{margin-bottom:9px}
+.user-report-form fieldset+fieldset{margin-top:23px}
+.report-details-label{margin-top:23px;margin-bottom:10px}
+.report-reason-row:nth-of-type(2)>.report-option:last-child{flex-basis:122px}
+.profile-collections-shell:has(.profile-collections-empty) .content-header h1{visibility:hidden}
+
+.profile-collections-shell .collection-help{background:rgba(255,255,255,.5);border:1px solid #fff}
+.profile-collections-shell .collection-help>img{width:20px;height:20px;object-fit:contain}

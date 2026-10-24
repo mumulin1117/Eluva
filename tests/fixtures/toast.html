@@ -1,0 +1,18 @@
+<!doctype html><html><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Eluva toast QA</title></head><body><div id="app"></div><script type="module">
+import {BrowserRepository} from '/src/services/browser-repository.js'
+import {bridge,state,notify,saveLocale,finishSignOut} from '/src/state.js'
+const query=new URLSearchParams(location.search),locale=query.get('locale')==='fr'?'fr':'en'
+const repo=new BrowserRepository({dbName:'eluva-toast-qa-'+crypto.randomUUID()});bridge.adapter=repo
+await repo.execute('app','bootstrap');await repo.execute('preferences','locale',{locale});await repo.execute('preferences','consent',{accepted:true,version:(await import('/src/domain/validation.js')).LEGAL_VERSION});await repo.execute('auth','login',{email:'eluva@gmail.com',password:'123qweasd'});await repo.execute('content','preferences',{guideDone:true})
+if(query.get('safe')==='1'){const style=document.createElement('style');style.textContent=':root{--safe-top:44px!important;--safe-bottom:34px!important}@media(max-height:700px){:root{--safe-top:20px!important;--safe-bottom:0px!important}}@media(width:393px),(width:430px){:root{--safe-top:59px!important;--safe-bottom:34px!important}}';document.head.append(style)}
+const controls=document.createElement('aside');controls.id='toast-qa-controls';controls.style.cssText='position:fixed;bottom:0;right:0;z-index:9999;display:flex;max-width:100%;flex-wrap:wrap;background:white;font:10px sans-serif'
+for(const [label,action] of [
+ ['Success',()=>notify('toast.themeUpdated')],['Long',()=>notify('p2.blocked')],['Info',()=>notify('p4.controlsAfterConnected',{handoffs:0})],
+ ['Attention',()=>notify('p4.callClosedSaveFailed')],['Center',()=>notify('p5.cleanupPending')],
+ ['Modal',()=>{state.ui.modal='logout';notify('toast.profileUpdated')}],
+ ['Language',()=>saveLocale(state.locale==='en'?'fr':'en')],['Sign out',()=>finishSignOut()],
+ ...['purple','pink','orange','cyan'].map(theme=>[theme,()=>{state.theme=theme}])]){
+ const b=document.createElement('button');b.textContent=label;b.style.cssText='min-height:25px;padding:0 5px';b.onclick=action;controls.append(b)
+}
+document.body.append(controls);if(!location.hash)location.hash='/settings';await import('/src/main.js')
+</script></body></html>

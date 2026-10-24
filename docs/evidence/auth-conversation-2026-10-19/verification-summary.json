@@ -1,0 +1,129 @@
+{
+  "phase": "P1-R1",
+  "date": "2026-10-19",
+  "status": "delivered-physical-device-verification-deferred-by-user",
+  "webTests": {
+    "passed": 79,
+    "failed": 0,
+    "log": "logs/web-final.log"
+  },
+  "iosFullSuite": {
+    "passed": 50,
+    "failed": 0,
+    "log": "logs/ios-acceptance.log",
+    "boundary": "before last bio-optional/same-event/reduced-height refinements; final affected WK suite rerun separately"
+  },
+  "finalWKSuite": {
+    "passed": 2,
+    "failed": 0,
+    "log": "logs/ios-wk-final.log",
+    "covers": [
+      "six EN/FR EULA viewports",
+      "real bundled scheme/native Bridge",
+      "email-first registration",
+      "invalid-code retention",
+      "full birthday",
+      "ten quiz rows",
+      "same-event duplicate answers",
+      "optional biography",
+      "reduced-height code actions",
+      "atomic create",
+      "wrong-password retry",
+      "reset mismatch and cancellation",
+      "reset then re-login"
+    ],
+    "boundary": "offscreen integration, not visual keyboard or physical-device validation",
+    "resultBundle": ".build/auth-conversation-layout-final.xcresult",
+    "logConfirmsPass": true
+  },
+  "browser": {
+    "verifiedScreenshots": 348,
+    "matrix": "browser-matrix-verified.json",
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "horizontalOverflow": 0,
+    "missingImages": 0,
+    "authTabBar": false,
+    "proof": [
+      "screenshots/en-final-welcome-390x844.png",
+      "screenshots/fr-final-registered-profile-390x844.png"
+    ],
+    "registeredAccount": "p1-visual-check@example.com",
+    "accountCreationApprovedByUser": true,
+    "registeredThenLoggedOutReloadedReloggedIn": true,
+    "unsubmittedReviewDraftsAreNotAccounts": true,
+    "captureCaveat": "matrix captured after visual fixes; final same-event guard and reduced-height fixture refinements separately checked in final WK suite and final representative browser screenshots",
+    "console": "browser-console-final.json"
+  },
+  "build": {
+    "vite": true,
+    "sync": true,
+    "simulator": true,
+    "unsignedIPhoneOS": true,
+    "filesPerBundle": 215,
+    "sha256FourCopiesMatch": true
+  },
+  "nativeVisible": {
+    "device": "iPhone SE simulator, iOS 17.5",
+    "seen": [
+      "welcome",
+      "existing consent",
+      "conversation verification state"
+    ],
+    "screenshots": [
+      "screenshots/simulator-se-welcome.png",
+      "screenshots/simulator-se-current.png"
+    ],
+    "softwareKeyboard": "not independently completed; CUA native actions failed after visible screenshots",
+    "physicalDevice": false
+  },
+  "notCompleted": [
+    "Physical iPhone signed install/run: DEVELOPMENT_TEAM is unset; signed-device-attempt.log contains exact Xcode error. Two devices detected; not claimed unavailable.",
+    "Physical keyboard/permission/launch testing and full native-size gesture/selection matrix",
+    "Full DDS and browser version history; slice endpoints returned Version 1",
+    "Formal design/editorial signoff, especially duplicate Q3, timeout policy and bio template"
+  ],
+  "initialDefectsResolved": [
+    "Native WK message post of reactive quiz array timed out: send plain canonical rows",
+    "Bio edit cancel/back must retain question ten",
+    "Registration commit replay across accounts rejected",
+    "Theme swatches corrected from circles to source four-column rectangles",
+    "Capture tab/size mismatch excluded from accepted evidence",
+    "Successful registration cleanup deferred until route finished; old null-profile render error no longer appears in final bundle"
+  ],
+  "deliveryDecision": {
+    "date": "2026-10-19",
+    "source": "direct-user-reply",
+    "quote": "先交付，真机验证列为待办",
+    "physicalDeviceVerification": "deferred",
+    "fullAcceptance": false
+  }
+}

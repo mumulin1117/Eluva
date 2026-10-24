@@ -1,0 +1,56 @@
+{
+  "phase": "P4",
+  "checkedAt": "2026-10-17T14:53:57.878376+00:00",
+  "phaseExitFullyCertified": false,
+  "webTests": {
+    "passed": 41,
+    "failed": 0,
+    "log": "logs/web-tests.log"
+  },
+  "nativeRepositoryTests": {
+    "passed": 28,
+    "failed": 0,
+    "environment": "Dedicated iPhone SE simulator iOS17.5, local ad-hoc signing, actual Keychain",
+    "log": "logs/native-tests.log",
+    "doesNotCertify": "Native UI, device permissions, AV capture, ASR or Translation model success"
+  },
+  "builds": {
+    "vite": "passed",
+    "syncIOS": "passed",
+    "genericSimulator": "passed",
+    "genericUnsignedIOS": "passed",
+    "sourceCompilerErrors": 0,
+    "warning": "Apple AppIntents metadata extraction skipped in tests; no app source warnings",
+    "logs": [
+      "logs/web-build.log",
+      "logs/simulator-build.log",
+      "logs/unsigned-device-build.log"
+    ]
+  },
+  "resourceAudit": {
+    "passed": true,
+    "resources": 111,
+    "copies": 4,
+    "result": "evidence-audit.json"
+  },
+  "browserMatrix": {
+    "passed": true,
+    "states": 18,
+    "screenshots": 216,
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewportCount": 6,
+    "result": "browser-matrix.json",
+    "finalScript": "./assets/index-CshW9t4y.js"
+  },
+  "browserConsole": "No Eluva app errors observed; one IAB host Statsig initialization warning",
+  "nativeUI": "not executed: Mac locked",
+  "physicalDevice": "not executed: final paired devices unavailable; official signing missing",
+  "chromeFreshLayerSignoff": "not completed: Mac locked; fresh connector annotations/images/slices read",
+  "sameStatePixelSignoff": "pending",
+  "technicalLimitsAreUserConfirmed": false,
+  "dataReset": false,
+  "pendingDetails": "native-device-check.json"
+}

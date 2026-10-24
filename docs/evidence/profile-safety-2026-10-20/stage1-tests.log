@@ -1,0 +1,25 @@
+✔ carousel cycles in original order with one clock; manual selections restart the full interval (0.67175ms)
+✔ touch, modal, background, reduced motion and focus gates remain independent; stale callbacks cannot advance (0.31175ms)
+✔ a media refresh preserves the selected stable ID; empty/single images stop and manual controls still work with reduced motion (0.097709ms)
+✔ leaving the page clears the clock and rejects late automatic or manual work (1.241875ms)
+✔ detail clock uses two seconds while ordinary profile carousel retains four seconds (0.137084ms)
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (39.818708ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (39.468417ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (173.638458ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (35.091209ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (46.063667ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (55.217291ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (23.951084ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (48.497458ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (83.654333ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (85.96575ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (28.003583ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (75.326ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 819.869167

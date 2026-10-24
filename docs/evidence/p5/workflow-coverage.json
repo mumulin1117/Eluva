@@ -1,0 +1,189 @@
+{
+  "recordedAt": "2026-10-17T17:25:28.240329+00:00",
+  "scope": "Actual CUA browser paths plus isolated repository tests; no application-state injection",
+  "workflows": [
+    {
+      "id": "T17-profile",
+      "scope": "Authoritative profile and avatar",
+      "browser": "PASS: failed save retained fields; retry synchronized Mine; real library import/main-photo replacement; unsaved authority unchanged; back/language and reload retained saved data",
+      "automated": "PASS: Web/native ownership, minimum rules, rollback, idempotence and consent-version preservation",
+      "screenshotStates": [
+        "profile-editor",
+        "profile-save-error",
+        "profile-camera-unsupported",
+        "mine-profile-saved"
+      ]
+    },
+    {
+      "id": "T18-collection",
+      "scope": "Create/edit/reference and privacy",
+      "browser": "PASS: create, first-open draft, actual cover import, back/language selection retention, atomic saved detail; delete confirmation/cancel only",
+      "automated": "PASS: multiple references, readonly ownership, private projection, delete-container retains originals, delete-post clears references, file rollback/shared-reference cleanup",
+      "screenshotStates": [
+        "collections-empty",
+        "collections-list",
+        "collection-create-draft",
+        "collection-edit-cover",
+        "collection-selection",
+        "collection-detail",
+        "collection-delete-confirm"
+      ]
+    },
+    {
+      "id": "T09-light",
+      "scope": "My light records",
+      "browser": "PASS: empty → actual light on labeled demo post → current list without refresh; opening detail correct",
+      "automated": "Existing content tests PASS; light/follow/friendship remain separate",
+      "screenshotStates": [
+        "my-lights-empty",
+        "my-lights-content"
+      ]
+    },
+    {
+      "id": "T19-theme",
+      "scope": "Four themes and account isolation",
+      "browser": "PASS: four previews, cyan save, pink failed save/retry, other-account orange save and fixed-account retained pink; later purple selected for source comparison",
+      "automated": "Web/native preferences and account scope PASS",
+      "screenshotStates": [
+        "theme-purple-preview",
+        "theme-pink-preview",
+        "theme-orange-preview",
+        "theme-cyan-preview",
+        "theme-save-error",
+        "mine-theme-pink"
+      ]
+    },
+    {
+      "id": "T19-language",
+      "scope": "Language save/relaunch",
+      "browser": "PASS: explicit French save and reload French; EN/FR changes preserve profile, collection choices and feedback draft",
+      "automated": "Localization keys and stable data tests PASS",
+      "screenshotStates": [
+        "settings-language"
+      ]
+    },
+    {
+      "id": "T16-blocklist",
+      "scope": "Safety and blocklist",
+      "browser": "PASS: block Local Echo → profile restrictions and list immediately updated; cancel keeps block; confirm unblock → empty; no automatic request",
+      "automated": "Existing social safety/atomic storage tests PASS; physical media restrictions not certified",
+      "screenshotStates": [
+        "blocklist-empty",
+        "blocklist-content",
+        "blocklist-unblock-confirm"
+      ]
+    },
+    {
+      "id": "feedback",
+      "scope": "Local issue feedback",
+      "browser": "PASS: genuine screenshot chooser, invalid file rejection, text/image retention, write failure/retry, double click creates one receipt; second receipt uses exact result ID; no remote send",
+      "automated": "Web/native staged image/ownership/failure/idempotence PASS",
+      "screenshotStates": [
+        "feedback-empty",
+        "feedback-draft",
+        "feedback-invalid-attachment",
+        "feedback-save-error",
+        "feedback-saved"
+      ]
+    },
+    {
+      "id": "legal",
+      "scope": "Four legal bodies and About",
+      "browser": "PASS: EN/FR read and return to settings; About feedback returns to About; content labeled nonbinding local preview",
+      "automated": "Locale coverage PASS; formal policies/contact not supplied",
+      "screenshotStates": [
+        "legal-user-agreement",
+        "legal-terms",
+        "legal-privacy",
+        "legal-guidelines",
+        "settings-about"
+      ]
+    },
+    {
+      "id": "logout",
+      "scope": "Preserve official data and old profile images",
+      "browser": "PASS: sign out → Welcome; relogin keeps identity, theme and content; separately registered old-format account logout/relogin has two resolved/loaded photos",
+      "automated": "PASS: P1 Complete regression and new legacy no-committed-flag reference protection; only own uncommitted staging reclaimed",
+      "screenshotStates": [
+        "logout-confirm",
+        "mine-relogin",
+        "mine-isolated-account"
+      ]
+    },
+    {
+      "id": "delete-account",
+      "scope": "Scoped irreversible delete",
+      "browser": "PARTIAL: fixed account protected, wrong email disabled, named EN/FR confirmation and cancellation PASS; final deletion NOT EXECUTED, required action-time confirmation pending",
+      "automated": "PASS: Web/native atomic failure, retry/idempotence, target-only removal, other account credentials/posts/messages preservation and physical file cleanup tests",
+      "screenshotStates": [
+        "delete-fixed-account-protected",
+        "delete-account-review",
+        "delete-account-confirm"
+      ]
+    },
+    {
+      "id": "delete-post",
+      "scope": "Own post deletion",
+      "browser": "PARTIAL: original more icon → anchored EN/FR menu → named confirmation → cancel PASS; final irreversible delete NOT EXECUTED pending action-time confirmation",
+      "automated": "PASS: owner guard, graph/reference/derived cache cleanup and shared media preservation",
+      "screenshotStates": [
+        "my-posts-empty",
+        "my-posts-content",
+        "post-delete-confirm",
+        "my-posts-more-menu"
+      ]
+    },
+    {
+      "id": "navigation",
+      "scope": "Mine friends/requests/profile/conversation chain",
+      "browser": "PASS: nested from query preserved through profile, chat, request Sent filter, Back to friends and Mine; no TabBar in secondary routes",
+      "automated": "Navigation policy tests PASS",
+      "screenshotStates": []
+    },
+    {
+      "id": "load",
+      "scope": "Read failure recovery",
+      "browser": "PASS: fixed-account fault → explicit read-error Retry → actual snapshot recovered; no old save-error wording",
+      "automated": "Repository failure/corruption tests PASS",
+      "screenshotStates": [
+        "settings-load-error",
+        "settings"
+      ]
+    },
+    {
+      "id": "adaptation",
+      "scope": "Six viewports and two languages",
+      "browser": "PASS browser bounds/font loaded/scroll/dialog/TabBar checks; focus selection and blank-click blur; NOT physical keyboard/safe-area proof",
+      "automated": "Evidence audit and resource manifest checks; native UI/physical checks NOT EXECUTED",
+      "screenshotStates": []
+    }
+  ],
+  "permanentBrowserDeletion": {
+    "status": "awaiting_action_time_confirmation",
+    "targets": [
+      {
+        "type": "collection",
+        "name": "P5 QA · Reference shelf",
+        "id": "9ac999f9-a3c7-4777-a99b-0ed1d0abb656"
+      },
+      {
+        "type": "post",
+        "body": "P5 QA · Collection reference and deletion check. Local preview only.",
+        "id": "87835f0b-2402-4aaa-b5c4-82fc8a84f05e"
+      },
+      {
+        "type": "account",
+        "email": "p5-qa-20261018@eluva.test",
+        "id": "0352e791-7b0f-4c16-b639-06924bdf445f"
+      }
+    ],
+    "environment": "http://127.0.0.1:4181",
+    "executed": false
+  },
+  "assumptionsNotApproved": [
+    "multiple owned collections per post",
+    "technical preview input/photo limits",
+    "fixed-account deletion protection",
+    "16px fields vs source15px"
+  ]
+}

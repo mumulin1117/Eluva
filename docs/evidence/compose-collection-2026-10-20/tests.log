@@ -1,0 +1,29 @@
+✔ P1 vault migration preserves account and publishes atomically with stable retry identity (43.923875ms)
+✔ a malformed content migration is preserved and reported rather than silently replaced (22.942125ms)
+✔ configured quota is atomic: exhausted public posts fail, private posts and retries never spend it twice (23.242458ms)
+✔ private, friends-only, profile switches and hidden media cannot leak to another account (40.884209ms)
+✔ echo/comment identities are separate from friendships; failures keep counts and comments unique (35.340875ms)
+✔ collection references commit with publication; invalid, locked, empty and cancelled attempts spend nothing (21.731583ms)
+✔ hide/block are reversible and prevent details, reactions, comments and media reads (38.142333ms)
+✔ guide, discovery filters, reports and media staging are scoped; draft cleanup does not delete committed collection covers (34.359416ms)
+✔ P5 profile writes authority only after success; old fixture missing fields do not become a new registration gate (56.057584ms)
+✔ P5 real registered profile media cannot be replaced by another account or lose confirmed minimums (63.522917ms)
+✔ P5 collection references are shared, owner-only, atomic, idempotent and deleting a container keeps originals (51.621875ms)
+✔ P5 collection projections never expose private/friends/hidden/blocked posts or another owner cover (41.575667ms)
+✔ P5 theme is account-isolated and login/bootstrap restore it; language remains the saved install preference (44.976917ms)
+✔ P5 feedback saves locally once with trusted images; failures preserve the staged attachment (37.181917ms)
+✔ P5 deleting an isolated QA account rolls back on failure and never deletes another account originals (68.340834ms)
+✔ P5 fixed account cannot be deleted and corrupt additive state is preserved (21.971ms)
+✔ P5 real Vue form proxies are snapshotted before IndexedDB commit and cannot mutate stored authority (23.415584ms)
+✔ P5 a prepared local failure cannot cross accounts (31.530667ms)
+✔ P5 deleting a post preserves shared image references, then removing the final cover reclaims it (26.648833ms)
+✔ P5 account deletion removes derived commit copies for removed posts without deleting other authored posts (57.487625ms)
+✔ P5 logout reclaims only current-owner temporary attachments and preserves official profile and post media (66.452625ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 675.360209

@@ -1,0 +1,41 @@
+/* Home-only presentation: the map remains fixed while signals and real cards
+   reveal together. Timings implement the user's motion brief, not Lanhu values. */
+.home-shell .home-map-content{position:relative;overflow:hidden}
+.home-shell .share-island,.home-shell .resonance-group{position:relative;z-index:1}
+.home-shell .resonance-orbits,.home-shell.home-empty-state .resonance-orbits{border-color:transparent}
+.home-shell .resonance-orbits:before{display:none}
+.home-shell .resonance-orbits>img{position:relative;z-index:1}
+.home-shell .resonance-wave{position:absolute;inset:0;border:1.2px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;animation:home-resonance-wave 4.8s linear infinite;animation-delay:var(--wave-delay);transform:scale(.62);opacity:0}
+.home-shell .resonance-orbits.is-discovering .resonance-wave{border:1.3px solid #b7a2e3;box-shadow:0 0 5px #c8dcf140,inset 0 0 4px #e3c7eb30;animation-name:home-discovery-wave;animation-duration:3.2s;animation-delay:var(--discovery-wave-delay)}
+.home-shell .resonance-orbits.is-discovering .resonance-wave:nth-child(2){border-color:#afcdd9}
+.home-shell .resonance-orbits.is-discovering .resonance-wave:nth-child(3){border-color:#dec0d6}
+.discovery-beacons{position:absolute;inset:6px 8px;pointer-events:none;z-index:0}
+.discovery-beacon{position:absolute;left:var(--beacon-x);top:var(--beacon-y);display:grid;place-items:center;width:52px;height:56px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fffbea 0%,var(--signal-color) 24%,#fff7d633 58%,transparent 76%);opacity:.9}
+.discovery-beacon>img{width:38px;height:46px;object-fit:contain;filter:brightness(1.35) saturate(1.18) hue-rotate(var(--beacon-hue)) drop-shadow(0 0 6px #fff6cb)}
+.discovery-beacon.is-active{animation:home-beacon-light .95s ease-in-out both}
+.home-shell .discovery-loading .skeleton-home-map{display:none}
+.home-shell .discovery-loading .skeleton-home-layout{gap:0}
+.home-shell .discovery-panel{min-height:260px}
+/* Extra real map space on compact screens keeps five lights separate from
+   controls. The main content can scroll; artwork and text are never shrunk. */
+@media(max-height:700px){.home-shell .home-map-content.populated{min-height:300px}}
+/* Give the expanded Light-Up halo real painting room inside the horizontal
+   scroller. Matching negative margins preserve the cards' original positions. */
+.home-shell .discovery-list{overflow-anchor:none;padding-block:32px 40px;margin-block:-32px}
+/* Fade only the extra shadow space, not the cards or their hit targets, so
+   the large halo cannot end in a hard horizontal line at the scroller edge. */
+.home-shell[data-opening-post] .discovery-list{mask-image:linear-gradient(transparent,#000 32px,#000 calc(100% - 32px),transparent)}
+.home-shell .discovery-card-reveal{animation:home-card-arrive .9s ease-in-out both}
+.home-shell .discovery-card-landing{visibility:hidden}
+.home-shell.home-discovering .discovery-list{scroll-snap-type:none;overflow-anchor:none}
+.home-shell .discovery-cards-move{transition:transform .75s cubic-bezier(.22,.65,.3,1) .14s}
+.home-shell .discovery-flight-stage{position:absolute;z-index:3;pointer-events:none;overflow:hidden;contain:paint}
+.home-shell .discovery-flight{position:absolute;pointer-events:none;transform-origin:center;animation:home-card-fall .9s cubic-bezier(.22,.65,.3,1) both;will-change:transform,opacity}
+.home-shell .discovery-flight-card{width:100%;height:100%;margin:0;box-sizing:border-box}
+.home-shell[data-motion-paused=true] .resonance-wave,.home-shell[data-motion-paused=true] .discovery-beacon,.home-shell[data-motion-paused=true] .discovery-card-reveal,.home-shell[data-motion-paused=true] .discovery-flight{animation-play-state:paused}
+@keyframes home-card-arrive{from{opacity:.5}to{opacity:1}}
+@keyframes home-card-fall{0%,16%{transform:translate3d(var(--fall-x),var(--fall-y),0) scale(.16) rotate(-3deg);opacity:0}24%{opacity:.9}88%{transform:translate3d(0,0,0) scale(1) rotate(0);opacity:1}100%{transform:translate3d(0,0,0) scale(1) rotate(0);opacity:1}}
+@keyframes home-resonance-wave{0%{transform:scale(.58);opacity:0}28%{opacity:.6}100%{transform:scale(1.12);opacity:0}}
+@keyframes home-discovery-wave{0%{transform:scale(.55);opacity:0}30%{opacity:.58}100%{transform:scale(1.25);opacity:0}}
+@keyframes home-beacon-light{0%{opacity:.3}22%{opacity:1}100%{opacity:.9}}
+@media(prefers-reduced-motion:reduce){.home-shell .resonance-wave{animation:none;opacity:.5;transform:scale(.82)}.home-shell .resonance-wave:nth-child(2){transform:scale(1)}.home-shell .resonance-wave:nth-child(3){display:none}.home-shell .discovery-beacon,.home-shell .discovery-flight-stage{display:none}.home-shell .discovery-card-reveal{animation:none}.home-shell .discovery-card-landing{visibility:visible}.home-shell .discovery-cards-move{transition:none}}

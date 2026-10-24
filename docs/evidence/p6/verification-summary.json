@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-18",
+  "webTests": {
+    "passed": 63,
+    "failed": 0,
+    "log": "logs/web-tests.log"
+  },
+  "nativeTests": {
+    "passed": 42,
+    "failed": 0,
+    "destination": "iPhone SE / iOS17.5 Simulator",
+    "log": "logs/native-tests.log",
+    "includesRealXcodeStoreKitTest": true,
+    "isNativeUITest": false
+  },
+  "storeKitTest": {
+    "sku": "eluva.qa.coins",
+    "bundle": "test bundle only",
+    "verified": [
+      "StoreKit product metadata",
+      "purchase .verified and 10 test coins",
+      "user cancellation, no grant",
+      "network failure, no grant",
+      "Ask to Buy pending, no grant",
+      "approval delivered via Transaction.updates:20 total test coins",
+      "restore check, no duplicate/spent-consumable reconstruction"
+    ],
+    "appleSandbox": false,
+    "realCharge": false
+  },
+  "builds": {
+    "vite": "PASS",
+    "syncIOS": "PASS",
+    "genericSimulator": "PASS",
+    "genericUnsignedDevice": "PASS",
+    "installedOnDevice": false
+  },
+  "matrix": {
+    "states": 11,
+    "screenshots": 132,
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "basis": "browser-matrix.json",
+    "nativeUI": false
+  },
+  "notExecuted": [
+    "Formal Lanhu Chrome manual layer signoff",
+    "Native UI, physical safe areas and software keyboard",
+    "Actual Apple sandbox account transaction",
+    "Physical device and StoreKit payment-sheet interaction",
+    "Release signing and App Store Connect configuration"
+  ],
+  "pendingBusiness": [
+    "product type / ID / grant / duration",
+    "quota limits / costs / reward source / order / cycle / time zone",
+    "Pro benefit-to-function mapping",
+    "refund / subscription-specific policy / final purchase terms"
+  ],
+  "resourceAudit": "evidence-audit.json",
+  "deviceCheck": "native-device-check.json"
+}

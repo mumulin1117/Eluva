@@ -1,0 +1,106 @@
+{
+  "phase": "P2",
+  "environment": "Local Chromium in-app browser; separate IndexedDB origins4175 fixed account and4176 completed QA new account. No remote publication.",
+  "checkedAt": "2026-10-17",
+  "flows": [
+    {
+      "flow": "Publish images + collection -> discover -> detail -> comment -> Mine",
+      "result": "passed",
+      "observed": "one own 2-photo post, one Campus QA collection link; My Posts includes it; comment body kept original French across EN/FR",
+      "postId": "4abdfb25-6867-44af-8ef9-00ed19efadf7",
+      "evidence": [
+        "screenshots/image-viewer-en-390x844.jpg",
+        "screenshots/my-posts-fr-390x844.jpg"
+      ]
+    },
+    {
+      "flow": "Publish failure -> retained body/media -> retry/double submit",
+      "result": "passed",
+      "observed": "STORAGE_FAILED retained QA draft. Earlier retry created one text post; final video failure matrix retained content then agent discarded only its unfinished QA draft.",
+      "evidence": [
+        "screenshots/publish-error-fr-320x568.jpg",
+        "screenshots/leave-draft-en-390x844.jpg"
+      ]
+    },
+    {
+      "flow": "Light/unlight -> comment failure -> close/language -> retry double submit",
+      "result": "passed",
+      "observed": "demo-campus light remained one; final comment input retained across language and failure; retry increased comments2 to3 exactly once. Screenshots captured before success.",
+      "evidence": [
+        "screenshots/detail-unlit-en-390x844.jpg",
+        "screenshots/detail-lit-en-390x844.jpg",
+        "screenshots/comment-error-fr-375x667.jpg"
+      ]
+    },
+    {
+      "flow": "Actual video import/publish/play/pause/seek/viewer",
+      "result": "passed in browser; native import/publish/relaunch covered by unit test",
+      "observed": "1-second silent synthetic H264 QA fixture; actual media metadata duration1; no autoplay/no fabricated call",
+      "postId": "63940f0c-4cb0-42f9-9b30-aa87f20ec3a4",
+      "evidence": [
+        "screenshots/video-detail-fr-390x844.jpg",
+        "screenshots/video-viewer-en-390x844.jpg"
+      ]
+    },
+    {
+      "flow": "Private publish -> My Posts only; invalid/private/failure no quota spend",
+      "result": "browser placement passed; quota/cross-account boundaries passed Web+native repository tests",
+      "observed": "own private QA post visible in My Posts; discovery total unchanged. Configured limit1 test proves exhausted/error/private/idempotent boundaries; production preview limitnull.",
+      "evidence": [
+        "screenshots/my-posts-en-390x844.jpg",
+        "logs/web-tests.log",
+        "logs/native-tests-and-simulator-build.log"
+      ]
+    },
+    {
+      "flow": "Return, keep/resume draft, language change, cancelled setting sheet",
+      "result": "passed",
+      "observed": "2-photo body/collection kept after language/back/resume. Private toggle cancelled rather than saved leaves previous public draft unchanged. Long-term app-reload draft recovery not promised.",
+      "evidence": [
+        "screenshots/visibility-private-fr-320x568.jpg",
+        "screenshots/leave-draft-fr-320x568.jpg"
+      ]
+    },
+    {
+      "flow": "Discovery media/topic filters -> no results -> reset; refresh failure -> retry",
+      "result": "passed",
+      "evidence": [
+        "screenshots/discovery-filters-fr-320x568.jpg",
+        "screenshots/home-filter-empty-en-390x844.jpg",
+        "screenshots/home-refresh-error-en-390x844.jpg"
+      ]
+    },
+    {
+      "flow": "Report, hide/reload unavailable/restore; block/reload/list/unblock",
+      "result": "passed",
+      "observed": "Report explicitly local only. Hidden question unavailable after navigation reload; persistent recovery restored it. Blocked campus author persisted after reload; recovery unblocked and discovery returned to5.",
+      "evidence": [
+        "screenshots/report-local-fr-320x568.jpg",
+        "screenshots/post-unavailable-en-390x844.jpg",
+        "screenshots/safety-recovery-fr-375x667.jpg"
+      ]
+    },
+    {
+      "flow": "New QA account full onboarding -> zero-content home -> first guide -> replay",
+      "result": "passed in independent local browser origin4176",
+      "observed": "No fixed-account fixtures leaked. Final screenshot matrix of new-user-guide uses replay after original first-entry was completed; not claimed as fresh first-entry screenshot.",
+      "evidence": [
+        "screenshots/home-new-user-empty-fr-390x844.jpg",
+        "screenshots/new-user-guide-en-390x844.jpg"
+      ]
+    },
+    {
+      "flow": "Browser camera unsupported -> usable form / alternative source",
+      "result": "passed",
+      "observed": "DEVICE_UNSUPPORTED, explicit recovery hint; no browser permission grant or fake photo.",
+      "evidence": [
+        "screenshots/media-unsupported-fr-320x568.jpg"
+      ]
+    },
+    {
+      "flow": "Physical iPhone camera/library permission and keyboard/startup Safe Area",
+      "result": "not executed",
+      "reason": "Mac locked and no confirmed formal signing configuration; native clean build/tests do not certify device UI."
+    }
+  ]
+}

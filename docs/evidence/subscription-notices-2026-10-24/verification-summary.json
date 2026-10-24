@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-24",
+  "scope": "Subscription terms and purchase-help dialog presentation, wallet entry removal, help centering; direct timeout guidance adjusted",
+  "productionFiles": [
+    "src/views/StoreView.vue",
+    "src/membership.css",
+    "src/data/commerce-messages.js"
+  ],
+  "unchanged": [
+    "Shared AppModal and connection-modal.css",
+    "Agreement and purchase-help body content",
+    "Three subscription product IDs and selected plan state",
+    "StoreKit purchase, Restore and check subscription",
+    "Wallet route, balances, ledger and persisted account data"
+  ],
+  "webTests": {
+    "passed": 180,
+    "failed": 0
+  },
+  "productionBuild": "passed",
+  "iosSync": 265,
+  "unsignedDeviceReleaseBuild": "passed",
+  "wkTests": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "resultBundle": ".build/subscription-notices-20261024.xcresult",
+    "simulator": "D2C6422E-65AB-43CD-B330-75DCA7861045",
+    "dialogMatrixRows": 24,
+    "catalogAndFailureRows": 36,
+    "dialogScreenshots": 8,
+    "environment": "Visible simulator WKWebView with isolated vaults and simulated safe-area/view sizes; not six physical devices",
+    "checks": [
+      "Shared connection dialog/illustration/background/black Done",
+      "EN/FR six viewports",
+      "320px body scroll and fixed header/footer",
+      "Help row centered, full width, at least44px; balance entry absent",
+      "Done, close, Escape and backdrop dismissal",
+      "Focus/inert/scroll/selected-plan restored",
+      "No additional Apple product or purchase calls from help dialogs"
+    ],
+    "isolatedSimulatorRemoved": true
+  },
+  "resourceConsistency": [
+    {
+      "path": "dist",
+      "runtimeResources": 265,
+      "mismatches": [],
+      "unexpectedFiles": []
+    },
+    {
+      "path": "ios/Eluva/Web",
+      "runtimeResources": 265,
+      "mismatches": [],
+      "unexpectedFiles": []
+    },
+    {
+      "path": ".build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+      "runtimeResources": 265,
+      "mismatches": [],
+      "unexpectedFiles": []
+    },
+    {
+      "path": ".build/icon-device/Build/Products/Release-iphoneos/Eluva.app/Web",
+      "runtimeResources": 265,
+      "mismatches": [],
+      "unexpectedFiles": []
+    }
+  ],
+  "physicalDevice": "not verified",
+  "realApplePurchaseOrRestore": "not performed this presentation task",
+  "keyboard": "No dialog text fields or keyboard behavior changes"
+}

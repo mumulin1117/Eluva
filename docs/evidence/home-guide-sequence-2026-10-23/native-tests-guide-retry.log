@@ -1,0 +1,892 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ios/Eluva.xcodeproj -scheme Eluva -configuration Debug -destination "platform=iOS Simulator,id=B35DAB5E-225E-46CF-939B-ACCF625E3770" -derivedDataPath .build/ios -resultBundlePath .build/home-guide-sequence-20261023-guide-retry.xcresult "-only-testing:EluvaTests/WebBundleTests/testEnglishHomeGuideAfterDiscovery" "-only-testing:EluvaTests/WebBundleTests/testFrenchHomeGuideAfterDiscovery" CODE_SIGN_IDENTITY=- test
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+
+Writing result bundle at path:
+	/Users/linqian/Documents/Eluva/.build/home-guide-sequence-20261023-guide-retry.xcresult
+
+note: Using codesigning identity override: -
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (2 targets)
+    Target 'EluvaTests' in project 'Eluva'
+        ➜ Explicit dependency on target 'Eluva' in project 'Eluva'
+    Target 'Eluva' in project 'Eluva' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/linqian/Documents/Eluva/ios/Eluva/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: 61510dd1720b44292a6591e445d251b5
+Build description path: /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/XCBuildData/61510dd1720b44292a6591e445d251b5.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk /Users/linqian/Documents/Eluva/.build/ios/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+    cd /Users/linqian/Documents/Eluva/ios/Eluva.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -o /Users/linqian/Documents/Eluva/.build/ios/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+
+SwiftDriver EluvaTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name EluvaTests -Onone @/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -strict-concurrency\=targeted -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/linqian/Documents/Eluva/.build/ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/linqian/Documents/Eluva/.build/ios/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -sdk-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-generated-files.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-own-target-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-project-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-Swift.h -working-directory /Users/linqian/Documents/Eluva/ios -experimental-emit-module-separately -disable-cmo
+
+ProcessInfoPlistFile /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Info.plist /Users/linqian/Documents/Eluva/ios/Eluva/Info.plist (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-infoPlistUtility /Users/linqian/Documents/Eluva/ios/Eluva/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/Eluva.build/LaunchScreen-SBPartialInfo.plist -additionalcontentfile /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/Eluva.build/assetcatalog_generated_info.plist -o /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Info.plist
+
+CopySwiftLibs /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva.debug.dylib --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Frameworks --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/SystemExtensions --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Extensions --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/StoreKit.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/UIKit.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/WebKit.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/PhotosUI.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Photos.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/AVFoundation.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/AVFAudio.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Speech.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/NaturalLanguage.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/SwiftUI.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Translation.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/UserNotifications.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/CryptoKit.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Security.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/ImageIO.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/Eluva.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ProcessInfoPlistFile /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/Info.plist /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/empty-EluvaTests.plist (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-infoPlistUtility /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/empty-EluvaTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -format binary -platform iphonesimulator -o /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/Info.plist
+
+SwiftCompile normal arm64 Compiling\ WebBundleTests.swift /Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift (in target 'EluvaTests' from project 'Eluva')
+
+SwiftCompile normal arm64 /Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:77:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:202:43: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previous=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                          ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:237:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:456:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:700:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:770:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:832:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:982:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:1079:53: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+            let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                    ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:1206:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:1410:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:1787:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+/Users/linqian/Documents/Eluva/ios/EluvaTests/WebBundleTests.swift:1859:49: warning: 'windows' was deprecated in iOS 15.0: Use UIWindowScene.windows on a relevant window scene instead
+        let previousWindow=UIApplication.shared.windows.first(where:{$0.isKeyWindow}),window:UIWindow
+                                                ^
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ EluvaTests (in target 'EluvaTests' from project 'Eluva')
+
+EmitSwiftModule normal arm64 (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for EluvaTests (in target 'EluvaTests' from project 'Eluva')
+
+SwiftDriver\ Compilation\ Requirements EluvaTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name EluvaTests -Onone @/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -strict-concurrency\=targeted -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/linqian/Documents/Eluva/.build/ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/linqian/Documents/Eluva/.build/ios/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -sdk-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-generated-files.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-own-target-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-project-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-Swift.h -working-directory /Users/linqian/Documents/Eluva/ios -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/EluvaTests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftsourceinfo (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftsourceinfo /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/EluvaTests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/EluvaTests.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.abi.json (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.abi.json /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/EluvaTests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftDriverJobDiscovery normal arm64 Compiling WebBundleTests.swift (in target 'EluvaTests' from project 'Eluva')
+
+SwiftDriver\ Compilation EluvaTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name EluvaTests -Onone @/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -strict-concurrency\=targeted -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/linqian/Documents/Eluva/.build/ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/linqian/Documents/Eluva/.build/ios/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -sdk-module-cache-path /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/linqian/Documents/Eluva/.build/ios/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-generated-files.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-own-target-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests-project-headers.hmap -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources/arm64 -Xcc -I/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-Swift.h -working-directory /Users/linqian/Documents/Eluva/ios -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests normal (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -filelist /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -bundle_loader /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva -Xlinker -object_path_lto -Xlinker /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.swiftmodule @/Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests-linker-args.resp -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -framework Foundation -framework StoreKitTest -framework StoreKit /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests
+
+CopySwiftLibs /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/Frameworks --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/PlugIns --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/SystemExtensions --scan-folder /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/Extensions --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/StoreKitTest.framework --scan-folder /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/StoreKit.framework --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ExtractAppIntentsMetadata (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name EluvaTests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk --xcode-version 17F113 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.eluva.app.tests --output /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests --dependency-file /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests_dependency_info.dat --stringsdata-file /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.SwiftFileList --metadata-file-list /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests.DependencyMetadataFileList --static-metadata-file-list /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/EluvaTests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/EluvaTests.build/Objects-normal/arm64/EluvaTests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-10-23 14:30:40.472 appintentsmetadataprocessor[44054:17952410] Starting appintentsmetadataprocessor export
+2026-10-23 14:30:40.476 appintentsmetadataprocessor[44054:17952410] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+GenerateDSYMFile /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest.dSYM /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest/EluvaTests -o /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest.dSYM
+
+CodeSign /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest (in target 'EluvaTests' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/PlugIns/EluvaTests.xctest
+
+CodeSign /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva.debug.dylib (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva.debug.dylib
+/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Eluva.debug.dylib: replacing existing signature
+
+CodeSign /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/__preview.dylib (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/__preview.dylib
+/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/__preview.dylib: replacing existing signature
+
+CodeSign /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --entitlements /Users/linqian/Documents/Eluva/.build/ios/Build/Intermediates.noindex/Eluva.build/Debug-iphonesimulator/Eluva.build/Eluva.app.xcent --timestamp\=none --generate-entitlement-der /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app
+/Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app: replacing existing signature
+
+Validate /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app (in target 'Eluva' from project 'Eluva')
+    cd /Users/linqian/Documents/Eluva/ios
+    builtin-validationUtility /Users/linqian/Documents/Eluva/.build/ios/Build/Products/Debug-iphonesimulator/Eluva.app -shallow-bundle -infoplist-subpath Info.plist
+
+2026-10-23 14:30:44.638365+0800 Eluva[44086:17952956] [default] Failed to resolve host network app id to config: bundleID: com.apple.WebKit.Networking instance ID: Optional([_EXExtensionInstanceIdentifier: 4F7211DE-95EB-4681-B866-AD9EAAAE81D0])
+2026-10-23 14:30:44.837074+0800 Eluva[44086:17952956] [storage] Opening local vault key
+2026-10-23 14:30:44.885805+0800 Eluva[44086:17952956] [storage] Local vault key available
+Test Suite 'Selected tests' started at 2026-10-23 14:30:44.887.
+Test Suite 'EluvaTests.xctest' started at 2026-10-23 14:30:44.888.
+Test Suite 'WebBundleTests' started at 2026-10-23 14:30:44.888.
+Test Case '-[EluvaTests.WebBundleTests testEnglishHomeGuideAfterDiscovery]' started.
+2026-10-23 14:30:44.892000+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:30:44.892035+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:30:45.386066+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44090] Could not register system wide server: -25204
+2026-10-23 14:30:45.386147+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44090] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x104f02f70>
+2026-10-23 14:30:45.386178+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44093] Could not register system wide server: -25204
+2026-10-23 14:30:45.386200+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44093] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x1015bce80>
+2026-10-23 14:30:45.681991+0800 Eluva[44086:17952854] [plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x134d4b200> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+2026-10-23 14:30:45.739297+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:30:45.739412+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+objc[44086]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x13742c310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x136d40398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+2026-10-23 14:30:45.903772+0800 Eluva[44086:17953063] [ResourceLoadStatistics] WebContent[44090] Unable to hide query parameters from script (missing data)
+2026-10-23 14:30:45.903825+0800 Eluva[44086:17953063] [ResourceLoadStatistics] WebContent[44093] Unable to hide query parameters from script (missing data)
+2026-10-23 14:30:45.994500+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:30:45.994598+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:30:45.994662+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:30:45.994703+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:30:45.994764+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:30:45.994818+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:30:45.994860+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:30:45.994905+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:30:45.994942+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:30:45.995000+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:30:46.029458+0800 Eluva[44086:17952854] [launch] Local document navigation finished
+2026-10-23 14:30:46.132119+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:30:46.132330+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:30:46.134751+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:30:46.134908+0800 Eluva[44086:17952953] [bridge] Repository operation started
+2026-10-23 14:30:46.134916+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:30:46.134986+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:46.158122+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:30:46.158376+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:30:46.159464+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:30:46.161986+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:30:46.162214+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:30:46.162332+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:30:46.166582+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:30:46.186515+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:46.186638+0800 Eluva[44086:17952956] [bridge] Repository operation started
+2026-10-23 14:30:46.209086+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:30:46.209775+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:30:46.209914+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:30:46.210467+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:30:46.210532+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:30:46.210587+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:30:46.211061+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:30:46.212006+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:46.212481+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:46.212720+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:46.217519+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:30:46.217626+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:30:46.217830+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:30:46.217999+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:30:46.231108+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:46.253157+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:46.253329+0800 Eluva[44086:17952956] [bridge] Repository operation started
+2026-10-23 14:30:46.277521+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:30:46.277686+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:30:46.292674+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:30:46.292824+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:30:46.292901+0800 Eluva[44086:17952854] [resources] Loading bundled resource: lit-bulb.svg
+2026-10-23 14:30:46.307202+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:30:46.368848+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:30:46.370303+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:30:46.370432+0800 Eluva[44086:17952854] [launch] Local Vue first frame ready
+2026-10-23 14:30:46.593898+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:30:46.606491+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:30:46.606603+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:30:46.606680+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:46.607782+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:30:46.608204+0800 Eluva[44086:17953046] [bridge] Repository operation started
+2026-10-23 14:30:46.608832+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:30:46.608901+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-wordmark.png
+2026-10-23 14:30:46.614288+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:46.620278+0800 Eluva[44086:17953046] [bridge] Repository operation started
+2026-10-23 14:30:46.630397+0800 Eluva[44086:17953046] [bridge] Repository operation started
+2026-10-23 14:30:46.631562+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:46.632443+0800 Eluva[44086:17953046] [bridge] Repository operation started
+2026-10-23 14:30:46.633353+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:30:46.633532+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:30:46.634064+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:30:46.634326+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:30:46.634461+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:30:46.634558+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:30:46.634707+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:30:46.634853+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:30:46.635089+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:30:46.635993+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:30:46.636656+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:30:46.636749+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:30:46.649806+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:30:46.653519+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:30:46.653640+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:30:46.654164+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:30:46.654258+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:30:46.654337+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:30:46.660010+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:30:46.660096+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:30:46.814145+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:46.814255+0800 Eluva[44086:17952954] [bridge] Repository operation started
+2026-10-23 14:30:46.820673+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-10-01.png
+2026-10-23 14:30:46.825829+0800 Eluva[44086:17952854] [resources] Loading bundled resource: lit-bulb.svg
+2026-10-23 14:30:46.837537+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-1.png
+2026-10-23 14:30:46.837785+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-2.png
+2026-10-23 14:30:46.837867+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-3.png
+2026-10-23 14:30:46.838002+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-4.png
+2026-10-23 14:30:47.278643+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:30:47.862142+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-09-01.png
+2026-10-23 14:30:48.279297+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:30:48.861617+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-08-01.png
+2026-10-23 14:30:49.280695+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:30:49.863279+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-07-01.png
+2026-10-23 14:30:50.281770+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:30:50.863849+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-06-01.png
+2026-10-23 14:30:51.281263+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:30:52.904733+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:30:54.169614+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:54.169815+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:30:54.169804+0800 Eluva[44086:17953301] [bridge] Repository operation started
+2026-10-23 14:30:54.178358+0800 Eluva[44086:17953301] [bridge] Repository operation started
+2026-10-23 14:30:54.184071+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:30:54.225362+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:54.225536+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:30:54.228335+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:54.231341+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:30:58.440315+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:30:58.440674+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:30:58.463614+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:30:58.464067+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:58.616142+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:58.616357+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:30:58.616366+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:58.624509+0800 Eluva[44086:17953043] [bridge] Repository operation started
+2026-10-23 14:30:58.634582+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:30:58.635147+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:30:58.636396+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:58.636496+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:30:58.638370+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:58.646709+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:30:58.827355+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:30:58.827398+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:30:58.916496+0800 Eluva[44086:17953046] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:30:58.917281+0800 Eluva[44086:17953046] [ProcessSuspension] 0x11117c480 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44093, error: (null)
+2026-10-23 14:30:58.917851+0800 Eluva[44086:17953046] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44093 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44093 does not exist}>
+2026-10-23 14:30:58.918005+0800 Eluva[44086:17953046] [ProcessSuspension] 0x11117c540 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44093, error: (null)
+2026-10-23 14:30:59.489629+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:30:59.513607+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:30:59.513746+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:30:59.514125+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:30:59.514206+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:30:59.514260+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:30:59.550432+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:30:59.551081+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:30:59.551159+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:30:59.552787+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44126] Could not register system wide server: -25204
+2026-10-23 14:30:59.552865+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44126] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x102f23bd0>
+2026-10-23 14:30:59.557680+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:30:59.558769+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:30:59.558975+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:30:59.559182+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:30:59.559307+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:30:59.559422+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:30:59.559937+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:30:59.561434+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:59.561928+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:30:59.568911+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:30:59.569030+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:30:59.571772+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:30:59.571940+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:30:59.577284+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:30:59.577466+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:30:59.578101+0800 Eluva[44086:17952854] [resources] Loading bundled resource: foreground-cloud.png
+2026-10-23 14:30:59.578320+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.svg
+2026-10-23 14:30:59.578494+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.svg
+2026-10-23 14:30:59.579016+0800 Eluva[44086:17952854] [resources] Loading bundled resource: compose-pencil.png
+2026-10-23 14:30:59.579139+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-star.png
+2026-10-23 14:30:59.580719+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:30:59.654715+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:30:59.695252+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:30:59.815424+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:05.326416+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:05.326809+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:05.479834+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:05.480071+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:05.480234+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:05.480431+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:05.480726+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:05.480855+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-wordmark.png
+2026-10-23 14:31:05.481704+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:05.492061+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:05.497947+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:05.499921+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:05.500390+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:05.502566+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:05.502704+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:05.504979+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:05.511834+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:05.665486+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:05.665549+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:05.739053+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:31:05.739473+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c540 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44126, error: (null)
+2026-10-23 14:31:05.740033+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44126 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44126 does not exist}>
+2026-10-23 14:31:05.740244+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c600 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44126, error: (null)
+2026-10-23 14:31:06.168151+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:06.171063+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:06.171186+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:06.171299+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:06.171450+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:06.171553+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:06.223477+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44154] Could not register system wide server: -25204
+2026-10-23 14:31:06.223562+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44154] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x10106c1d0>
+2026-10-23 14:31:06.224281+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:06.224589+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:06.225754+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:06.234278+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:06.234558+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:06.234794+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:06.235567+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:06.235790+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:06.235942+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:06.236218+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:06.237204+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:06.239435+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:06.239748+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:06.246244+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:06.246479+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:06.250567+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:06.254760+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:06.254872+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:06.267670+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:06.270763+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:31:06.270889+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:31:06.275449+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:31:06.278985+0800 Eluva[44086:17952854] [resources] Loading bundled resource: lit-bulb.svg
+2026-10-23 14:31:06.311592+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:06.311710+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:06.311831+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:06.311981+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:06.313083+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:06.319894+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:06.323590+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:06.323797+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-wordmark.png
+2026-10-23 14:31:06.330090+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:06.330422+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:06.331184+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:06.331563+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:06.331638+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:06.331760+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:06.331894+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:06.331980+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:06.332120+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:06.332398+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:06.333483+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:06.333692+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:06.352370+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:06.385198+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:06.385762+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:06.385999+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:06.386524+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:31:06.386704+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:31:06.386817+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:31:06.386921+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:31:06.690735+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:06.690959+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:06.698902+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-10-01.png
+2026-10-23 14:31:07.701746+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-09-01.png
+2026-10-23 14:31:08.702463+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-08-01.png
+2026-10-23 14:31:09.702989+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-07-01.png
+2026-10-23 14:31:10.704298+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-06-01.png
+2026-10-23 14:31:12.774189+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:13.014105+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:13.014276+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:13.179824+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:13.180061+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:13.180154+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:13.192088+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:13.202628+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:13.203156+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:13.203576+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:13.205430+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:13.205784+0800 Eluva[44086:17954567] [bridge] Repository operation started
+2026-10-23 14:31:13.208135+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:13.215115+0800 Eluva[44086:17954567] [bridge] Repository operation started
+2026-10-23 14:31:13.337346+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:13.337407+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:13.395855+0800 Eluva[44086:17953302] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44154 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44154 does not exist}>
+2026-10-23 14:31:13.396110+0800 Eluva[44086:17953302] [ProcessSuspension] 0x11117c6c0 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44154, error: (null)
+2026-10-23 14:31:13.810755+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:13.814590+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:13.814732+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:13.814798+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:13.814895+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:13.814954+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:13.869285+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:13.870157+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:13.870254+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44183] Could not register system wide server: -25204
+2026-10-23 14:31:13.870256+0800 Eluva[44086:17954568] [bridge] Repository operation started
+2026-10-23 14:31:13.870310+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44183] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x1012e01d0>
+2026-10-23 14:31:13.879227+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:13.879454+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:13.879793+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:13.880642+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:13.880770+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:13.880870+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:13.881093+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:13.881947+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:13.882712+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:13.886998+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:13.887193+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:13.889318+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:13.897358+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:13.901353+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:13.901597+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:13.906609+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:13.908725+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:13.909448+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:31:13.909548+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:31:13.910311+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:31:13.910491+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:31:13.910603+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:31:13.912065+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:31:13.912798+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:31:13.949510+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:14.050870+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:14.183859+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:14.184075+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:14.300225+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:14.300391+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:14.300503+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:14.300737+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:14.300977+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:14.301029+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-wordmark.png
+2026-10-23 14:31:14.301498+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:14.313429+0800 Eluva[44086:17953204] [bridge] Repository operation started
+2026-10-23 14:31:14.320898+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:14.321015+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:14.321103+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:14.321261+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:14.321356+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:14.321420+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:14.321500+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:14.321575+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:14.321649+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:14.323948+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:14.326450+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:14.328673+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:14.328945+0800 Eluva[44086:17954567] [bridge] Repository operation started
+2026-10-23 14:31:14.330539+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:14.330670+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:14.332094+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:14.339067+0800 Eluva[44086:17954567] [bridge] Repository operation started
+Test Case '-[EluvaTests.WebBundleTests testEnglishHomeGuideAfterDiscovery]' passed (29.604 seconds).
+2026-10-23 14:31:14.493177+0800 Eluva[44086:17953063] [ProcessSuspension] WebContent[44183] 0x10d04c100 - [sessionID=9223372036854775813] WebProcess::updateFreezerStatus: isFreezable=1, error=-1
+Test Case '-[EluvaTests.WebBundleTests testFrenchHomeGuideAfterDiscovery]' started.
+2026-10-23 14:31:14.505646+0800 Eluva[44086:17953204] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:31:14.505858+0800 Eluva[44086:17953204] [ProcessSuspension] 0x11117c6c0 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44183, error: (null)
+2026-10-23 14:31:14.506728+0800 Eluva[44086:17953204] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44183 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44183 does not exist}>
+2026-10-23 14:31:14.619165+0800 Eluva[44086:17953204] [ProcessSuspension] 0x11117c780 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44183, error: (null)
+2026-10-23 14:31:14.622022+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:14.622083+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:15.048390+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:15.052442+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:15.052895+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:15.053003+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:15.053075+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:15.053156+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:15.106491+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:15.107318+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:15.107519+0800 Eluva[44086:17954567] [bridge] Repository operation started
+2026-10-23 14:31:15.107666+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44188] Could not register system wide server: -25204
+2026-10-23 14:31:15.107751+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44188] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x100ea41d0>
+2026-10-23 14:31:15.114413+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:15.114591+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:15.116582+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:15.116732+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:15.116781+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:15.116843+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:15.116902+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:15.119405+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:15.120356+0800 Eluva[44086:17953302] [bridge] Repository operation started
+2026-10-23 14:31:15.133004+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:15.133279+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:15.134170+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:15.228211+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:15.288757+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:15.293390+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:15.293562+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:15.293758+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:15.293928+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:15.294181+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:15.294877+0800 Eluva[44086:17954570] [bridge] Repository operation started
+2026-10-23 14:31:15.300350+0800 Eluva[44086:17954570] [bridge] Repository operation started
+2026-10-23 14:31:15.308584+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:15.308779+0800 Eluva[44086:17954570] [bridge] Repository operation started
+2026-10-23 14:31:15.309896+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:15.310049+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:15.310148+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:15.310341+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:15.310433+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:15.310697+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:15.310810+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:15.310903+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:15.310978+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:15.313445+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:15.313742+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:15.313794+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:15.313828+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:15.368642+0800 Eluva[44086:17954570] [bridge] Repository operation started
+2026-10-23 14:31:15.452190+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:15.454881+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:15.455018+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:15.458356+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:31:15.458489+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:31:15.459386+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:31:15.459992+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:31:15.460608+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:31:15.460874+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:31:15.464301+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:31:15.532186+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:15.532338+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:15.711253+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-10-01.png
+2026-10-23 14:31:15.718702+0800 Eluva[44086:17952854] [resources] Loading bundled resource: lit-bulb.svg
+2026-10-23 14:31:15.721142+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-1.png
+2026-10-23 14:31:15.721671+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-2.png
+2026-10-23 14:31:15.721754+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-3.png
+2026-10-23 14:31:15.721832+0800 Eluva[44086:17952854] [resources] Loading bundled resource: step-4.png
+2026-10-23 14:31:16.751446+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-09-01.png
+2026-10-23 14:31:17.751922+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-08-01.png
+2026-10-23 14:31:18.753404+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-07-01.png
+2026-10-23 14:31:19.753760+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-06-01.png
+2026-10-23 14:31:21.800471+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:23.168570+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:23.168769+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:23.168779+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:23.178818+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:23.185767+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:23.207451+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:23.207634+0800 Eluva[44086:17955083] [bridge] Repository operation started
+2026-10-23 14:31:23.210474+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:23.215469+0800 Eluva[44086:17955083] [bridge] Repository operation started
+2026-10-23 14:31:27.256322+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:27.256465+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:27.278644+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:27.278831+0800 Eluva[44086:17955084] [bridge] Repository operation started
+2026-10-23 14:31:27.422895+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:27.423086+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:27.423120+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:27.429306+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:27.437769+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:27.441030+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:27.441145+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:27.443848+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:27.447363+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:27.589084+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:27.589200+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:27.654901+0800 Eluva[44086:17955084] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:31:27.655116+0800 Eluva[44086:17955084] [ProcessSuspension] 0x11117c780 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44188, error: (null)
+2026-10-23 14:31:27.655845+0800 Eluva[44086:17955084] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44188 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44188 does not exist}>
+2026-10-23 14:31:27.655918+0800 Eluva[44086:17955084] [ProcessSuspension] 0x11117c840 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44188, error: (null)
+2026-10-23 14:31:28.030225+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:28.033391+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:28.033574+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:28.033745+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:28.033859+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:28.033951+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:28.077646+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:28.078190+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:28.078266+0800 Eluva[44086:17955085] [bridge] Repository operation started
+2026-10-23 14:31:28.079160+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44233] Could not register system wide server: -25204
+2026-10-23 14:31:28.079193+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44233] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x104d5c1d0>
+2026-10-23 14:31:28.083412+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:28.083815+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:28.084065+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:28.084421+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:28.084930+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:28.085271+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:28.085425+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:28.086016+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:28.087737+0800 Eluva[44086:17955085] [bridge] Repository operation started
+2026-10-23 14:31:28.093284+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:28.093402+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:28.095925+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:28.095997+0800 Eluva[44086:17955085] [bridge] Repository operation started
+2026-10-23 14:31:28.098317+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:28.098492+0800 Eluva[44086:17952954] [bridge] Repository operation started
+2026-10-23 14:31:28.098901+0800 Eluva[44086:17952854] [resources] Loading bundled resource: foreground-cloud.png
+2026-10-23 14:31:28.099035+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.svg
+2026-10-23 14:31:28.099238+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.svg
+2026-10-23 14:31:28.100537+0800 Eluva[44086:17952854] [resources] Loading bundled resource: compose-pencil.png
+2026-10-23 14:31:28.100754+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-star.png
+2026-10-23 14:31:28.104892+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:28.105471+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:28.189949+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:28.321977+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:28.909470+0800 Eluva[44086:17952854] [general] Failed to terminate process: Error Domain=com.apple.extensionKit.errorDomain Code=18 "(null)" UserInfo={NSUnderlyingError=0x134f0c030 {Error Domain=RBSRequestErrorDomain Code=3 "No such process found" UserInfo={NSLocalizedFailureReason=No such process found}}}
+2026-10-23 14:31:33.423384+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:33.423647+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:33.535018+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:33.535203+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:33.535382+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:33.535541+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:33.535847+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:33.536612+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:33.543994+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:33.551426+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:33.551530+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:33.551737+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:33.551859+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:33.551920+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:33.552004+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:33.552075+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:33.552169+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:33.552246+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:33.554179+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:33.564286+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:33.564445+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:33.564915+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:33.566917+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:33.567072+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:33.567985+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:33.575070+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:33.704395+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:33.704447+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:33.769205+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:31:33.769552+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c480 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44233, error: (null)
+2026-10-23 14:31:33.770487+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44233 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44233 does not exist}>
+2026-10-23 14:31:33.770683+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c840 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44233, error: (null)
+2026-10-23 14:31:34.166296+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:34.169726+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:34.169914+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:34.170074+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:34.170208+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:34.170349+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:34.222121+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:34.223065+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:34.223228+0800 Eluva[44086:17954567] [bridge] Repository operation started
+2026-10-23 14:31:34.223683+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44251] Could not register system wide server: -25204
+2026-10-23 14:31:34.223744+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44251] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x100f301d0>
+2026-10-23 14:31:34.231502+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:34.231633+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:34.231708+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:34.232555+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:34.232810+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:34.232922+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:34.233905+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:34.234741+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:34.235613+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:34.239343+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:34.245306+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:34.245543+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:34.249234+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:34.252209+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:34.252440+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:34.257612+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:34.263356+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:31:34.263723+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:31:34.264340+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:31:34.272481+0800 Eluva[44086:17952854] [resources] Loading bundled resource: lit-bulb.svg
+2026-10-23 14:31:34.287898+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:34.288111+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:34.288359+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:34.288595+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:34.289913+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:34.301423+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:34.305182+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:34.328864+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:34.337736+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:34.337893+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:34.338004+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:34.338068+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:34.338126+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:34.338178+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:34.338345+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:34.338407+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:34.338488+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:34.338700+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:34.338904+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:34.357833+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:34.416281+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:34.416977+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:34.417184+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:34.418819+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:31:34.418967+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:31:34.419351+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:31:34.419662+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:31:34.758049+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:34.758263+0800 Eluva[44086:17955086] [bridge] Repository operation started
+2026-10-23 14:31:34.765104+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-10-01.png
+2026-10-23 14:31:35.728617+0800 Eluva[44086:17952854] [general] Failed to terminate process: Error Domain=com.apple.extensionKit.errorDomain Code=18 "(null)" UserInfo={NSUnderlyingError=0x134f0c210 {Error Domain=RBSRequestErrorDomain Code=3 "No such process found" UserInfo={NSLocalizedFailureReason=No such process found}}}
+2026-10-23 14:31:35.766777+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-09-01.png
+2026-10-23 14:31:36.767688+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-08-01.png
+2026-10-23 14:31:37.768392+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-07-01.png
+2026-10-23 14:31:38.768984+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-06-01.png
+2026-10-23 14:31:40.807259+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:41.007178+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:41.007348+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:41.215626+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:41.215832+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:41.215825+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:41.221597+0800 Eluva[44086:17953045] [bridge] Repository operation started
+2026-10-23 14:31:41.240238+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:41.241809+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:41.243375+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:41.243830+0800 Eluva[44086:17955085] [bridge] Repository operation started
+2026-10-23 14:31:41.246235+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:41.250822+0800 Eluva[44086:17955085] [bridge] Repository operation started
+2026-10-23 14:31:41.388307+0800 Eluva[44086:17952854] [storage] Opening local vault key
+2026-10-23 14:31:41.388373+0800 Eluva[44086:17952854] [storage] Local vault key available
+2026-10-23 14:31:41.446282+0800 Eluva[44086:17953045] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44251 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44251 does not exist}>
+2026-10-23 14:31:41.446501+0800 Eluva[44086:17953045] [ProcessSuspension] 0x11117c540 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44251, error: (null)
+2026-10-23 14:31:41.449204+0800 Eluva[44086:17953045] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44251 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44251 does not exist}>
+2026-10-23 14:31:41.449413+0800 Eluva[44086:17953045] [ProcessSuspension] 0x11117c840 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44251, error: (null)
+2026-10-23 14:31:41.852729+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index.html
+2026-10-23 14:31:41.856314+0800 Eluva[44086:17952854] [resources] Loading bundled resource: auth-background.png
+2026-10-23 14:31:41.857123+0800 Eluva[44086:17952854] [resources] Loading bundled resource: plusjakartasans-variable.ttf
+2026-10-23 14:31:41.857231+0800 Eluva[44086:17952854] [resources] Loading bundled resource: boot.js
+2026-10-23 14:31:41.857297+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-vWQcNYtz.js
+2026-10-23 14:31:41.857339+0800 Eluva[44086:17952854] [resources] Loading bundled resource: index-BdU4CyVn.css
+2026-10-23 14:31:41.917809+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-regular.ttf
+2026-10-23 14:31:41.918474+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44262] Could not register system wide server: -25204
+2026-10-23 14:31:41.918528+0800 Eluva[44086:17953063] [AXRuntimeCommon] WebContent[44262] _AXAddToElementCache was called even though the element was in the cache: <WKAccessibilityWebPageObject: 0x100ea0190>
+2026-10-23 14:31:41.918781+0800 Eluva[44086:17952854] [bridge] RPC app.bootstrap
+2026-10-23 14:31:41.918867+0800 Eluva[44086:17955994] [bridge] Repository operation started
+2026-10-23 14:31:41.929765+0800 Eluva[44086:17952854] [resources] Loading bundled resource: filter-button.png
+2026-10-23 14:31:41.929895+0800 Eluva[44086:17952854] [resources] Loading bundled resource: share-island.png
+2026-10-23 14:31:41.929951+0800 Eluva[44086:17952854] [resources] Loading bundled resource: resonance-avatar.png
+2026-10-23 14:31:41.930014+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-chats.png
+2026-10-23 14:31:41.930120+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home.png
+2026-10-23 14:31:41.930195+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine.png
+2026-10-23 14:31:41.932271+0800 Eluva[44086:17952854] [resources] Loading bundled resource: empty-background.png
+2026-10-23 14:31:41.933272+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:41.935090+0800 Eluva[44086:17955995] [bridge] Repository operation started
+2026-10-23 14:31:41.947685+0800 Eluva[44086:17952854] [resources] Loading bundled resource: zen-dots-regular.ttf
+2026-10-23 14:31:41.948041+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-medium.ttf
+2026-10-23 14:31:41.949565+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:41.949990+0800 Eluva[44086:17955995] [bridge] Repository operation started
+2026-10-23 14:31:41.952457+0800 Eluva[44086:17952854] [resources] Loading bundled resource: poppins-semibold.ttf
+2026-10-23 14:31:41.954754+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:41.954933+0800 Eluva[44086:17952954] [bridge] Repository operation started
+2026-10-23 14:31:41.966223+0800 Eluva[44086:17952854] [resources] Loading bundled resource: refresh.png
+2026-10-23 14:31:41.969433+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-01-01.png
+2026-10-23 14:31:41.969648+0800 Eluva[44086:17952854] [resources] Loading bundled resource: light-bulb.svg
+2026-10-23 14:31:41.972700+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-02-01.png
+2026-10-23 14:31:41.973537+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-03-01.png
+2026-10-23 14:31:41.973691+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-04-01.png
+2026-10-23 14:31:41.973772+0800 Eluva[44086:17952854] [resources] Loading bundled resource: post-05-01.png
+2026-10-23 14:31:41.975428+0800 Eluva[44086:17952854] [resources] Loading bundled resource: discovery-photo-overlay.png
+2026-10-23 14:31:42.033485+0800 Eluva[44086:17952854] [bridge] RPC app.ready
+2026-10-23 14:31:42.104763+0800 Eluva[44086:17952854] [resources] Loading bundled resource: purple-button.svg
+2026-10-23 14:31:42.244817+0800 Eluva[44086:17952854] [bridge] RPC content.preferences
+2026-10-23 14:31:42.245158+0800 Eluva[44086:17952954] [bridge] Repository operation started
+2026-10-23 14:31:42.359629+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-home-inactive.png
+2026-10-23 14:31:42.359885+0800 Eluva[44086:17952854] [resources] Loading bundled resource: tab-mine-active.png
+2026-10-23 14:31:42.360336+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:42.360433+0800 Eluva[44086:17952854] [bridge] RPC personal.snapshot
+2026-10-23 14:31:42.360627+0800 Eluva[44086:17952854] [resources] Loading bundled resource: thread-background.png
+2026-10-23 14:31:42.361280+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:42.369364+0800 Eluva[44086:17953203] [bridge] Repository operation started
+2026-10-23 14:31:42.377035+0800 Eluva[44086:17952854] [resources] Loading bundled resource: default-avatar.svg
+2026-10-23 14:31:42.377295+0800 Eluva[44086:17952854] [resources] Loading bundled resource: id-badge.png
+2026-10-23 14:31:42.377429+0800 Eluva[44086:17952854] [resources] Loading bundled resource: pro-emblem.png
+2026-10-23 14:31:42.377477+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-lights.png
+2026-10-23 14:31:42.377554+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-posts.png
+2026-10-23 14:31:42.377679+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-collections.png
+2026-10-23 14:31:42.377778+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-settings.png
+2026-10-23 14:31:42.377854+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-feedback.png
+2026-10-23 14:31:42.378419+0800 Eluva[44086:17952854] [resources] Loading bundled resource: mine-help.png
+2026-10-23 14:31:42.380875+0800 Eluva[44086:17952854] [bridge] RPC commerce.snapshot
+2026-10-23 14:31:42.383442+0800 Eluva[44086:17952854] [bridge] RPC system.cancel
+2026-10-23 14:31:42.385411+0800 Eluva[44086:17952854] [bridge] RPC social.snapshot
+2026-10-23 14:31:42.385591+0800 Eluva[44086:17952954] [bridge] Repository operation started
+2026-10-23 14:31:42.388160+0800 Eluva[44086:17952854] [resources] Loading bundled resource: inter-bold.ttf
+2026-10-23 14:31:42.388247+0800 Eluva[44086:17952854] [resources] Loading bundled resource: bakbak-one-regular.ttf
+2026-10-23 14:31:42.388382+0800 Eluva[44086:17952854] [bridge] RPC content.snapshot
+2026-10-23 14:31:42.395643+0800 Eluva[44086:17952954] [bridge] Repository operation started
+Test Case '-[EluvaTests.WebBundleTests testFrenchHomeGuideAfterDiscovery]' passed (28.004 seconds).
+Test Suite 'WebBundleTests' passed at 2026-10-23 14:31:42.497.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 57.608 (57.609) seconds
+2026-10-23 14:31:42.501865+0800 Eluva[44086:17953063] [ProcessSuspension] WebContent[44262] 0x10d04c100 - [sessionID=9223372036854775817] WebProcess::updateFreezerStatus: isFreezable=1, error=-1
+Test Suite 'EluvaTests.xctest' passed at 2026-10-23 14:31:42.498.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 57.608 (57.610) seconds
+Test Suite 'Selected tests' passed at 2026-10-23 14:31:42.504.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 57.608 (57.616) seconds
+2026-10-23 14:31:42.515417+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))" UserInfo={NSLocalizedFailureReason=((target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.rendering AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.networking AND target is not running or doesn't have entitlement com.apple.developer.web-browser-engine.webcontent))}>
+2026-10-23 14:31:42.551644+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c840 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=44262, error: (null)
+2026-10-23 14:31:42.552302+0800 Eluva[44086:17953203] [assertion] Error acquiring assertion: <Error Domain=RBSAssertionErrorDomain Code=2 "Specified target process 44262 does not exist" UserInfo={NSLocalizedFailureReason=Specified target process 44262 does not exist}>
+2026-10-23 14:31:42.552508+0800 Eluva[44086:17953203] [ProcessSuspension] 0x11117c900 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=44262, error: (null)
+2026-10-23 14:31:42.921 xcodebuild[43978:17951772] [MT] IDETestOperationsObserverDebug: 61.854 elapsed -- Testing started completed.
+2026-10-23 14:31:42.921 xcodebuild[43978:17951772] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-23 14:31:42.921 xcodebuild[43978:17951772] [MT] IDETestOperationsObserverDebug: 61.854 sec, +61.854 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/linqian/Documents/Eluva/.build/home-guide-sequence-20261023-guide-retry.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

@@ -1,0 +1,27 @@
+✔ empty Chats read completes during a global mutation; TabBar and page share one request (3.607792ms)
+✔ a committed block hides cached posts and adds the blacklist even when the follow-up content read fails (1.007834ms)
+✔ a failed empty-account read ends with an error; retry becomes a successful empty snapshot (0.266417ms)
+✔ reset and account switch discard an old pending snapshot and allow the new empty account to load (0.288208ms)
+✔ P3 migration retains two P1 thread identities and text-only fixtures without account changes (42.734084ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (29.417917ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (90.694459ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (27.159875ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (42.375875ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (40.397417ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (20.8735ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (44.209209ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (80.075458ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (83.332417ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (28.0105ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (69.190458ms)
+✔ public profile collections hide private references, custom covers, blocked owners and other account fixtures (22.898959ms)
+✔ profile report failure is atomic, stable retry is deduplicated and targets the exact user (24.721417ms)
+✔ blocking hides posts, threads, incoming and outgoing requests without deleting history or affecting another account (65.197042ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 776.291

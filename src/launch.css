@@ -1,0 +1,11 @@
+/* Match LaunchScreen.storyboard: full viewport aspect-fill and a 110pt logo
+   centered on the viewport, 50pt above its midpoint. No safe-area offset. */
+.launch-page-host{display:contents}
+.launch-screen{position:fixed;inset:0;isolation:isolate;overflow:hidden;min-height:100vh;min-height:100dvh;background:#c9a6ff url('/images/auth-background.png') center/cover no-repeat}
+.launch-screen>.launch-logo{position:absolute;left:50%;top:calc(50% - 50px);width:110px;height:110px;max-width:none;object-fit:contain;transform:translate(-50%,-50%);pointer-events:none}
+.launch-failure{display:flex;align-items:stretch;justify-content:flex-end;flex-direction:column;padding:calc(20px + env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px))}
+.launch-failure-details{position:relative;max-width:400px;width:100%;margin:0 auto;padding:20px;border-radius:24px;background:#ffffffeb;border:1px solid #fff;box-shadow:0 8px 28px #6941a31c;text-align:center;overflow:auto;max-height:40vh;max-height:40dvh}
+.launch-failure-details h1{font-size:22px;line-height:30px;margin-bottom:10px}
+.launch-failure-details p{font-size:14px;line-height:22px;color:#514360;margin-bottom:18px}
+.launch-failure-details .action-button{width:100%}
+@media(max-height:600px){.launch-failure-details{padding:16px}.launch-failure-details h1{font-size:20px;line-height:27px;margin-bottom:6px}.launch-failure-details p{margin-bottom:12px}}

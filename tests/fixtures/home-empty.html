@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- Development-only isolated fixture. Vite production input remains index.html. -->
+<html lang="en"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Eluva Home QA</title></head><body><div id="app"></div><script type="module">
+import { BrowserRepository } from '/src/services/browser-repository.js'
+import { bridge } from '/src/state.js'
+const query=new URLSearchParams(location.search),locale=query.get('locale')==='fr'?'fr':'en',scenario=query.get('scenario')||'empty'
+const repo=new BrowserRepository({dbName:'eluva-qa-home-empty-'+crypto.randomUUID()})
+bridge.adapter=repo
+await repo.execute('app','bootstrap')
+await repo.execute('preferences','locale',{locale})
+await repo.execute('preferences','consent',{accepted:true,version:(await import('/src/domain/validation.js')).LEGAL_VERSION})
+const login=await repo.execute('auth','login',{email:'eluva@gmail.com',password:'123qweasd'})
+await repo.execute('content','preferences',{guideDone:true,feedFilter:{media:scenario==='filter'?'video':'all',topic:'all'}})
+const initial=await repo.execute('content','snapshot'),ids=initial.posts.map(x=>x.id)
+if(query.get('cached')==='1'){
+ const {hydrateUser}=await import('/src/state.js'),{applyContent}=await import('/src/content-state.js')
+ await hydrateUser(login);await applyContent(initial)
+ await repo.execute('content','simulateFailure',{operation:'snapshot'})
+}
+const setEligible=eligible=>repo.write(root=>{for(const id of ids)root.content.posts[id].visibility.discover=eligible;return {state:root,result:undefined}})
+if(['empty','failure','loading','load-failure'].includes(scenario))await setEligible(false)
+if(scenario==='load-failure')await repo.execute('content','simulateFailure',{operation:'snapshot'})
+if(query.get('safe')==='1'){
+  const style=document.createElement('style');style.textContent=':root{--safe-top:44px!important;--safe-bottom:34px!important}@media(max-height:700px){:root{--safe-top:20px!important;--safe-bottom:0px!important}}@media(width:393px),(width:430px){:root{--safe-top:59px!important;--safe-bottom:34px!important}}';document.head.append(style)
+}
+if(query.get('controls')==='1'){
+  const qa=document.createElement('aside');qa.id='qa-controls';qa.style.cssText='position:fixed;top:0;right:0;z-index:9999;display:flex;max-width:100%;font:11px sans-serif;background:white;gap:3px';qa.setAttribute('aria-label','Isolated fixture controls')
+  const add=(label,action)=>{const b=document.createElement('button');b.textContent=label;b.onclick=async()=>{b.disabled=true;try{await action();qa.dataset.lastAction=label}finally{b.disabled=false}};qa.append(b)}
+  const execute=repo.execute.bind(repo);let holdNext=false,releaseRefresh,snapshots=0
+  repo.execute=async(service,method,...args)=>{if(service==='content'&&method==='snapshot'){qa.dataset.snapshots=String(++snapshots);if(holdNext){holdNext=false;await new Promise(resolve=>releaseRefresh=resolve)}}return execute(service,method,...args)}
+  add('Hold next refresh',()=>{holdNext=true})
+  add('Release refresh',()=>{releaseRefresh?.();releaseRefresh=null})
+  add('Fail next refresh',()=>repo.execute('content','simulateFailure',{operation:'snapshot'}))
+  add('Restore fixture posts',()=>setEligible(true))
+  add('Hide fixture posts',()=>setEligible(false))
+  add('Reload visible fixture',async()=>{const {loadContent}=await import('/src/content-state.js');await loadContent({quiet:true})})
+  add('Audit fixture',async()=>{const root=await repo.read();qa.dataset.audit=JSON.stringify({postCount:Object.keys(root.content.posts).length,guideDone:root.content.preferences[root.session.userId].guideDone,accounts:Object.keys(root.accounts).length})})
+  document.body.append(qa)
+}
+if(scenario==='loading'){
+  const original=repo.execute.bind(repo);let release
+  const gate=new Promise(resolve=>release=resolve)
+  repo.execute=async(service,method,...args)=>{if(service==='content'&&method==='snapshot')await gate;return original(service,method,...args)}
+  const b=document.createElement('button');b.textContent='Complete fixture load';b.style.cssText='position:fixed;right:0;top:0;z-index:9999';b.onclick=()=>{release();b.remove()};document.body.append(b)
+}
+document.documentElement.lang=locale
+if(!location.hash)location.hash='/home'
+await import('/src/main.js')
+</script></body></html>

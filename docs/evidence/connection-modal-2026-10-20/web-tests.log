@@ -1,0 +1,22 @@
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (47.256834ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (35.858125ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (101.138417ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (24.714167ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (53.452333ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (39.725958ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (22.648459ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (48.234041ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (88.267666ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (122.289625ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (30.463917ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (102.293709ms)
+✔ public profile collections hide private references, custom covers, blocked owners and other account fixtures (38.605375ms)
+✔ profile report failure is atomic, stable retry is deduplicated and targets the exact user (30.159375ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 862.36325

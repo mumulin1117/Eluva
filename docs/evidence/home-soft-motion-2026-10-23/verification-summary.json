@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-23",
+  "userChoice": "Keep one by one, slower and softer",
+  "scope": [
+    "HomeView motion options",
+    "home-scoped animation CSS",
+    "native verification and delivery docs"
+  ],
+  "production": {
+    "stepMs": 1000,
+    "settleMs": 1000,
+    "cardFadeMs": 800,
+    "beaconFadeMs": 950,
+    "idleWaveMs": 4800,
+    "discoveryWaveMs": 3200
+  },
+  "webTests": {
+    "passed": 129,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "productionBuild": {
+    "passed": true,
+    "resourceCount": 264,
+    "log": "production-build.log"
+  },
+  "unsignedDeviceBuild": {
+    "passed": true,
+    "installedOnPhysicalDevice": false,
+    "log": "device-build.log"
+  },
+  "wkwebview": {
+    "distinctPassed": 4,
+    "batches": [
+      {
+        "log": "wkwebview-before-pause-sampling-fix.log",
+        "tests": [
+          {
+            "test": "testEnglishHomeDiscoveryBatches",
+            "status": "passed",
+            "seconds": 20.385
+          },
+          {
+            "test": "testEnglishHomeDiscoveryMotion",
+            "status": "passed",
+            "seconds": 13.845
+          },
+          {
+            "test": "testFrenchHomeDiscoveryBatches",
+            "status": "passed",
+            "seconds": 20.118
+          },
+          {
+            "test": "testFrenchHomeDiscoveryMotion",
+            "status": "failed",
+            "seconds": 2.109
+          }
+        ],
+        "passed": false
+      },
+      {
+        "log": "wkwebview-pause-verified.log",
+        "tests": [
+          {
+            "test": "testEnglishHomeDiscoveryMotion",
+            "status": "passed",
+            "seconds": 15.174
+          },
+          {
+            "test": "testFrenchHomeDiscoveryMotion",
+            "status": "passed",
+            "seconds": 14.051
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "safeArea": "synthetic insets in actual simulator WKWebView",
+    "pauseObservationMs": 1250,
+    "reducedMotion": "unit clock tests and actual loaded stylesheet inspection; physical system toggle untested"
+  },
+  "knownLimitations": [
+    "Physical iPhone validation deferred per user instruction",
+    "No physical keyboard, performance, energy or thermal verification",
+    "Existing Vite HMR router cycle message; final fresh browser preview normal",
+    "Vite chunk >500kB; simulator RBS/ProcessSuspension lifecycle logs"
+  ]
+}

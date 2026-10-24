@@ -1,0 +1,707 @@
+{
+  "designs": [
+    {
+      "index": 26,
+      "id": "bff19b3d-1f29-42a7-a935-c674940b9443",
+      "name": "充值--会员功能",
+      "width": 195,
+      "height": 422,
+      "url": "https://alipic.lanhuapp.com/FigmaCoverd3a728322305834a9cd8a7868bb31fd5.png",
+      "has_comment": false,
+      "update_time": "2026-10-13T15:14:57.216034Z",
+      "sectors": []
+    },
+    {
+      "index": 28,
+      "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+      "name": "充值",
+      "width": 195,
+      "height": 422,
+      "url": "https://alipic.lanhuapp.com/FigmaCover932f8b1abee218929be7da13f45fe1e0.png",
+      "has_comment": false,
+      "update_time": "2026-10-13T15:14:57.20977Z",
+      "sectors": []
+    }
+  ],
+  "slices": [
+    {
+      "status": "success",
+      "design_id": "bff19b3d-1f29-42a7-a935-c674940b9443",
+      "design_name": "充值--会员功能",
+      "version": "版本1",
+      "slice_scale": 4,
+      "canvas_size": {
+        "width": 195,
+        "height": 422
+      },
+      "total_slices": 0,
+      "slices": [],
+      "ai_workflow_guide": {
+        "instructions": "🤖 AI assistant must follow this workflow to process slice download tasks",
+        "language_requirement": "⚠️ IMPORTANT: Always respond to user in Chinese (中文回复)",
+        "FIRST_ACTION_REQUIRED": {
+          "action": "ASK_USER_SCALE_PREFERENCE",
+          "description": "在开始下载前，必须先向用户确认平台和倍率偏好",
+          "question_template": "请问您需要下载哪个平台的切图？\n\n**Web 端**\n- `1x` — {w1x}×{h1x}px（CSS 1倍图）\n- `2x` — {w2x}×{h2x}px（Retina / 原图，推荐）\n- `3x` — {w3x}×{h3x}px（超高清）\n\n**iOS**\n- `ios_1x` — @1x\n- `ios_2x` — @2x（同 Web 1x）\n- `ios_3x` — @3x\n\n**Android**\n- `android_xhdpi` — xhdpi（同 Web 1x）\n- `android_xxhdpi` — xxhdpi（同 iOS @3x）\n- `android_xxxhdpi` — xxxhdpi（原图）\n- 全套（mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi）\n\n> 默认推荐：**Web 2x**（最高清，直接使用原图 URL，无需额外处理）",
+          "how_to_use_scale_urls": "每个 slice 的 scale_urls 字段包含所有倍率的 URL，根据用户选择取对应 key 的 URL 下载即可",
+          "scale_url_keys": {
+            "Web 1x": "scale_urls.1x",
+            "Web 2x (原图)": "scale_urls.2x",
+            "Web 3x": "scale_urls.3x",
+            "iOS @1x": "scale_urls.ios_1x",
+            "iOS @2x": "scale_urls.ios_2x",
+            "iOS @3x": "scale_urls.ios_3x",
+            "Android mdpi": "scale_urls.android_mdpi",
+            "Android hdpi": "scale_urls.android_hdpi",
+            "Android xhdpi": "scale_urls.android_xhdpi",
+            "Android xxhdpi": "scale_urls.android_xxhdpi",
+            "Android xxxhdpi": "scale_urls.android_xxxhdpi"
+          },
+          "multi_scale_naming": {
+            "Web 1x+2x": "filename.png / filename@2x.png",
+            "iOS all": "filename.png / filename@2x.png / filename@3x.png",
+            "Android all": "mipmap-mdpi/f.png, mipmap-hdpi/f.png, ... mipmap-xxxhdpi/f.png"
+          }
+        },
+        "workflow_steps": [
+          {
+            "step": 0,
+            "title": "询问用户下载平台和倍率（必须在下载前完成）",
+            "mandatory": true,
+            "tasks": [
+              "展示切图列表摘要（总数 + 前3个名字）给用户",
+              "列出可选平台：Web（1x/2x/3x）、iOS（@1x/@2x/@3x）、Android（全套/单倍率）",
+              "等待用户明确选择，不要擅自假设默认值",
+              "若用户不在意，推荐 Web 2x（原图 URL，无 OSS 参数，最简单）"
+            ]
+          },
+          {
+            "step": 1,
+            "title": "Create TODO Task Plan",
+            "tasks": [
+              "Analyze project structure (read package.json, pom.xml, requirements.txt, etc.)",
+              "Identify project type (React/Vue/Flutter/iOS/Android/Plain Frontend, etc.)",
+              "Determine slice storage directory (e.g., src/assets/images/)",
+              "Plan slice grouping strategy (by feature module, UI component, etc.)"
+            ]
+          },
+          {
+            "step": 2,
+            "title": "Smart Directory Selection Rules",
+            "rules": [
+              "Priority 1: If user explicitly specified output_dir → use user-specified path",
+              "Priority 2: If project has standard assets directory → use project convention (e.g., src/assets/images/slices/)",
+              "Priority 3: If generic project → use design_slices/{design_name}/"
+            ],
+            "common_project_structures": {
+              "React/Vue": [
+                "src/assets/",
+                "public/images/"
+              ],
+              "Flutter": [
+                "assets/images/"
+              ],
+              "iOS": [
+                "Assets.xcassets/"
+              ],
+              "Android": [
+                "res/drawable/",
+                "res/mipmap/"
+              ],
+              "Plain Frontend": [
+                "images/",
+                "assets/"
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "title": "文件命名规范",
+            "primary_rule": "根据用户项目命名规范对 slice.name 进行语义化英文重命名，再加倍率后缀",
+            "naming_workflow": [
+              "1. 读取用户项目已有切图/资源文件，识别命名风格（snake_case / camelCase / kebab-case 等）",
+              "2. 将 slice.name（可能是中文）翻译并语义化为英文，遵循识别到的命名风格",
+              "3. 无法识别风格时默认 snake_case（如 icon_share、btn_confirm、img_empty_state）",
+              "4. 加倍率后缀"
+            ],
+            "scale_suffix_convention": {
+              "Web 1x": "{name}.png",
+              "Web 2x": "{name}@2x.png",
+              "Web 3x": "{name}@3x.png",
+              "iOS @1x": "{name}.png",
+              "iOS @2x": "{name}@2x.png",
+              "iOS @3x": "{name}@3x.png",
+              "Android mdpi": "mipmap-mdpi/{name}.png",
+              "Android hdpi": "mipmap-hdpi/{name}.png",
+              "Android xhdpi": "mipmap-xhdpi/{name}.png",
+              "Android xxhdpi": "mipmap-xxhdpi/{name}.png",
+              "Android xxxhdpi": "mipmap-xxxhdpi/{name}.png"
+            },
+            "rename_examples": [
+              {
+                "slice_name": "线",
+                "renamed": "icon_line",
+                "Web 2x": "icon_line@2x.png"
+              },
+              {
+                "slice_name": "img_成功申请精装",
+                "renamed": "img_apply_success",
+                "Web 2x": "img_apply_success@2x.png"
+              },
+              {
+                "slice_name": "申请被驳回",
+                "renamed": "img_apply_rejected",
+                "Web 2x": "img_apply_rejected@2x.png"
+              },
+              {
+                "slice_name": "草地大背景",
+                "renamed": "bg_grass",
+                "Web 2x": "bg_grass@2x.png"
+              },
+              {
+                "slice_name": "icon-导出",
+                "renamed": "icon_export",
+                "Web 2x": "icon_export@2x.png"
+              }
+            ],
+            "duplicate_handling": "同名切图加序号后缀：icon_line.png / icon_line_2.png / icon_line_3.png"
+          },
+          {
+            "step": 4,
+            "title": "Environment Detection and Download Solution Selection",
+            "principle": "AI must first detect current system environment and available tools, then autonomously select the best download solution",
+            "priority_rules": [
+              "Priority 1: Use system built-in download tools (curl/PowerShell/wget, etc.)",
+              "Priority 2: If system tools unavailable, detect programming language environment (python/node, etc.)",
+              "Priority 3: Create temporary script as last resort"
+            ],
+            "detection_steps": [
+              "Step 1: Detect operating system type (Windows/macOS/Linux)",
+              "Step 2: Sequentially detect available download tools",
+              "Step 3: Autonomously select optimal solution based on detection results",
+              "Step 4: Execute download task",
+              "Step 5: Clean up temporary files (if any)"
+            ],
+            "common_tools_by_platform": {
+              "Windows": {
+                "built_in": [
+                  "PowerShell Invoke-WebRequest",
+                  "certutil"
+                ],
+                "optional": [
+                  "curl (Win10 1803+ built-in)",
+                  "python",
+                  "node"
+                ]
+              },
+              "macOS": {
+                "built_in": [
+                  "curl"
+                ],
+                "optional": [
+                  "python",
+                  "wget",
+                  "node"
+                ]
+              },
+              "Linux": {
+                "built_in": [
+                  "curl",
+                  "wget"
+                ],
+                "optional": [
+                  "python",
+                  "node"
+                ]
+              }
+            },
+            "important_principles": [
+              "⚠️ Do not assume any tool is available, must detect first",
+              "⚠️ Prefer system built-in tools, avoid third-party dependencies",
+              "⚠️ Do not use fixed code templates or example code",
+              "⚠️ Dynamically generate commands or scripts based on actual environment",
+              "⚠️ Control concurrency when batch downloading",
+              "⚠️ Must clean up temporary files after completion"
+            ]
+          }
+        ],
+        "execution_workflow": {
+          "description": "Complete workflow that AI must autonomously complete",
+          "steps": [
+            "Step 0: 展示切图摘要，询问用户需要哪个平台/倍率（必须等待用户回复）",
+            "Step 1: Call lanhu_get_design_slices(url, design_name) to get slice info",
+            "Step 2: Create TODO task plan (use todo_write tool)",
+            "Step 3: Detect current operating system type",
+            "Step 4: Detect available download tools by priority",
+            "Step 5: Identify project type and determine output directory",
+            "Step 6: 根据用户选择的倍率，从 slice.scale_urls 取对应 URL，生成智能文件名",
+            "Step 7: Select optimal download solution based on detection results",
+            "Step 8: Execute batch download task",
+            "Step 9: Verify download results",
+            "Step 10: Clean up temporary files and complete TODO"
+          ]
+        },
+        "important_notes": [
+          "🎯 AI 必须先询问用户需要下载哪个平台/倍率，不能擅自开始下载",
+          "📐 每个 slice 都有 scale_urls 字段，包含 1x/2x/3x 及 iOS/Android 全套 URL",
+          "⭐ Web 2x = scale_urls.2x = 原图 URL（无 OSS 参数，最简单），推荐首选",
+          "🍎 iOS 全套下载：ios_1x/ios_2x/ios_3x，文件名加 @2x/@3x 后缀",
+          "🤖 Android 全套下载：android_mdpi~xxxhdpi，分别放入对应 mipmap 目录",
+          "🎯 AI must proactively complete the entire workflow, don't just return info and wait for user action",
+          "📋 AI must use todo_write tool to create task plan, ensure orderly progress",
+          "🔍 AI must detect environment and tool availability first, then select download solution",
+          "⭐ AI must prefer system built-in tools, avoid third-party dependencies",
+          "🚫 AI must not use fixed code examples, must dynamically generate commands based on actual environment",
+          "✨ AI must smartly select output directory based on project structure, don't blindly use default path",
+          "🏷️ AI must generate semantic filenames based on slice's layer_path and parent_name",
+          "💻 AI must select corresponding download tools for different OS (Windows/macOS/Linux)",
+          "🧹 AI must clean up temporary files after completion (if any)",
+          "🗣️ AI must always respond to user in Chinese (中文回复)"
+        ]
+      }
+    },
+    {
+      "status": "success",
+      "design_id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+      "design_name": "充值",
+      "version": "版本1",
+      "slice_scale": 4,
+      "canvas_size": {
+        "width": 195,
+        "height": 422
+      },
+      "total_slices": 5,
+      "slices": [
+        {
+          "id": "54:657",
+          "name": "背景",
+          "type": "artboard",
+          "download_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png",
+          "size": "389x841",
+          "format": "png",
+          "svg_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSliceSVGb3f5eca23a6b710b0efd3989075607ba.svg",
+          "scale_urls": {
+            "1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_389,h_842/format,png",
+            "2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_778,h_1684/format,png",
+            "3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_1167,h_2526/format,png",
+            "ios_1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_389,h_842/format,png",
+            "ios_2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_778,h_1684/format,png",
+            "ios_3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_1167,h_2526/format,png",
+            "android_mdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_389,h_842/format,png",
+            "android_hdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_584,h_1263/format,png",
+            "android_xhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_778,h_1684/format,png",
+            "android_xxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png?x-oss-process=image/resize,w_1167,h_2526/format,png",
+            "android_xxxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG8393b6fe2aa73c93b7f64eebf545c3ab.png"
+          },
+          "logical_size": {
+            "width": 389,
+            "height": 841,
+            "note": "1x logical px; stored at 4x = 1556x3367px"
+          },
+          "position": {
+            "x": 1,
+            "y": 0
+          },
+          "layer_path": "背景",
+          "metadata": {
+            "opacity": 1,
+            "border_radius": {
+              "topLeft": 0,
+              "topRight": 0,
+              "bottomRight": 0,
+              "bottomLeft": 0
+            }
+          }
+        },
+        {
+          "id": "75:3890",
+          "name": "Group 1449",
+          "type": "groupLayer",
+          "download_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png",
+          "size": "114x82",
+          "format": "png",
+          "svg_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSliceSVG324490668510c99ac4b1f5d0d6340b6e.svg",
+          "scale_urls": {
+            "1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "ios_1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "ios_2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "ios_3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_mdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "android_hdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_171,h_123/format,png",
+            "android_xhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "android_xxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_xxxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGeff8ac57c16e676f52e161d522d5bd5c.png"
+          },
+          "logical_size": {
+            "width": 114,
+            "height": 82,
+            "note": "1x logical px; stored at 4x = 456x328px"
+          },
+          "position": {
+            "x": 14,
+            "y": 285
+          },
+          "layer_path": "Group 1449",
+          "metadata": {
+            "opacity": 1,
+            "border_radius": {
+              "topLeft": 0,
+              "topRight": 0,
+              "bottomRight": 0,
+              "bottomLeft": 0
+            }
+          }
+        },
+        {
+          "id": "75:3891",
+          "name": "Group 1450",
+          "type": "groupLayer",
+          "download_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png",
+          "size": "114x82",
+          "format": "png",
+          "svg_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSliceSVG8c9d7359baeee11afed6f7df619e9edd.svg",
+          "scale_urls": {
+            "1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "ios_1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "ios_2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "ios_3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_mdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "android_hdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_171,h_123/format,png",
+            "android_xhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "android_xxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_xxxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNGa17eeca42537419ed2f2ab6c62fe8291.png"
+          },
+          "logical_size": {
+            "width": 114,
+            "height": 82,
+            "note": "1x logical px; stored at 4x = 456x328px"
+          },
+          "position": {
+            "x": 138,
+            "y": 285
+          },
+          "layer_path": "Group 1450",
+          "metadata": {
+            "opacity": 1,
+            "border_radius": {
+              "topLeft": 0,
+              "topRight": 0,
+              "bottomRight": 0,
+              "bottomLeft": 0
+            }
+          }
+        },
+        {
+          "id": "75:3892",
+          "name": "Group 1451",
+          "type": "groupLayer",
+          "download_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png",
+          "size": "114x82",
+          "format": "png",
+          "svg_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSliceSVGfdc9ad7a5c6971dcfe7d49471e8e4928.svg",
+          "scale_urls": {
+            "1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "ios_1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "ios_2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "ios_3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_mdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_114,h_82/format,png",
+            "android_hdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_171,h_123/format,png",
+            "android_xhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_228,h_164/format,png",
+            "android_xxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png?x-oss-process=image/resize,w_342,h_246/format,png",
+            "android_xxxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG7c703af7b6236c6cfe89b6b893fb9144.png"
+          },
+          "logical_size": {
+            "width": 114,
+            "height": 82,
+            "note": "1x logical px; stored at 4x = 456x328px"
+          },
+          "position": {
+            "x": 262,
+            "y": 285
+          },
+          "layer_path": "Group 1451",
+          "metadata": {
+            "opacity": 1,
+            "border_radius": {
+              "topLeft": 0,
+              "topRight": 0,
+              "bottomRight": 0,
+              "bottomLeft": 0
+            }
+          }
+        },
+        {
+          "id": "57:302",
+          "name": "Group 1392",
+          "type": "groupLayer",
+          "download_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png",
+          "size": "350x50",
+          "format": "png",
+          "svg_url": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSliceSVG6ad496c042a470a76f6c1612f79f5dd6.svg",
+          "scale_urls": {
+            "1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_350,h_50/format,png",
+            "2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_700,h_100/format,png",
+            "3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_1050,h_150/format,png",
+            "ios_1x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_350,h_50/format,png",
+            "ios_2x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_700,h_100/format,png",
+            "ios_3x": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_1050,h_150/format,png",
+            "android_mdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_350,h_50/format,png",
+            "android_hdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_525,h_75/format,png",
+            "android_xhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_700,h_100/format,png",
+            "android_xxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png?x-oss-process=image/resize,w_1050,h_150/format,png",
+            "android_xxxhdpi": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaSlicePNG05af15bdaf6e2fe69122025aa3587c77.png"
+          },
+          "logical_size": {
+            "width": 350,
+            "height": 50,
+            "note": "1x logical px; stored at 4x = 1400x200px"
+          },
+          "position": {
+            "x": 20,
+            "y": 652
+          },
+          "layer_path": "Group 1392",
+          "metadata": {
+            "opacity": 1,
+            "border_radius": {
+              "topLeft": 0,
+              "topRight": 0,
+              "bottomRight": 0,
+              "bottomLeft": 0
+            }
+          }
+        }
+      ],
+      "ai_workflow_guide": {
+        "instructions": "🤖 AI assistant must follow this workflow to process slice download tasks",
+        "language_requirement": "⚠️ IMPORTANT: Always respond to user in Chinese (中文回复)",
+        "FIRST_ACTION_REQUIRED": {
+          "action": "ASK_USER_SCALE_PREFERENCE",
+          "description": "在开始下载前，必须先向用户确认平台和倍率偏好",
+          "question_template": "请问您需要下载哪个平台的切图？\n\n**Web 端**\n- `1x` — {w1x}×{h1x}px（CSS 1倍图）\n- `2x` — {w2x}×{h2x}px（Retina / 原图，推荐）\n- `3x` — {w3x}×{h3x}px（超高清）\n\n**iOS**\n- `ios_1x` — @1x\n- `ios_2x` — @2x（同 Web 1x）\n- `ios_3x` — @3x\n\n**Android**\n- `android_xhdpi` — xhdpi（同 Web 1x）\n- `android_xxhdpi` — xxhdpi（同 iOS @3x）\n- `android_xxxhdpi` — xxxhdpi（原图）\n- 全套（mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi）\n\n> 默认推荐：**Web 2x**（最高清，直接使用原图 URL，无需额外处理）",
+          "how_to_use_scale_urls": "每个 slice 的 scale_urls 字段包含所有倍率的 URL，根据用户选择取对应 key 的 URL 下载即可",
+          "scale_url_keys": {
+            "Web 1x": "scale_urls.1x",
+            "Web 2x (原图)": "scale_urls.2x",
+            "Web 3x": "scale_urls.3x",
+            "iOS @1x": "scale_urls.ios_1x",
+            "iOS @2x": "scale_urls.ios_2x",
+            "iOS @3x": "scale_urls.ios_3x",
+            "Android mdpi": "scale_urls.android_mdpi",
+            "Android hdpi": "scale_urls.android_hdpi",
+            "Android xhdpi": "scale_urls.android_xhdpi",
+            "Android xxhdpi": "scale_urls.android_xxhdpi",
+            "Android xxxhdpi": "scale_urls.android_xxxhdpi"
+          },
+          "multi_scale_naming": {
+            "Web 1x+2x": "filename.png / filename@2x.png",
+            "iOS all": "filename.png / filename@2x.png / filename@3x.png",
+            "Android all": "mipmap-mdpi/f.png, mipmap-hdpi/f.png, ... mipmap-xxxhdpi/f.png"
+          }
+        },
+        "workflow_steps": [
+          {
+            "step": 0,
+            "title": "询问用户下载平台和倍率（必须在下载前完成）",
+            "mandatory": true,
+            "tasks": [
+              "展示切图列表摘要（总数 + 前3个名字）给用户",
+              "列出可选平台：Web（1x/2x/3x）、iOS（@1x/@2x/@3x）、Android（全套/单倍率）",
+              "等待用户明确选择，不要擅自假设默认值",
+              "若用户不在意，推荐 Web 2x（原图 URL，无 OSS 参数，最简单）"
+            ]
+          },
+          {
+            "step": 1,
+            "title": "Create TODO Task Plan",
+            "tasks": [
+              "Analyze project structure (read package.json, pom.xml, requirements.txt, etc.)",
+              "Identify project type (React/Vue/Flutter/iOS/Android/Plain Frontend, etc.)",
+              "Determine slice storage directory (e.g., src/assets/images/)",
+              "Plan slice grouping strategy (by feature module, UI component, etc.)"
+            ]
+          },
+          {
+            "step": 2,
+            "title": "Smart Directory Selection Rules",
+            "rules": [
+              "Priority 1: If user explicitly specified output_dir → use user-specified path",
+              "Priority 2: If project has standard assets directory → use project convention (e.g., src/assets/images/slices/)",
+              "Priority 3: If generic project → use design_slices/{design_name}/"
+            ],
+            "common_project_structures": {
+              "React/Vue": [
+                "src/assets/",
+                "public/images/"
+              ],
+              "Flutter": [
+                "assets/images/"
+              ],
+              "iOS": [
+                "Assets.xcassets/"
+              ],
+              "Android": [
+                "res/drawable/",
+                "res/mipmap/"
+              ],
+              "Plain Frontend": [
+                "images/",
+                "assets/"
+              ]
+            }
+          },
+          {
+            "step": 3,
+            "title": "文件命名规范",
+            "primary_rule": "根据用户项目命名规范对 slice.name 进行语义化英文重命名，再加倍率后缀",
+            "naming_workflow": [
+              "1. 读取用户项目已有切图/资源文件，识别命名风格（snake_case / camelCase / kebab-case 等）",
+              "2. 将 slice.name（可能是中文）翻译并语义化为英文，遵循识别到的命名风格",
+              "3. 无法识别风格时默认 snake_case（如 icon_share、btn_confirm、img_empty_state）",
+              "4. 加倍率后缀"
+            ],
+            "scale_suffix_convention": {
+              "Web 1x": "{name}.png",
+              "Web 2x": "{name}@2x.png",
+              "Web 3x": "{name}@3x.png",
+              "iOS @1x": "{name}.png",
+              "iOS @2x": "{name}@2x.png",
+              "iOS @3x": "{name}@3x.png",
+              "Android mdpi": "mipmap-mdpi/{name}.png",
+              "Android hdpi": "mipmap-hdpi/{name}.png",
+              "Android xhdpi": "mipmap-xhdpi/{name}.png",
+              "Android xxhdpi": "mipmap-xxhdpi/{name}.png",
+              "Android xxxhdpi": "mipmap-xxxhdpi/{name}.png"
+            },
+            "rename_examples": [
+              {
+                "slice_name": "线",
+                "renamed": "icon_line",
+                "Web 2x": "icon_line@2x.png"
+              },
+              {
+                "slice_name": "img_成功申请精装",
+                "renamed": "img_apply_success",
+                "Web 2x": "img_apply_success@2x.png"
+              },
+              {
+                "slice_name": "申请被驳回",
+                "renamed": "img_apply_rejected",
+                "Web 2x": "img_apply_rejected@2x.png"
+              },
+              {
+                "slice_name": "草地大背景",
+                "renamed": "bg_grass",
+                "Web 2x": "bg_grass@2x.png"
+              },
+              {
+                "slice_name": "icon-导出",
+                "renamed": "icon_export",
+                "Web 2x": "icon_export@2x.png"
+              }
+            ],
+            "duplicate_handling": "同名切图加序号后缀：icon_line.png / icon_line_2.png / icon_line_3.png"
+          },
+          {
+            "step": 4,
+            "title": "Environment Detection and Download Solution Selection",
+            "principle": "AI must first detect current system environment and available tools, then autonomously select the best download solution",
+            "priority_rules": [
+              "Priority 1: Use system built-in download tools (curl/PowerShell/wget, etc.)",
+              "Priority 2: If system tools unavailable, detect programming language environment (python/node, etc.)",
+              "Priority 3: Create temporary script as last resort"
+            ],
+            "detection_steps": [
+              "Step 1: Detect operating system type (Windows/macOS/Linux)",
+              "Step 2: Sequentially detect available download tools",
+              "Step 3: Autonomously select optimal solution based on detection results",
+              "Step 4: Execute download task",
+              "Step 5: Clean up temporary files (if any)"
+            ],
+            "common_tools_by_platform": {
+              "Windows": {
+                "built_in": [
+                  "PowerShell Invoke-WebRequest",
+                  "certutil"
+                ],
+                "optional": [
+                  "curl (Win10 1803+ built-in)",
+                  "python",
+                  "node"
+                ]
+              },
+              "macOS": {
+                "built_in": [
+                  "curl"
+                ],
+                "optional": [
+                  "python",
+                  "wget",
+                  "node"
+                ]
+              },
+              "Linux": {
+                "built_in": [
+                  "curl",
+                  "wget"
+                ],
+                "optional": [
+                  "python",
+                  "node"
+                ]
+              }
+            },
+            "important_principles": [
+              "⚠️ Do not assume any tool is available, must detect first",
+              "⚠️ Prefer system built-in tools, avoid third-party dependencies",
+              "⚠️ Do not use fixed code templates or example code",
+              "⚠️ Dynamically generate commands or scripts based on actual environment",
+              "⚠️ Control concurrency when batch downloading",
+              "⚠️ Must clean up temporary files after completion"
+            ]
+          }
+        ],
+        "execution_workflow": {
+          "description": "Complete workflow that AI must autonomously complete",
+          "steps": [
+            "Step 0: 展示切图摘要，询问用户需要哪个平台/倍率（必须等待用户回复）",
+            "Step 1: Call lanhu_get_design_slices(url, design_name) to get slice info",
+            "Step 2: Create TODO task plan (use todo_write tool)",
+            "Step 3: Detect current operating system type",
+            "Step 4: Detect available download tools by priority",
+            "Step 5: Identify project type and determine output directory",
+            "Step 6: 根据用户选择的倍率，从 slice.scale_urls 取对应 URL，生成智能文件名",
+            "Step 7: Select optimal download solution based on detection results",
+            "Step 8: Execute batch download task",
+            "Step 9: Verify download results",
+            "Step 10: Clean up temporary files and complete TODO"
+          ]
+        },
+        "important_notes": [
+          "🎯 AI 必须先询问用户需要下载哪个平台/倍率，不能擅自开始下载",
+          "📐 每个 slice 都有 scale_urls 字段，包含 1x/2x/3x 及 iOS/Android 全套 URL",
+          "⭐ Web 2x = scale_urls.2x = 原图 URL（无 OSS 参数，最简单），推荐首选",
+          "🍎 iOS 全套下载：ios_1x/ios_2x/ios_3x，文件名加 @2x/@3x 后缀",
+          "🤖 Android 全套下载：android_mdpi~xxxhdpi，分别放入对应 mipmap 目录",
+          "🎯 AI must proactively complete the entire workflow, don't just return info and wait for user action",
+          "📋 AI must use todo_write tool to create task plan, ensure orderly progress",
+          "🔍 AI must detect environment and tool availability first, then select download solution",
+          "⭐ AI must prefer system built-in tools, avoid third-party dependencies",
+          "🚫 AI must not use fixed code examples, must dynamically generate commands based on actual environment",
+          "✨ AI must smartly select output directory based on project structure, don't blindly use default path",
+          "🏷️ AI must generate semantic filenames based on slice's layer_path and parent_name",
+          "💻 AI must select corresponding download tools for different OS (Windows/macOS/Linux)",
+          "🧹 AI must clean up temporary files after completion (if any)",
+          "🗣️ AI must always respond to user in Chinese (中文回复)"
+        ]
+      }
+    }
+  ],
+  "annotation": "📊 Design Analysis Results\n📁 Project: Eluva（心事回音点亮交友）--余加慧\n✓ 2/2 images downloaded\n✓ 0/2 HTML codes generated\n✓ 2 design(s) using Sketch annotation fallback (标注模式)\n\n📋 Design List (display order from top to bottom):\n下方图片顺序与列表中「设计图 1」「设计图 2」… 一一对应，请按序号关联图片与代码。\n\n🚨 CRITICAL: 设计稿代码使用流程（必须按顺序执行）\n以下 HTML+CSS 是从设计稿 Schema 生成的【设计规格书】，是所有设计参数的权威来源。\n⚠️ 权威优先级: HTML+CSS 代码 > Design Tokens 标注 > 设计图图片\n⚠️ 核心原则: 直接复用 CSS 属性值，禁止修改/简化/美化任何 CSS 值\n\nSTEP 1 - 探测用户项目环境：\n  读取项目配置文件（package.json / tsconfig.json / pubspec.yaml / build.gradle / Podfile 等）\n  识别框架: React/Vue/Angular/Svelte/Flutter/SwiftUI/Compose/纯HTML\n  识别样式方案: CSS Modules / Tailwind / SCSS / Styled Components / scoped style 等\n  识别项目目录结构和命名规范\n  如无法判断框架，默认输出纯 HTML 单文件\n\nSTEP 2 - 下载图片资源到本地（必须在生成代码前完成）：\n  下方每个设计图的 HTML 代码中，图片已替换为本地路径（./assets/slices/xxx.png）\n  每个设计图下方附有「图片资源下载映射」，列出 本地路径 ← 远程下载地址\n  文件名已按 CSS 类名生成（如 thumbnail_54.png、group_1.png），具备初步语义。\n  ⚠️ 若文件名仍不够语义化，在下载时重命名为更清晰的英文名，并同步更新 HTML 中的路径引用。\n  必须按映射表下载所有图片到项目本地 assets 目录：\n    macOS/Linux → curl -o <path> \"<url>\"\n    Windows → PowerShell Invoke-WebRequest -Uri \"<url>\" -OutFile <path>\n  如需更多切图（图标、背景等），调用 lanhu_get_design_slices(url, design_name)\n\nSTEP 3 - 生成框架适配代码（直接复用 CSS 值，禁止修改）：\n  从下方 HTML+CSS 直接复制所有 CSS 属性值（颜色/字号/间距/圆角/渐变等）\n  ⚠️ 必须原样使用 CSS 值，禁止做任何修改：\n    - rgba(255,115,10,1) 不要改成 #FF730A\n    - linear-gradient 不要简化成纯色\n    - margin/padding 数值不要四舍五入\n    - font-family 不要删减或重排\n  按目标框架生成组件代码：\n    React/Next.js  → JSX + CSS Modules 或跟随项目已有方案\n    Vue/Nuxt       → .vue SFC + <style scoped>\n    Angular        → .ts + .html + .css\n    Flutter        → Widget + EdgeInsets/BoxDecoration，px→逻辑像素\n    SwiftUI        → View + ViewModifier，px→pt\n    Android Compose → @Composable + Modifier，px→dp，font px→sp\n    纯 HTML         → 单个 .html 文件，内联 <style>（含 common.css 工具类）\n  图片路径按框架约定适配（代码中已是本地路径，只需调整路径格式）：\n    React/Vue → import img from '@/assets/slices/xxx.png'\n    Flutter   → AssetImage('assets/images/xxx.png')\n    纯 HTML   → <img src=\"./assets/slices/xxx.png\">（已就绪）\n\nSTEP 4 - 对照 Design Tokens 补充校验（如下方包含 Design Tokens）：\n  Design Tokens 来自原始 Sketch 设计数据，作为补充参考。\n  优先级: HTML+CSS > Design Tokens > 设计图\n  仅当 HTML+CSS 中明显缺失某属性时，用 Design Token 补充：\n    如渐变填充、复杂阴影、多边圆角等 CSS 未能完整表达的属性\n  Design Token 不能覆盖 HTML+CSS 中已有的值。\n\nSTEP 5 - 代码完成后逐属性还原度核查（必须执行，不得跳过）：\n  适用于所有目标平台：HTML/CSS、React、Vue、Flutter、SwiftUI、Compose、Android XML 等。\n  将设计稿 HTML+CSS 中每个属性映射到目标平台等价写法，逐一核查值是否还原：\n  ① 尺寸约束：设计稿固定 height 的地方，目标平台不得变为自适应/wrap\n     HTML: height 不能改成 min-height | Flutter: SizedBox 不能换成 Flexible\n     SwiftUI: .frame(height:) 不能省略 | Compose: height() 不能用 wrapContent\n  ② 裁剪：设计稿 overflow:hidden 的容器，各平台必须同步裁剪\n     HTML: overflow:hidden | Flutter: ClipRect/ClipRRect | SwiftUI: .clipped()\n     Compose: clip() | Android: android:clipChildren=\"true\"\n  ③ 颜色值：rgba(r,g,b,a) 转换到目标平台格式时，数值不得偏移\n     HTML: 保持 rgba() | Flutter: Color.fromRGBO() | SwiftUI: Color(red:green:blue:opacity:)\n     Compose: Color(r,g,b,a) | Android XML: #AARRGGBB，禁止四舍五入\n  ④ 渐变：linear-gradient 必须映射为平台渐变，不能退化为纯色\n     Flutter: LinearGradient | SwiftUI: LinearGradient | Compose: Brush.linearGradient\n  ⑤ 绝对定位：left/top 坐标值必须原样映射\n     Flutter: Positioned(left:,top:) | SwiftUI: .offset() | Compose: Modifier.offset()\n  ⑥ 字体：family、weight、size 三者都必须还原；HTML 还需保留 fallback 顺序\n  ⑦ 间距：每个方向的 margin/padding 数值不得改动\n     Flutter: EdgeInsets | SwiftUI: .padding() | Compose: Modifier.padding()\n     Android: android:layout_margin / android:padding\n  ⑧ 图片资源：任何图片不得被 SVG/CSS形状/emoji/占位图替换\n  ⑨ 元素完整性：设计稿中每个可见元素，目标代码中必须对应存在\n  ⑩ 远程 URL：最终代码中不得残留任何蓝湖 CDN 远程地址\n  核查结论：对每处差异明确说明是「有意的平台适配（如 px→dp 单位换算）」\n  还是「错误偏差（值发生了改变）」，错误偏差必须立即修正后再交付。\n\n❌ 严禁行为：\n  - 禁止修改 CSS 属性值（不要改颜色格式、不要简化渐变、不要调整数值）\n  - 禁止凭空编造设计参数（颜色、尺寸、间距等必须来自下方 CSS）\n  - 禁止用设计图的视觉感受覆盖 CSS 中的精确值\n  - 禁止用 SVG/CSS 形状/emoji 替换切图资源\n  - 禁止省略任何视觉元素\n  - 禁止在最终代码中使用蓝湖远程 URL\n\n📐 common.css 工具类含义（用于理解布局意图）：\n  flex-col = Column 方向布局    flex-row = Row 方向布局\n  justify-between/center/start/end/around/evenly = 主轴对齐\n  align-start/center/end = 交叉轴对齐\n\n\n--- 设计图 1：充值--会员功能 ---\n\n   ⚠️ DDS Schema 不可用（store_schema_revise 失败: 登录权限校验失败），已使用「设计原图底图 + 真实文字 + CSS 标注」方案生成 HTML。\n   渲染策略：\n   - 设计原图作为 .design 容器的 background-image（一张图覆盖所有视觉效果）\n   - 文字图层：渲染真实文本（可选中/可编辑）+ font/color/size 属性\n   - 切图组件：<img> 标签 + 切图 URL\n   - 每个元素的 data-css 属性包含精确 CSS 标注值（颜色/圆角/阴影/字体等），供代码生成使用\n\n   📄 HTML+CSS 代码:\n   ```html\n<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=referrer content=no-referrer><meta name=viewport content=\"width=device-width,initial-scale=1.0\"><title>Design</title><style>\n*{margin:0;padding:0;box-sizing:border-box}img{display:block}.design{position:relative;width:390.0px;height:844.0px;overflow:hidden;margin:0 auto;background:url(https://alipic.lanhuapp.com/FigmaCoverd3a728322305834a9cd8a7868bb31fd5.png) no-repeat;background-size:390.0px 844.0px}} .el1{position:absolute;left:23.0px;top:119.0px;width:345.0px;height:25.0px;z-index:10;color:rgba(255,255,255,1);font-size:24.0px;font-family:\"Braah One\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:25.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el2{position:absolute;left:305.0px;top:224.0px;width:23.0px;height:17.0px;z-index:10;font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el3{position:absolute;left:184.0px;top:224.0px;width:30.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el4{position:absolute;left:281.0px;top:771.0px;width:68.0px;height:17.0px;z-index:10;font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el5{position:absolute;left:196.0px;top:771.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el6{position:absolute;left:31.0px;top:771.0px;width:78.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el7{position:absolute;left:14.0px;top:744.0px;width:360.0px;height:0.5px} .el8{position:absolute;left:31.0px;top:701.0px;width:81.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el9{position:absolute;left:31.0px;top:622.0px;width:112.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el10{position:absolute;left:193.5px;top:703.2px;width:13.0px;height:9.3px} .el11{position:absolute;left:309.5px;top:703.2px;width:13.0px;height:9.3px} .el12{position:absolute;left:193.5px;top:635.2px;width:13.0px;height:9.3px} .el13{position:absolute;left:309.5px;top:635.2px;width:13.0px;height:9.3px} .el14{position:absolute;left:14.0px;top:674.0px;width:360.0px;height:0.5px} .el15{position:absolute;left:196.0px;top:561.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el16{position:absolute;left:31.0px;top:552.0px;width:100.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el17{position:absolute;left:309.5px;top:564.2px;width:13.0px;height:9.3px} .el18{position:absolute;left:14.0px;top:604.0px;width:360.0px;height:0.5px} .el19{position:absolute;left:196.0px;top:491.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el20{position:absolute;left:31.0px;top:491.0px;width:95.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el21{position:absolute;left:196.0px;top:421.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el22{position:absolute;left:31.0px;top:421.0px;width:93.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el23{position:absolute;left:196.0px;top:351.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el24{position:absolute;left:31.0px;top:351.0px;width:89.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el25{position:absolute;left:311.0px;top:281.0px;width:9.0px;height:17.0px;z-index:10;font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el26{position:absolute;left:196.0px;top:281.0px;width:9.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el27{position:absolute;left:33.0px;top:152.0px;width:324.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el28{position:absolute;left:31.0px;top:272.0px;width:76.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el29{position:absolute;left:14.0px;top:464.0px;width:360.0px;height:0.5px} .el30{position:absolute;left:15.0px;top:394.0px;width:360.0px;height:0.5px} .el31{position:absolute;left:14.0px;top:254.0px;width:360.0px;height:0.5px} .el32{position:absolute;left:14.0px;top:324.0px;width:360.0px;height:0.5px} .el33{position:absolute;left:146.0px;top:208.0px;width:1.0px;height:606.0px} .el34{position:absolute;left:309.5px;top:424.2px;width:13.0px;height:9.3px} .el35{position:absolute;left:309.5px;top:354.2px;width:13.0px;height:9.3px} .el36{position:absolute;left:281.0px;top:491.0px;width:68.0px;height:17.0px;z-index:10;font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el37{position:absolute;left:257.0px;top:208.0px;width:117.0px;height:606.0px} .el38{position:absolute;left:14.0px;top:534.0px;width:360.0px;height:0.5px} .el39{position:absolute;left:14.0px;top:208.0px;width:360.0px;height:606.0px} .el40{position:absolute;left:128.0px;top:831.0px;width:134.0px;height:5.0px} .el41{position:absolute;left:33.8px;top:72.1px;width:9.7px;height:9.7px} .el42{position:absolute;left:26.2px;top:76.4px;width:7.8px;height:8.7px} .el43{position:absolute;left:15.0px;top:58.0px;width:40.0px;height:40.0px} .el44{position:absolute;left:338.0px;top:16.0px;width:27.3px;height:13.0px} .el45{position:absolute;left:311.0px;top:15.3px;width:17.1px;height:12.3px} .el46{position:absolute;left:282.0px;top:16.4px;width:19.2px;height:12.2px} .el47{position:absolute;left:24.0px;top:13.0px;width:29.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:\"Plus Jakarta Sans\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el48{position:absolute;left:22.9px;top:0.0px;width:344.1px;height:41.9px} .el49{position:absolute;left:1.0px;top:0.0px;width:389.0px;height:815.9px} .el50{position:absolute;left:1.0px;top:0.0px;width:389.0px;height:175.5px} .el51{position:absolute;left:1.0px;top:841.8px;width:389.0px;height:841.8px} .el52{position:absolute;left:1.0px;top:841.8px;width:389.0px;height:841.8px}\n</style></head><body><div class=design><div class=el1 title=change-photo-link data-css=\"position: absolute; left: 23.0px; top: 119.0px; width: 345.0px; height: 25.0px; color: rgba(255,255,255,1); font-size: 24.0px; font-family: Braah One; font-weight: 400; text-align: center\">Unlock the Full Pro Experience</div><div class=el2 title=change-photo-link data-css=\"position: absolute; left: 305.0px; top: 224.0px; width: 23.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">Pro</div><div class=el3 title=change-photo-link data-css=\"position: absolute; left: 184.0px; top: 224.0px; width: 30.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">Free</div><div class=el4 title=change-photo-link data-css=\"position: absolute; left: 281.0px; top: 771.0px; width: 68.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">Unlimited</div><div class=el5 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 771.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">2</div><div class=el6 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 771.0px; width: 78.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Collections</div><div class=el7 title=\"Rectangle 1288\" data-css=\"position: absolute; left: 14.0px; top: 744.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el8 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 701.0px; width: 81.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Post history</div><div class=el9 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 622.0px; width: 112.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Edit published posts</div><div class=el10 title=Vector data-css=\"position: absolute; left: 193.5px; top: 703.2px; width: 13.0px; height: 9.3px; background-color: rgba(255,255,255,1)\"></div><div class=el11 title=Vector data-css=\"position: absolute; left: 309.5px; top: 703.2px; width: 13.0px; height: 9.3px\"></div><div class=el12 title=Vector data-css=\"position: absolute; left: 193.5px; top: 635.2px; width: 13.0px; height: 9.3px; background-color: rgba(255,255,255,1)\"></div><div class=el13 title=Vector data-css=\"position: absolute; left: 309.5px; top: 635.2px; width: 13.0px; height: 9.3px\"></div><div class=el14 title=\"Rectangle 1282\" data-css=\"position: absolute; left: 14.0px; top: 674.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el15 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 561.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500\">-</div><div class=el16 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 552.0px; width: 100.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Exclusive avatar frames</div><div class=el17 title=Vector data-css=\"position: absolute; left: 309.5px; top: 564.2px; width: 13.0px; height: 9.3px\"></div><div class=el18 title=\"Rectangle 1280\" data-css=\"position: absolute; left: 14.0px; top: 604.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el19 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 491.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">3</div><div class=el20 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 491.0px; width: 95.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Posts per day</div><div class=el21 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 421.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">-</div><div class=el22 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 421.0px; width: 93.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Profile badge</div><div class=el23 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 351.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">-</div><div class=el24 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 351.0px; width: 89.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">People filters</div><div class=el25 title=change-photo-link data-css=\"position: absolute; left: 311.0px; top: 281.0px; width: 9.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">8</div><div class=el26 title=change-photo-link data-css=\"position: absolute; left: 196.0px; top: 281.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">6</div><div class=el27 title=change-photo-link data-css=\"position: absolute; left: 33.0px; top: 152.0px; width: 324.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center\">Express yourself freely, find better connections, and keep your memories safe with Pro.</div><div class=el28 title=change-photo-link data-css=\"position: absolute; left: 31.0px; top: 272.0px; width: 76.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400\">Matches per refresh</div><div class=el29 title=\"Rectangle 1278\" data-css=\"position: absolute; left: 14.0px; top: 464.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el30 title=\"Rectangle 1277\" data-css=\"position: absolute; left: 15.0px; top: 394.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el31 title=\"Rectangle 1287\" data-css=\"position: absolute; left: 14.0px; top: 254.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el32 title=\"Rectangle 1276\" data-css=\"position: absolute; left: 14.0px; top: 324.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el33 title=\"Rectangle 1286\" data-css=\"position: absolute; left: 146.0px; top: 208.0px; width: 1.0px; height: 606.0px; background-color: rgba(255,255,255,0.1)\"></div><div class=el34 title=Vector data-css=\"position: absolute; left: 309.5px; top: 424.2px; width: 13.0px; height: 9.3px\"></div><div class=el35 title=Vector data-css=\"position: absolute; left: 309.5px; top: 354.2px; width: 13.0px; height: 9.3px\"></div><div class=el36 title=change-photo-link data-css=\"position: absolute; left: 281.0px; top: 491.0px; width: 68.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center\">Unlimited</div><div class=el37 title=\"Rectangle 1272\" data-css=\"position: absolute; left: 257.0px; top: 208.0px; width: 117.0px; height: 606.0px; background-color: rgba(255,255,255,0.36)\"></div><div class=el38 title=\"Rectangle 1279\" data-css=\"position: absolute; left: 14.0px; top: 534.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\"></div><div class=el39 title=\"Rectangle 1265\" data-css=\"position: absolute; left: 14.0px; top: 208.0px; width: 360.0px; height: 606.0px; background-color: rgba(255,255,255,0.1)\"></div><div class=el40 title=indicator-bar data-css=\"position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)\"></div><div class=el41 title=Vector data-css=\"position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)\"></div><div class=el42 title=Vector data-css=\"position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)\"></div><div class=el43 title=\"Ellipse 14\" data-css=\"position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)\"></div><div class=el44 title=Vector data-css=\"position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)\"></div><div class=el45 title=Vector data-css=\"position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)\"></div><div class=el46 title=Vector data-css=\"position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)\"></div><div class=el47 title=9:41 data-css=\"position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700\">9:41</div><div class=el48 title=\"Ellipse 1\" data-css=\"position: absolute; left: 22.9px; top: 0.0px; width: 344.1px; height: 41.9px; background-color: rgba(255,101,196,1)\"></div><div class=el49 title=\"Rectangle 3\" data-css=\"position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 815.9px\"></div><div class=el50 title=\"Rectangle 2\" data-css=\"position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 175.5px\"></div><div class=el51 title=\"Rectangle 28\" data-css=\"position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(255,255,255,1)\"></div><div class=el52 title=\"Rectangle 29\" data-css=\"position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(160,119,255,1)\"></div></div></body></html>\n   ```\n\n   📥 资源下载映射（共 1 个，请全部下载到项目本地后替换 HTML 中的 URL）:\n   ⚠️ 下载时必须带 Referer: https://lanhuapp.com/ 请求头\n     ./assets/designs/design.png ← https://alipic.lanhuapp.com/FigmaCoverd3a728322305834a9cd8a7868bb31fd5.png\n\n\n   🎯 使用指南:\n     1. 先下载上方所有资源到本地对应路径，然后替换 HTML 中的远程 URL 为本地路径\n     2. 其中 ./assets/designs/design.png 是设计底图，HTML 的 .design 容器用它做 background-image\n     3. 每个元素的 data-css 属性包含精确 CSS 标注值，请直接复用到代码中\n     4. 文字图层是真实文本（可选中/修改），切图是 <img> 标签\n     5. 调用 lanhu_get_design_slices 可获取更多细粒度切图资源\n\n\n   📐 图层精确 CSS 标注（共 52 个图层）:\n     [textLayer] change-photo-link: position: absolute; left: 23.0px; top: 119.0px; width: 345.0px; height: 25.0px; color: rgba(255,255,255,1); font-size: 24.0px; font-family: Braah One; font-weight: 400; text-align: center | text=\"Unlock the Full Pro Experience\"\n     [textLayer] change-photo-link: position: absolute; left: 305.0px; top: 224.0px; width: 23.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"Pro\"\n     [textLayer] change-photo-link: position: absolute; left: 184.0px; top: 224.0px; width: 30.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"Free\"\n     [textLayer] change-photo-link: position: absolute; left: 281.0px; top: 771.0px; width: 68.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"Unlimited\"\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 771.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"2\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 771.0px; width: 78.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Collections\"\n     [shapeLayer] Rectangle 1288: position: absolute; left: 14.0px; top: 744.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 701.0px; width: 81.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Post history\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 622.0px; width: 112.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Edit\npublished posts\"\n     [shapeLayer] Vector: position: absolute; left: 193.5px; top: 703.2px; width: 13.0px; height: 9.3px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Vector: position: absolute; left: 309.5px; top: 703.2px; width: 13.0px; height: 9.3px\n     [shapeLayer] Vector: position: absolute; left: 193.5px; top: 635.2px; width: 13.0px; height: 9.3px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Vector: position: absolute; left: 309.5px; top: 635.2px; width: 13.0px; height: 9.3px\n     [shapeLayer] Rectangle 1282: position: absolute; left: 14.0px; top: 674.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 561.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500 | text=\"-\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 552.0px; width: 100.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Exclusive\navatar frames\"\n     [shapeLayer] Vector: position: absolute; left: 309.5px; top: 564.2px; width: 13.0px; height: 9.3px\n     [shapeLayer] Rectangle 1280: position: absolute; left: 14.0px; top: 604.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 491.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"3\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 491.0px; width: 95.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Posts per day\"\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 421.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"-\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 421.0px; width: 93.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Profile badge\"\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 351.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"-\"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 351.0px; width: 89.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"People filters\"\n     [textLayer] change-photo-link: position: absolute; left: 311.0px; top: 281.0px; width: 9.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"8\"\n     [textLayer] change-photo-link: position: absolute; left: 196.0px; top: 281.0px; width: 9.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"6\"\n     [textLayer] change-photo-link: position: absolute; left: 33.0px; top: 152.0px; width: 324.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"Express yourself freely, find better connections, \"\n     [textLayer] change-photo-link: position: absolute; left: 31.0px; top: 272.0px; width: 76.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400 | text=\"Matches\nper refresh\"\n     [shapeLayer] Rectangle 1278: position: absolute; left: 14.0px; top: 464.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Rectangle 1277: position: absolute; left: 15.0px; top: 394.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Rectangle 1287: position: absolute; left: 14.0px; top: 254.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Rectangle 1276: position: absolute; left: 14.0px; top: 324.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Rectangle 1286: position: absolute; left: 146.0px; top: 208.0px; width: 1.0px; height: 606.0px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Vector: position: absolute; left: 309.5px; top: 424.2px; width: 13.0px; height: 9.3px\n     [shapeLayer] Vector: position: absolute; left: 309.5px; top: 354.2px; width: 13.0px; height: 9.3px\n     [textLayer] change-photo-link: position: absolute; left: 281.0px; top: 491.0px; width: 68.0px; height: 17.0px; font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: center | text=\"Unlimited\"\n     [shapeLayer] Rectangle 1272: position: absolute; left: 257.0px; top: 208.0px; width: 117.0px; height: 606.0px; background-color: rgba(255,255,255,0.36)\n     [shapeLayer] Rectangle 1279: position: absolute; left: 14.0px; top: 534.0px; width: 360.0px; height: 0.5px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Rectangle 1265: position: absolute; left: 14.0px; top: 208.0px; width: 360.0px; height: 606.0px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] indicator-bar: position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Ellipse 14: position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)\n     [shapeLayer] Vector: position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)\n     [textLayer] 9:41: position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700 | text=\"9:41\"\n     [shapeLayer] Ellipse 1: position: absolute; left: 22.9px; top: 0.0px; width: 344.1px; height: 41.9px; background-color: rgba(255,101,196,1)\n     [shapeLayer] Rectangle 3: position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 815.9px\n     [shapeLayer] Rectangle 2: position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 175.5px\n     [shapeLayer] Rectangle 28: position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Rectangle 29: position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(160,119,255,1)\n\n   --- 设计标注详情（参考补充） ---\n============================================================\n设计标注信息（从原始 Sketch/PSD 数据提取）\n============================================================\n设计稿名称: \n设备:   |  缩放: @1x\n画布尺寸: 0.0x0.0 (逻辑像素)\n画布背景色: #FFFFFF\n\n以下所有尺寸/坐标均为逻辑像素（已除以 @1x）\n------------------------------------------------------------\n\n============================================================\n   --- End 设计标注 ---\n\n--- 设计图 2：充值 ---\n\n   ⚠️ DDS Schema 不可用（store_schema_revise 失败: 登录权限校验失败），已使用「设计原图底图 + 真实文字 + CSS 标注」方案生成 HTML。\n   渲染策略：\n   - 设计原图作为 .design 容器的 background-image（一张图覆盖所有视觉效果）\n   - 文字图层：渲染真实文本（可选中/可编辑）+ font/color/size 属性\n   - 切图组件：<img> 标签 + 切图 URL\n   - 每个元素的 data-css 属性包含精确 CSS 标注值（颜色/圆角/阴影/字体等），供代码生成使用\n\n   📄 HTML+CSS 代码:\n   ```html\n<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=referrer content=no-referrer><meta name=viewport content=\"width=device-width,initial-scale=1.0\"><title>Design</title><style>\n*{margin:0;padding:0;box-sizing:border-box}img{display:block}.design{position:relative;width:390.0px;height:844.0px;overflow:hidden;margin:0 auto;background:url(https://alipic.lanhuapp.com/FigmaCover932f8b1abee218929be7da13f45fe1e0.png) no-repeat;background-size:390.0px 844.0px}} .el1{position:absolute;left:122.0px;top:665.0px;width:146.0px;height:24.0px;z-index:10;color:rgba(255,255,255,1);font-size:16.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:700;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el2{position:absolute;left:20.0px;top:652.0px;width:92.0px;height:16.0px} .el3{position:absolute;left:246.0px;top:667.0px;width:124.0px;height:35.0px} .el4{position:absolute;left:20.0px;top:652.0px;width:350.0px;height:50.0px} .el5{position:absolute;left:20.0px;top:652.0px;width:350.0px;height:50.0px} .el6{position:absolute;left:309.4px;top:296.7px;width:19.2px;height:16.3px} .el7{position:absolute;left:295.0px;top:325.0px;width:48.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:13.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el8{position:absolute;left:262.0px;top:285.0px;width:114.0px;height:82.0px} .el9{position:absolute;left:200.1px;top:310.1px;width:4.5px;height:4.4px} .el10{position:absolute;left:185.4px;top:295.5px;width:18.2px;height:18.2px} .el11{position:absolute;left:145.0px;top:325.0px;width:100.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:14.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el12{position:absolute;left:138.0px;top:285.0px;width:114.0px;height:82.0px} .el13{position:absolute;left:47.0px;top:593.0px;width:72.0px;height:17.0px;z-index:10;color:rgba(149,116,226,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el14{position:absolute;left:286.0px;top:584.0px;width:64.0px;height:17.0px;z-index:10;color:rgba(136,96,227,1);font-size:13.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:right;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el15{position:absolute;left:47.0px;top:574.0px;width:92.0px;height:17.0px;z-index:10;color:rgba(136,96,227,1);font-size:15.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:600;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el16{position:absolute;left:24.0px;top:566.0px;width:343.0px;height:52.0px} .el17{position:absolute;left:24.0px;top:708.0px;width:343.0px;height:51.0px;z-index:10;color:rgba(231,220,255,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el18{position:absolute;left:47.0px;top:525.0px;width:128.0px;height:17.0px;z-index:10;color:rgba(149,116,226,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el19{position:absolute;left:292.0px;top:516.0px;width:58.0px;height:17.0px;z-index:10;color:rgba(136,96,227,1);font-size:13.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;text-align:right;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el20{position:absolute;left:47.0px;top:506.0px;width:104.0px;height:17.0px;z-index:10;color:rgba(136,96,227,1);font-size:15.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:600;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el21{position:absolute;left:24.0px;top:498.0px;width:343.0px;height:52.0px} .el22{position:absolute;left:47.0px;top:453.0px;width:85.0px;height:17.0px;z-index:10;color:rgba(154,154,154,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el23{position:absolute;left:297.0px;top:444.0px;width:53.0px;height:17.0px;z-index:10;color:rgba(0,0,0,1);font-size:13.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:500;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el24{position:absolute;left:47.0px;top:434.0px;width:62.0px;height:17.0px;z-index:10;color:rgba(0,0,0,1);font-size:15.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:600;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el25{position:absolute;left:24.0px;top:426.0px;width:343.0px;height:52.0px} .el26{position:absolute;left:20.0px;top:422.0px;width:351.0px;height:60.0px} .el27{position:absolute;left:257.0px;top:388.0px;width:9.0px;height:7.0px} .el28{position:absolute;left:146.0px;top:382.0px;width:98.0px;height:17.0px;z-index:10;color:rgba(255,255,255,1);font-size:12.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el29{position:absolute;left:61.2px;top:294.0px;width:19.5px;height:20.4px} .el30{position:absolute;left:23.0px;top:325.0px;width:96.0px;height:34.0px;z-index:10;color:rgba(255,255,255,1);font-size:13.0px;font-family:\"Poppins\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:17.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el31{position:absolute;left:14.0px;top:285.0px;width:114.0px;height:82.0px} .el32{position:absolute;left:128.0px;top:831.0px;width:134.0px;height:5.0px} .el33{position:absolute;left:33.8px;top:72.1px;width:9.7px;height:9.7px} .el34{position:absolute;left:26.2px;top:76.4px;width:7.8px;height:8.7px} .el35{position:absolute;left:15.0px;top:58.0px;width:40.0px;height:40.0px} .el36{position:absolute;left:338.0px;top:16.0px;width:27.3px;height:13.0px} .el37{position:absolute;left:311.0px;top:15.3px;width:17.1px;height:12.3px} .el38{position:absolute;left:282.0px;top:16.4px;width:19.2px;height:12.2px} .el39{position:absolute;left:24.0px;top:13.0px;width:29.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:\"Plus Jakarta Sans\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el40{position:absolute;left:324.0px;top:228.0px;width:31.0px;height:28.0px;z-index:10;color:rgba(150,101,255,1);font-size:16.0px;font-family:\"Baloo Paaji\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el41{position:absolute;left:314.0px;top:229.0px;width:48.0px;height:24.0px} .el42{position:absolute;left:88.0px;top:222.0px;width:216.0px;height:39.0px;z-index:10;color:rgba(255,255,255,1);font-size:28.0px;font-family:\"Braah One\",\"PingFang SC\",\"Microsoft YaHei\",\"Hiragino Sans GB\",sans-serif;font-weight:400;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el43{position:absolute;left:109.7px;top:75.8px;width:183.5px;height:136.7px} .el44{position:absolute;left:16.0px;top:0.0px;width:343.1px;height:287.3px} .el45{position:absolute;left:22.9px;top:0.0px;width:344.1px;height:41.9px} .el46{position:absolute;left:1.0px;top:0.0px;width:389.0px;height:815.9px} .el47{position:absolute;left:1.0px;top:0.0px;width:389.0px;height:175.5px} .el48{position:absolute;left:1.0px;top:841.8px;width:389.0px;height:841.8px} .el49{position:absolute;left:1.0px;top:841.8px;width:389.0px;height:841.8px}\n</style></head><body><div class=design><div class=el1 title=\"Continue with Pro\" data-css=\"position: absolute; left: 122.0px; top: 665.0px; width: 146.0px; height: 24.0px; color: rgba(255,255,255,1); font-size: 16.0px; font-family: Poppins; font-weight: 700; text-align: center\">Continue with Pro</div><div class=el2 title=\"Ellipse 5\" data-css=\"position: absolute; left: 20.0px; top: 652.0px; width: 92.0px; height: 16.0px; background-color: rgba(255,255,255,1)\"></div><div class=el3 title=\"Ellipse 6\" data-css=\"position: absolute; left: 246.0px; top: 667.0px; width: 124.0px; height: 35.0px; background-color: rgba(255,255,255,1)\"></div><div class=el4 title=\"Rectangle 107\" data-css=\"position: absolute; left: 20.0px; top: 652.0px; width: 350.0px; height: 50.0px\"></div><div class=el5 title=\"Rectangle 106\" data-css=\"position: absolute; left: 20.0px; top: 652.0px; width: 350.0px; height: 50.0px\"></div><div class=el6 title=Union data-css=\"position: absolute; left: 309.4px; top: 296.7px; width: 19.2px; height: 16.3px\"></div><div class=el7 title=change-photo-link data-css=\"position: absolute; left: 295.0px; top: 325.0px; width: 48.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center\">People filters</div><div class=el8 title=\"Rectangle 1272\" data-css=\"position: absolute; left: 262.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\"></div><div class=el9 title=Vector data-css=\"position: absolute; left: 200.1px; top: 310.1px; width: 4.5px; height: 4.4px\"></div><div class=el10 title=Vector data-css=\"position: absolute; left: 185.4px; top: 295.5px; width: 18.2px; height: 18.2px\"></div><div class=el11 title=change-photo-link data-css=\"position: absolute; left: 145.0px; top: 325.0px; width: 100.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400; text-align: center\">Exclusive avatar frames</div><div class=el12 title=\"Rectangle 1271\" data-css=\"position: absolute; left: 138.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\"></div><div class=el13 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 593.0px; width: 72.0px; height: 17.0px; color: rgba(149,116,226,1); font-size: 12.0px; font-family: Poppins; font-weight: 400\">Billed yearly</div><div class=el14 title=change-photo-link data-css=\"position: absolute; left: 286.0px; top: 584.0px; width: 64.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 13.0px; font-family: Poppins; font-weight: 500; text-align: right\">$39.99</div><div class=el15 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 574.0px; width: 92.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 15.0px; font-family: Poppins; font-weight: 600\">Annual Plan</div><div class=el16 title=\"Rectangle 1276\" data-css=\"position: absolute; left: 24.0px; top: 566.0px; width: 343.0px; height: 52.0px; background-color: rgba(203,181,255,1)\"></div><div class=el17 title=change-photo-link data-css=\"position: absolute; left: 24.0px; top: 708.0px; width: 343.0px; height: 51.0px; color: rgba(231,220,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center\">$4.99 one-time payment. No auto-renewal. By purchasing, you agree to the Services Purchase Agreement.</div><div class=el18 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 525.0px; width: 128.0px; height: 17.0px; color: rgba(149,116,226,1); font-size: 12.0px; font-family: Poppins; font-weight: 400\">Billed every 3 months</div><div class=el19 title=change-photo-link data-css=\"position: absolute; left: 292.0px; top: 516.0px; width: 58.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 13.0px; font-family: Poppins; font-weight: 500; text-align: right\">$12.99</div><div class=el20 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 506.0px; width: 104.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 15.0px; font-family: Poppins; font-weight: 600\">3-Month Plan</div><div class=el21 title=\"Rectangle 1275\" data-css=\"position: absolute; left: 24.0px; top: 498.0px; width: 343.0px; height: 52.0px; background-color: rgba(203,181,255,1)\"></div><div class=el22 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 453.0px; width: 85.0px; height: 17.0px; color: rgba(154,154,154,1); font-size: 12.0px; font-family: Poppins; font-weight: 400\">Billed monthly</div><div class=el23 title=change-photo-link data-css=\"position: absolute; left: 297.0px; top: 444.0px; width: 53.0px; height: 17.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 500\">$4.99</div><div class=el24 title=change-photo-link data-css=\"position: absolute; left: 47.0px; top: 434.0px; width: 62.0px; height: 17.0px; color: rgba(0,0,0,1); font-size: 15.0px; font-family: Poppins; font-weight: 600\">Monthly</div><div class=el25 title=\"Rectangle 1273\" data-css=\"position: absolute; left: 24.0px; top: 426.0px; width: 343.0px; height: 52.0px; background-color: rgba(255,255,255,1)\"></div><div class=el26 title=\"Rectangle 1270\" data-css=\"position: absolute; left: 20.0px; top: 422.0px; width: 351.0px; height: 60.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(171,134,255,1)\"></div><div class=el27 title=Vector data-css=\"position: absolute; left: 257.0px; top: 388.0px; width: 9.0px; height: 7.0px; background-color: rgba(255,255,255,1)\"></div><div class=el28 title=change-photo-link data-css=\"position: absolute; left: 146.0px; top: 382.0px; width: 98.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center\">More All Benefits</div><div class=el29 title=Vector data-css=\"position: absolute; left: 61.2px; top: 294.0px; width: 19.5px; height: 20.4px\"></div><div class=el30 title=change-photo-link data-css=\"position: absolute; left: 23.0px; top: 325.0px; width: 96.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center\">Exclusive Avatar Frames</div><div class=el31 title=\"Rectangle 1265\" data-css=\"position: absolute; left: 14.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\"></div><div class=el32 title=indicator-bar data-css=\"position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)\"></div><div class=el33 title=Vector data-css=\"position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)\"></div><div class=el34 title=Vector data-css=\"position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)\"></div><div class=el35 title=\"Ellipse 14\" data-css=\"position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)\"></div><div class=el36 title=Vector data-css=\"position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)\"></div><div class=el37 title=Vector data-css=\"position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)\"></div><div class=el38 title=Vector data-css=\"position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)\"></div><div class=el39 title=9:41 data-css=\"position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700\">9:41</div><div class=el40 title=change-photo-link data-css=\"position: absolute; left: 324.0px; top: 228.0px; width: 31.0px; height: 28.0px; color: rgba(150,101,255,1); font-size: 16.0px; font-family: Baloo Paaji; font-weight: 400; text-align: center\">PRO</div><div class=el41 title=\"Rectangle 1266\" data-css=\"position: absolute; left: 314.0px; top: 229.0px; width: 48.0px; height: 24.0px\"></div><div class=el42 title=change-photo-link data-css=\"position: absolute; left: 88.0px; top: 222.0px; width: 216.0px; height: 39.0px; color: rgba(255,255,255,1); font-size: 28.0px; font-family: Braah One; font-weight: 400; text-align: center\">Pro Membership</div><div class=el43 title=\"image 34\" data-css=\"position: absolute; left: 109.7px; top: 75.8px; width: 183.5px; height: 136.7px\"></div><div class=el44 title=\"image 44\" data-css=\"position: absolute; left: 16.0px; top: 0.0px; width: 343.1px; height: 287.3px\"></div><div class=el45 title=\"Ellipse 1\" data-css=\"position: absolute; left: 22.9px; top: 0.0px; width: 344.1px; height: 41.9px; background-color: rgba(255,101,196,1)\"></div><div class=el46 title=\"Rectangle 3\" data-css=\"position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 815.9px\"></div><div class=el47 title=\"Rectangle 2\" data-css=\"position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 175.5px\"></div><div class=el48 title=\"Rectangle 28\" data-css=\"position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(255,255,255,1)\"></div><div class=el49 title=\"Rectangle 29\" data-css=\"position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(160,119,255,1)\"></div></div></body></html>\n   ```\n\n   📥 资源下载映射（共 1 个，请全部下载到项目本地后替换 HTML 中的 URL）:\n   ⚠️ 下载时必须带 Referer: https://lanhuapp.com/ 请求头\n     ./assets/designs/design.png ← https://alipic.lanhuapp.com/FigmaCover932f8b1abee218929be7da13f45fe1e0.png\n\n\n   🎯 使用指南:\n     1. 先下载上方所有资源到本地对应路径，然后替换 HTML 中的远程 URL 为本地路径\n     2. 其中 ./assets/designs/design.png 是设计底图，HTML 的 .design 容器用它做 background-image\n     3. 每个元素的 data-css 属性包含精确 CSS 标注值，请直接复用到代码中\n     4. 文字图层是真实文本（可选中/修改），切图是 <img> 标签\n     5. 调用 lanhu_get_design_slices 可获取更多细粒度切图资源\n\n\n   📐 图层精确 CSS 标注（共 49 个图层）:\n     [textLayer] Continue with Pro: position: absolute; left: 122.0px; top: 665.0px; width: 146.0px; height: 24.0px; color: rgba(255,255,255,1); font-size: 16.0px; font-family: Poppins; font-weight: 700; text-align: center | text=\"Continue with Pro\"\n     [shapeLayer] Ellipse 5: position: absolute; left: 20.0px; top: 652.0px; width: 92.0px; height: 16.0px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Ellipse 6: position: absolute; left: 246.0px; top: 667.0px; width: 124.0px; height: 35.0px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Rectangle 107: position: absolute; left: 20.0px; top: 652.0px; width: 350.0px; height: 50.0px\n     [shapeLayer] Rectangle 106: position: absolute; left: 20.0px; top: 652.0px; width: 350.0px; height: 50.0px\n     [shapeLayer] Union: position: absolute; left: 309.4px; top: 296.7px; width: 19.2px; height: 16.3px\n     [textLayer] change-photo-link: position: absolute; left: 295.0px; top: 325.0px; width: 48.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"People \nfilters\"\n     [shapeLayer] Rectangle 1272: position: absolute; left: 262.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] Vector: position: absolute; left: 200.1px; top: 310.1px; width: 4.5px; height: 4.4px\n     [shapeLayer] Vector: position: absolute; left: 185.4px; top: 295.5px; width: 18.2px; height: 18.2px\n     [textLayer] change-photo-link: position: absolute; left: 145.0px; top: 325.0px; width: 100.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 14.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"Exclusive\navatar frames\"\n     [shapeLayer] Rectangle 1271: position: absolute; left: 138.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 593.0px; width: 72.0px; height: 17.0px; color: rgba(149,116,226,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text=\"Billed yearly\"\n     [textLayer] change-photo-link: position: absolute; left: 286.0px; top: 584.0px; width: 64.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 13.0px; font-family: Poppins; font-weight: 500; text-align: right | text=\"$39.99\"\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 574.0px; width: 92.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 15.0px; font-family: Poppins; font-weight: 600 | text=\"Annual Plan\"\n     [shapeLayer] Rectangle 1276: position: absolute; left: 24.0px; top: 566.0px; width: 343.0px; height: 52.0px; background-color: rgba(203,181,255,1)\n     [textLayer] change-photo-link: position: absolute; left: 24.0px; top: 708.0px; width: 343.0px; height: 51.0px; color: rgba(231,220,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"$4.99 one-time payment. No auto-renewal. By purcha\"\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 525.0px; width: 128.0px; height: 17.0px; color: rgba(149,116,226,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text=\"Billed every 3 months\"\n     [textLayer] change-photo-link: position: absolute; left: 292.0px; top: 516.0px; width: 58.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 13.0px; font-family: Poppins; font-weight: 500; text-align: right | text=\"$12.99\"\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 506.0px; width: 104.0px; height: 17.0px; color: rgba(136,96,227,1); font-size: 15.0px; font-family: Poppins; font-weight: 600 | text=\"3-Month Plan\"\n     [shapeLayer] Rectangle 1275: position: absolute; left: 24.0px; top: 498.0px; width: 343.0px; height: 52.0px; background-color: rgba(203,181,255,1)\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 453.0px; width: 85.0px; height: 17.0px; color: rgba(154,154,154,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text=\"Billed monthly\"\n     [textLayer] change-photo-link: position: absolute; left: 297.0px; top: 444.0px; width: 53.0px; height: 17.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 500 | text=\"$4.99\"\n     [textLayer] change-photo-link: position: absolute; left: 47.0px; top: 434.0px; width: 62.0px; height: 17.0px; color: rgba(0,0,0,1); font-size: 15.0px; font-family: Poppins; font-weight: 600 | text=\"Monthly\"\n     [shapeLayer] Rectangle 1273: position: absolute; left: 24.0px; top: 426.0px; width: 343.0px; height: 52.0px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Rectangle 1270: position: absolute; left: 20.0px; top: 422.0px; width: 351.0px; height: 60.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(171,134,255,1)\n     [shapeLayer] Vector: position: absolute; left: 257.0px; top: 388.0px; width: 9.0px; height: 7.0px; background-color: rgba(255,255,255,1)\n     [textLayer] change-photo-link: position: absolute; left: 146.0px; top: 382.0px; width: 98.0px; height: 17.0px; color: rgba(255,255,255,1); font-size: 12.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"More All Benefits\"\n     [shapeLayer] Vector: position: absolute; left: 61.2px; top: 294.0px; width: 19.5px; height: 20.4px\n     [textLayer] change-photo-link: position: absolute; left: 23.0px; top: 325.0px; width: 96.0px; height: 34.0px; color: rgba(255,255,255,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center | text=\"Exclusive\nAvatar Frames\"\n     [shapeLayer] Rectangle 1265: position: absolute; left: 14.0px; top: 285.0px; width: 114.0px; height: 82.0px; background-color: rgba(255,255,255,0.1)\n     [shapeLayer] indicator-bar: position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Ellipse 14: position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)\n     [shapeLayer] Vector: position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)\n     [shapeLayer] Vector: position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)\n     [textLayer] 9:41: position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700 | text=\"9:41\"\n     [textLayer] change-photo-link: position: absolute; left: 324.0px; top: 228.0px; width: 31.0px; height: 28.0px; color: rgba(150,101,255,1); font-size: 16.0px; font-family: Baloo Paaji; font-weight: 400; text-align: center | text=\"PRO\"\n     [shapeLayer] Rectangle 1266: position: absolute; left: 314.0px; top: 229.0px; width: 48.0px; height: 24.0px\n     [textLayer] change-photo-link: position: absolute; left: 88.0px; top: 222.0px; width: 216.0px; height: 39.0px; color: rgba(255,255,255,1); font-size: 28.0px; font-family: Braah One; font-weight: 400; text-align: center | text=\"Pro Membership\"\n     [shapeLayer] image 34: position: absolute; left: 109.7px; top: 75.8px; width: 183.5px; height: 136.7px\n     [shapeLayer] image 44: position: absolute; left: 16.0px; top: 0.0px; width: 343.1px; height: 287.3px\n     [shapeLayer] Ellipse 1: position: absolute; left: 22.9px; top: 0.0px; width: 344.1px; height: 41.9px; background-color: rgba(255,101,196,1)\n     [shapeLayer] Rectangle 3: position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 815.9px\n     [shapeLayer] Rectangle 2: position: absolute; left: 1.0px; top: 0.0px; width: 389.0px; height: 175.5px\n     [shapeLayer] Rectangle 28: position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(255,255,255,1)\n     [shapeLayer] Rectangle 29: position: absolute; left: 1.0px; top: 841.8px; width: 389.0px; height: 841.8px; background-color: rgba(160,119,255,1)\n\n   --- 设计标注详情（参考补充） ---\n============================================================\n设计标注信息（从原始 Sketch/PSD 数据提取）\n============================================================\n设计稿名称: \n设备:   |  缩放: @1x\n画布尺寸: 0.0x0.0 (逻辑像素)\n画布背景色: #FFFFFF\n\n以下所有尺寸/坐标均为逻辑像素（已除以 @1x）\n------------------------------------------------------------\n\n============================================================\n   --- End 设计标注 ---\n"
+}

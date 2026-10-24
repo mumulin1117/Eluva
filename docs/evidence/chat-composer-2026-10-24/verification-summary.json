@@ -1,0 +1,229 @@
+{
+  "date": "2026-10-24",
+  "webTests": 229,
+  "webFailures": 0,
+  "iOSTests": 23,
+  "iOSFailures": 0,
+  "passedIOSTests": [
+    "ChatComposerTests testEnglishInlineExpressionsPhotosAndVoice",
+    "ChatComposerTests testFrenchInlineExpressionsPhotosAndVoice",
+    "ChatMediaPermissionTests testChatMicrophoneDenialAndAuthorizationNeverStartRecording",
+    "ChatMediaPermissionTests testChatMicrophoneGrantRevalidatesDraftAfterPermissionAlert",
+    "ChatMediaPermissionTests testChatMicrophonePendingPermissionCancelsByPeerAndRequest",
+    "ChatMediaPermissionTests testChatPhotoAuthorizationAllowsLimitedAndRejectsDenied",
+    "ChatMediaPermissionTests testChatPhotoPermissionRequestAndCancelledOldCallbackCannotPresent",
+    "ChatMediaPermissionTests testChatUnloadedWebControllerCancelsExistingPermissionOnRelease",
+    "ChatMediaPermissionTests testChatUnloadedWebControllerReleasesWithoutCreatingCoordinators",
+    "LaunchTransitionTests testEnglishLaunchTransition",
+    "LaunchTransitionTests testFrenchLaunchTransition",
+    "RepositoryTests testChatArtworkOnlyAndLegacyMessagesRemainCompatible",
+    "RepositoryTests testChatInlineArtworkCountsGraphemesAndCapsParts",
+    "RepositoryTests testChatInlineArtworkKeepsReplyAndBlockPermissions",
+    "RepositoryTests testChatInlineArtworkMixedTextPersistsAndRetriesOnce",
+    "RepositoryTests testChatInlineArtworkRejectsMalformedPartsAndPreviewMismatch",
+    "RepositoryTests testChatMessageOrderingSupportsHistoricalSecondsAndStableTies",
+    "RepositoryTests testChatNewMessageHasMillisecondsAndRetryPreservesOriginalTime",
+    "WebBundleTests testEnglishSilentSocialSuccess",
+    "WebBundleTests testEnglishVideoConnectingPresentation",
+    "WebBundleTests testFrenchSilentSocialSuccess",
+    "WebBundleTests testFrenchVideoConnectingPresentation",
+    "WebBundleTests testPendingVideoPermissionCancellationAndBlockDropLateResults"
+  ],
+  "runtime": "iOS 26.5 / iPhone 17 simulator; visible UIKit host and packaged WKWebView; media and permission fixtures explicitly substituted; actual send/repository persistence",
+  "flows": [
+    {
+      "locale": "en",
+      "matrixRows": 18,
+      "states": [
+        "inline-expression",
+        "recording",
+        "recording-cancel-armed"
+      ],
+      "cases": [
+        {
+          "case": "inline-before-after-and-plain-paste",
+          "sentDuringSelection": false
+        },
+        {
+          "oneStoredMessage": true,
+          "stableCommitId": true,
+          "case": "mixed-failure-retry"
+        },
+        {
+          "case": "atomic-delete-composition-and-expression-only",
+          "passed": true
+        },
+        {
+          "case": "webkit-placeholder-block-and-controlled-paragraph",
+          "onePngPerMessage": true,
+          "placeholderText": "a\n",
+          "oneNewlineBeforePaste": true
+        },
+        {
+          "case": "composition-send-gate-and-peer-remount",
+          "originalDraftRetained": true,
+          "unfinishedTextSent": false,
+          "lateCompositionIsolated": true
+        },
+        {
+          "pickerCalls": 1,
+          "case": "picker-confirm-auto-send",
+          "photoMessages": 1,
+          "textDraftRetained": true
+        },
+        {
+          "sent": false,
+          "case": "picker-cancel-and-permission-denied",
+          "draftRetained": true
+        },
+        {
+          "oneStoredPhoto": true,
+          "stableCommitAndMedia": true,
+          "case": "photo-failure-retry"
+        },
+        {
+          "permissionFixture": true,
+          "case": "microphone-permission-and-cancel-gesture",
+          "noAutomaticCapture": true,
+          "cancelledVoiceSent": false
+        },
+        {
+          "voiceFile": "Explicit bundled WAV fixture, not physical microphone",
+          "case": "hold-release-sends-one-voice",
+          "count": 1
+        },
+        {
+          "case": "background-peer-switch-and-picker-departure",
+          "draftsIsolated": true,
+          "staleSend": false,
+          "visibilityFixture": true
+        }
+      ],
+      "source": "5AFFA460-5C83-4774-A624-A1190A89AF23.json",
+      "environment": "Visible simulator WKWebView, packaged bundle, isolated repository; explicit picker/permission/recording doubles; safe area CSS fixtures; no actual hardware or system keyboard certification"
+    },
+    {
+      "locale": "fr",
+      "matrixRows": 18,
+      "states": [
+        "inline-expression",
+        "recording",
+        "recording-cancel-armed"
+      ],
+      "cases": [
+        {
+          "case": "inline-before-after-and-plain-paste",
+          "sentDuringSelection": false
+        },
+        {
+          "case": "mixed-failure-retry",
+          "stableCommitId": true,
+          "oneStoredMessage": true
+        },
+        {
+          "case": "atomic-delete-composition-and-expression-only",
+          "passed": true
+        },
+        {
+          "case": "webkit-placeholder-block-and-controlled-paragraph",
+          "onePngPerMessage": true,
+          "oneNewlineBeforePaste": true,
+          "placeholderText": "a\n"
+        },
+        {
+          "unfinishedTextSent": false,
+          "case": "composition-send-gate-and-peer-remount",
+          "lateCompositionIsolated": true,
+          "originalDraftRetained": true
+        },
+        {
+          "pickerCalls": 1,
+          "textDraftRetained": true,
+          "case": "picker-confirm-auto-send",
+          "photoMessages": 1
+        },
+        {
+          "case": "picker-cancel-and-permission-denied",
+          "sent": false,
+          "draftRetained": true
+        },
+        {
+          "case": "photo-failure-retry",
+          "oneStoredPhoto": true,
+          "stableCommitAndMedia": true
+        },
+        {
+          "permissionFixture": true,
+          "cancelledVoiceSent": false,
+          "noAutomaticCapture": true,
+          "case": "microphone-permission-and-cancel-gesture"
+        },
+        {
+          "count": 1,
+          "case": "hold-release-sends-one-voice",
+          "voiceFile": "Explicit bundled WAV fixture, not physical microphone"
+        },
+        {
+          "case": "background-peer-switch-and-picker-departure",
+          "staleSend": false,
+          "draftsIsolated": true,
+          "visibilityFixture": true
+        }
+      ],
+      "source": "8EDD836E-D09B-44BC-B9A4-5CE1AA24DD49.json",
+      "environment": "Visible simulator WKWebView, packaged bundle, isolated repository; explicit picker/permission/recording doubles; safe area CSS fixtures; no actual hardware or system keyboard certification"
+    }
+  ],
+  "layoutMatrixRows": 36,
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      375,
+      667
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      393,
+      852
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "resourceFilesPerTree": 265,
+  "resourceTrees": 4,
+  "resourcesAllMatch": true,
+  "releaseBuild": "unsigned generic iOS architecture build passed",
+  "attachmentFiles": {
+    "json": 10,
+    "png": 70
+  },
+  "namedComposerPNGs": 12,
+  "physicalDeviceVerified": false,
+  "systemKeyboardVerified": false,
+  "realPhotoPickerPermissionVerified": false,
+  "actualMicrophoneHardwareVerified": false,
+  "realTouchGestureVerified": false,
+  "testGestureFixture": "DOM pointer events and explicit capture fixture; not physical touch",
+  "history": [
+    "Initial run preserved in wk-tests.log: fixture consent missing, early peer-ready and resource-index assumptions corrected.",
+    "Second run preserved in wk-refined-tests.log / attempt-2: exact committed message IDs replaced non-deterministic same-second last-item assumptions; controller teardown crash was fixed in production; Help test waits for actual read completion.",
+    "Final verification all 23 selected tests passed; old records are not rewritten."
+  ],
+  "temporarySimulator": {
+    "id": "9B0F6F57-6D96-4CD4-89C8-18F5F528794E",
+    "cleanup": "shut down and deleted",
+    "existingUserSimulatorsModified": false
+  }
+}

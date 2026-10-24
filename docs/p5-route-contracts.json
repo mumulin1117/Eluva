@@ -1,0 +1,1181 @@
+{
+  "phase": "P5",
+  "updatedAt": "2026-10-17T16:41:37.248285+00:00",
+  "status": "本地实现完成；正式视觉/真机验收与最终UI删除测试仍有待办",
+  "common": {
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "layout": "Flex/Grid，一处主滚动；继承env安全区及visualViewport服务；二级页面无TabBar和占位",
+    "async": "唯一Bridge与run单飞；critical保存阻止重复及离页；可取消读取在离页后丢弃结果；返回/语言保留账户内存草稿，退出结束草稿",
+    "validationStatus": "浏览器截图/焦点不是原生键盘、硬件Safe Area或真机证明"
+  },
+  "designs": [
+    {
+      "index": 11,
+      "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+      "name": "设置",
+      "updatedAt": "2026-10-13T15:14:57.265859Z",
+      "version": "版本1",
+      "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+      "status": "verified",
+      "totalSlices": 17
+    },
+    {
+      "index": 20,
+      "imageId": "e41e4312-92c5-4d14-bc88-c307daa983b6",
+      "name": "我点亮的",
+      "updatedAt": "2026-10-13T15:14:57.231853Z",
+      "version": "版本1",
+      "servedImageId": "e41e4312-92c5-4d14-bc88-c307daa983b6",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 23,
+      "imageId": "d9f5df90-d336-421e-9aa4-e75fc16b4d40",
+      "name": "意见反馈",
+      "updatedAt": "2026-10-13T15:14:57.223274Z",
+      "version": "版本1",
+      "servedImageId": "d9f5df90-d336-421e-9aa4-e75fc16b4d40",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 29,
+      "imageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+      "name": "删除账号提示",
+      "updatedAt": "2026-10-13T15:14:57.206095Z",
+      "version": "版本1",
+      "servedImageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+      "status": "verified",
+      "totalSlices": 16
+    },
+    {
+      "index": 32,
+      "imageId": "5be9d32e-a876-465c-b945-c25cb978b091",
+      "name": "他的动态合集",
+      "updatedAt": "2026-10-13T15:14:57.406956Z",
+      "version": null,
+      "servedImageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+      "status": "same-name-interface-mismatch",
+      "totalSlices": 2
+    },
+    {
+      "index": 33,
+      "imageId": "c0334df0-f85b-41dd-aa6e-3d91dde9c181",
+      "name": "合集详情-选择动态加入合集",
+      "updatedAt": "2026-10-13T15:14:57.397961Z",
+      "version": "版本1",
+      "servedImageId": "c0334df0-f85b-41dd-aa6e-3d91dde9c181",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 44,
+      "imageId": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+      "name": "个人资料编辑",
+      "updatedAt": "2026-10-13T15:14:57.282313Z",
+      "version": "版本1",
+      "servedImageId": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+      "status": "verified",
+      "totalSlices": 6
+    },
+    {
+      "index": 45,
+      "imageId": "9f4935ec-ed51-43ba-9cdb-0cadf076bd2e",
+      "name": "设置--选择主题色",
+      "updatedAt": "2026-10-13T15:14:57.280002Z",
+      "version": "版本1",
+      "servedImageId": "9f4935ec-ed51-43ba-9cdb-0cadf076bd2e",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 48,
+      "imageId": "3b626d31-ae70-4d9a-a54f-7163d08bbde1",
+      "name": "背景主题色",
+      "updatedAt": "2026-10-13T15:15:19.502192Z",
+      "version": "版本1",
+      "servedImageId": "3b626d31-ae70-4d9a-a54f-7163d08bbde1",
+      "status": "verified",
+      "totalSlices": 18
+    },
+    {
+      "index": 53,
+      "imageId": "89e42f7c-64e9-4090-81ff-fb59ea9e14fa",
+      "name": "有合集--右边按钮点击效果",
+      "updatedAt": "2026-10-13T15:14:57.402271Z",
+      "version": "版本1",
+      "servedImageId": "89e42f7c-64e9-4090-81ff-fb59ea9e14fa",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 54,
+      "imageId": "d47c9961-46f6-443e-8385-68824117d830",
+      "name": "有合集",
+      "updatedAt": "2026-10-13T15:14:57.400518Z",
+      "version": "版本1",
+      "servedImageId": "d47c9961-46f6-443e-8385-68824117d830",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 89,
+      "imageId": "0a49147b-bb2d-410d-bb96-3ef9c3368e2b",
+      "name": "选择合集--创建合集",
+      "updatedAt": "2026-10-13T15:22:06.269998Z",
+      "version": "版本1",
+      "servedImageId": "0a49147b-bb2d-410d-bb96-3ef9c3368e2b",
+      "status": "verified",
+      "totalSlices": 7
+    },
+    {
+      "index": 90,
+      "imageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+      "name": "弹窗--删除提示",
+      "updatedAt": "2026-10-13T15:14:57.284139Z",
+      "version": "版本1",
+      "servedImageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+      "status": "verified",
+      "totalSlices": 1
+    },
+    {
+      "index": 91,
+      "imageId": "0be4f215-e078-4a8b-9c7f-6bd2cfb036e5",
+      "name": "意见反馈--已填写",
+      "updatedAt": "2026-10-13T15:14:57.277927Z",
+      "version": "版本1",
+      "servedImageId": "0be4f215-e078-4a8b-9c7f-6bd2cfb036e5",
+      "status": "verified",
+      "totalSlices": 2
+    },
+    {
+      "index": 92,
+      "imageId": "78750ef7-6763-4785-bdf0-08309be4ad4c",
+      "name": "我的",
+      "updatedAt": "2026-10-13T15:14:57.267899Z",
+      "version": "版本1",
+      "servedImageId": "78750ef7-6763-4785-bdf0-08309be4ad4c",
+      "status": "verified",
+      "totalSlices": 17
+    },
+    {
+      "index": 98,
+      "imageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+      "name": "合集详情-编辑合集文案",
+      "updatedAt": "2026-10-13T15:14:57.253827Z",
+      "version": "版本1",
+      "servedImageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+      "status": "verified",
+      "totalSlices": 4
+    },
+    {
+      "index": 102,
+      "imageId": "6dfcf04b-c380-462d-bff0-561854999603",
+      "name": "合集详情",
+      "updatedAt": "2026-10-13T15:14:57.384667Z",
+      "version": "版本1",
+      "servedImageId": "6dfcf04b-c380-462d-bff0-561854999603",
+      "status": "verified",
+      "totalSlices": 6
+    },
+    {
+      "index": 14,
+      "imageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+      "name": "他的动态合集",
+      "updatedAt": "2026-10-13T15:14:57.260771Z",
+      "version": "版本1",
+      "servedImageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+      "status": "verified",
+      "totalSlices": 2
+    },
+    {
+      "index": 15,
+      "imageId": "d5fcea0d-e167-45ec-b7aa-d0b33f9517fb",
+      "name": "他的动态合集-展开",
+      "updatedAt": "2026-10-13T15:14:57.258385Z",
+      "version": "版本1",
+      "servedImageId": "d5fcea0d-e167-45ec-b7aa-d0b33f9517fb",
+      "status": "verified",
+      "totalSlices": 5
+    }
+  ],
+  "cards": [
+    {
+      "name": "我的",
+      "routes": [
+        "/mine"
+      ],
+      "sources": [
+        {
+          "index": 92,
+          "imageId": "78750ef7-6763-4785-bdf0-08309be4ad4c",
+          "name": "我的",
+          "updatedAt": "2026-10-13T15:14:57.267899Z",
+          "version": "版本1",
+          "servedImageId": "78750ef7-6763-4785-bdf0-08309be4ad4c",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-92.png",
+          "annotation": "docs/evidence/p5/spec-92.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=78750ef7-6763-4785-bdf0-08309be4ad4c"
+        }
+      ],
+      "entry": [
+        "TabBar Mine",
+        "资料保存成功",
+        "设置返回"
+      ],
+      "operationsAndSaving": [
+        "资料行进入编辑，未保存值不覆盖此页",
+        "好友统计进入 friends?from=/mine；关注/粉丝打开实际列表",
+        "五个源图标进入点亮/帖子/合集/设置/反馈；Help进入既有本地帮助",
+        "Pro显示权益未配置说明，不伪造解锁"
+      ],
+      "backTarget": "保留本账户一级页滚动",
+      "tabBar": true,
+      "dataAndValidation": [
+        "accounts[currentUser.id].profile 权威；稳定ID、真实关系计数；无头像使用本地默认资源"
+      ],
+      "retainedVisuals": [
+        "英文原始Mine文字PNG；法文Zen Dots24/400/29",
+        "昵称Inter20/700/24，ID Jakarta12/400/15，简介13/400/16",
+        "Bakbak One17/400/24，50px菜单图标，源主题Tab素材"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "替换Zoe、示例ID、1.2K等虚拟资料；Mutuals改为已确认好友关系",
+        "未确认合集Pro商业门槛不强加；320px法语统计标签采用11px适配",
+        "硬件安全区及蓝湖浏览器逐层签核待验"
+      ],
+      "states": [
+        "初始",
+        "加载",
+        "读取失败/重试",
+        "默认资料",
+        "关系空/列表",
+        "保存后联动"
+      ],
+      "bridge": [
+        "personal.snapshot",
+        "media.resolve"
+      ]
+    },
+    {
+      "name": "资料编辑",
+      "routes": [
+        "/edit-profile"
+      ],
+      "sources": [
+        {
+          "index": 44,
+          "imageId": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+          "name": "个人资料编辑",
+          "updatedAt": "2026-10-13T15:14:57.282313Z",
+          "version": "版本1",
+          "servedImageId": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+          "status": "verified",
+          "totalSlices": 6,
+          "reference": "docs/evidence/p5/references/design-44.png",
+          "annotation": "docs/evidence/p5/spec-44.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a"
+        }
+      ],
+      "entry": [
+        "我的资料行"
+      ],
+      "operationsAndSaving": [
+        "Change photo直接打开共用媒体选择器；新主图先进入草稿，保留其他照片",
+        "添加/移除/设为主图、扩展可选资料；Save校验后原子保存并回Mine",
+        "失败保留表单与媒体；返回/换语言保留；成功释放未提交暂存",
+        "头像框仅展示原始资源与未配置权益说明"
+      ],
+      "backTarget": "/mine",
+      "tabBar": false,
+      "dataAndValidation": [
+        "昵称1–60字素；简介可空≤300；完整生日计算18+，生日不公开",
+        "照片≥2、兴趣≥3、破冰恰好3；历史空夹具仅允许原样保留，不降低新注册门槛",
+        "原照片必须属于当前资料；新照片必须来自本账户当前暂存草稿",
+        "不改邮箱/密码/凭证或历史communityVersion；大学/专业/意向仍可选"
+      ],
+      "retainedVisuals": [
+        "98px头像、原白色8px圆角输入、灰色15/500/23标签、六个原头像框",
+        "Poppins14/500/21更换照片，16/700/24保存按钮"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "原稿误标题Feedback改为Edit profile；未来生日改为合法值",
+        "输入框16px是技术预览适配，原稿15px，尚待真机聚焦缩放及视觉签核",
+        "可选注册字段放在同体系展开组；Baloo/Helvetica小徽标保留原PNG，不用替代字体"
+      ],
+      "states": [
+        "草稿准备",
+        "校验失败",
+        "相机不支持/改用相册",
+        "导入失败",
+        "未保存主图预览",
+        "busy/disabled",
+        "写失败/重试",
+        "成功",
+        "返回/语言保留"
+      ],
+      "bridge": [
+        "personal.saveProfile",
+        "content.beginDraft/discardDraft",
+        "media.pick/import/remove/resolve",
+        "system.openSettings"
+      ]
+    },
+    {
+      "name": "我的帖子与删除",
+      "routes": [
+        "/my-posts",
+        "/post/:id"
+      ],
+      "sources": [
+        {
+          "index": 90,
+          "imageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+          "name": "弹窗--删除提示",
+          "updatedAt": "2026-10-13T15:14:57.284139Z",
+          "version": "版本1",
+          "servedImageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-90.png",
+          "annotation": "docs/evidence/p5/spec-90.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=d77f7893-ff5d-4e7a-835d-64d0e20905cf"
+        }
+      ],
+      "entry": [
+        "我的帖子",
+        "合集内容"
+      ],
+      "operationsAndSaving": [
+        "空态进入既有发布；内容打开详情",
+        "源更多按钮打开锚定菜单 → Delete post → 最终确认；不采用额外的列表危险按钮",
+        "仅自有帖子可删除；显示目标摘要和不可恢复范围；取消不改数据",
+        "成功同步首页、资料、点亮、评论及所有合集引用"
+      ],
+      "backTarget": "/mine 或详情原始来源",
+      "tabBar": false,
+      "dataAndValidation": [
+        "按稳定作者ID读取并排序；仓储再次校验所有权与commitId",
+        "删除原帖、子评论、点亮/事件、派生翻译及提交副本；仅回收未被引用的自有媒体",
+        "其他账户与独立原始内容保留"
+      ],
+      "retainedVisuals": [
+        "复用P2帖子卡片；源90 Poppins20/700/30标题、Jakarta14/600/18按钮"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "示例作者/日期/计数改为实际本地数据；本轮不扩展帖子编辑",
+        "缺失空态/异常复用既有内容组件；最终浏览器永久删除待具体确认"
+      ],
+      "states": [
+        "加载",
+        "空",
+        "内容",
+        "确认",
+        "取消",
+        "写失败/重试",
+        "幂等",
+        "已删详情不可用"
+      ],
+      "bridge": [
+        "content.snapshot",
+        "personal.deletePost"
+      ]
+    },
+    {
+      "name": "点亮记录",
+      "routes": [
+        "/my-lights"
+      ],
+      "sources": [
+        {
+          "index": 20,
+          "imageId": "e41e4312-92c5-4d14-bc88-c307daa983b6",
+          "name": "我点亮的",
+          "updatedAt": "2026-10-13T15:14:57.231853Z",
+          "version": "版本1",
+          "servedImageId": "e41e4312-92c5-4d14-bc88-c307daa983b6",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-20.png",
+          "annotation": "docs/evidence/p5/spec-20.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=e41e4312-92c5-4d14-bc88-c307daa983b6"
+        }
+      ],
+      "entry": [
+        "我的点亮",
+        "详情点亮操作"
+      ],
+      "operationsAndSaving": [
+        "点亮即时加入本账户记录；打开同一详情；取消点亮即时移除",
+        "保留实际litAt时间和用户原文，不转成好友关系"
+      ],
+      "backTarget": "/mine",
+      "tabBar": false,
+      "dataAndValidation": [
+        "以当前账户echo记录为准；按私密/受众/拉黑/隐藏过滤不可读内容",
+        "与关注、好友申请、好友关系独立"
+      ],
+      "retainedVisuals": [
+        "源20记录布局、字体和既有P2列表"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "My Likes使用已确认Light业务术语；缺失空/加载/失败延续既有内容系统"
+      ],
+      "states": [
+        "空",
+        "内容",
+        "加载/重试",
+        "不可读过滤",
+        "取消点亮联动"
+      ],
+      "bridge": [
+        "content.snapshot",
+        "content.echo"
+      ]
+    },
+    {
+      "name": "合集列表与帮助",
+      "routes": [
+        "/collections"
+      ],
+      "sources": [
+        {
+          "index": 32,
+          "imageId": "5be9d32e-a876-465c-b945-c25cb978b091",
+          "name": "他的动态合集",
+          "updatedAt": "2026-10-13T15:14:57.406956Z",
+          "version": null,
+          "servedImageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+          "status": "same-name-interface-mismatch",
+          "totalSlices": 2,
+          "reference": "docs/evidence/p5/references/design-32.png",
+          "annotation": "docs/evidence/p5/spec-32.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=5be9d32e-a876-465c-b945-c25cb978b091"
+        },
+        {
+          "index": 53,
+          "imageId": "89e42f7c-64e9-4090-81ff-fb59ea9e14fa",
+          "name": "有合集--右边按钮点击效果",
+          "updatedAt": "2026-10-13T15:14:57.402271Z",
+          "version": "版本1",
+          "servedImageId": "89e42f7c-64e9-4090-81ff-fb59ea9e14fa",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-53.png",
+          "annotation": "docs/evidence/p5/spec-53.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=89e42f7c-64e9-4090-81ff-fb59ea9e14fa"
+        },
+        {
+          "index": 54,
+          "imageId": "d47c9961-46f6-443e-8385-68824117d830",
+          "name": "有合集",
+          "updatedAt": "2026-10-13T15:14:57.400518Z",
+          "version": "版本1",
+          "servedImageId": "d47c9961-46f6-443e-8385-68824117d830",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-54.png",
+          "annotation": "docs/evidence/p5/spec-54.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=d47c9961-46f6-443e-8385-68824117d830"
+        },
+        {
+          "index": 14,
+          "imageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+          "name": "他的动态合集",
+          "updatedAt": "2026-10-13T15:14:57.260771Z",
+          "version": "版本1",
+          "servedImageId": "b6aedeb3-1130-4522-a8ca-8042e3e44ea1",
+          "status": "verified",
+          "totalSlices": 2,
+          "reference": "docs/evidence/p5/references/design-14.png",
+          "annotation": "docs/evidence/p5/spec-14.html",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=b6aedeb3-1130-4522-a8ca-8042e3e44ea1"
+        },
+        {
+          "index": 15,
+          "imageId": "d5fcea0d-e167-45ec-b7aa-d0b33f9517fb",
+          "name": "他的动态合集-展开",
+          "updatedAt": "2026-10-13T15:14:57.258385Z",
+          "version": "版本1",
+          "servedImageId": "d5fcea0d-e167-45ec-b7aa-d0b33f9517fb",
+          "status": "verified",
+          "totalSlices": 5,
+          "reference": "docs/evidence/p5/references/design-15.png",
+          "annotation": "docs/evidence/p5/spec-15.html",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=d5fcea0d-e167-45ec-b7aa-d0b33f9517fb"
+        }
+      ],
+      "entry": [
+        "我的合集",
+        "详情返回"
+      ],
+      "operationsAndSaving": [
+        "创建进入共用编辑器；列表打开详情；帮助说明引用及未配置商业限制",
+        "管理列表仅展示自有合集，数量/回退封面实时读取可见引用"
+      ],
+      "backTarget": "/mine",
+      "tabBar": false,
+      "dataAndValidation": [
+        "稳定ownerId与postIds引用，不复制原帖",
+        "暂沿用同一原帖可加入多个自有合集的既有schema；已提问，尚未作为用户确认规则",
+        "不实施未确认的免费2个/Pro无限限制"
+      ],
+      "retainedVisuals": [
+        "自有空态插画、白色合集卡、127px层叠封面体系"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "#32正确索引图层已读；同名切图接口错返#14，#32版本待人工核对",
+        "#15虽名他人却有创建控件，不据名称授权；他人列表沿用既有资料sheet，详情只读",
+        "商业门槛和多合集规则仍待确认"
+      ],
+      "states": [
+        "加载",
+        "空",
+        "内容",
+        "帮助",
+        "读取失败/重试",
+        "返回滚动"
+      ],
+      "bridge": [
+        "personal.snapshot",
+        "content.createCollection",
+        "media.resolve"
+      ]
+    },
+    {
+      "name": "合集创建编辑",
+      "routes": [
+        "/collections (editor)",
+        "/compose (shared editor)",
+        "/collections/:id (editor)"
+      ],
+      "sources": [
+        {
+          "index": 89,
+          "imageId": "0a49147b-bb2d-410d-bb96-3ef9c3368e2b",
+          "name": "选择合集--创建合集",
+          "updatedAt": "2026-10-13T15:22:06.269998Z",
+          "version": "版本1",
+          "servedImageId": "0a49147b-bb2d-410d-bb96-3ef9c3368e2b",
+          "status": "verified",
+          "totalSlices": 7,
+          "reference": "docs/evidence/p5/references/design-89.png",
+          "annotation": "docs/evidence/p5/spec-89.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=0a49147b-bb2d-410d-bb96-3ef9c3368e2b"
+        },
+        {
+          "index": 98,
+          "imageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+          "name": "合集详情-编辑合集文案",
+          "updatedAt": "2026-10-13T15:14:57.253827Z",
+          "version": "版本1",
+          "servedImageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+          "status": "verified",
+          "totalSlices": 4,
+          "reference": "docs/evidence/p5/references/design-98.png",
+          "annotation": "docs/evidence/p5/spec-98.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=43b16c77-825a-4fee-92d5-76cc99b4241a"
+        }
+      ],
+      "entry": [
+        "创建合集",
+        "自有合集Edit",
+        "发布页创建"
+      ],
+      "operationsAndSaving": [
+        "名称/描述/封面为账户会话草稿；关闭后可续填，Save前不改权威记录",
+        "Edit Cover调用共用选择器；成功导入才替换预览；取消保留",
+        "创建复用content.createCollection；编辑原子更新列表/详情/发布选项",
+        "删除容器须确认，原帖保留；成功清理未使用暂存"
+      ],
+      "backTarget": "关闭回所属页面，保留原状态",
+      "tabBar": false,
+      "dataAndValidation": [
+        "技术预览名称1–60、描述可选≤300、一个可信自有封面",
+        "稳定commitId与payload匹配；所有权校验、媒体升级失败回滚",
+        "旧封面仅在无其他引用时回收"
+      ],
+      "retainedVisuals": [
+        "源sheet Jakarta18/800/23标题、12/600保存、360:140封面",
+        "名称Poppins600、描述Jakarta500、原始垃圾桶"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "16px可编辑字段为已记录适配，与源15px有差异",
+        "删除合集缺单独稿，沿用源90确认系统；不引入示例旅行照片或虚假权益"
+      ],
+      "states": [
+        "空/禁用",
+        "首次响应式输入",
+        "导入失败",
+        "关闭/重开",
+        "busy",
+        "失败/重试",
+        "成功",
+        "删除确认/取消"
+      ],
+      "bridge": [
+        "content.createCollection",
+        "personal.saveCollection/deleteCollection",
+        "content.beginDraft/discardDraft",
+        "media.pick/import/remove/resolve"
+      ]
+    },
+    {
+      "name": "合集详情与引用",
+      "routes": [
+        "/collections/:id",
+        "/collections/:id/posts"
+      ],
+      "sources": [
+        {
+          "index": 102,
+          "imageId": "6dfcf04b-c380-462d-bff0-561854999603",
+          "name": "合集详情",
+          "updatedAt": "2026-10-13T15:14:57.384667Z",
+          "version": "版本1",
+          "servedImageId": "6dfcf04b-c380-462d-bff0-561854999603",
+          "status": "verified",
+          "totalSlices": 6,
+          "reference": "docs/evidence/p5/references/design-102.png",
+          "annotation": "docs/evidence/p5/spec-102.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=6dfcf04b-c380-462d-bff0-561854999603"
+        },
+        {
+          "index": 33,
+          "imageId": "c0334df0-f85b-41dd-aa6e-3d91dde9c181",
+          "name": "合集详情-选择动态加入合集",
+          "updatedAt": "2026-10-13T15:14:57.397961Z",
+          "version": "版本1",
+          "servedImageId": "c0334df0-f85b-41dd-aa6e-3d91dde9c181",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-33.png",
+          "annotation": "docs/evidence/p5/spec-33.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=c0334df0-f85b-41dd-aa6e-3d91dde9c181"
+        },
+        {
+          "index": 98,
+          "imageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+          "name": "合集详情-编辑合集文案",
+          "updatedAt": "2026-10-13T15:14:57.253827Z",
+          "version": "版本1",
+          "servedImageId": "43b16c77-825a-4fee-92d5-76cc99b4241a",
+          "status": "verified",
+          "totalSlices": 4,
+          "reference": "docs/evidence/p5/references/design-98.png",
+          "annotation": "docs/evidence/p5/spec-98.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=43b16c77-825a-4fee-92d5-76cc99b4241a"
+        }
+      ],
+      "entry": [
+        "自有列表",
+        "他人资料可读合集"
+      ],
+      "operationsAndSaving": [
+        "自有者可编辑/管理；其他查看者只读，无编辑入口",
+        "只选自有可读帖子，显式Save；返回/切语言保留选择；过期引用可移除",
+        "详情打开帖子后回准确合集路径；帖子删除后引用清除"
+      ],
+      "backTarget": "管理回详情；详情回来源列表或资料",
+      "tabBar": false,
+      "dataAndValidation": [
+        "集合及各帖子所有权/可读性在仓储校验；ID去重",
+        "私密、好友可见、隐藏、拉黑、未向资料展示的帖子不泄露给他人",
+        "他人自定义封面不公开；删除容器不删除帖子，删除帖子清理全部容器引用"
+      ],
+      "retainedVisuals": [
+        "源102标题/数量/卡片、33白色选择行、98操作"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "源33单合集文字与32多合集冲突；保守复用schema，不伪称用户已确认",
+        "不扩展代他人收藏/管理权限；只读详情为同体系补齐"
+      ],
+      "states": [
+        "加载",
+        "空",
+        "内容",
+        "不可用",
+        "只读",
+        "选择",
+        "过期引用",
+        "失败/重试",
+        "返回/语言保持"
+      ],
+      "bridge": [
+        "personal.collection",
+        "personal.collectionPosts",
+        "personal.saveCollection"
+      ]
+    },
+    {
+      "name": "设置与通知",
+      "routes": [
+        "/settings"
+      ],
+      "sources": [
+        {
+          "index": 11,
+          "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "name": "设置",
+          "updatedAt": "2026-10-13T15:14:57.265859Z",
+          "version": "版本1",
+          "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-11.png",
+          "annotation": "docs/evidence/p5/spec-11.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ca85d44a-3696-4475-9f83-2fc4fea1b5b1"
+        }
+      ],
+      "entry": [
+        "我的设置"
+      ],
+      "operationsAndSaving": [
+        "主题/语言/黑名单/删号/协议/关于均有明确路由",
+        "通知读取OS状态；授权/拒绝后引导系统设置；浏览器不支持有反馈",
+        "退出独立确认，成功回Welcome，保存账户保留"
+      ],
+      "backTarget": "/mine",
+      "tabBar": false,
+      "dataAndValidation": [
+        "主题为owner偏好；语言沿用P1安装偏好",
+        "通知只读真实能力，不伪造推送服务或开关结果"
+      ],
+      "retainedVisuals": [
+        "Poppins18/600/27标题，15/500/23分组，44px白色8px行和22px源图标"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "增加语言与社区协议入口；缺失读取异常有明确Retry",
+        "通知真实授权/设置返回未进行真机验证"
+      ],
+      "states": [
+        "加载",
+        "读取失败/重试",
+        "OS状态",
+        "浏览器不支持",
+        "退出确认/取消/成功"
+      ],
+      "bridge": [
+        "personal.snapshot",
+        "notifications.status/request",
+        "system.openSettings",
+        "auth.logout"
+      ]
+    },
+    {
+      "name": "主题和语言",
+      "routes": [
+        "/settings/theme",
+        "/settings/language"
+      ],
+      "sources": [
+        {
+          "index": 45,
+          "imageId": "9f4935ec-ed51-43ba-9cdb-0cadf076bd2e",
+          "name": "设置--选择主题色",
+          "updatedAt": "2026-10-13T15:14:57.280002Z",
+          "version": "版本1",
+          "servedImageId": "9f4935ec-ed51-43ba-9cdb-0cadf076bd2e",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-45.png",
+          "annotation": "docs/evidence/p5/spec-45.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=9f4935ec-ed51-43ba-9cdb-0cadf076bd2e"
+        },
+        {
+          "index": 48,
+          "imageId": "3b626d31-ae70-4d9a-a54f-7163d08bbde1",
+          "name": "背景主题色",
+          "updatedAt": "2026-10-13T15:15:19.502192Z",
+          "version": "版本1",
+          "servedImageId": "3b626d31-ae70-4d9a-a54f-7163d08bbde1",
+          "status": "verified",
+          "totalSlices": 18,
+          "reference": "docs/evidence/p5/references/design-48.png",
+          "annotation": "docs/evidence/p5/spec-48.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=3b626d31-ae70-4d9a-a54f-7163d08bbde1"
+        },
+        {
+          "index": 11,
+          "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "name": "设置",
+          "updatedAt": "2026-10-13T15:14:57.265859Z",
+          "version": "版本1",
+          "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-11.png",
+          "annotation": "docs/evidence/p5/spec-11.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ca85d44a-3696-4475-9f83-2fc4fea1b5b1"
+        }
+      ],
+      "entry": [
+        "设置行"
+      ],
+      "operationsAndSaving": [
+        "主题仅预览；Save成功后更新本账户背景与TabBar，失败保留已存主题和当前选择",
+        "语言显式Save即时切换，重载/重登继续使用；不改用户原文或ID"
+      ],
+      "backTarget": "/settings；主题返回不自动保存",
+      "tabBar": false,
+      "dataAndValidation": [
+        "purple/pink/orange/cyan稳定ID，跨账户默认独立",
+        "语言为安装偏好，按既有规则优先于系统；原始内容不覆盖"
+      ],
+      "retainedVisuals": [
+        "四种原背景与源SVG圆/渐变/字形路径；45白色预览面板",
+        "语言本族语及辅助名称，无国旗语义"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "48是主题画板，不固定缩放成屏幕",
+        "缺失语言稿用11行体系；未提供的其他主题按钮状态保留共同紫色按钮，不凭印象重绘渐变"
+      ],
+      "states": [
+        "四主题预览",
+        "选中",
+        "busy",
+        "失败/重试",
+        "保存联动",
+        "重启/隔离",
+        "双语长文案"
+      ],
+      "bridge": [
+        "personal.savePreferences",
+        "preferences.locale"
+      ]
+    },
+    {
+      "name": "黑名单",
+      "routes": [
+        "/settings/blocked"
+      ],
+      "sources": [
+        {
+          "index": 11,
+          "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "name": "设置",
+          "updatedAt": "2026-10-13T15:14:57.265859Z",
+          "version": "版本1",
+          "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-11.png",
+          "annotation": "docs/evidence/p5/spec-11.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ca85d44a-3696-4475-9f83-2fc4fea1b5b1"
+        }
+      ],
+      "entry": [
+        "设置黑名单",
+        "既有资料拉黑"
+      ],
+      "operationsAndSaving": [
+        "显示实际已拉黑用户；解除需具名确认",
+        "取消保持拉黑；成功后列表、内容、消息权限立即联动，不自动发送申请/消息"
+      ],
+      "backTarget": "/settings",
+      "tabBar": false,
+      "dataAndValidation": [
+        "c.blocks[viewer:peer]，所有者隔离，不依赖翻译文案",
+        "沿用social.block；原好友实体暂保留，解除不自动重建关系"
+      ],
+      "retainedVisuals": [
+        "源11白色行、头像及共享确认体系"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "缺整页稿，按同字体/背景/间距补齐并在双语六尺寸复核",
+        "真实安全交互/媒体设备验证未完成"
+      ],
+      "states": [
+        "空",
+        "内容",
+        "确认",
+        "取消",
+        "busy",
+        "失败/重试",
+        "解除成功"
+      ],
+      "bridge": [
+        "personal.snapshot",
+        "social.block",
+        "content.snapshot",
+        "social.snapshot"
+      ]
+    },
+    {
+      "name": "反馈",
+      "routes": [
+        "/feedback"
+      ],
+      "sources": [
+        {
+          "index": 23,
+          "imageId": "d9f5df90-d336-421e-9aa4-e75fc16b4d40",
+          "name": "意见反馈",
+          "updatedAt": "2026-10-13T15:14:57.223274Z",
+          "version": "版本1",
+          "servedImageId": "d9f5df90-d336-421e-9aa4-e75fc16b4d40",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-23.png",
+          "annotation": "docs/evidence/p5/spec-23.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=d9f5df90-d336-421e-9aa4-e75fc16b4d40"
+        },
+        {
+          "index": 91,
+          "imageId": "0be4f215-e078-4a8b-9c7f-6bd2cfb036e5",
+          "name": "意见反馈--已填写",
+          "updatedAt": "2026-10-13T15:14:57.277927Z",
+          "version": "版本1",
+          "servedImageId": "0be4f215-e078-4a8b-9c7f-6bd2cfb036e5",
+          "status": "verified",
+          "totalSlices": 2,
+          "reference": "docs/evidence/p5/references/design-91.png",
+          "annotation": "docs/evidence/p5/spec-91.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=0be4f215-e078-4a8b-9c7f-6bd2cfb036e5"
+        }
+      ],
+      "entry": [
+        "我的反馈"
+      ],
+      "operationsAndSaving": [
+        "文字/分类/附件为会话草稿；返回和语言切换保留",
+        "Submit原子存本地；失败保留；连续点击/commitId不重复",
+        "成功回执按resultId定位，不依赖原生字典顺序；成功释放多余暂存",
+        "只显示当前账户历史；不是邮件或服务端工单"
+      ],
+      "backTarget": "/mine；旧关于来源返回 /settings",
+      "tabBar": false,
+      "dataAndValidation": [
+        "技术预览正文1–2000字素、lag/crash/payment/other稳定分类、≤3可信暂存图片",
+        "反馈截图不出现主头像/排序语义；保存成功后附件正式归属本账户"
+      ],
+      "retainedVisuals": [
+        "源23/91白色120px文本框、胶囊分类、截图格和渐变提交"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "16px输入适配已记录；回执/历史/通用异常为同体系补稿",
+        "正式反馈目的地未提供，明确仅存本机；系统文件选择取消尚未实际验证"
+      ],
+      "states": [
+        "空/禁用",
+        "填写",
+        "附件",
+        "不支持附件",
+        "返回/语言保持",
+        "写失败/重试",
+        "去重",
+        "回执/历史",
+        "跨账户隔离"
+      ],
+      "bridge": [
+        "personal.submitFeedback/snapshot",
+        "content.beginDraft/discardDraft",
+        "media.pick/import/remove/resolve"
+      ]
+    },
+    {
+      "name": "协议",
+      "routes": [
+        "/legal/eula",
+        "/legal/terms",
+        "/legal/privacy",
+        "/legal/guidelines"
+      ],
+      "sources": [
+        {
+          "index": 11,
+          "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "name": "设置",
+          "updatedAt": "2026-10-13T15:14:57.265859Z",
+          "version": "版本1",
+          "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-11.png",
+          "annotation": "docs/evidence/p5/spec-11.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ca85d44a-3696-4475-9f83-2fc4fea1b5b1"
+        },
+        {
+          "index": 29,
+          "imageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+          "name": "删除账号提示",
+          "updatedAt": "2026-10-13T15:14:57.206095Z",
+          "version": "版本1",
+          "servedImageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+          "status": "verified",
+          "totalSlices": 16,
+          "reference": "docs/evidence/p5/references/design-29.png",
+          "annotation": "docs/evidence/p5/spec-29.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=41117856-99d0-47fd-afda-ce765fe4f984"
+        }
+      ],
+      "entry": [
+        "设置协议"
+      ],
+      "operationsAndSaving": [
+        "四份EN/FR预览正文可滚动阅读；返回准确设置来源",
+        "阅读不修改EULA/社区同意版本；资料编辑不升级历史同意"
+      ],
+      "backTarget": "/settings",
+      "tabBar": false,
+      "dataAndValidation": [
+        "正式品牌Eluva；非约束性本地开发草稿",
+        "缺少最终自有政策/申诉/联系方式，不编造主体或客服"
+      ],
+      "retainedVisuals": [
+        "既有法律页面与源11导航、白色行、字体体系"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "无完整正文稿，以同体系补齐；正式法律内容须发布前另行确认"
+      ],
+      "states": [
+        "四正文双语",
+        "长文滚动",
+        "返回",
+        "本地说明"
+      ],
+      "bridge": []
+    },
+    {
+      "name": "退出与删除账户",
+      "routes": [
+        "/settings (logout dialog)",
+        "/settings/delete-account"
+      ],
+      "sources": [
+        {
+          "index": 11,
+          "imageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "name": "设置",
+          "updatedAt": "2026-10-13T15:14:57.265859Z",
+          "version": "版本1",
+          "servedImageId": "ca85d44a-3696-4475-9f83-2fc4fea1b5b1",
+          "status": "verified",
+          "totalSlices": 17,
+          "reference": "docs/evidence/p5/references/design-11.png",
+          "annotation": "docs/evidence/p5/spec-11.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ca85d44a-3696-4475-9f83-2fc4fea1b5b1"
+        },
+        {
+          "index": 29,
+          "imageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+          "name": "删除账号提示",
+          "updatedAt": "2026-10-13T15:14:57.206095Z",
+          "version": "版本1",
+          "servedImageId": "41117856-99d0-47fd-afda-ce765fe4f984",
+          "status": "verified",
+          "totalSlices": 16,
+          "reference": "docs/evidence/p5/references/design-29.png",
+          "annotation": "docs/evidence/p5/spec-29.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=41117856-99d0-47fd-afda-ce765fe4f984"
+        },
+        {
+          "index": 90,
+          "imageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+          "name": "弹窗--删除提示",
+          "updatedAt": "2026-10-13T15:14:57.284139Z",
+          "version": "版本1",
+          "servedImageId": "d77f7893-ff5d-4e7a-835d-64d0e20905cf",
+          "status": "verified",
+          "totalSlices": 1,
+          "reference": "docs/evidence/p5/references/design-90.png",
+          "annotation": "docs/evidence/p5/spec-90.json",
+          "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=d77f7893-ff5d-4e7a-835d-64d0e20905cf"
+        }
+      ],
+      "entry": [
+        "设置退出/删号"
+      ],
+      "operationsAndSaving": [
+        "退出确认/取消；成功auth.logout回Welcome，正式资料可重登",
+        "删号空/错误邮箱禁用；匹配当前邮箱后进入具名最终确认",
+        "最终确认采用源29上下排列主按钮/取消；取消保留邮箱",
+        "原子删号后回Welcome，重复回执幂等；native文件回收在vault提交后"
+      ],
+      "backTarget": "/settings；无会话回Welcome",
+      "tabBar": false,
+      "dataAndValidation": [
+        "固定测试账户暂保护，这是保守策略，不是新增用户确认规则",
+        "只删除目标账户、自有内容/媒体/关系/偏好/反馈/本人消息及关联引用",
+        "保留其他账户凭证/独立帖子/其他作者消息字节；已删对端无法继续会话",
+        "删除回执仅随机ID，不保存邮箱/密码副本；不全局清数据",
+        "退出只清会话与本账户未提交暂存，不删正式资料"
+      ],
+      "retainedVisuals": [
+        "源29 Poppins20/700/30、正文15/400/23、Jakarta14/600/18及纵向按钮",
+        "帖子/合集源90并排确认；增加目标摘要与准确范围"
+      ],
+      "missingDesignOrReplacedBusiness": [
+        "邮箱复核页/删除结果缺稿，同体系补齐",
+        "浏览器永久删除三个具名QA对象等待操作时确认；仓储回滚/隔离/删除测试已过",
+        "真实设备文件清理与UI未验证"
+      ],
+      "states": [
+        "空/错邮箱",
+        "固定账户保护",
+        "复核",
+        "最终确认EN/FR",
+        "取消",
+        "原子失败/重试/幂等自动化",
+        "退出/重登浏览器",
+        "最终UI删除待确认"
+      ],
+      "bridge": [
+        "auth.logout",
+        "personal.deleteAccount"
+      ]
+    }
+  ],
+  "assumptionsNotConfirmed": [
+    "一个帖子可引用于多个自有合集（已提问未确认）",
+    "免费2个/Pro无限额度不强制实施",
+    "反馈2000字素/3图、合集60/300、一般照片9张是技术预览上限",
+    "固定测试账号删除保护为保守策略",
+    "可编辑文本16px与原稿15px的适配待真机及视觉签核"
+  ],
+  "aboutRemoval": {
+    "date": "2026-10-21",
+    "confirmedBy": "Current user request",
+    "removed": [
+      "Settings About This App row",
+      "Settings Help Center section containing only About",
+      "About page and its feedback entry",
+      "English/French About-only strings and CSS"
+    ],
+    "legacyRoute": "/settings/about redirects to /settings; no About component or page",
+    "feedbackBack": "Legacy About source falls back to Settings; Mine feedback still returns Mine",
+    "mineHelpCenter": "Retained"
+  }
+}

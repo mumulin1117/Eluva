@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-21",
+  "bundleId": "com.eluva.app",
+  "report": "../../subscriptions-implementation-report.md",
+  "webTests": {
+    "passed": 100,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "nativeTests": {
+    "ios17": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "result": "/private/tmp/Eluva-pro-identity-final-ios17-20261021.xcresult",
+      "summary": "native-identity-final-ios17-summary.json",
+      "log": "native-identity-final-ios17.log",
+      "attachments": "native-identity-final-ios17-attachments/manifest.json"
+    },
+    "ios26": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "result": "/private/tmp/Eluva-pro-identity-final-ios26-20261021.xcresult",
+      "summary": "native-identity-final-ios26-summary.json",
+      "log": "native-identity-final-ios26.log",
+      "attachments": "native-identity-final-ios26-attachments/manifest.json"
+    }
+  },
+  "storeKitTest": {
+    "runtime": "iOS17.5 Simulator / Xcode StoreKitTest",
+    "approvedSubscriptionProducts": 3,
+    "passedCases": [
+      "load approved products",
+      "purchase",
+      "duplicate restore",
+      "renewal",
+      "disable auto renewal",
+      "expire",
+      "purchase cancelled",
+      "purchase network error",
+      "pending does not activate",
+      "approve pending",
+      "refund revokes access",
+      "consumable restore does not regrant"
+    ],
+    "dialogsDisabled": true,
+    "appleSandboxVerified": false,
+    "physicalDeviceVerified": false,
+    "ios26Issue": "Earlier StoreKitTest returned SKInternalErrorDomain Code=3 / empty catalog. Subscription test completed on iOS17.5; iOS26.5 WK tests passed."
+  },
+  "browser": {
+    "primaryMatrixCases": 48,
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "matrix": "browser-matrix.json",
+    "flows": "browser-flow.json",
+    "fixtureOnly": true,
+    "realApplePurchase": false,
+    "additionalRestrictedScreenshots": [
+      "screenshots/store-restricted-en-390x844.jpg",
+      "screenshots/store-restricted-fr-390x844.jpg"
+    ],
+    "finalConsoleWarnings": [],
+    "flowObservations": 17
+  },
+  "build": {
+    "viteAuditAndSync": "passed",
+    "viteLog": "build.log",
+    "unsignedDeviceRelease": "passed",
+    "deviceLog": "device-final-build.log",
+    "resourceHashes": "resource-hashes.json",
+    "copies": {
+      "dist": {
+        "path": "dist",
+        "count": 257,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "matches": true
+      },
+      "ios-web": {
+        "path": "ios/Eluva/Web",
+        "count": 257,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "matches": true
+      },
+      "ios17-app": {
+        "path": ".build/subscription-ios17/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+        "count": 257,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "matches": true
+      },
+      "ios26-app": {
+        "path": ".build/profile-ios26/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+        "count": 257,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "matches": true
+      },
+      "device-app": {
+        "path": ".build/device/Build/Products/Release-iphoneos/Eluva.app/Web",
+        "count": 257,
+        "missing": [],
+        "extra": [],
+        "changed": [],
+        "matches": true
+      }
+    },
+    "bundleIds": {
+      "ios17-app": "com.eluva.app",
+      "ios26-app": "com.eluva.app",
+      "device-app": "com.eluva.app"
+    },
+    "warnings": [
+      "Vite existing large chunk notice",
+      "Apple AppIntents metadata extraction skipped (no AppIntents dependency)",
+      "Some WebKit/RBS process shutdown diagnostics in test output; not reported as clean physical console"
+    ],
+    "simulatorEntitlements": "simulator-entitlements.json"
+  },
+  "dataBoundary": {
+    "oldBundleId": "com.eluva.local",
+    "newAppSandbox": true,
+    "oldDataDeleted": false,
+    "crossBundleDataMigration": false,
+    "testData": "UUID fixture databases and native temporary vaults; no real account clearing"
+  },
+  "notVerified": [
+    "Development Team / signed physical installation",
+    "Apple sandbox actual catalog availability and purchase sheet",
+    "Native restore authentication / manage sheet visual interaction",
+    "Physical purchase, refund and cross-device restore"
+  ],
+  "scopeBoundary": [
+    "Subscription identity/status/expiry and restore implemented",
+    "No new Pro quotas or feature-specific commercial limits approved or unlocked"
+  ],
+  "cleanup": {
+    "temporaryIos17Simulator": "Removed after tests; existing user simulators retained",
+    "activeQATab": "Closed after screenshots"
+  }
+}

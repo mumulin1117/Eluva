@@ -1,0 +1,29 @@
+<!doctype html><html><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Eluva loading and gestures QA</title></head><body><div id="app"></div><script type="module">
+// Isolated test fixture: production still has index.html as its only entry.
+import {BrowserRepository} from '/src/services/browser-repository.js'
+import {bridge,state,saveLocale} from '/src/state.js'
+import {LEGAL_VERSION} from '/src/domain/validation.js'
+import {AppError} from '/src/domain/errors.js'
+const query=new URLSearchParams(location.search),locale=query.get('locale')==='fr'?'fr':'en',view=query.get('view')||'chats',theme=['purple','pink','orange','cyan'].includes(query.get('theme'))?query.get('theme'):'purple'
+const repo=new BrowserRepository({dbName:'eluva-loading-qa-'+crypto.randomUUID()});bridge.adapter=repo
+await repo.execute('app','bootstrap');await repo.execute('preferences','locale',{locale});await repo.execute('preferences','consent',{accepted:true,version:LEGAL_VERSION});await repo.execute('auth','login',{email:'eluva@gmail.com',password:'123qweasd'});await repo.execute('content','preferences',{guideDone:true});await repo.execute('personal','savePreferences',{theme,commitId:crypto.randomUUID()})
+const post=(await repo.execute('content','snapshot')).posts.find(p=>p.id==='demo-post-female-02-v2'),routes={chats:'/chats',home:'/home',profile:'/profile/'+post.authorId+'?from=/chats',detail:'/post/'+post.id+'?from=/home'},methods={chats:'social.snapshot',home:'content.snapshot',profile:'social.profile',detail:'content.post'}
+const execute=repo.execute.bind(repo);let hold=query.get('scenario')!=='ready',fail=query.get('scenario')==='failure',pending=[],requests=0,target=methods[view]
+const call=bridge.call.bind(bridge);bridge.call=(service,method,params,options={})=>call(service,method,params,{...options,...(hold&&service+'.'+method===target?{timeout:120000}:{})})
+repo.execute=async(service,method,...args)=>{
+ const key=service+'.'+method
+ if(key===target){document.documentElement.dataset.reads=String(++requests);if(hold)await new Promise(resolve=>pending.push(resolve));if(fail){fail=false;throw new AppError('STORAGE_FAILED')}}
+ return execute(service,method,...args)
+}
+if(query.get('safe')==='1'){const style=document.createElement('style');style.textContent=':root{--safe-top:44px!important;--safe-bottom:34px!important}@media(max-height:700px){:root{--safe-top:20px!important;--safe-bottom:0px!important}}@media(width:393px),(width:430px){:root{--safe-top:59px!important;--safe-bottom:34px!important}}';document.head.append(style)}
+const qa=document.createElement('aside');qa.id='loading-qa-controls';qa.style.cssText='position:fixed;bottom:0;right:0;z-index:9999;display:flex;flex-wrap:wrap;max-width:100%;background:white;font:10px sans-serif';qa.setAttribute('aria-label','Isolated loading controls')
+const add=(label,action)=>{const b=document.createElement('button');b.textContent=label;b.style.cssText='min-height:25px;padding:0 5px';b.onclick=action;qa.append(b)}
+add('Release read',()=>{hold=false;const callbacks=pending;pending=[];callbacks.forEach(fn=>fn())})
+add('Hold next read',()=>{hold=true})
+add('Fail next read',()=>{fail=true})
+add('Fail category',()=>{const original=repo.execute;let once=true;repo.execute=async(s,m,...args)=>{if(once&&s==='social'&&m==='preferences'){once=false;repo.execute=original;throw new AppError('STORAGE_FAILED')}return original(s,m,...args)}})
+add('Language',()=>saveLocale(state.locale==='en'?'fr':'en'))
+for(const color of ['purple','pink','orange','cyan'])add(color,()=>{state.theme=color})
+for(const key of ['chats','home','profile','detail'])add(key+' view',async()=>{target=methods[key];hold=true;const {router}=await import('/src/router.js');await router.push(routes[key])})
+document.body.append(qa);document.documentElement.lang=locale;if(!location.hash)location.hash=routes[view];await import('/src/main.js')
+</script></body></html>

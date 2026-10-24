@@ -1,0 +1,27 @@
+--- original/style.css
++++ updated/style.css
+@@ -1,4 +1,4 @@
+-@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
++@import url('fonts.css');
+ :root{--ink:#f8f8ff;--violet:#c5ff4a;--mist:#10131f;--line:#272c3b}
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+@@ -70,7 +70,7 @@
+ footer p,footer small{margin:4px 0;color:#aca4bf;font-size:12px}
+ footer div{display:flex;gap:18px;font-size:12px;justify-content:flex-end}
+ footer small{grid-column:1/-1;margin-top:42px}
+-.legal{padding:105px max(10vw,28px) 140px;min-height:calc(100vh - 88px);background:linear-gradient(135deg,#fff 15%,#f5efff 75%)}
++.legal{color:#1b1930;padding:105px max(10vw,28px) 140px;min-height:calc(100vh - 88px);background:linear-gradient(135deg,#fff 15%,#f5efff 75%)}
+ .legal h1{font-size:clamp(52px,7vw,94px);line-height:.96;letter-spacing:-6px;margin:0;max-width:830px}
+ .legal h1 em{font-family:'Playfair Display',serif;font-weight:500;letter-spacing:-4px}
+ .legal .lead{font-size:19px;line-height:1.65;max-width:660px;color:#5f596a;margin:36px 0 70px}
+@@ -83,7 +83,8 @@
+ .contact-card>p:last-child{color:#6a6377;font-size:14px}
+ .privacy{max-width:980px;padding-right:8vw}
+ .privacy h2{margin-top:48px}
+-.privacy .updated{font:12px 'DM Mono',monospace;margin-top:50px;color:#827799}
++.legal .eyebrow{color:#6d32ff}
++.privacy .updated{font:12px 'DM Mono',monospace;margin-top:50px;color:#655b76}
+ @keyframes phone-float{0%,100%{transform:rotate(5deg) translateY(0)}50%{transform:rotate(5deg) translateY(clamp(-12px,-1vw,-7px))}}
+ @keyframes chat-float{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-4deg) translateY(clamp(-12px,-1vw,-7px))}}
+ @keyframes orb-breathe{0%,100%{transform:scale(.96);opacity:.3}50%{transform:scale(1.08);opacity:.48}}

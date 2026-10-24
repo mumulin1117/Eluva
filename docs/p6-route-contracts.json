@@ -1,0 +1,385 @@
+{
+  "phase": "P6 StoreKit Pro subscription identity and status; Apple sandbox and physical acceptance pending",
+  "cards": [
+    {
+      "routes": [
+        "/store"
+      ],
+      "sources": [
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-21T10:00:22.325275Z",
+          "previousReviewVersion": "版本1",
+          "version": null,
+          "versionNote": "Current query did not expose a numbered history version; latest user attachments and annotation layers are recorded separately."
+        },
+        {
+          "index": 92,
+          "id": "78750ef7-6763-4785-bdf0-08309be4ad4c",
+          "name": "我的",
+          "updatedAt": "2026-10-21T10:00:22.337023Z",
+          "previousReviewVersion": "版本1",
+          "version": null,
+          "versionNote": "Current query did not expose a numbered history version; latest user attachments and annotation layers are recorded separately."
+        },
+        {
+          "index": 39,
+          "id": "4a029226-5e3e-4349-8e9a-f5c5d355fce5",
+          "name": "发布动态--筛选条件选择",
+          "updatedAt": "2026-10-13T15:22:06.259693Z",
+          "version": "版本1"
+        },
+        {
+          "index": 44,
+          "id": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+          "name": "个人资料编辑",
+          "updatedAt": "2026-10-13T15:14:57.282313Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "/mine Pro",
+        "/compose Audience Filters",
+        "/edit-profile Avatar frames"
+      ],
+      "actions": [
+        "Load approved StoreKit products and storefront prices",
+        "Select monthly / quarterly / annual auto-renewable product",
+        "Purchase / change plan through Apple; current plan disabled",
+        "Top-right Restore calls AppStore.sync then verifies current Eluva ownership",
+        "Open Apple manage subscriptions",
+        "Reload products and preserve verified state on failure",
+        "Open existing benefits / wallet / purchase help"
+      ],
+      "back": "Validated from: /mine, /compose, /edit-profile, /collections",
+      "saveTime": "Persist appAccountToken before starting StoreKit; verified grant and transaction ID atomically persisted before finish(). UI cache only after success.",
+      "states": [
+        "loading",
+        "missing configuration",
+        "browser unsupported",
+        "store unavailable/restricted",
+        "configured products",
+        "selection",
+        "busy/disabled",
+        "cancelled",
+        "failed/retry",
+        "pending",
+        "verified success",
+        "timeout/check before retry",
+        "late reply discarded",
+        "active with Apple expiry",
+        "auto-renewal disabled until paid expiry",
+        "gracePeriod",
+        "billingRetry",
+        "expired",
+        "revoked",
+        "restored / restoredInactive / nothingToRestore",
+        "partial products",
+        "pending plan change preserves current active plan"
+      ],
+      "bridge": [
+        "commerce.products",
+        "commerce.purchase",
+        "commerce.restore",
+        "commerce.snapshot",
+        "commerce.manage"
+      ],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/subscriptions-2026-10-21/browser-matrix.json",
+      "gaps": [
+        "Development Team and signed physical installation remain deferred by user.",
+        "App Store Connect sandbox catalog, visible native payment sheet / restore authentication / manage subscription sheet and cross-device acceptance are not verified.",
+        "Pro feature-specific limits and quotas were not newly defined or unlocked in this scope."
+      ]
+    },
+    {
+      "routes": [
+        "/store/benefits"
+      ],
+      "sources": [
+        {
+          "index": 26,
+          "id": "bff19b3d-1f29-42a7-a935-c674940b9443",
+          "name": "充值--会员功能",
+          "updatedAt": "2026-10-13T15:14:57.216034Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "/store More All Benefits"
+      ],
+      "actions": [
+        "Review unconfirmed candidate structure"
+      ],
+      "back": "/store with the original from query",
+      "saveTime": "Read only. No entitlement unlocked.",
+      "states": [
+        "candidate/unconfigured",
+        "French long text",
+        "scrolling"
+      ],
+      "bridge": [],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Source counts/checkmarks/unlimited are not confirmed. Replaced with Not configured.",
+        "Rows may grow with translated labels; source font, columns and separator values retained."
+      ]
+    },
+    {
+      "routes": [
+        "/store/wallet"
+      ],
+      "sources": [
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-13T15:14:57.20977Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "/store Balance & activity"
+      ],
+      "actions": [
+        "Refresh authority",
+        "Read per-environment balances and ledger"
+      ],
+      "back": "/store, retaining from",
+      "saveTime": "Read only; public post usage commits together with content in existing repository.",
+      "states": [
+        "loading",
+        "empty",
+        "usage",
+        "storage error/retry",
+        "separate production/sandbox/xcode",
+        "localPreview no payment",
+        "refund review restriction"
+      ],
+      "bridge": [
+        "commerce.snapshot"
+      ],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Missing exact source draft: shared visual system, no design approval implied.",
+        "Unlimited preview; no approved reward earning or official debit values."
+      ]
+    },
+    {
+      "routes": [
+        "/store:help"
+      ],
+      "sources": [
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-13T15:14:57.20977Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "Purchase help"
+      ],
+      "actions": [
+        "Read connection/account/restrictions and interrupted-payment recovery",
+        "Done / Close returns focus"
+      ],
+      "back": "Close only this modal",
+      "saveTime": "No persistence.",
+      "states": [
+        "open",
+        "close",
+        "long text/internal scrolling"
+      ],
+      "bridge": [],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Same-system supplementary modal; native system settings not automatically changed."
+      ]
+    },
+    {
+      "routes": [
+        "/store:terms"
+      ],
+      "sources": [
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-13T15:14:57.20977Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "Services Purchase Agreement"
+      ],
+      "actions": [
+        "Read explicit unavailable/nonbinding terms status",
+        "Done / Close"
+      ],
+      "back": "Close only this modal",
+      "saveTime": "No legal acceptance or purchase.",
+      "states": [
+        "draft/unavailable",
+        "close"
+      ],
+      "bridge": [],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Final purchase agreement is missing."
+      ]
+    },
+    {
+      "routes": [
+        "/compose -> /store -> /compose"
+      ],
+      "sources": [
+        {
+          "index": 39,
+          "id": "4a029226-5e3e-4349-8e9a-f5c5d355fce5",
+          "name": "发布动态--筛选条件选择",
+          "updatedAt": "2026-10-13T15:22:06.259693Z",
+          "version": "版本1"
+        },
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-13T15:14:57.20977Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "Audience filter sheet"
+      ],
+      "actions": [
+        "Open Pro, switch language and return"
+      ],
+      "back": "Same compose draft and original returnPath",
+      "saveTime": "Keep draft in existing account-scoped in-memory store; publish commits atomically.",
+      "states": [
+        "draft",
+        "locked Pro",
+        "back retains body",
+        "private no quota",
+        "write failure retains body",
+        "retry one ledger entry"
+      ],
+      "bridge": [
+        "content.publish",
+        "commerce.snapshot"
+      ],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Audience policy remains locked. Existing preview limits not promoted to business requirements."
+      ]
+    },
+    {
+      "routes": [
+        "/edit-profile -> /store -> /edit-profile"
+      ],
+      "sources": [
+        {
+          "index": 44,
+          "id": "7b1e83c6-51b7-4e0d-8fe8-97629eca6f5a",
+          "name": "个人资料编辑",
+          "updatedAt": "2026-10-13T15:14:57.282313Z",
+          "version": "版本1"
+        },
+        {
+          "index": 28,
+          "id": "7574cbf3-7a5f-467f-a7af-6c582c36ee4a",
+          "name": "充值",
+          "updatedAt": "2026-10-13T15:14:57.20977Z",
+          "version": "版本1"
+        }
+      ],
+      "entry": [
+        "Avatar-frame preview"
+      ],
+      "actions": [
+        "Open Pro and return after language switch"
+      ],
+      "back": "Same profile draft",
+      "saveTime": "No authoritative profile change until explicit Save.",
+      "states": [
+        "unsaved name",
+        "frame lock",
+        "return retains draft",
+        "editable selection / paragraph blur"
+      ],
+      "bridge": [
+        "personal.snapshot"
+      ],
+      "tabBar": false,
+      "localization": [
+        "en",
+        "fr"
+      ],
+      "viewportMatrix": "evidence/p6/browser-matrix.json",
+      "gaps": [
+        "Frame rights remain unavailable pending mapping."
+      ]
+    }
+  ],
+  "subscriptionRevision": {
+    "date": "2026-10-21",
+    "bundleId": "com.eluva.app",
+    "report": "subscriptions-implementation-report.md",
+    "sameGroupAutoRenewableConfirmed": true,
+    "products": [
+      {
+        "id": "eluva_monthly_promember",
+        "unit": "month",
+        "value": 1
+      },
+      {
+        "id": "eluva_quarterly_promember",
+        "unit": "month",
+        "value": 3
+      },
+      {
+        "id": "eluva_annualy_promember",
+        "unit": "year",
+        "value": 1
+      }
+    ],
+    "prices": "StoreKit displayPrice and currency only; user prices retained only in test configuration",
+    "expiry": "Apple verified expirationDate plus verified gracePeriodExpirationDate, projected locally",
+    "oldBundleId": "com.eluva.local",
+    "sandboxMigration": "No data deletion or automatic cross-bundle migration",
+    "storeKitTest": "iOS17.5 simulator; not Apple sandbox or physical payment verification"
+  }
+}

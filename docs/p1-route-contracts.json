@@ -1,0 +1,525 @@
+{
+  "schemaVersion": 1,
+  "implementedOn": "2026-10-17",
+  "status": "local-closure-implemented-with-release-inputs-and-device-validation-pending",
+  "commonStates": [
+    "initial",
+    "editing",
+    "disabled",
+    "busy",
+    "success",
+    "error-input-retained",
+    "retry",
+    "cancel-when-applicable"
+  ],
+  "commonRules": [
+    "memory registration draft; formal account only after Complete",
+    "single-flight asynchronous operations; commitId idempotence",
+    "no TabBar or reserved TabBar gap on these routes",
+    "en/fr preserves inputs and stable IDs",
+    "real permission results; local simulation labelled"
+  ],
+  "pages": [
+    {
+      "id": "S01",
+      "name": "iOS Launch Screen",
+      "route": "native:launch",
+      "implementation": "ios/Eluva/LaunchScreen.storyboard",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#S01",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "启动品牌图、展示名映射和字体文件未提供，具体画面待审。"
+      ]
+    },
+    {
+      "id": "S02",
+      "name": "原生覆盖层与 H5 Boot",
+      "route": "native:overlay + H5 boot state (no standalone /boot route)",
+      "implementation": "ios/Eluva/WebViewController.swift + src/App.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#S02",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "超时阈值及诊断文案为实现参数，待基础工程确定。"
+      ]
+    },
+    {
+      "id": "A01",
+      "name": "Welcome",
+      "route": "/welcome",
+      "implementation": "src/views/WelcomeView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A01",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": []
+    },
+    {
+      "id": "A02",
+      "name": "EULA 协议确认弹层",
+      "route": "/welcome + eula",
+      "implementation": "src/App.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A02",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "正式 EULA/Terms/Privacy en/fr 正文与真实联系信息为资源依赖。"
+      ]
+    },
+    {
+      "id": "A03",
+      "name": "Age Confirmation",
+      "route": "/auth/age",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "1cece773-6a9f-4ab2-b4f7-a288bd2c64b2",
+        "0d5262e5-3116-48c7-95bd-ff87f166ccf2"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A03",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": []
+    },
+    {
+      "id": "A04",
+      "name": "Community Agreement",
+      "route": "/auth/community",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1",
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A04",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "Eluva 社区规则正文、勾选结构具体补稿待审；不虚构线上审核团队。"
+      ]
+    },
+    {
+      "id": "A05",
+      "name": "Sign Up",
+      "route": "/auth/sign-up",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A05",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": []
+    },
+    {
+      "id": "A06",
+      "name": "Email Verification / Enter Email",
+      "route": "/auth/verify/email",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A06",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": []
+    },
+    {
+      "id": "A07",
+      "name": "Email Verification / Code",
+      "route": "/auth/verify/code",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A07",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P03 冷却秒数未确认；不得附加未确认的验证码有效期。"
+      ]
+    },
+    {
+      "id": "A08",
+      "name": "Email Verification / Success",
+      "route": "/auth/verify/success",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8",
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A08",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "独立成功页暂无蓝湖稿；图标/留白为补稿设计待审。"
+      ]
+    },
+    {
+      "id": "A09",
+      "name": "Log In",
+      "route": "/auth/log-in",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A09",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": []
+    },
+    {
+      "id": "A10",
+      "name": "Forgot Password / Email",
+      "route": "/auth/password/email",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A10",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P05 固定测试账号改密例外待确认；默认保护固定入口。"
+      ]
+    },
+    {
+      "id": "A11",
+      "name": "Forgot Password / Code",
+      "route": "/auth/password/code",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A11",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "冷却同P03，不引入真实有效期。"
+      ]
+    },
+    {
+      "id": "A12",
+      "name": "Forgot Password / New Password",
+      "route": "/auth/password/new",
+      "implementation": "src/views/AuthView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#A12",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P05固定账号例外；跨存储失败恢复与幂等在基础实现冻结。"
+      ]
+    },
+    {
+      "id": "L01",
+      "name": "Terms of Service 正文",
+      "route": "/legal/terms",
+      "implementation": "src/views/LegalView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#L01",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "正式 en/fr 条款及适用版本未提供。"
+      ]
+    },
+    {
+      "id": "L02",
+      "name": "Privacy Policy 正文",
+      "route": "/legal/privacy",
+      "implementation": "src/views/LegalView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#L02",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "正式 en/fr 隐私正文与联系渠道未提供。"
+      ]
+    },
+    {
+      "id": "L03",
+      "name": "Community Guidelines 正文",
+      "route": "/legal/guidelines",
+      "implementation": "src/views/LegalView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#L03",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "正式社区/申诉文本待提供。"
+      ]
+    },
+    {
+      "id": "O01",
+      "name": "Onboarding / Basic Info",
+      "route": "/onboarding/basic",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "0d5262e5-3116-48c7-95bd-ff87f166ccf2"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O01",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P01可选字段、其他资料可见性及显示名上限待页面补稿审定；生日隐私与18+已确认。"
+      ]
+    },
+    {
+      "id": "O02",
+      "name": "Onboarding / University",
+      "route": "/onboarding/university",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O02",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P01 学校/年级是否必填及本地选项表待冻结；不预设学校名录覆盖全球。"
+      ]
+    },
+    {
+      "id": "O03",
+      "name": "Onboarding / Major",
+      "route": "/onboarding/major",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O03",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P01专业必填性与选项表；默认单选+可暂不填写为方案。"
+      ]
+    },
+    {
+      "id": "O04",
+      "name": "Onboarding / Photos",
+      "route": "/onboarding/photos",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O04",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "照片卡新布局待审；最大张数/裁剪比例/压缩阈值未确认，不增加人脸或真实身份识别。"
+      ]
+    },
+    {
+      "id": "O05",
+      "name": "Onboarding / About",
+      "route": "/onboarding/about",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "34034a59-a9e7-42ce-8bf4-ec3003974cb4",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O05",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "计数字符算法为技术方案；无需新增业务门槛。"
+      ]
+    },
+    {
+      "id": "O06",
+      "name": "Onboarding / Interests",
+      "route": "/onboarding/interests",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O06",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "标签词库及是否允许自定义待补稿审定，先用本地固定表方案。"
+      ]
+    },
+    {
+      "id": "O07",
+      "name": "Onboarding / Connection Goal",
+      "route": "/onboarding/goal",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O07",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "P01 意向选项、单/多选与必填性尚未冻结；上述为候选。"
+      ]
+    },
+    {
+      "id": "O08",
+      "name": "Onboarding / Icebreakers",
+      "route": "/onboarding/icebreakers",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O08",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "自有题库待提供/编写；自定义上限与是否启用为候选。"
+      ]
+    },
+    {
+      "id": "O09",
+      "name": "Onboarding / Notifications",
+      "route": "/onboarding/notifications",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O09",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "具体通知用途文案按实际实现与自有en/fr文案补齐。"
+      ]
+    },
+    {
+      "id": "O10",
+      "name": "Onboarding / Complete",
+      "route": "/onboarding/complete",
+      "implementation": "src/views/OnboardingView.vue",
+      "status": "implemented-local-preview",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "sourceMapping": "p0-auth-onboarding-design-map.json#O10",
+      "behaviorContract": "p1-implementation-report.md#操作返回与保存",
+      "tabBar": false,
+      "sourcePendingItemsRemainUnconfirmed": [
+        "多存储提交/回滚方案、正式主入口具体route、品牌完成图为实现依赖；不能宣称已实现原子事务。"
+      ]
+    }
+  ],
+  "mainExit": {
+    "route": "/home",
+    "tabs": [
+      "chats",
+      "home",
+      "mine"
+    ],
+    "scope": "minimal P1 authenticated entry; later-stage social pages not implemented"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "scope": "Supplied local user and post data integration; not full P7 release acceptance",
+  "fixtureVersion": 2,
+  "users": 20,
+  "seedPosts": 10,
+  "postImages": 19,
+  "sourceAssets": 39,
+  "sourceBytes": 73953835,
+  "assetsUnmodified": true,
+  "testAccountConversations": 2,
+  "webTests": {
+    "passed": 70,
+    "failed": 0
+  },
+  "nativeTests": {
+    "passed": 47,
+    "failed": 0,
+    "device": "iPhone SE (3rd generation) / iOS 17.5 Simulator",
+    "resultBundle": ".build/demo-data-20261019-tests.xcresult"
+  },
+  "browser": {
+    "screenshotsInMatrix": 108,
+    "states": [
+      "chats-related-people",
+      "conversation-maya",
+      "friends-supplied-avatars",
+      "home-ten-original-posts",
+      "post-one-author-avatar",
+      "post-six-media-two",
+      "post-six-two-images",
+      "profile-leo-post-six",
+      "profile-maya-post-one"
+    ],
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "allTenPostDetails": true,
+    "allNineteenPostImages": true,
+    "horizontalOverflow": false,
+    "missingImages": false,
+    "consoleErrors": 0,
+    "realSystemKeyboard": false
+  },
+  "builds": {
+    "vite": "passed",
+    "iosResourceSync": "passed",
+    "simulator": "passed",
+    "deviceUnsigned": "passed",
+    "resourceSets": 4,
+    "filesPerSet": 213,
+    "identicalSha256": true
+  },
+  "nativeUI": {
+    "status": "partial",
+    "device": "iPhone 17 / iOS 26.5 Simulator",
+    "observed": "Actual bundled WKWebView home shows 10 Resonances Found and supplied post image/text",
+    "screenshot": "screenshots/native-launch-attempt.png",
+    "notVerified": [
+      "Native Chats/profile touch navigation: CUA coordinate input failed with windowNotFoundAtPosition",
+      "System keyboard",
+      "Full native viewport/language matrix"
+    ]
+  },
+  "physicalDevice": {
+    "status": "not-run",
+    "inventory": "iPhone 15 Pro connected; iPhone SE unavailable",
+    "note": "No physical install or interaction; unsigned build is compile verification only"
+  },
+  "limitations": [
+    "User-created posts and previously changed relationships remain; total visible items may differ from a fresh test fixture.",
+    "Seed persona identity/age/major/bio and contextual messages are fictional local test data.",
+    "Existing P7 design/StoreKit/hardware acceptance gaps remain outside this data task.",
+    "Native test teardown logs contain WebKit RBS/ProcessSuspension messages; not a clean-console claim."
+  ]
+}

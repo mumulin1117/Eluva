@@ -1,0 +1,188 @@
+{
+  "date": "2026-10-23",
+  "task": "Continuous LaunchScreen to native cover to actual H5 destination",
+  "status": "implemented; targeted checks passed; physical-device and continuous OS cold-start capture pending",
+  "visualBasis": "design-reference.json: current LaunchScreen, same background, same source logo, 110x110 centerX root and centerY root-50, no normal startup text",
+  "flow": [
+    "Create exact storyboard cover before WebKit",
+    "Index and Vue boot use same images and geometry",
+    "Bootstrap and final router component mount",
+    "Decode visible first-frame media and key branded/map resources; fonts load; two RAF",
+    "Existing Native Bridge app.ready with current launchId plus current WKNavigation didFinish",
+    "360ms native cover opacity fade; reduced-motion skips fade",
+    "Unlock web interaction and resume Home discovery only after complete reveal"
+  ],
+  "recovery": [
+    "12s H5 resource deadline, 20s foreground native fallback",
+    "app.startupFailed uses existing Bridge, validates code and attempt",
+    "Failed attempt sealed; stale navigation/ready cannot uncover a retry",
+    "Native retry generates new token, resets failure and reloads",
+    "H5 hidden cancels owned readiness; foreground prepares again",
+    "Native inactive pauses reveal and fallback timer; active resumes"
+  ],
+  "tests": {
+    "web": {
+      "passed": 173,
+      "failed": 0,
+      "log": "web-tests.log"
+    },
+    "nativeUniqueCasesPassed": 6,
+    "nativeCases": [
+      {
+        "tests": [
+          "LaunchTransitionTests/testEnglishLaunchTransition",
+          "LaunchTransitionTests/testFrenchLaunchTransition"
+        ],
+        "result": "passed individually",
+        "seconds": [
+          10.911,
+          9.256
+        ],
+        "resultBundle": ".build/launch-transition-20261023-visible.xcresult",
+        "log": "native-tests-visible.log"
+      },
+      {
+        "tests": [
+          "WebBundleTests/testEnglishHomeGuideAfterDiscovery",
+          "WebBundleTests/testFrenchHomeGuideAfterDiscovery"
+        ],
+        "result": "passed individually",
+        "seconds": [
+          29.173,
+          31.829
+        ],
+        "resultBundle": ".build/launch-transition-20261023-visible.xcresult",
+        "log": "native-tests-visible.log"
+      },
+      {
+        "tests": [
+          "WebBundleTests/testEnglishBundledDocumentAndNativeBootstrap",
+          "WebBundleTests/testFrenchBundledDocumentAndNativeBootstrap"
+        ],
+        "result": "passed; whole 2-test run succeeded",
+        "seconds": [
+          5.516,
+          4.241
+        ],
+        "resultBundle": ".build/launch-transition-20261023-auth-verified.xcresult",
+        "log": "native-tests-auth-verified.log"
+      }
+    ],
+    "environment": "Dedicated iPhone17 iOS26.5 QA simulator; real UIKit WebViewController and Native Bridge, production bundled H5, temporary isolated repositories; six resized controller geometries rather than six devices",
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "storyboardComparisons": {
+      "cases": 24,
+      "maxNormalizedPixelDifference": 0,
+      "idealCenterTolerance": "half actual physical pixel plus floating-point epsilon; no relaxation of reference pixel comparison"
+    },
+    "coverage": [
+      "Welcome including EULA without accepting terms in launch tests",
+      "Existing-session Home entry",
+      "Slow image decode holds cover and emits no early app.ready",
+      "Native presentation opacity transition samples and real UIWindow drawHierarchy images",
+      "Reduced-motion injected closure",
+      "Current generation ready once, repeated accepted token idempotent, old and failed generation rejected",
+      "Navigation and WebKit termination delegate simulation followed by native retry",
+      "Simulated inactive/background notifications hold cover until active",
+      "Home discovery frozen while fully covered",
+      "Auth flow, wrong code/password, atomic registration, empty new-account Chats, logout/login, reset cancel and mismatch recovery",
+      "First Home discovery/guide order regression"
+    ],
+    "attemptHistory": [
+      {
+        "log": "native-tests.log",
+        "result": "2 launch tests failed only ideal-center 0.1pt assertion; true @3x rounding was ~0.167pt. Reference pixel comparisons remained equal.",
+        "evidence": "attempt-1/"
+      },
+      {
+        "log": "native-tests-final.log",
+        "result": "Launch2 passed; broad offscreen regression was interrupted due severe timer throttling; result bundle save emitted interrupted-record warning.",
+        "evidence": "attempt-2-interrupted/"
+      },
+      {
+        "log": "native-tests-visible.log",
+        "result": "Launch2 and Guide2 passed; old auth fixtures failed at button readiness. Whole run failed.",
+        "evidence": "attempt-3-visible/"
+      },
+      {
+        "log": "native-tests-auth.log",
+        "result": "Auth2 failed; fast synthetic dialog click did not issue logout."
+      },
+      {
+        "log": "native-tests-auth-diagnostic.log",
+        "result": "English diagnostic failed; captured Settings normal dialog, no boot error, footer clicked 2ms after appearance, no auth.logout RPC.",
+        "evidence": "Bundled-auth-navigation-en-failure.json"
+      },
+      {
+        "log": "native-tests-auth-verified.log",
+        "result": "Auth2 passed after real button availability and double-RAF recheck. Product code not changed for fixture failures."
+      }
+    ]
+  },
+  "builds": {
+    "vite": "passed; production-build.log",
+    "resourceAuditAndSync": "265 files",
+    "simulator": "Debug compiled and tested",
+    "device": "Release unsigned passed; device-release-build.log",
+    "resourceHashes": "resource-verification.json; four copies match"
+  },
+  "visualReview": {
+    "inspected": [
+      "Launch-en-welcome-LaunchScreen-reference-390x844.png",
+      "Launch-en-welcome-native-uncover-midframe.png",
+      "Launch-en-welcome-visible-native-window.png",
+      "Launch-en-home-visible-native-window.png",
+      "Launch-fr-welcome-native-uncover-midframe.png",
+      "Launch-fr-home-visible-native-window.png"
+    ],
+    "observed": "Inspected frames keep original brand geometry and reveal real destination; no whole white/black blank in inspected frames.",
+    "limit": "No claim of all OS cold-launch frames or physical hardware. Native cover comparisons use layer rendering; transition/end frames use actual visible window drawHierarchy.",
+    "attachments": "wk-attachments.json"
+  },
+  "dataAndAuth": "No storage schema or migration changes; registration business rules retained. QA fixture creates and resets only isolated test accounts.",
+  "cleanup": {
+    "simulator": "9E094875-1D1E-4E4D-BDE6-6A7CC573CBCB (Eluva Launch QA), created for this run and deleted after export",
+    "userSimulators": "No overwrite install on existing user simulators"
+  },
+  "warnings": [
+    "Existing Vite large chunk and plugin callback timing messages.",
+    "Simulator RBS/ProcessSuspension and missing system haptic library diagnostics.",
+    "Interrupted offscreen xcodebuild result-save warning preserved in its log."
+  ],
+  "unperformed": [
+    "Physical iPhone cold-start, real system background/reduced-motion switches, keyboard, sustained performance",
+    "Continuous OS LaunchScreen-to-H5 cold-start video/frame profiling",
+    "Deliberately corrupting packaged first-frame resource to exercise complete H5 startupFailed-to-native chain; unit resource failures and native delegate recovery tested separately"
+  ],
+  "report": "../../launch-transition-report.md",
+  "sourceHashes": "source-files.json"
+}

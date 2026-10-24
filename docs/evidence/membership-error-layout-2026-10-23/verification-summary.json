@@ -1,0 +1,92 @@
+{
+  "scope": "Membership failure feedback placement and scrolled navigation backdrop only",
+  "webTests": {
+    "pass": 173,
+    "fail": 0
+  },
+  "production": {
+    "build": true,
+    "synchronized": true,
+    "resources": 265,
+    "deviceReleaseUnsignedBuild": true,
+    "resourceHashes": {
+      "dist": {
+        "filesChecked": 265,
+        "failures": [],
+        "passed": true
+      },
+      "ios-source": {
+        "filesChecked": 265,
+        "failures": [],
+        "passed": true
+      },
+      "simulator-debug": {
+        "filesChecked": 265,
+        "failures": [],
+        "passed": true
+      },
+      "device-release": {
+        "filesChecked": 265,
+        "failures": [],
+        "passed": true
+      }
+    }
+  },
+  "wk": {
+    "pass": 2,
+    "fail": 0,
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewportStateCases": 36,
+    "states": [
+      "catalog",
+      "purchase-unavailable",
+      "purchase-products-unavailable"
+    ],
+    "sizes": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "maxTitleContentCoordinateDeltaPx": 0,
+    "errorPlacement": "after Continue; before price notice; visible and not under navigation",
+    "fixture": "task-owned iPhone17 iOS26.5 simulator with visible WKWebView, packaged resources, actual Native Bridge, nonpersistent WK data and isolated repository; six WK frame sizes with synthetic safe-area values",
+    "fault": "STORE_PRODUCTS_UNAVAILABLE injected at held commerce.products response, not a diagnosis of user Apple account",
+    "screenshots": 48
+  },
+  "skippedChecks": [
+    {
+      "tests": 2,
+      "scope": "StoreKitTest purchase cancellation",
+      "reason": "iOS26.5 StoreKitTest service did not return all three configured products; see before-navigation-backdrop/native-tests.log; not counted as passed"
+    }
+  ],
+  "physicalDevice": "not tested per prior deferral",
+  "actualAppleProducts": "exact external reason for the user screenshot not established; no App Store Connect or Apple-account changes",
+  "initialAttempt": "native-tests-first.log retained: cold-load timeout and stale page-only StoreKit host missing its current launch generation; only the fixture was aligned, no production startup guard changed",
+  "keyboard": "no editable controls changed; system keyboard not retested",
+  "diagnostics": "existing Vite chunk-size warning, test UIApplication.windows deprecation and simulator WebKit RBS/ProcessSuspension logs remain"
+}

@@ -1,0 +1,103 @@
+{
+  "scope": "Other-profile post image carousel and Home ScaleAspectFill",
+  "webTests": {
+    "passed": 74,
+    "failed": 0
+  },
+  "nativeBundledWebTests": {
+    "passed": 2,
+    "failed": 0,
+    "device": "iPhone SE (3rd generation) / iOS 17.5 Simulator",
+    "resultBundle": ".build/post-carousel-20261019-web-final.xcresult",
+    "observations": 12,
+    "coverage": "Existing offscreen welcome/EULA bootstrap, resources and layout; not native carousel touch or system keyboard"
+  },
+  "browser": {
+    "matrixScreenshots": 36,
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "states": [
+      "home-aspect-fill",
+      "profile-three-photo-carousel",
+      "profile-two-photo-carousel"
+    ],
+    "homeImagesCover": 10,
+    "overflow": false,
+    "missingImages": false,
+    "consoleErrorsAfterTimerFix": 0,
+    "consoleWindowStartsAt": "2026-10-19T04:10:49.088Z",
+    "observedInteractions": [
+      "automatic advance",
+      "pause retained",
+      "manual two/three image selection",
+      "mouse-driven horizontal swipe without navigation",
+      "keyboard arrows",
+      "language modal pauses advance",
+      "locale keeps selected image",
+      "opens current image viewer",
+      "back navigation"
+    ]
+  },
+  "builds": {
+    "vite": "passed",
+    "sync": "passed",
+    "simulator": "passed",
+    "deviceUnsigned": "passed",
+    "resourceSetsEqual": true,
+    "sets": 4,
+    "filesPerSet": 213
+  },
+  "dataChanges": false,
+  "nativeBridgeChanges": false,
+  "defaults": {
+    "carouselIntervalMs": 4000,
+    "note": "Adjustable presentation default, not a newly confirmed business threshold"
+  },
+  "resolvedAttempts": [
+    {
+      "issue": "Browser timer Illegal invocation",
+      "evidence": "logs/browser-before-timer-fix.json",
+      "resolution": "Wrap browser timers as plain calls; actual automatic advance observed afterwards."
+    },
+    {
+      "issue": "First offscreen WKWebView 320x568 sample measured previous CSS visual height",
+      "evidence": "logs/native-web-tests-first.log",
+      "resolution": "Await CSS visual-height and viewport updates; retain assertions; final two tests passed."
+    }
+  ],
+  "limitations": [
+    "No physical-device interaction or native carousel touch verification this round.",
+    "No system keyboard change or retest.",
+    "System background/reduced-motion and pointer cancellation were not exercised on hardware.",
+    "Native teardown contains WebKit RBS/ProcessSuspension messages.",
+    "Previous P7 acceptance gaps remain unchanged."
+  ]
+}

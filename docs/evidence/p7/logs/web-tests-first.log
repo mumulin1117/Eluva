@@ -1,0 +1,93 @@
+
+> eluva@0.1.0 test
+> node --test tests/*.test.js
+
+✔ failed draft cleanup preserves the verification context for a retry (52.949667ms)
+✔ fixed account stable; unknown/wrong credentials do not create users (39.352541ms)
+✔ draft is not an account; code context invalidates on email change and does not cross purpose (14.520625ms)
+✔ Complete is atomic on failure, retryable and idempotent under concurrent submissions (52.947791ms)
+✔ onboarding minima enforced, stored media is account isolated, reset grants consumed only on successful write (78.598875ms)
+✔ Bridge cancellation ignores late results and cleans up pending calls (6.157083ms)
+✔ Bridge timeout and structured native errors settle exactly once (22.908083ms)
+✔ timeout and disposal abort adapter work instead of leaving a late write alive (17.488541ms)
+✔ P6 browser never sells or accepts forged grant/receipt/debit calls (45.909875ms)
+✔ P6 public post and usage ledger commit atomically; failed/private/repeated submissions do not charge (38.250208ms)
+✔ P6 legacy usage migration cannot reset a cap; logout retains activity and other account is isolated (41.123792ms)
+✔ P6 unified allocator has free/reward/coin priority, environment separation and no hidden charge (15.158084ms)
+✔ P6 deletion removes only the owner wallet and keeps non-personal replay tombstones (0.113ms)
+✔ P6 corrupt commerce is rejected without replacing saved data; day boundary uses explicit approved zone (0.162542ms)
+✔ P1 vault migration preserves account and publishes atomically with stable retry identity (59.805333ms)
+✔ a malformed content migration is preserved and reported rather than silently replaced (35.074625ms)
+✔ configured quota is atomic: exhausted public posts fail, private posts and retries never spend it twice (25.832125ms)
+✔ private, friends-only, profile switches and hidden media cannot leak to another account (43.595958ms)
+✔ echo/comment identities are separate from friendships; failures keep counts and comments unique (39.810625ms)
+✔ collection references commit with publication; invalid, locked, empty and cancelled attempts spend nothing (26.692125ms)
+✔ hide/block are reversible and prevent details, reactions, comments and media reads (33.640166ms)
+✔ guide, discovery filters, reports and media staging are scoped; draft cleanup does not delete committed collection covers (33.755416ms)
+✔ every interface key, error and interpolation has matching English and French text (5.254541ms)
+✔ each locked audience choice has its own translated caption, without exposing a translation key (0.272875ms)
+✔ the navigation guide names the same three destinations as the actual tabs (0.145458ms)
+✖ all literal UI translation keys resolve in both interface languages (33.117209ms)
+✔ P3 actual view keys and safety reason captions resolve in both languages (8.329625ms)
+✔ P4 actual media views and controls resolve in both interface languages (8.163208ms)
+✔ P5 actual account/collection/settings views resolve EN/FR including dynamic settings states (2.527334ms)
+✔ P5 Mine → friends → profile or conversation returns retain the parent query and isolated scroll key (0.472959ms)
+✔ P5 first-open collection covers and feedback inputs remain reactive, including after reset (1.239667ms)
+✔ P5 profile writes authority only after success; old fixture missing fields do not become a new registration gate (68.641417ms)
+✔ P5 real registered profile media cannot be replaced by another account or lose confirmed minimums (65.98925ms)
+✔ P5 collection references are shared, owner-only, atomic, idempotent and deleting a container keeps originals (57.690542ms)
+✔ P5 collection projections never expose private/friends/hidden/blocked posts or another owner cover (33.445833ms)
+✔ P5 theme is account-isolated and login/bootstrap restore it; language remains the saved install preference (45.2555ms)
+✔ P5 feedback saves locally once with trusted images; failures preserve the staged attachment (32.173792ms)
+✔ P5 deleting an isolated QA account rolls back on failure and never deletes another account originals (62.544292ms)
+✔ P5 fixed account cannot be deleted and corrupt additive state is preserved (20.75325ms)
+✔ P5 real Vue form proxies are snapshotted before IndexedDB commit and cannot mutate stored authority (19.792167ms)
+✔ P5 a prepared local failure cannot cross accounts (29.122167ms)
+✔ P5 deleting a post preserves shared image references, then removing the final cover reclaims it (22.627042ms)
+✔ P5 account deletion removes derived commit copies for removed posts without deleting other authored posts (51.336208ms)
+✔ P5 logout reclaims only current-owner temporary attachments and preserves official profile and post media (59.977041ms)
+✔ P4 real WAV validation rejects spoofed/truncated media and out-of-bound audio (5.709125ms)
+✔ P4 voice send is atomic, retry-idempotent and blocked media never remains readable (71.008ms)
+✔ P4 one peer draft cannot send its recording to a different peer; nonfriends never record (46.810042ms)
+✔ P4 local call transitions require friendship, deduplicate and survive failure without fake connection (31.146917ms)
+✔ P4 blocked calls and language reads preserve original content and reject unavailable system results (26.04825ms)
+✔ P4 corrupt additive state is preserved instead of clearing accounts (29.348083ms)
+✔ P4 release before asynchronous record-start completion cannot produce a voice message (0.299083ms)
+✔ P4 armed cancellation never sends; repeated release commits one captured recording (0.236708ms)
+✔ P4 failed voice staging retains the stopped capture for one explicit retry (0.08525ms)
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (54.192083ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (42.234083ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (92.3965ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (21.669333ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (35.871042ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (36.088292ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (20.332291ms)
+✔ language changes retain the current business error and draft input (1.085417ms)
+✔ single-flight submission releases after failure and allows retry (0.272042ms)
+✔ birthday is a full-date 18+ boundary; impossible and future dates rejected (1.446417ms)
+✔ confirmed password and email rules; Gmail allowed, no hidden case/special-character requirement (8.97075ms)
+✔ only fixed code is accepted and locale follows preferred list with saved override (0.395583ms)
+ℹ tests 65
+ℹ suites 0
+ℹ pass 64
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 708.9565
+
+✖ failing tests:
+
+test at tests/localization.test.js:32:1
+✖ all literal UI translation keys resolve in both interface languages (33.117209ms)
+  AssertionError [ERR_ASSERTION]: WelcomeView.vue:and
+      at TestContext.<anonymous> (file:///Users/linqian/Documents/Eluva/tests/localization.test.js:38:46)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'and',
+    expected: 'and',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-21",
+  "scope": "Remove Settings About This App row and page",
+  "oldRoute": "/settings/about redirects to /settings",
+  "feedbackBack": "Legacy About source returns Settings; Mine source unchanged",
+  "dataChanged": false,
+  "webTests": {
+    "passed": 100,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "browser": {
+    "cases": 12,
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "matrix": "browser-matrix.json",
+    "flows": "browser-flows.json",
+    "consoleWarnings": [],
+    "fixture": "Existing UUID-isolated subscription fixture reused for settings; no Apple or account mutation"
+  },
+  "wkwebview": {
+    "passed": 2,
+    "failed": 0,
+    "summary": "native-summary.json",
+    "scope": "English/French existing settings delete-notice interaction and return regression; no account deleted"
+  },
+  "build": {
+    "viteAuditSync": "passed",
+    "log": "build.log",
+    "unsignedDeviceRelease": "passed",
+    "deviceLog": "device-build.log",
+    "copies": {
+      "dist": {
+        "path": "dist",
+        "files": 259,
+        "matches": true
+      },
+      "ios-web": {
+        "path": "ios/Eluva/Web",
+        "files": 259,
+        "matches": true
+      },
+      "simulator": {
+        "path": ".build/profile-ios26/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+        "files": 259,
+        "matches": true
+      },
+      "device": {
+        "path": ".build/device/Build/Products/Release-iphoneos/Eluva.app/Web",
+        "files": 259,
+        "matches": true
+      }
+    },
+    "productionAboutTextRemoved": true
+  },
+  "notVerified": [
+    "Physical device and visible system keyboard manual validation"
+  ]
+}

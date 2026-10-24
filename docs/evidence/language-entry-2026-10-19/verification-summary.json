@@ -1,0 +1,102 @@
+{
+  "scope": "App interface language can be switched only in Mine > Settings > App language",
+  "removedFrom": [
+    "ContentShell global header/modal",
+    "PageShell auth/onboarding header dropdown",
+    "VideoCallView header/modal"
+  ],
+  "retained": [
+    "SettingsView saveLanguage",
+    "preferences.locale RPC",
+    "first-launch preferred-language matching",
+    "saved preference precedence",
+    "content translation/transcription source-language choices"
+  ],
+  "webTests": {
+    "passed": 74,
+    "failed": 0
+  },
+  "nativeBundledWebTests": {
+    "passed": 2,
+    "failed": 0,
+    "device": "iPhone SE (3rd generation), iOS 17.5 Simulator",
+    "resultBundle": ".build/language-entry-20261019-web.xcresult",
+    "coverage": "Offscreen bundled welcome/EULA bootstrap and viewport/resource assertions; not physical device touch or system keyboard"
+  },
+  "browser": {
+    "matrixScreenshots": 60,
+    "smokeScreenshots": 10,
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "matrixStates": [
+      "home",
+      "settings",
+      "settings-language",
+      "login",
+      "video-consent"
+    ],
+    "smokeStates": [
+      "mine",
+      "chats",
+      "conversation",
+      "profile",
+      "welcome"
+    ],
+    "extraLanguageControlsFound": 0,
+    "horizontalOverflow": false,
+    "missingImages": false,
+    "consoleErrors": 0,
+    "flowsVerified": [
+      "saved-fr-returns-to-settings",
+      "reload-retains-fr",
+      "unsaved-en-back-keeps-fr",
+      "login-retains-fr",
+      "saved-en-returns-to-settings",
+      "login-retains-en"
+    ]
+  },
+  "builds": {
+    "vite": "passed",
+    "resourceSync": "passed",
+    "simulator": "passed",
+    "deviceUnsigned": "passed",
+    "resourceFiles": 213,
+    "identicalSets": 4
+  },
+  "persistenceChanges": "Existing language preference write only; no schema, account/profile or business-data migration. Browser verification returned preference to original English.",
+  "nativeBridgeChanges": false,
+  "limitations": [
+    "No physical device UI or system keyboard retest.",
+    "No camera/microphone permission request or media activation; only existing local video consent page and back navigation checked.",
+    "No full historical native test suite rerun.",
+    "Native teardown includes existing WebKit RBS/ProcessSuspension system logs."
+  ]
+}

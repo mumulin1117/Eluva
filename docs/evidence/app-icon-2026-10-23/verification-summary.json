@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-23",
+  "task": "Fix missing simulator SpringBoard AppIcon",
+  "result": "fixed and visually verified on simulator",
+  "rootCause": "AppIcon asset set existed, but app target Debug/Release did not set ASSETCATALOG_COMPILER_APPICON_NAME; generate-ios.rb explicitly deleted it. Before compiled Info.plist lacked CFBundleIcons.",
+  "fix": "Set ASSETCATALOG_COMPILER_APPICON_NAME=AppIcon in both app configurations and project generator. Reuse original image; do not hand-write source Info.plist icon entries.",
+  "scope": [
+    "scripts/generate-ios.rb",
+    "ios/Eluva.xcodeproj/project.pbxproj",
+    "documentation and evidence",
+    "existing generated Web resource sync"
+  ],
+  "assetCheck": "source-and-config-check.json: 1024x1024 existing image unchanged; alphaRange [255,255]",
+  "checks": {
+    "rubySyntax": "passed",
+    "currentProject": "Debug and Release use AppIcon",
+    "isolatedProjectGeneration": "passed; generated both configurations retain AppIcon",
+    "viteBuild": "passed; production-build.log",
+    "webAuditAndSync": "264 files; resource-verification.json four SHA256 copies match",
+    "simulatorBuild": "Debug passed; simulator-build.log",
+    "unsignedDeviceBuild": "Release passed; device-release-build.log",
+    "compiledIcons": "compiled-icons.json: both outputs have CFBundlePrimaryIcon CFBundleIconName=AppIcon, generated PNGs and Assets.car",
+    "simulatorInstall": "simctl install com.eluva.app succeeded; no uninstall/reset",
+    "simulatorUI": "iPhone17 / iOS26.5 desktop visually shows existing colored Eluva graphic; current app interface also visible"
+  },
+  "screenshots": {
+    "before": "simulator-home-before.png",
+    "after": "simulator-home-after.png",
+    "reviewed": true
+  },
+  "duplicateLegacyIcon": {
+    "bundleId": "com.eluva.local",
+    "leftInstalled": true,
+    "note": "The older gray placeholder icon remains separately; current com.eluva.app colored icon is third row, third column."
+  },
+  "dataObservation": "data-preservation-observation.json: path migrated; 41 before/after files, no missing/added; 39 hashes identical; vault and StoreKit preferences changed during live user interaction interval. No byte-equality or plaintext migration audit claimed for these two files.",
+  "notChanged": [
+    "H5 UI and keyboard",
+    "auth, social and business state models",
+    "original AppIcon image",
+    "bundle identifier"
+  ],
+  "notRepeated": [
+    "H5 six viewport/language regression: no layout or Web source changes",
+    "Business unit tests: native icon configuration only"
+  ],
+  "warnings": [
+    "Existing Vite chunk >500kB warning."
+  ],
+  "unperformed": [
+    "Physical iPhone icon validation and signing deferred per earlier user instruction.",
+    "App Store upload validation."
+  ],
+  "report": "../../app-icon-report.md",
+  "sourceHashes": "source-files.json"
+}

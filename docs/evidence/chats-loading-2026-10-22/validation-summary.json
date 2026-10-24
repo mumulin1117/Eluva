@@ -1,0 +1,82 @@
+{
+  "web": {
+    "passed": 119,
+    "failed": 0
+  },
+  "wkWebView": {
+    "passed": 12,
+    "failed": 0,
+    "tests": [
+      {
+        "test": "testEnglishChatsPullAndLightNotices",
+        "seconds": 2.603
+      },
+      {
+        "test": "testEnglishHomeDiscoveryBatches",
+        "seconds": 3.854
+      },
+      {
+        "test": "testEnglishPostDetailConnections",
+        "seconds": 1.393
+      },
+      {
+        "test": "testEnglishProfileSafetyCollections",
+        "seconds": 5.539
+      },
+      {
+        "test": "testEnglishSilentSocialSuccess",
+        "seconds": 8.669
+      },
+      {
+        "test": "testEnglishThemedLoadingAndChatsGestures",
+        "seconds": 2.975
+      },
+      {
+        "test": "testFrenchChatsPullAndLightNotices",
+        "seconds": 1.826
+      },
+      {
+        "test": "testFrenchHomeDiscoveryBatches",
+        "seconds": 3.046
+      },
+      {
+        "test": "testFrenchPostDetailConnections",
+        "seconds": 1.438
+      },
+      {
+        "test": "testFrenchProfileSafetyCollections",
+        "seconds": 5.027
+      },
+      {
+        "test": "testFrenchSilentSocialSuccess",
+        "seconds": 8.723
+      },
+      {
+        "test": "testFrenchThemedLoadingAndChatsGestures",
+        "seconds": 3.315
+      }
+    ],
+    "device": "iPhone17 simulator / iOS26.5",
+    "resultBundle": ".build/chats-loading-20261022-delivery.xcresult"
+  },
+  "browser": {
+    "skeletonLayouts": 48,
+    "categoryLayouts": 24,
+    "themeSamples": 16,
+    "failureRetryViews": 4
+  },
+  "builds": {
+    "vite": "passed",
+    "resources": 264,
+    "simulator": "passed",
+    "unsignedIPhoneOS": "passed"
+  },
+  "physicalDevice": "not verified",
+  "input": "Native integration uses synthesized PointerEvent and TouchEvent, not physical fingers",
+  "notes": [
+    "Test-only gates hold reads for skeleton evidence; production has no artificial loading delay.",
+    "Initial geometry test was corrected to wait for WebKit viewport/layout synchronization.",
+    "Chat send regression now waits for the actual enabled Send button before submitting.",
+    "Vite large main chunk warning remains; simulator process teardown emits RBS warnings."
+  ]
+}

@@ -1,0 +1,647 @@
+{
+  "webTests": 215,
+  "webFailures": 0,
+  "wkTests": 6,
+  "wkFailures": 0,
+  "welcomeLayoutRows": 12,
+  "staticStoryboardRows": 24,
+  "maximumStaticPixelDifference": 0,
+  "sizes": [
+    [
+      320,
+      568
+    ],
+    [
+      375,
+      667
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      393,
+      852
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "runtime": "iPhone 17 / iOS 26.5 simulator / production UIKit WebViewController and packaged WKWebView",
+  "resourceFilesPerTree": 265,
+  "resourceTrees": 4,
+  "attachments": {
+    "json": 80,
+    "png": 64,
+    "welcomePNGsCopied": 18
+  },
+  "releaseDeviceArchitectureBuild": "unsigned; not a physical-device run",
+  "physicalDeviceVerified": false,
+  "systemSoftwareKeyboardVerified": false,
+  "realSystemReduceMotionToggleVerified": false,
+  "dynamicNativeReduceChangeBranchVerified": false,
+  "timelineNote": "Initial full traces include intentionally held decode, native inactive notification and document.hidden fixture. Timestamps are not ordinary cold-start latency. The 1.2-1.3 second handoff is the unblocked design timing, not these fixture totals.",
+  "initialResults": [
+    {
+      "locale": "en",
+      "timeline": {
+        "readyRequestMs": 552,
+        "visibleMs": 1580,
+        "guideReceivesMs": 1580,
+        "firstBubbleMs": 2544,
+        "guidePausedForHiddenFixture": true
+      },
+      "nativeBackgroundFractionBefore": 0.10720552504062653,
+      "nativeBackgroundFractionAfter": 0.10720552504062653,
+      "native": [
+        {
+          "scenario": "full",
+          "motion": "full",
+          "sampledDurationMs": 724.4871666189283,
+          "sampleCount": 31,
+          "durationScope": "Observation after resuming a native animation already progressed about 90ms; excludes the earlier 200ms pause"
+        },
+        {
+          "scenario": "brief",
+          "motion": "brief",
+          "sampledDurationMs": 357.5298333307728,
+          "sampleCount": 14,
+          "durationScope": "Native reveal completion observation including async sampling overhead"
+        },
+        {
+          "scenario": "first-EULA",
+          "motion": "full",
+          "sampledDurationMs": 824.1282083326951,
+          "sampleCount": 43,
+          "durationScope": "Native reveal completion observation including async sampling overhead"
+        },
+        {
+          "scenario": "reduced-EULA",
+          "motion": "reduced",
+          "sampledDurationMs": 122.39179166499525,
+          "sampleCount": 4,
+          "durationScope": "Completion observation including async sampling overhead; reduced mode has no fade animation"
+        }
+      ],
+      "caseNames": [
+        "slow-decode-holds-first-message",
+        "native-reveal-pauses-without-restarting",
+        "native-echo-reveal",
+        "Guide-handoff-and-background-resume",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "legal-return-and-background-after-completion-do-not-replay",
+        "native-echo-reveal",
+        "subsequent-launch-brief",
+        "native-echo-reveal",
+        "first-EULA-defers-Guide-until-consent",
+        "native-echo-reveal",
+        "reduce-motion-no-travel-or-avatar-hold"
+      ]
+    },
+    {
+      "locale": "fr",
+      "timeline": {
+        "readyRequestMs": 349.00000000000006,
+        "visibleMs": 1391,
+        "guideReceivesMs": 1392.0000000000002,
+        "firstBubbleMs": 2558.0000000000005,
+        "guidePausedForHiddenFixture": true
+      },
+      "nativeBackgroundFractionBefore": 0.1114393100142479,
+      "nativeBackgroundFractionAfter": 0.1114393100142479,
+      "native": [
+        {
+          "scenario": "full",
+          "motion": "full",
+          "sampledDurationMs": 731.6968333907425,
+          "sampleCount": 35,
+          "durationScope": "Observation after resuming a native animation already progressed about 90ms; excludes the earlier 200ms pause"
+        },
+        {
+          "scenario": "brief",
+          "motion": "brief",
+          "sampledDurationMs": 373.5025415662676,
+          "sampleCount": 19,
+          "durationScope": "Native reveal completion observation including async sampling overhead"
+        },
+        {
+          "scenario": "first-EULA",
+          "motion": "full",
+          "sampledDurationMs": 819.6928749093786,
+          "sampleCount": 44,
+          "durationScope": "Native reveal completion observation including async sampling overhead"
+        },
+        {
+          "scenario": "reduced-EULA",
+          "motion": "reduced",
+          "sampledDurationMs": 35.23937496356666,
+          "sampleCount": 3,
+          "durationScope": "Completion observation including async sampling overhead; reduced mode has no fade animation"
+        }
+      ],
+      "caseNames": [
+        "slow-decode-holds-first-message",
+        "native-reveal-pauses-without-restarting",
+        "native-echo-reveal",
+        "Guide-handoff-and-background-resume",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "welcome-six-viewport-layout",
+        "legal-return-and-background-after-completion-do-not-replay",
+        "native-echo-reveal",
+        "subsequent-launch-brief",
+        "native-echo-reveal",
+        "first-EULA-defers-Guide-until-consent",
+        "native-echo-reveal",
+        "reduce-motion-no-travel-or-avatar-hold"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "locale": "en",
+      "source": "B6BA0DB3-7DC8-435B-B01C-F6CC3D6813EF.json",
+      "layoutRows": 6,
+      "layouts": [
+        {
+          "width": 320,
+          "headerBottom": 120,
+          "tab": false,
+          "rows": 4,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 84.421875,
+              "left": 124.875,
+              "right": 209.296875
+            },
+            {
+              "height": 44,
+              "width": 88.703125,
+              "left": 216.296875,
+              "right": 305
+            }
+          ],
+          "lang": "en",
+          "missing": 0,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "overflow": false,
+          "relay": "done",
+          "height": 568
+        },
+        {
+          "rows": 4,
+          "height": 667,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "tab": false,
+          "overflow": false,
+          "headerBottom": 126,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 90.421875,
+              "left": 164.875,
+              "right": 255.296875
+            },
+            {
+              "height": 44,
+              "width": 94.703125,
+              "left": 265.296875,
+              "right": 360
+            }
+          ],
+          "relay": "done",
+          "lang": "en",
+          "missing": 0,
+          "width": 375
+        },
+        {
+          "tab": false,
+          "lang": "en",
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "relay": "done",
+          "overflow": false,
+          "width": 375,
+          "height": 812,
+          "rows": 4,
+          "missing": 0,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 90.421875,
+              "left": 164.875,
+              "right": 255.296875
+            },
+            {
+              "height": 44,
+              "width": 94.703125,
+              "left": 265.296875,
+              "right": 360
+            }
+          ],
+          "headerBottom": 126
+        },
+        {
+          "headerBottom": 126,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 90.421875,
+              "left": 179.875,
+              "right": 270.296875
+            },
+            {
+              "height": 44,
+              "width": 94.703125,
+              "left": 280.296875,
+              "right": 375
+            }
+          ],
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "height": 844,
+          "overflow": false,
+          "lang": "en",
+          "tab": false,
+          "missing": 0,
+          "width": 390,
+          "rows": 4,
+          "relay": "done"
+        },
+        {
+          "buttons": [
+            {
+              "height": 44,
+              "width": 90.421875,
+              "left": 182.875,
+              "right": 273.296875
+            },
+            {
+              "height": 44,
+              "width": 94.703125,
+              "left": 283.296875,
+              "right": 378
+            }
+          ],
+          "relay": "done",
+          "overflow": false,
+          "width": 393,
+          "lang": "en",
+          "tab": false,
+          "rows": 4,
+          "missing": 0,
+          "height": 852,
+          "headerBottom": 126,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "rows": 4,
+          "tab": false,
+          "missing": 0,
+          "height": 932,
+          "headerBottom": 126,
+          "overflow": false,
+          "relay": "done",
+          "lang": "en",
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "buttons": [
+            {
+              "height": 44,
+              "width": 90.421875,
+              "left": 219.875,
+              "right": 310.296875
+            },
+            {
+              "height": 44,
+              "width": 94.703125,
+              "left": 320.296875,
+              "right": 415
+            }
+          ],
+          "width": 430
+        }
+      ],
+      "backgroundFractionBefore": 0.1073315218091011,
+      "backgroundFractionAfter": 0.1073315218091011,
+      "readyRequestMs": 300,
+      "visibleMs": 1352,
+      "firstBubbleMs": 2227,
+      "timelineNote": "Contains intentionally held decode, native inactive notification and document.hidden fixtures; not normal cold-start time.",
+      "native": [
+        {
+          "scenario": "full",
+          "motion": "full",
+          "sampledDurationMs": 734.3507083132863,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "brief",
+          "motion": "brief",
+          "sampledDurationMs": 372.9224583366886,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "first-EULA",
+          "motion": "full",
+          "sampledDurationMs": 835.0397916510701,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "reduced-EULA",
+          "motion": "reduced",
+          "sampledDurationMs": 35.088291740976274,
+          "allSampledRingsCircular": true
+        }
+      ]
+    },
+    {
+      "locale": "fr",
+      "source": "54B5D402-7494-443C-9208-68867134120C.json",
+      "layoutRows": 6,
+      "layouts": [
+        {
+          "headerBottom": 120,
+          "width": 320,
+          "relay": "done",
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "height": 568,
+          "overflow": false,
+          "lang": "fr",
+          "rows": 4,
+          "tab": false,
+          "missing": 0,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 88.828125,
+              "left": 81.515625,
+              "right": 170.34375
+            },
+            {
+              "height": 44,
+              "width": 127.65625,
+              "left": 177.34375,
+              "right": 305
+            }
+          ]
+        },
+        {
+          "tab": false,
+          "height": 667,
+          "width": 375,
+          "rows": 4,
+          "lang": "fr",
+          "headerBottom": 126,
+          "relay": "done",
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "overflow": false,
+          "missing": 0,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 94.828125,
+              "left": 121.515625,
+              "right": 216.34375
+            },
+            {
+              "height": 44,
+              "width": 133.65625,
+              "left": 226.34375,
+              "right": 360
+            }
+          ]
+        },
+        {
+          "headerBottom": 126,
+          "height": 812,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "buttons": [
+            {
+              "height": 44,
+              "width": 94.828125,
+              "left": 121.515625,
+              "right": 216.34375
+            },
+            {
+              "height": 44,
+              "width": 133.65625,
+              "left": 226.34375,
+              "right": 360
+            }
+          ],
+          "rows": 4,
+          "lang": "fr",
+          "overflow": false,
+          "width": 375,
+          "missing": 0,
+          "tab": false,
+          "relay": "done"
+        },
+        {
+          "relay": "done",
+          "rows": 4,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 94.828125,
+              "left": 136.515625,
+              "right": 231.34375
+            },
+            {
+              "height": 44,
+              "width": 133.65625,
+              "left": 241.34375,
+              "right": 375
+            }
+          ],
+          "width": 390,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "missing": 0,
+          "lang": "fr",
+          "headerBottom": 126,
+          "height": 844,
+          "overflow": false,
+          "tab": false
+        },
+        {
+          "missing": 0,
+          "height": 852,
+          "relay": "done",
+          "buttons": [
+            {
+              "height": 44,
+              "width": 94.828125,
+              "left": 139.515625,
+              "right": 234.34375
+            },
+            {
+              "height": 44,
+              "width": 133.65625,
+              "left": 244.34375,
+              "right": 378
+            }
+          ],
+          "tab": false,
+          "headerBottom": 126,
+          "lang": "fr",
+          "rows": 4,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "overflow": false,
+          "width": 393
+        },
+        {
+          "tab": false,
+          "headerBottom": 126,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 94.828125,
+              "left": 176.515625,
+              "right": 271.34375
+            },
+            {
+              "height": 44,
+              "width": 133.65625,
+              "left": 281.34375,
+              "right": 415
+            }
+          ],
+          "width": 430,
+          "height": 932,
+          "rows": 4,
+          "lang": "fr",
+          "missing": 0,
+          "overflow": false,
+          "portrait": {
+            "y": 74.5,
+            "x": 15,
+            "width": 36,
+            "height": 36
+          },
+          "relay": "done"
+        }
+      ],
+      "backgroundFractionBefore": 0.10752692818641663,
+      "backgroundFractionAfter": 0.10752692818641663,
+      "readyRequestMs": 308,
+      "visibleMs": 1343,
+      "firstBubbleMs": 2227,
+      "timelineNote": "Contains intentionally held decode, native inactive notification and document.hidden fixtures; not normal cold-start time.",
+      "native": [
+        {
+          "scenario": "full",
+          "motion": "full",
+          "sampledDurationMs": 733.3227917551994,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "brief",
+          "motion": "brief",
+          "sampledDurationMs": 373.36766673251987,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "first-EULA",
+          "motion": "full",
+          "sampledDurationMs": 834.9110416602343,
+          "allSampledRingsCircular": true
+        },
+        {
+          "scenario": "reduced-EULA",
+          "motion": "reduced",
+          "sampledDurationMs": 52.51166666857898,
+          "allSampledRingsCircular": true
+        }
+      ]
+    }
+  ],
+  "finalVerification": {
+    "resultBundle": ".build/welcome-relay-verified-20261024.xcresult",
+    "log": "wk-verified-tests.log",
+    "passedTests": [
+      "testEnglishLaunchTransition",
+      "testEnglishWelcomeRelay",
+      "testFrenchLaunchTransition",
+      "testFrenchWelcomeRelay"
+    ],
+    "failures": 0,
+    "attachmentJSON": 4,
+    "attachmentPNG": 48,
+    "welcomePNGsCopied": 18,
+    "intermediateFailure": "wk-final-tests.log retained: French 320px was sampled before nested layout stabilized; bounded frame stability added, no layout assertions relaxed.",
+    "originalAuthRegression": "2 English/French WebBundleTests passed before native-only stroke/circle refinement; H5 unchanged afterward."
+  },
+  "temporarySimulator": {
+    "id": "9782D4E6-F684-4859-8626-C146F80DB036",
+    "name": "Eluva Welcome Relay QA 20261024",
+    "cleanedUp": true,
+    "existingUserSimulatorsModified": false
+  }
+}

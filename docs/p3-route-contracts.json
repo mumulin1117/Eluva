@@ -1,0 +1,749 @@
+{
+  "phase": "P3",
+  "checkedAt": "2026-10-17T12:16:16.467Z",
+  "status": "本地闭环与自动化/浏览器验证已完成；正式视觉签核及原生界面/真机待验",
+  "designBase": {
+    "logicalCanvas": [
+      390,
+      844
+    ],
+    "listPreview": [
+      195,
+      422
+    ],
+    "pngExportScale": 2,
+    "version": "版本1"
+  },
+  "limitations": [
+    "Mac锁屏使Chrome逐层重新点击核对、原生UI和键盘/权限测试无法执行；当前蓝湖标注/原图/切图由连接器读取",
+    "DDS schema权限检查失败，按原始标注回退；不宣称生成设计代码或整屏像素签核",
+    "P4录音/通话/翻译，P5完整设置/合集管理不在本阶段"
+  ],
+  "unconfirmedTechnicalAssumptions": [
+    "介绍1–500字素；消息/反馈1–2000字素",
+    "单张图片或单个源贴纸可附文字说明；图20MiB，沿用P2文件安全限制",
+    "举报说明500字素",
+    "忽略后不开放再次申请；无等待期/付费重发规则",
+    "解除拉黑保留既有好友记录，不自动发送或补发"
+  ],
+  "pages": [
+    {
+      "key": "chats",
+      "route": "/chats",
+      "designs": [
+        {
+          "index": 82,
+          "designId": "a8a527a2-8862-4c27-a433-35f27599044a",
+          "name": "消息",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.306156Z",
+          "reference": "evidence/p3/references/design-82.png"
+        },
+        {
+          "index": 47,
+          "designId": "2950fb24-01e5-4f15-97c0-a2156c5f0eeb",
+          "name": "消息-关注的",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.404393Z",
+          "reference": "evidence/p3/references/design-47.png"
+        },
+        {
+          "index": 103,
+          "designId": "1b615b7d-76c4-44c0-b769-2888905d8198",
+          "name": "消息--仅点亮",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.410461Z",
+          "reference": "evidence/p3/references/design-103.png"
+        },
+        {
+          "index": 31,
+          "designId": "f3c51dd7-e678-45ca-80f1-98b24cd4e957",
+          "name": "消息--更多操作",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.412485Z",
+          "reference": "evidence/p3/references/design-31.png"
+        },
+        {
+          "index": 83,
+          "designId": "b450ab69-4016-408a-a195-d8ee9605b578",
+          "name": "消息--更多操作2",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.302961Z",
+          "reference": "evidence/p3/references/design-83.png"
+        }
+      ],
+      "entry": [
+        "主 Tab Chats；其他页面返回"
+      ],
+      "actions": [
+        "All/Follow/仅点亮与未读筛选成功后更新列表",
+        "好友入口→/friends",
+        "行→会话或点亮详情；帮助→/help",
+        "刷新真实本地仓储；固定账号可主动准备一次失败"
+      ],
+      "back": "一级页保留账户筛选和滚动；切换Tab不删除会话与草稿",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "All内容态",
+        "Follow空态/内容态",
+        "普通消息/申请/点亮独立未读",
+        "无网络在线状态"
+      ],
+      "retainedVisuals": [
+        "Zen Dots24/400/29；Inter16/700/19；Jakarta13/400/16",
+        "60头像、109行节奏、12间隔、#f6f6f6分隔线、粉色实际未读",
+        "源背景、灯泡/帮助图及朋友/更多按钮；32胶囊绘制+44触摸"
+      ],
+      "retiredBusiness": [
+        "不复制假在线、PRO资格、设计用户与固定时间/计数",
+        "Follow不授予私聊；点亮分类不改变好友关系"
+      ],
+      "supplement": [
+        "新账号空态、失败/重试、明确本地演示工具按原字体和白紫体系补齐",
+        "320宽标题18px避免法语与三个44pt按钮相撞；其余规定宽度24px"
+      ],
+      "validation": [
+        "filter=all/following/lights；unreadOnly布尔值；仅取当前账户可见线程和事件"
+      ],
+      "saveTiming": [
+        "筛选写preferences成功后返回快照；刷新不伪造新消息；计数来自实际未读"
+      ],
+      "nativeDependencies": [
+        "既有social.snapshot/preferences经唯一Bridge；不请求媒体权限"
+      ],
+      "tabBar": true
+    },
+    {
+      "key": "friends",
+      "route": "/friends",
+      "designs": [
+        {
+          "index": 81,
+          "designId": "14b1cb80-2a70-461a-b212-41dec03eca70",
+          "name": "消息--好友列表",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.308053Z",
+          "reference": "evidence/p3/references/design-81.png"
+        }
+      ],
+      "entry": [
+        "Chats好友按钮"
+      ],
+      "actions": [
+        "好友行→资料；聊天按钮→双方好友会话",
+        "申请聚合→/friend-requests"
+      ],
+      "back": "/chats；保留滚动",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "零好友",
+        "申请数变化",
+        "拉黑后即时过滤"
+      ],
+      "retainedVisuals": [
+        "Poppins18/600/27标题、源申请头像、60头像和源聊天胶囊"
+      ],
+      "retiredBusiness": [
+        "不把单向关注或申请当成好友"
+      ],
+      "supplement": [
+        "真实空态与本地标识；未提供人物照片使用本地默认头像"
+      ],
+      "validation": [
+        "canonical friendship + 双向block优先"
+      ],
+      "saveTiming": [
+        "只读；接受/拉黑成功快照即时刷新"
+      ],
+      "nativeDependencies": [
+        "既有social快照；无新原生能力"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "friend-requests",
+      "route": "/friend-requests?direction=received|sent",
+      "designs": [
+        {
+          "index": 21,
+          "designId": "4664da33-02c9-44f7-856a-0db0bc85c864",
+          "name": "好友申请",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.22771Z",
+          "reference": "evidence/p3/references/design-21.png"
+        }
+      ],
+      "entry": [
+        "好友列表申请入口；收到介绍弹层入口"
+      ],
+      "actions": [
+        "Received/Sent保留列表方向",
+        "查看资料返回原方向",
+        "仅接收者可接受；原子创建friendship与唯一thread",
+        "忽略先确认，取消不改变申请；失败可重试"
+      ],
+      "back": "/friends；来源资料回到含direction的申请页",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "received/sent pending",
+        "accepted",
+        "ignored",
+        "blocked",
+        "接收者以外操作拒绝"
+      ],
+      "retainedVisuals": [
+        "白色圆角12卡片、Jakarta15/800/19姓名、15/500/21正文、Poppins14/600/21按钮、源Profile描边"
+      ],
+      "retiredBusiness": [
+        "删除设计样本用户/假学生验证；不能接受自己发出的申请"
+      ],
+      "supplement": [
+        "Sent/Accepted/Ignored/Blocked及确认/失败为同体系补稿",
+        "忽略后不自动重发；等待期/再次申请政策仍待确认"
+      ],
+      "validation": [
+        "requestId归接收者；pending才可处理；blocked优先；稳定commitId与payload绑定"
+      ],
+      "saveTiming": [
+        "接受/忽略、关系/线程、幂等记录同一事务；失败仍pending；成功快照更新所有入口"
+      ],
+      "nativeDependencies": [
+        "唯一social.accept/ignore；无系统权限"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "profile",
+      "route": "/profile/:id",
+      "designs": [
+        {
+          "index": 56,
+          "designId": "02fd48f0-1c13-4a41-a54f-418bcfcb437a",
+          "name": "他人用户主页--未关注",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.393867Z",
+          "reference": "evidence/p3/references/design-56.png"
+        },
+        {
+          "index": 19,
+          "designId": "329febca-a76a-49b9-b797-8c1ba259d194",
+          "name": "他人用户主页--已关注",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.240436Z",
+          "reference": "evidence/p3/references/design-19.png"
+        }
+      ],
+      "entry": [
+        "动态详情View Profile；会话头像；好友/申请列表；点亮条目"
+      ],
+      "actions": [
+        "关注/取消关注→实际单向关系与计数",
+        "聊天入口按好友/请求/忽略/拉黑分流",
+        "照片分页查看；公开可读动态→原详情",
+        "合集只读引用；安全→举报/拉黑/解除"
+      ],
+      "back": "白名单from：/chats、/friends、/friend-requests、/post、/conversation；缺省/home；同一会话往返复用原路径避免嵌套",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "未关注/已关注",
+        "自己",
+        "请求pending/ignored",
+        "无照片/资料不可用",
+        "拉黑遮蔽",
+        "无可见动态/合集"
+      ],
+      "retainedVisuals": [
+        "Jakarta姓名24/800/30、简介14/500/21、Follow14/600/18、统计16/800/20+12/500/15",
+        "Follow原SVG背景/遮罩/紫光+原人心路径；源聊天和合集图",
+        "真实照片cover；图库contain"
+      ],
+      "retiredBusiness": [
+        "不复制设计姓名、照片、235计数、假在线或PRO身份；关注不解锁聊天",
+        "生日/邮箱不公开，只返回年龄和允许字段；Private/好友权限不因公开主页而放宽"
+      ],
+      "supplement": [
+        "原独立人物与完整毛玻璃底图缺失：默认头像，玻璃卡片按源体系自适应补齐并记录差异",
+        "空态/异常/安全稿复用现有弹层；不冒充逐像素签核"
+      ],
+      "validation": [
+        "peer存在且不是非法ID；self禁止关注/申请；权限实时校验；照片仅显式view profile/thread后授予该查看者读取"
+      ],
+      "saveTiming": [
+        "关注/拉黑保存成功后应用权威快照；公开资料只读；不建立第二份本地个人资料"
+      ],
+      "nativeDependencies": [
+        "唯一social.profile/follow及media.resolve；沿用本地照片文件"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "conversation",
+      "route": "/conversation/:peer",
+      "designs": [
+        {
+          "index": 87,
+          "designId": "3d265403-9ba8-419f-a3a0-ec6d059bbc43",
+          "name": "消息详情--仅点亮展示",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.295315Z",
+          "reference": "evidence/p3/references/design-87.png"
+        },
+        {
+          "index": 12,
+          "designId": "a0f8f326-7217-4866-bac0-5687e2f76588",
+          "name": "消息详情--发送表情1",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.263996Z",
+          "reference": "evidence/p3/references/design-12.png"
+        },
+        {
+          "index": 40,
+          "designId": "0d51dac3-c258-4c71-9ac3-e6e4fd321ecc",
+          "name": "消息详情--发送表情2",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.246946Z",
+          "reference": "evidence/p3/references/design-40.png"
+        },
+        {
+          "index": 99,
+          "designId": "832996a1-461b-40c3-8da0-17110221f7ff",
+          "name": "弹窗--未关注时不能聊天",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.256563Z",
+          "reference": "evidence/p3/references/design-99.png"
+        }
+      ],
+      "entry": [
+        "好友列表/资料/Chats；深链仍检查关系"
+      ],
+      "actions": [
+        "发送文字、Unicode表情、源贴纸或一张图片加可选说明",
+        "进入会话成功读取后只标记发给本人的消息已读",
+        "相册/相机先主动触发；取消保留正文；媒体失败可重试",
+        "头像→资料；安全→举报/拉黑；录音/通话只显示P4未接入说明"
+      ],
+      "back": "白名单from：/chats、/friends、/profile、/friend-requests；缺省/chats；本次内存草稿保留",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "非好友锁定可发送一次介绍",
+        "已有申请/已忽略",
+        "双方好友解锁",
+        "空会话",
+        "被拉黑即时关闭媒体和编辑",
+        "发送失败保留正文/附件",
+        "媒体缺失与重读",
+        "真实本地保存/对方实际读取的已读"
+      ],
+      "retainedVisuals": [
+        "源背景/发送图/28贴纸；Jakarta15/500/22消息、源紫/灰气泡、头像/工具栏层级",
+        "可编辑输入16/500/23，避免iOS聚焦缩放；自动增长并以visualViewport限高"
+      ],
+      "retiredBusiness": [
+        "旧未关注不能聊→必须双方好友；删除关注解锁业务",
+        "不虚构typing/在线/远端自动已读；设计语音/视频复杂功能不冒充已完成"
+      ],
+      "supplement": [
+        "空/失败/被拉黑/图片草稿按同体系补稿；部分工具无切图用既有线条SVG并记录",
+        "P4录音/通话/翻译尚未实现；复用P1实际WAV夹具播放器"
+      ],
+      "validation": [
+        "服务每次send/media/capability检查session+friend+双向block",
+        "kind=text/image/sticker；文字<=2000字素；空文字无附件禁发",
+        "一张<=20MiB有效JPEG/PNG/WebP或一个合法stickerId；媒体必须当前account/peer/live draft且未提交",
+        "消息2000、单附件模式是可逆技术假设，未被用户正式确认"
+      ],
+      "saveTiming": [
+        "发送消息/媒体提交标记/幂等记录同一事务；失败回滚；成功清空当前草稿并生成新commitId",
+        "草稿只在本次会话内存，返回/切语言保留；重载/退出不保证未提交内容；正式消息重载/重登保留",
+        "已读仅写当前接收者实际打开的消息；无自动假回执；无金币/额度消耗"
+      ],
+      "nativeDependencies": [
+        "既有唯一Bridge social.*和media.pick/import/remove/resolve",
+        "复用PHPicker/相机及权限说明；拒绝/受限/不支持有设置和换来源恢复",
+        "离开/后台停播；阻断时停止媒体；页面销毁取消信号和监听"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "chat-photo",
+      "route": "/conversation/:peer/photo/:message",
+      "designs": [
+        {
+          "index": 87,
+          "designId": "3d265403-9ba8-419f-a3a0-ec6d059bbc43",
+          "name": "消息详情--仅点亮展示",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.295315Z",
+          "reference": "evidence/p3/references/design-87.png"
+        },
+        {
+          "index": 12,
+          "designId": "a0f8f326-7217-4866-bac0-5687e2f76588",
+          "name": "消息详情--发送表情1",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.263996Z",
+          "reference": "evidence/p3/references/design-12.png"
+        },
+        {
+          "index": 40,
+          "designId": "0d51dac3-c258-4c71-9ac3-e6e4fd321ecc",
+          "name": "消息详情--发送表情2",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.246946Z",
+          "reference": "evidence/p3/references/design-40.png"
+        }
+      ],
+      "entry": [
+        "会话已保存图片"
+      ],
+      "actions": [
+        "完整图片contain；缺失重试"
+      ],
+      "back": "replace返回同一conversation及原from，保留正文/附件/滚动",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "图片可读",
+        "不存在/无权限",
+        "拉黑实时失效"
+      ],
+      "retainedVisuals": [
+        "源背景与现有媒体查看器体系"
+      ],
+      "retiredBusiness": [
+        "不把聊天私密图片当公开发布封面或跨账户资源"
+      ],
+      "supplement": [
+        "没有独立图片查看器稿：复用现有整图contain与重试"
+      ],
+      "validation": [
+        "消息必须属于双方可读线程；media.resolve也检查参与者和block"
+      ],
+      "saveTiming": [
+        "只读，不另存媒体或更改草稿"
+      ],
+      "nativeDependencies": [
+        "既有media.resolve本地URL及文件保护"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "local-help",
+      "route": "/help",
+      "designs": [
+        {
+          "index": 13,
+          "designId": "9fc8fcda-06c1-48ac-9e46-6a23b9d5e37d",
+          "name": "使用帮助",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.262374Z",
+          "reference": "evidence/p3/references/design-13.png"
+        }
+      ],
+      "entry": [
+        "Chats Help Buddy"
+      ],
+      "actions": [
+        "问题胶囊仅填入输入，用户确认保存",
+        "保存本地反馈后显示对应预置说明；未接入人工/AI",
+        "任意反馈返回明确仅本地保存"
+      ],
+      "back": "/chats；草稿在本次运行保留；页面滚动按账户恢复",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "无反馈",
+        "已有反馈",
+        "输入超限禁用",
+        "保存失败保留"
+      ],
+      "retainedVisuals": [
+        "源帮助头像/发送图；Inter13/500/18问题胶囊、紫灰气泡、Jakarta正文"
+      ],
+      "retiredBusiness": [
+        "删除假客服在线和假自动AI回复；原稿示例问答不用作真实服务结果"
+      ],
+      "supplement": [
+        "空/失败与明确本地边界补稿；问题横向可滚动；正文输入自动增长"
+      ],
+      "validation": [
+        "body1–2000字素；topic稳定ID how/posting/privacy/feedback；commitId绑定payload"
+      ],
+      "saveTiming": [
+        "用户点击保存成功后写owner-scoped feedback；预置说明由topic独立本地化，不覆盖用户问题原文；失败不清输入"
+      ],
+      "nativeDependencies": [
+        "唯一social.help；不调用网络客服或系统翻译"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "friend-introduction",
+      "route": "modal:profile-or-locked-conversation",
+      "designs": [
+        {
+          "index": 99,
+          "designId": "832996a1-461b-40c3-8da0-17110221f7ff",
+          "name": "弹窗--未关注时不能聊天",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.256563Z",
+          "reference": "evidence/p3/references/design-99.png"
+        },
+        {
+          "index": 21,
+          "designId": "4664da33-02c9-44f7-856a-0db0bc85c864",
+          "name": "好友申请",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.22771Z",
+          "reference": "evidence/p3/references/design-21.png"
+        }
+      ],
+      "entry": [
+        "非好友资料聊天按钮；非好友会话锁定页"
+      ],
+      "actions": [
+        "编辑一条介绍→发送申请",
+        "收到pending可转申请列表；已发送只提示等待；ignored不允许第二条"
+      ],
+      "back": "关闭/取消回原页，保留本次peer草稿；提交busy不可关闭",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "无申请",
+        "pending sent/received",
+        "ignored",
+        "blocked"
+      ],
+      "retainedVisuals": [
+        "源白紫弹层与介绍卡片、胶囊主按钮"
+      ],
+      "retiredBusiness": [
+        "替换关注后可聊天旧提示"
+      ],
+      "supplement": [
+        "独立介绍表单/结果为缺稿补齐；不额外制造收费或倒计时"
+      ],
+      "validation": [
+        "body1–500字素；相同pair仅一条；不是自己；无block/已有friend；500为技术假设"
+      ],
+      "saveTiming": [
+        "成功时写request和幂等操作；不创建friend/thread；失败保留输入与commitId"
+      ],
+      "nativeDependencies": [
+        "唯一social.request；无媒体/邮件权限"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "chats-more",
+      "route": "modal:/chats-more",
+      "designs": [
+        {
+          "index": 31,
+          "designId": "f3c51dd7-e678-45ca-80f1-98b24cd4e957",
+          "name": "消息--更多操作",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.412485Z",
+          "reference": "evidence/p3/references/design-31.png"
+        },
+        {
+          "index": 83,
+          "designId": "b450ab69-4016-408a-a195-d8ee9605b578",
+          "name": "消息--更多操作2",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.302961Z",
+          "reference": "evidence/p3/references/design-83.png"
+        }
+      ],
+      "entry": [
+        "Chats更多"
+      ],
+      "actions": [
+        "切换未读筛选",
+        "仅有未读点亮时可打开已读确认"
+      ],
+      "back": "Escape/点击遮罩关闭回原页；测量真实按钮锚点；背景inert",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "目标不存在禁用",
+        "小屏定位限制"
+      ],
+      "retainedVisuals": [
+        "源白色圆角6小面板与阴影、图文行"
+      ],
+      "retiredBusiness": [
+        "不把所有消息设已读"
+      ],
+      "supplement": [
+        "未导出图标用现有线条SVG；法语文字允许换行"
+      ],
+      "validation": [
+        "仅切preferences；不处理消息内容"
+      ],
+      "saveTiming": [
+        "选择筛选成功才保存；打开菜单无写入"
+      ],
+      "nativeDependencies": [
+        "唯一social.preferences"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "lights-read",
+      "route": "modal:/chats-read-lights",
+      "designs": [
+        {
+          "index": 16,
+          "designId": "39d224fc-857d-4dd0-a8e4-9bb0eff9c0c0",
+          "name": "消息--一键已读点亮消息提示",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.250975Z",
+          "reference": "evidence/p3/references/design-16.png"
+        }
+      ],
+      "entry": [
+        "更多→标记点亮已读"
+      ],
+      "actions": [
+        "确认仅当前列表尚未读eventIds；取消无变化"
+      ],
+      "back": "确认/取消后回相同Chats筛选与滚动；busy禁重复和关闭",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "无目标禁用",
+        "确认",
+        "取消"
+      ],
+      "retainedVisuals": [
+        "源居中342宽上限、紫白渐变、1.5白边、24圆角、双按钮"
+      ],
+      "retiredBusiness": [
+        "不清普通私聊未读或好友申请数"
+      ],
+      "supplement": [
+        "法语长文允许内部滚动；错误沿既有提示"
+      ],
+      "validation": [
+        "eventIds逐项属于当前账户可见activities；显示快照固定本次目标"
+      ],
+      "saveTiming": [
+        "确认成功写eventReads后同步Tab与列表；取消零写入"
+      ],
+      "nativeDependencies": [
+        "唯一social.readEvents"
+      ],
+      "tabBar": false
+    },
+    {
+      "key": "social-safety",
+      "route": "modal:profile-or-conversation-safety",
+      "designs": [
+        {
+          "index": 17,
+          "designId": "bf781331-8a70-4ced-8dfd-711ec4ded211",
+          "name": "举报",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.248774Z",
+          "reference": "evidence/p3/design-sources.json"
+        },
+        {
+          "index": 41,
+          "designId": "2b0eb787-a54d-468e-aaea-a5fe0d843b3b",
+          "name": "举报拉黑",
+          "version": "版本1",
+          "updatedAt": "2026-10-13T15:14:57.24523Z",
+          "reference": "evidence/p3/design-sources.json"
+        }
+      ],
+      "entry": [
+        "资料/会话更多"
+      ],
+      "actions": [
+        "举报选择稳定原因+可选说明→仅本地记录",
+        "拉黑先确认；成功立即隐藏/锁定双方互动",
+        "自己的拉黑可解除；他人拉黑不可解除"
+      ],
+      "back": "取消返回原页；未提交说明不丢；busy禁关闭；恢复入口沿P2隐藏/拉黑列表及个人页",
+      "states": [
+        "初始/加载",
+        "成功/真实空态",
+        "失败保留当前数据与输入",
+        "busy禁用/防重复",
+        "可重试",
+        "适用的取消/离页清理",
+        "举报",
+        "拉黑确认",
+        "取消",
+        "被我拉黑",
+        "被对方拉黑",
+        "解除后恢复可读记录"
+      ],
+      "retainedVisuals": [
+        "沿P2同一举报/拉黑视觉、原稿文字层级与按钮"
+      ],
+      "retiredBusiness": [
+        "不伪装提交真实审核团队；解除不补发/自动重发"
+      ],
+      "supplement": [
+        "双语本地边界；解除保留已有好友记录是保守可逆策略，正式产品政策仍待确认"
+      ],
+      "validation": [
+        "原因枚举7项；details<=500字素；不是自己；会话发送与媒体读取独立复核block"
+      ],
+      "saveTiming": [
+        "举报写独立user report+幂等；block使用P2 canonical content.blocks，成功同步两域；失败不改变关系"
+      ],
+      "nativeDependencies": [
+        "唯一social.report/block；无网络审核"
+      ],
+      "tabBar": false
+    }
+  ]
+}

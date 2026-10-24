@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-23",
+  "webTests": {
+    "passed": 159,
+    "failed": 0,
+    "newReadGuideIsolationTests": 2
+  },
+  "nativeTests": {
+    "latestUniqueTargetsPassed": 4,
+    "runs": [
+      {
+        "log": "native-tests.log",
+        "passed": [
+          {
+            "name": "testEnglishHomeDiscoveryMotion",
+            "seconds": 57.44
+          },
+          {
+            "name": "testEnglishHomeGuideAfterDiscovery",
+            "seconds": 26.1
+          },
+          {
+            "name": "testFrenchHomeDiscoveryMotion",
+            "seconds": 56.409
+          }
+        ],
+        "failed": [
+          "testFrenchHomeGuideAfterDiscovery"
+        ]
+      },
+      {
+        "log": "native-tests-guide-retry.log",
+        "passed": [
+          {
+            "name": "testEnglishHomeGuideAfterDiscovery",
+            "seconds": 29.604
+          },
+          {
+            "name": "testFrenchHomeGuideAfterDiscovery",
+            "seconds": 28.004
+          }
+        ],
+        "failed": []
+      }
+    ],
+    "firstRunFailure": "French guide complete scenario unexpectedly navigated to Chats; cause undetermined. Preserved attempt-1 evidence. Added event and stage telemetry; both complete language guide tests passed on retry without changing product or relaxing assertions.",
+    "environment": "Visible UIWindowScene-hosted WKWebView, production bundle and existing Native Bridge; iPhone 17 / iOS 26.5 Simulator",
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "safeArea": "Synthetic insets; not six physical devices",
+    "reducedMotion": "Simulated initial MediaQueryList matches, not physical iOS setting"
+  },
+  "locales": {
+    "en": {
+      "contentLayouts": 24,
+      "emptyLayouts": 24,
+      "glowCount": 5,
+      "glowDurationMs": [
+        2000
+      ],
+      "guideAfterLastGlowMs": 116.0,
+      "violations": [],
+      "cases": [
+        "initial-read-leave-failure-retry",
+        "complete-batch-before-guide",
+        "leave-active-guide-return",
+        "complete-save-failure-retry",
+        "skip-guide",
+        "leave-during-animation-return-read-failure",
+        "skip-guide",
+        "reduced-motion",
+        "skip-guide"
+      ]
+    },
+    "fr": {
+      "contentLayouts": 24,
+      "emptyLayouts": 24,
+      "glowCount": 5,
+      "glowDurationMs": [
+        2000
+      ],
+      "guideAfterLastGlowMs": 114,
+      "violations": [],
+      "cases": [
+        "initial-read-leave-failure-retry",
+        "complete-batch-before-guide",
+        "leave-active-guide-return",
+        "complete-save-failure-retry",
+        "skip-guide",
+        "leave-during-animation-return-read-failure",
+        "skip-guide",
+        "reduced-motion",
+        "skip-guide"
+      ]
+    }
+  },
+  "builds": {
+    "viteProduction": "passed",
+    "iosSimulator": "passed",
+    "iosUnsignedGenericDevice": "passed",
+    "initialSandboxAttempts": "CoreSimulator/asset compiler access unavailable; environment logs retained; normal Xcode execution succeeded"
+  },
+  "resources": {
+    "dist": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "iosSource": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "simulatorApp": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "unsignedDeviceApp": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    }
+  },
+  "passedAttachments": {
+    "total": 52,
+    "png": 42,
+    "json": 10,
+    "index": "wk-attachments.json"
+  },
+  "physicalDevice": "Not performed; previously deferred by user",
+  "remaining": [
+    "Physical touch/keyboard/system reduced-motion and long-duration performance validation",
+    "Monitor un-reproduced first-run unexpected navigation"
+  ],
+  "warnings": [
+    "Existing Vite chunk over 500 kB",
+    "Simulator RBS/ProcessSuspension and unsupported VisionKit system messages"
+  ],
+  "storage": "Existing guideDone saved only on successful explicit completion or skip. No model migration or user data clearing."
+}

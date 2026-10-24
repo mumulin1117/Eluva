@@ -1,0 +1,592 @@
+{
+  "date": "2026-10-19",
+  "baseline": [
+    390,
+    844
+  ],
+  "preview": [
+    195,
+    422
+  ],
+  "screenImplementation": "one AuthConversation component; legacy URLs are compatibility entrances, never verification grants",
+  "backRule": "trim messages to prior prompt; preserve draft inputs; quiz back removes only that question and later answers; legal return restores transcript scroll",
+  "storage": "memory draft until completeRegistration; account/profile/private quiz/theme/credential/session in one transaction",
+  "states": [
+    {
+      "state": "boot",
+      "sources": [],
+      "requiredStates": [
+        "bootstrap",
+        "ready",
+        "failure",
+        "retry"
+      ],
+      "implementation": "native Launch/cover + H5 Boot；无独立启动稿，沿用已核对的本地 auth-background"
+    },
+    {
+      "state": "eula",
+      "sources": [
+        {
+          "id": "5f6cee99-f785-4f34-a2e1-8906d702f8d1",
+          "name": "登录注册进入1",
+          "updatedAtUTC": "2026-10-13T15:14:57.388015Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "open",
+        "decline",
+        "save",
+        "failure",
+        "retry"
+      ],
+      "implementation": "沿用 AppModal 与现有同意存储，欢迎复选框双向同步"
+    },
+    {
+      "state": "choice",
+      "sources": [
+        {
+          "id": "9adcc63a-3b8b-43b8-a86a-8d5e9b110037",
+          "name": "登录注册进入1",
+          "updatedAtUTC": "2026-10-13T15:14:57.408562Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "consent-required",
+        "ready",
+        "disabled"
+      ],
+      "implementation": "首次与回访为两个明确动作，保留同一消息上下文"
+    },
+    {
+      "state": "email",
+      "sources": [
+        {
+          "id": "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+          "name": "登录注册进入2",
+          "updatedAtUTC": "2026-10-13T15:14:57.418624Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "eaf407ca-69ee-48b6-b43e-9aa4422ae974",
+          "name": "登录注册进入3",
+          "updatedAtUTC": "2026-10-13T15:14:57.374593Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "input",
+        "invalid",
+        "busy",
+        "failure",
+        "retry"
+      ],
+      "implementation": "手机号改邮箱，去除区号与手机号键盘；仅创建内存 flow"
+    },
+    {
+      "state": "accountExists",
+      "sources": [
+        {
+          "id": "c5ac7609-4a65-4538-b517-a08d1e8fca6f",
+          "name": "登录注册进入3--账号注册过提示流程",
+          "updatedAtUTC": "2026-10-13T15:14:57.396129Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "c705fe31-8c52-4b34-8201-785b5350c51d",
+          "name": "登录注册进入3--账号注册过提示流程2",
+          "updatedAtUTC": "2026-10-13T15:14:57.327404Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "password-login",
+        "different-email"
+      ],
+      "implementation": "账号已存在时不建号，原对话分支"
+    },
+    {
+      "state": "code",
+      "sources": [
+        {
+          "id": "a456acfb-9db0-4a25-9007-7f28def3aee8",
+          "name": "登录注册进入3--账号注册发送验证码",
+          "updatedAtUTC": "2026-10-13T15:14:57.389756Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "input",
+        "invalid",
+        "busy",
+        "resend",
+        "change-email",
+        "retry"
+      ],
+      "implementation": "单个真实输入配六格；仅 567567；无真实邮件已发送文案"
+    },
+    {
+      "state": "loginEmail",
+      "sources": [
+        {
+          "id": "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+          "name": "登录注册进入2",
+          "updatedAtUTC": "2026-10-13T15:14:57.418624Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "invalid",
+        "busy",
+        "retry"
+      ],
+      "implementation": "缺直接邮箱登录稿，复用输入气泡体系；不自动注册"
+    },
+    {
+      "state": "loginPassword",
+      "sources": [
+        {
+          "id": "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9",
+          "name": "登录注册进入6--设置密码--默认",
+          "updatedAtUTC": "2026-10-13T15:14:57.372251Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "hidden",
+        "revealed",
+        "wrong-password",
+        "account-not-found",
+        "busy",
+        "retry"
+      ],
+      "implementation": "以密码稿补回访输入；响应气泡不展示密码"
+    },
+    {
+      "state": "resetEmail",
+      "sources": [
+        {
+          "id": "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+          "name": "登录注册进入2",
+          "updatedAtUTC": "2026-10-13T15:14:57.418624Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "invalid",
+        "not-found",
+        "test-account-read-only",
+        "busy",
+        "back",
+        "retry"
+      ],
+      "implementation": "缺直接稿，复用邮箱对话，返回取消 reset grant"
+    },
+    {
+      "state": "resetCode",
+      "sources": [
+        {
+          "id": "a456acfb-9db0-4a25-9007-7f28def3aee8",
+          "name": "登录注册进入3--账号注册发送验证码",
+          "updatedAtUTC": "2026-10-13T15:14:57.389756Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "invalid",
+        "resend",
+        "change-email",
+        "busy",
+        "retry"
+      ],
+      "implementation": "与 signup 分离 purpose；不跨用途授权"
+    },
+    {
+      "state": "resetPassword",
+      "sources": [
+        {
+          "id": "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9",
+          "name": "登录注册进入6--设置密码--默认",
+          "updatedAtUTC": "2026-10-13T15:14:57.372251Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "weak",
+        "mismatch",
+        "busy",
+        "failure",
+        "retry",
+        "success"
+      ],
+      "implementation": "缺直接重置稿，同体系增加确认输入；写入成功才消费 grant"
+    },
+    {
+      "state": "name",
+      "sources": [
+        {
+          "id": "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+          "name": "登录注册进入4--输入名字",
+          "updatedAtUTC": "2026-10-13T15:14:57.379728Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "input",
+        "invalid",
+        "back"
+      ],
+      "implementation": "1/6，去空白后 1—60 字符；仅内存草稿"
+    },
+    {
+      "state": "birthday",
+      "sources": [
+        {
+          "id": "1cece773-6a9f-4ab2-b4f7-a288bd2c64b2",
+          "name": "登录注册进入5--选择年龄",
+          "updatedAtUTC": "2026-10-13T15:14:57.36525Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "0d5262e5-3116-48c7-95bd-ff87f166ccf2",
+          "name": "生日选择",
+          "updatedAtUTC": "2026-10-13T15:14:57.276048Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "panel",
+        "cancel",
+        "invalid",
+        "underage",
+        "back"
+      ],
+      "implementation": "2/6；年代选择替换为完整生日，面板参考资料编辑，18+，仅公开年龄"
+    },
+    {
+      "state": "password",
+      "sources": [
+        {
+          "id": "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9",
+          "name": "登录注册进入6--设置密码--默认",
+          "updatedAtUTC": "2026-10-13T15:14:57.372251Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "d810cd9e-d392-4e0e-955d-a77fdc972bd5",
+          "name": "登录注册进入6--设置密码2",
+          "updatedAtUTC": "2026-10-13T15:14:57.333016Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "74256c6d-a52a-4ea6-b4e4-947a565b2fa1",
+          "name": "登录注册进入6--设置密码3",
+          "updatedAtUTC": "2026-10-13T15:14:57.334948Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "empty",
+        "weak",
+        "hidden",
+        "revealed",
+        "busy",
+        "failure",
+        "retry",
+        "back"
+      ],
+      "implementation": "3/6；验证后设置 flow 密码；至少 8 位含数字，不写消息正文"
+    },
+    {
+      "state": "theme",
+      "sources": [
+        {
+          "id": "a8438228-ddbf-4bc3-b916-eceff84cb790",
+          "name": "登录注册进入7--选择一个主题色吧",
+          "updatedAtUTC": "2026-10-13T15:14:57.377903Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "ready",
+        "selected-preview",
+        "back"
+      ],
+      "implementation": "4/6；粉紫橙青四列色卡；选择仅草稿预览，正式偏好随账号同事务提交"
+    },
+    {
+      "state": "gender",
+      "sources": [
+        {
+          "id": "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+          "name": "登录注册进入7--选择性别",
+          "updatedAtUTC": "2026-10-13T15:14:57.367649Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "ready",
+        "selected",
+        "back"
+      ],
+      "implementation": "5/6；复用现有稳定 gender ID；Yep/Nope 改为明确选项，作为可逆补齐并非新增用户确认"
+    },
+    {
+      "state": "quizIntro",
+      "sources": [
+        {
+          "id": "1d339685-db5c-47ee-afd6-cc922bd8441b",
+          "name": "登录注册进入7--快速问答",
+          "updatedAtUTC": "2026-10-13T15:14:57.369288Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "ready",
+        "back"
+      ],
+      "implementation": "6/6；主动 Go 才开始计时"
+    },
+    {
+      "state": "bioReview",
+      "sources": [
+        {
+          "id": "b9205e7d-628c-45ea-a7b2-0b29211b1eab",
+          "name": "登录注册进入7--快速问答结束--生成资料",
+          "updatedAtUTC": "2026-10-13T15:14:57.340371Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        },
+        {
+          "id": "99e396e3-fae7-448c-83a8-06168057f53c",
+          "name": "登录注册进入7--快速问答结束--编辑简介1",
+          "updatedAtUTC": "2026-10-13T15:14:57.329026Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "suggestion",
+        "empty-bio",
+        "consent-required",
+        "busy",
+        "failure",
+        "retry",
+        "success"
+      ],
+      "implementation": "即时确定性简介，无虚构 AI、排名或等待；社区同意后原子建号"
+    },
+    {
+      "state": "bioEdit",
+      "sources": [
+        {
+          "id": "34034a59-a9e7-42ce-8bf4-ec3003974cb4",
+          "name": "登录注册进入7--快速问答结束--编辑简介2",
+          "updatedAtUTC": "2026-10-13T15:14:57.331327Z",
+          "version": "版本1（切图接口返回；非完整历史版本审计）"
+        }
+      ],
+      "requiredStates": [
+        "input",
+        "empty",
+        "over-limit",
+        "cancel",
+        "save",
+        "back"
+      ],
+      "implementation": "允许留空，最多 300 字符，编辑只改草稿；取消恢复原简介"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-01",
+      "sources": [
+        {
+          "id": "4b993fa6-7efd-4884-8242-728a9e8190a2",
+          "name": "登录注册进入7--快速问答1",
+          "updatedAtUTC": "2026-10-13T15:14:57.349616Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-02",
+      "sources": [
+        {
+          "id": "752b41d0-884c-4674-9b34-3033a9f6f4bd",
+          "name": "登录注册进入7--快速问答2",
+          "updatedAtUTC": "2026-10-13T15:14:57.359043Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-03",
+      "sources": [
+        {
+          "id": "7c38e151-9e79-4c74-95d7-061931a046cb",
+          "name": "登录注册进入7--快速问答3",
+          "updatedAtUTC": "2026-10-13T15:14:57.382956Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-04",
+      "sources": [
+        {
+          "id": "aa765f4f-3cc3-40de-bfa1-2e1c1ff5f82f",
+          "name": "登录注册进入7--快速问答4",
+          "updatedAtUTC": "2026-10-13T15:14:57.353436Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-05",
+      "sources": [
+        {
+          "id": "1eecc0df-9b50-440c-8c40-c9817fbb1cc5",
+          "name": "登录注册进入7--快速问答5",
+          "updatedAtUTC": "2026-10-13T15:14:57.360842Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-06",
+      "sources": [
+        {
+          "id": "759772d1-3876-406b-85a2-a4fed8a13213",
+          "name": "登录注册进入7--快速问答6",
+          "updatedAtUTC": "2026-10-13T15:14:57.355162Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-07",
+      "sources": [
+        {
+          "id": "f852c5e5-76f5-4eb2-81f3-73fec8ae9b8b",
+          "name": "登录注册进入7--快速问答7",
+          "updatedAtUTC": "2026-10-13T15:14:57.345399Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-08",
+      "sources": [
+        {
+          "id": "d529ffc0-af7c-4fba-8741-9f03b451f916",
+          "name": "登录注册进入7--快速问答8",
+          "updatedAtUTC": "2026-10-13T15:14:57.347652Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-09",
+      "sources": [
+        {
+          "id": "a72bc937-b656-484d-9f6c-deab1d18d4f4",
+          "name": "登录注册进入7--快速问答9",
+          "updatedAtUTC": "2026-10-13T15:14:57.338472Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    },
+    {
+      "state": "quiz",
+      "questionId": "quick-quiz-10",
+      "sources": [
+        {
+          "id": "b0d3f881-da3c-4db4-bf07-1a0192f1f325",
+          "name": "登录注册进入7--快速问答10",
+          "updatedAtUTC": "2026-10-13T15:14:57.336945Z"
+        }
+      ],
+      "requiredStates": [
+        "answer",
+        "timeout",
+        "back",
+        "skip"
+      ],
+      "implementation": "独立题位，Q2/Q3 原文重复保留；5 秒前台计时，后台/离页暂停；同一事件批次仅首个操作生效"
+    }
+  ],
+  "unconfirmed": [
+    "Q3 whether to replace duplicate prompt",
+    "exact timeout/whole-group-skip policy",
+    "gender labels and deterministic bio template are reversible fills, not explicit user confirmations"
+  ],
+  "sourceLimit": "annotation fallback; full DDS unavailable; versions from slice API rather than browser history audit"
+}

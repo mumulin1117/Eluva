@@ -1,0 +1,100 @@
+{
+  "task": "Extend Home card single edge glow to 1500ms before exact detail navigation",
+  "date": "2026-10-23",
+  "result": "passed targeted verification; physical device deferred",
+  "productionChange": "Only HomeView card.animate duration 320 -> 1500; original keyframes, easing, completion navigation and cancellation unchanged.",
+  "staticDesignReference": "../home-card-tap-2026-10-23/design-reference.json; same frozen static visuals, user overrides motion duration",
+  "webTests": {
+    "passed": 164,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "wkTests": {
+    "passed": 2,
+    "failed": 0,
+    "environment": "Visible UIWindow-hosted WKWebView; iPhone 17 / iOS 26.5 simulator; production packaged resources and actual Native Bridge; isolated vault and preferences",
+    "resultBundle": ".build/home-card-tap-1500ms-20261023.xcresult",
+    "log": "native-tests.log",
+    "seconds": {
+      "en": 35.383,
+      "fr": 34.955
+    },
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "themes": "purple in all sizes; pink, orange, cyan at 390x844 per locale",
+    "naturalCases": 18,
+    "durationMs": 1500,
+    "iterations": 1,
+    "observedHomeAnimationTimeMs": [
+      1200,
+      1216
+    ],
+    "observedNavigationElapsedMs": [
+      1513,
+      1533
+    ],
+    "assertions": [
+      "one navigation after animation completion; no content.echo write",
+      "same and cross-card duplicate ignored",
+      "card size unchanged; no transform or page overflow; secondary no TabBar",
+      "return preserves 322px horizontal offset and order",
+      "leave, help, filter and controlled background cancel: no late navigation after 1650ms",
+      "controlled reduced-motion directly navigates",
+      "original 2s glow pauses while click glow runs; pending first guide does not interrupt or write guideDone"
+    ],
+    "limitations": [
+      "Synthetic Safe Area and resized WKWebView, not six physical devices.",
+      "DOM button activation within actual WKWebView, not physical touch.",
+      "Background and reduced-motion controlled events, not real system settings.",
+      "750ms screenshot frame held only for capture; natural 18-case runs establish timing."
+    ],
+    "attachments": "wk-attachments.json"
+  },
+  "build": {
+    "vite": "passed; production-build.log",
+    "sync": "264 resources",
+    "simulator": "passed via native-tests.log",
+    "unsignedDevice": "passed; device-build.log",
+    "resources": "resource-verification.json: 264/264 SHA256 match in four copies"
+  },
+  "visualReview": "English and French 750ms held-frame screenshots inspected; selected card soft edge only; no layout changes.",
+  "data": "No persistent fields or business writes; no login/register change.",
+  "warnings": [
+    "Existing Vite >500kB chunk warning.",
+    "Simulator teardown RBSAssertion and ProcessSuspension diagnostics."
+  ],
+  "unperformed": [
+    "Physical iPhone install and real-touch verification deferred per prior user request.",
+    "Real system keyboard and reduced-motion switch; keyboard unchanged."
+  ],
+  "report": "../../home-card-tap-duration-report.md",
+  "sources": "source-files.json"
+}

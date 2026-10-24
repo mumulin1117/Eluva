@@ -1,0 +1,4 @@
+export const loadingMessages={
+ en:{publishing:'Publishing your moment…',profile:'Updating your profile…',createCollection:'Creating your collection…',collection:'Updating your collection…',report:'Processing your report…',feedback:'Processing your feedback…',preferences:'Applying your preferences…',deletePost:'Deleting your post…',deleteCollection:'Deleting your collection…',deleteAccount:'Deleting your account…'},
+ fr:{publishing:'Publication de votre moment…',profile:'Mise à jour de votre profil…',createCollection:'Création de votre collection…',collection:'Mise à jour de votre collection…',report:'Traitement de votre signalement…',feedback:'Traitement de votre message…',preferences:'Application de vos préférences…',deletePost:'Suppression de votre publication…',deleteCollection:'Suppression de votre collection…',deleteAccount:'Suppression de votre compte…'},
+}

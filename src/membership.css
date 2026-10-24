@@ -1,0 +1,55 @@
+/* Lanhu 7574cbf3 v1; only /store opts in. Benefits/wallet and commerce rules stay unchanged. */
+.page-shell.membership-shell{display:grid;grid-template-columns:100%;grid-template-rows:minmax(0,1fr);background:#a077ff;isolation:isolate}
+.membership-shell>.content-header{grid-area:1/1;align-self:start;z-index:2;pointer-events:none}
+.membership-shell.store-content-scrolled>.content-header{background:#a077ff}
+.membership-shell>.content-header .source-icon{pointer-events:auto}
+.membership-shell>.content-header h1{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.membership-shell>.content-header .content-header-actions{display:none}
+
+.membership-shell>.page-content{grid-area:1/1;height:100%;padding:0 14px calc(28px + var(--safe-bottom));background:#a077ff url('/images/p6/membership-scene.png') center top/100% auto no-repeat local;overflow-x:hidden;scroll-padding-top:calc(var(--safe-top) + 72px)}
+.membership-shell .store-hero{height:calc(min(100vw,560px) * 222 / 390);margin:0;background:none}
+.membership-shell .store-title{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;margin:0 0 24px;font:400 28px/39px 'Braah One',sans-serif;text-align:center;color:#fff}
+.membership-shell .store-title>span{grid-column:2;min-width:0;overflow-wrap:anywhere}
+.membership-shell .store-title>img{grid-column:3;width:50px;height:29px;max-width:none;margin:0 0 0 10px;vertical-align:baseline}
+.membership-shell .store-benefit-cards{gap:10px}
+.membership-shell .store-benefit{min-height:82px;padding:40px 4px 8px;border-radius:12px;backdrop-filter:blur(6.05px);-webkit-backdrop-filter:blur(6.05px);font:400 13px/17px 'Poppins',sans-serif}
+.membership-shell .store-benefit>span{display:flex;align-items:center;justify-content:center;min-height:34px}
+.membership-shell .store-benefit:nth-child(2){font-size:14px}
+.membership-shell .store-all-benefits{text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;min-height:47px;margin:0 auto 12px;font:400 12px/17px 'Poppins',sans-serif}
+.membership-shell .store-products{gap:16px;margin:0 10px}
+.membership-shell .store-products>button{padding:8px 23px;min-height:52px;border:0;border-radius:30px;background:rgba(203,181,255,1);color:rgba(136,96,227,1)}
+.membership-shell .store-products>button:first-child{margin-bottom:4px}
+.membership-shell .store-products>button[aria-pressed=true]{background:#fff;color:#000;outline:1px solid #fff;outline-offset:3px}
+.membership-shell .store-products>button>span{font:400 12px/17px 'Poppins',sans-serif}
+.membership-shell .store-products>button>span>strong{display:block;font:600 15px/19px 'Poppins',sans-serif;overflow-wrap:anywhere}
+.membership-shell .store-products>button>span>small{font:400 12px/17px 'Poppins',sans-serif;color:rgba(149,116,226,1)}
+.membership-shell .store-products>button[aria-pressed=true]>span>small{color:rgba(154,154,154,1)}
+.membership-shell .store-products .store-price{font:800 20px/30px 'Poppins',sans-serif;max-width:45%;overflow-wrap:anywhere;min-width:0;flex-shrink:1}
+/* StoreKit already localizes/disambiguates displayPrice; retain the ISO code for assistive reading. */
+.membership-shell .store-price>small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.membership-shell .store-purchase{display:block;width:calc(100% - 10px);min-height:52px;margin:33px auto 5px;background:transparent url('/images/p6/purchase-capsule.svg') center/100% 100% no-repeat!important;border:0!important;border-radius:50px;padding:12px 14px;font:700 16px/24px 'Poppins',sans-serif!important;white-space:normal}
+.membership-shell .store-price-note{margin:0 10px;color:rgba(231,220,255,1);font:400 12px/17px 'Poppins',sans-serif;text-align:center;overflow-wrap:anywhere}
+/* Negative inline margins keep the text baseline while extending the link's touch target. */
+.membership-shell .store-terms-link{display:inline-block;min-height:44px;padding:13.5px 0;margin:-13.5px 0;background:none;border:0;color:#fff;font:500 12px/17px 'Poppins',sans-serif;text-decoration:underline;text-underline-offset:2px;vertical-align:baseline;white-space:normal;max-width:100%}
+.membership-shell .store-recovery{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 16px;margin:28px 10px 12px}
+.membership-shell .store-recovery>.action-button{flex-basis:100%;max-width:280px;background:#fff;color:#7553b0;border:1px solid #fff;border-radius:30px;min-height:44px;font:600 13px/19px 'Poppins',sans-serif}
+.membership-shell .store-recovery>.text-link{font:400 12px/18px 'Poppins',sans-serif;white-space:normal}
+@media(max-width:360px){.membership-shell .store-title{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px}.membership-shell .store-title>img{margin:0}.membership-shell .store-benefit-cards{gap:8px}.membership-shell .store-products>button{padding:8px 16px;gap:8px}}
+.membership-shell .store-purchase-error{margin:12px 5px 10px;scroll-margin-block:12px}
+.membership-shell .store-benefit>span{max-width:80px;margin:0 auto}
+.membership-shell .store-benefit:last-child>span{max-width:64px}
+:lang(fr) .membership-shell .store-benefit:last-child>span{max-width:90px}
+.membership-shell>.content-header{padding-left:13px}
+.membership-shell>.content-header .source-icon>img{display:none}
+.membership-shell>.content-header .source-icon::before{content:'';display:block;width:42px;height:42px;background:url('/images/p6/membership-back.svg') center/contain no-repeat;pointer-events:none}
+/* 2026-10-21 active subscription layers, from the updated Lanhu annotations. */
+.membership-shell>.content-header .content-header-actions{display:flex;pointer-events:auto}
+.membership-shell .store-restore{min-height:44px;min-width:58px;padding:8px 0;display:flex;align-items:center;justify-content:center;gap:6px;background:none;color:rgba(255,255,255,1);font:600 15px/17px 'Poppins',sans-serif}
+.membership-shell .store-title:has(+.store-membership-status){margin-bottom:0}
+.membership-shell .store-membership-status{margin:0 0 6px;text-align:center;color:rgba(255,255,255,1);font:400 12px/18px 'Poppins',sans-serif;overflow-wrap:anywhere}
+.store-membership-status>small{display:block;font:inherit}
+.store-membership-status>.text-link{min-height:44px;padding:10px 0;display:block;margin:0 auto;color:#fff;font:inherit}
+
+/* Keep the purchase-help entry on its own centered row after subscription controls. */
+.membership-shell .store-recovery>.store-help-link{flex-basis:100%;display:block;min-height:44px;padding:12px 8px;text-align:center}
+.store-notice-copy>p+p{margin-top:12px}

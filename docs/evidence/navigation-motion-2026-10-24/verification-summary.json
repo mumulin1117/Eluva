@@ -1,0 +1,520 @@
+{
+  "webTests": 207,
+  "wkTests": 4,
+  "wkFailures": 0,
+  "navigationLayoutRows": 48,
+  "locales": [
+    "en",
+    "fr"
+  ],
+  "sizes": [
+    [
+      320,
+      568
+    ],
+    [
+      375,
+      667
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      393,
+      852
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "results": [
+    {
+      "locale": "en",
+      "completedNativeTransitions": 52,
+      "finishReasons": {
+        "complete": 53,
+        "superseded": 1
+      },
+      "fallbackAnimations": 2,
+      "kinds": [
+        "push",
+        "pop",
+        "tab-back",
+        "tab-forward",
+        "present",
+        "dismiss"
+      ],
+      "auditedAnimationFrames": 1242,
+      "errors": [],
+      "violations": [],
+      "homeReturn": {
+        "position": 322,
+        "restoredPosition": 322,
+        "batchRetained": true,
+        "case": "home-detail-and-tab-return",
+        "ids": [
+          "demo-post-campus-v1",
+          "demo-post-female-02-v2",
+          "demo-post-female-03-v2",
+          "demo-post-female-04-v2",
+          "demo-post-female-05-v2"
+        ]
+      },
+      "cases": [
+        {
+          "case": "rapid-push-pop",
+          "staleMotion": false,
+          "events": [
+            {
+              "from": "/settings",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16808,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16810,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "finish",
+              "reason": "superseded",
+              "mode": "view-transition",
+              "tabsSnapshot": null,
+              "at": 16827,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "none"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16828,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16835,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "view-transition",
+              "tabsSnapshot": null,
+              "at": 17181,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "none"
+            }
+          ],
+          "livePages": 1
+        },
+        {
+          "case": "native-api-disabled-fallback",
+          "animations": [
+            {
+              "at": 17246,
+              "path": "#/settings/theme",
+              "kind": "push",
+              "target": "launch-page-host navigation-page-host",
+              "duration": 360
+            },
+            {
+              "at": 17675,
+              "path": "#/settings",
+              "kind": "pop",
+              "target": "launch-page-host navigation-page-host",
+              "duration": 320
+            }
+          ],
+          "events": [
+            {
+              "from": "/settings",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17226,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17227,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "fallback",
+              "tabsSnapshot": null,
+              "at": 17609,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "none"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17659,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17659,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "fallback",
+              "tabsSnapshot": null,
+              "at": 18008,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "none"
+            }
+          ]
+        },
+        {
+          "fallbackAnimations": 0,
+          "case": "reduced-motion",
+          "viewTransitions": 0,
+          "fixture": "MediaQueryList matches/change simulation",
+          "staleMotion": false
+        },
+        {
+          "liveComposerCount": 1,
+          "path": "#/conversation/demo-friend-echo?from=/chats",
+          "tabBar": false,
+          "case": "chat-profile-return",
+          "draftRetained": true
+        },
+        {
+          "position": 322,
+          "restoredPosition": 322,
+          "batchRetained": true,
+          "case": "home-detail-and-tab-return",
+          "ids": [
+            "demo-post-campus-v1",
+            "demo-post-female-02-v2",
+            "demo-post-female-03-v2",
+            "demo-post-female-04-v2",
+            "demo-post-female-05-v2"
+          ]
+        },
+        {
+          "livePages": 1,
+          "draftRetained": true,
+          "case": "cancelled-navigation-and-presentation-return",
+          "cancelledWithoutMotion": true
+        }
+      ]
+    },
+    {
+      "locale": "fr",
+      "completedNativeTransitions": 52,
+      "finishReasons": {
+        "complete": 53,
+        "superseded": 1
+      },
+      "fallbackAnimations": 2,
+      "kinds": [
+        "push",
+        "pop",
+        "tab-back",
+        "tab-forward",
+        "present",
+        "dismiss"
+      ],
+      "auditedAnimationFrames": 1234,
+      "errors": [],
+      "violations": [],
+      "homeReturn": {
+        "case": "home-detail-and-tab-return",
+        "ids": [
+          "demo-post-campus-v1",
+          "demo-post-female-02-v2",
+          "demo-post-female-03-v2",
+          "demo-post-female-04-v2",
+          "demo-post-female-05-v2"
+        ],
+        "restoredPosition": 322,
+        "batchRetained": true,
+        "position": 322
+      },
+      "cases": [
+        {
+          "events": [
+            {
+              "from": "/settings",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16675,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16676.000000000004,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "finish",
+              "reason": "superseded",
+              "mode": "view-transition",
+              "tabsSnapshot": null,
+              "at": 16692,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "none"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16693,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "view-transition",
+              "at": 16701,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "view-transition",
+              "tabsSnapshot": null,
+              "at": 17047,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "none"
+            }
+          ],
+          "staleMotion": false,
+          "case": "rapid-push-pop",
+          "livePages": 1
+        },
+        {
+          "case": "native-api-disabled-fallback",
+          "events": [
+            {
+              "from": "/settings",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17076,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17077,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "fallback",
+              "tabsSnapshot": null,
+              "at": 17458.000000000004,
+              "kind": "push",
+              "to": "/settings/theme",
+              "path": "#/settings/theme",
+              "pageSnapshot": "none"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "start",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17509,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings/theme",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "commit",
+              "tabsSnapshot": null,
+              "mode": "fallback",
+              "at": 17510,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "eluva-page"
+            },
+            {
+              "from": "/settings/theme",
+              "phase": "finish",
+              "reason": "complete",
+              "mode": "fallback",
+              "tabsSnapshot": null,
+              "at": 17861,
+              "kind": "pop",
+              "to": "/settings",
+              "path": "#/settings",
+              "pageSnapshot": "none"
+            }
+          ],
+          "animations": [
+            {
+              "at": 17092,
+              "path": "#/settings/theme",
+              "kind": "push",
+              "target": "launch-page-host navigation-page-host",
+              "duration": 360
+            },
+            {
+              "at": 17525.000000000004,
+              "path": "#/settings",
+              "kind": "pop",
+              "target": "launch-page-host navigation-page-host",
+              "duration": 320
+            }
+          ]
+        },
+        {
+          "viewTransitions": 0,
+          "fixture": "MediaQueryList matches/change simulation",
+          "case": "reduced-motion",
+          "staleMotion": false,
+          "fallbackAnimations": 0
+        },
+        {
+          "liveComposerCount": 1,
+          "path": "#/conversation/demo-friend-echo?from=/chats",
+          "case": "chat-profile-return",
+          "draftRetained": true,
+          "tabBar": false
+        },
+        {
+          "case": "home-detail-and-tab-return",
+          "ids": [
+            "demo-post-campus-v1",
+            "demo-post-female-02-v2",
+            "demo-post-female-03-v2",
+            "demo-post-female-04-v2",
+            "demo-post-female-05-v2"
+          ],
+          "restoredPosition": 322,
+          "batchRetained": true,
+          "position": 322
+        },
+        {
+          "draftRetained": true,
+          "case": "cancelled-navigation-and-presentation-return",
+          "cancelledWithoutMotion": true,
+          "livePages": 1
+        }
+      ]
+    }
+  ],
+  "allExportedAttachments": 108,
+  "navigationScreenshots": 12,
+  "physicalDeviceVerified": false,
+  "systemSoftwareKeyboardVerified": false,
+  "fallbackAndReducedMotion": "Simulated API unavailability and MediaQueryList on actual simulator WKWebView; not an older-device or system-toggle claim.",
+  "finalNavigationAttachmentSet": "attachments-attempt3",
+  "finalNavigationTests": {
+    "enSeconds": 26.852,
+    "frSeconds": 26.533,
+    "failures": 0
+  },
+  "finalNavigationAttachments": 16,
+  "authenticationAttachmentSet": "attachments-attempt2",
+  "authenticationTests": {
+    "enSeconds": 32.051,
+    "frSeconds": 32.531,
+    "failures": 0
+  }
+}

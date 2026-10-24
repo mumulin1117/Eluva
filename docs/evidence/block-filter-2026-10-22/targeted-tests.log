@@ -1,0 +1,29 @@
+✔ P5 Mine → friends → profile or conversation returns retain the parent query and isolated scroll key (1.104917ms)
+✔ blocking skips unavailable sources while retaining safe parent queries (0.232292ms)
+✔ empty Chats read completes during a global mutation; TabBar and page share one request (1.659542ms)
+✔ a committed block hides cached posts and adds the blacklist even when the follow-up content read fails (0.797875ms)
+✔ a failed empty-account read ends with an error; retry becomes a successful empty snapshot (0.250875ms)
+✔ reset and account switch discard an old pending snapshot and allow the new empty account to load (0.366042ms)
+✔ P3 migration retains two P1 thread identities and text-only fixtures without account changes (46.094958ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (29.078959ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (80.514167ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (22.518625ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (37.91ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (38.408833ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (21.629375ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (43.814875ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (76.314208ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (77.632334ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (24.123792ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (63.261333ms)
+✔ public profile collections hide private references, custom covers, blocked owners and other account fixtures (22.429792ms)
+✔ profile report failure is atomic, stable retry is deduplicated and targets the exact user (21.618791ms)
+✔ blocking hides posts, threads, incoming and outgoing requests without deleting history or affecting another account (58.831833ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 755.016792

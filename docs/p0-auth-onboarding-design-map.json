@@ -1,0 +1,1658 @@
+{
+  "schemaVersion": "1.0",
+  "reviewedOn": "2026-10-17",
+  "timezone": "Asia/Shanghai",
+  "reviewStatus": "reviewed-with-open-design-and-resource-items",
+  "scope": "P0 设计与业务核对；仅规划资料，不建立或修改应用工程。路由、组件、Bridge 名称和缺稿细节均为实施方案，不表示已有代码或已签核设计。",
+  "sourcePriority": "当前用户要求 > 最新确认业务规则 > 对应蓝湖有效设计 > Eluva 品牌与定位 > 项目规范。AGENTS_UI.md 的 Cimoa 品牌及设计优先级旧语句不适用。",
+  "inputs": [
+    "AGENTS.md",
+    "AGENTS_UI.md",
+    "docs/app-flow-and-implementation-plan.md",
+    "docs/lanhu-design-catalog.json"
+  ],
+  "prototype": {
+    "path": "/Users/linqian/Documents/Cimoa_New/CIRCA All Screens (interactive).html",
+    "sha256": "6c49411c6868b476ff46cedaa9828ee2ccbfe89d5eaa7ea1f739feb2c8018060",
+    "version": null,
+    "versionNote": "本地文件未提供正式版本号；按本次内容哈希识别参考快照。浏览器整体查看认证和 Onboarding，按 screen label 定位；不复制其品牌、数据、Apple、学校认证、活动或自动匹配。"
+  },
+  "confirmedRules": [
+    {
+      "id": "C01",
+      "source": "AGENTS.md §§6.2–6.4",
+      "rule": "邮箱+密码分离登录注册；顺序按正式链路；无 Apple/手机号/登录自动建号；验证码固定567567。",
+      "currentStatus": "partial-credentials-retained-old-order-superseded"
+    },
+    {
+      "id": "C02",
+      "source": "AGENTS.md §§6.3,7,8",
+      "rule": "注册仅内存草稿，完整 Onboarding 后落正式账户；en/fr；稳定ID；完全本地模式。",
+      "currentStatus": "retained-with-new-flow"
+    },
+    {
+      "id": "C03",
+      "source": "AGENTS.md §§6.2,9–11",
+      "rule": "EULA 与 Welcome 勾选双向同步；普通文本图片禁提取，输入保留编辑；六种视口、Safe Area、键盘与失败闭环。",
+      "currentStatus": "retained-with-new-flow"
+    },
+    {
+      "id": "C04",
+      "source": "用户本轮明确回复：采用上述混合方案",
+      "rule": "认证使用明确表单；九步资料引导延续聊天式视觉，保留蓝湖紫色背景、字体、气泡和胶囊体系。",
+      "currentStatus": "superseded-by-2026-10-19-conversation-flow"
+    },
+    {
+      "id": "C05",
+      "source": "用户本轮明确回复：采用整组规则",
+      "rule": "密码至少8位且含数字；照片至少2张；兴趣至少3项；破冰问题选3项；简介可跳过且最多300字。",
+      "currentStatus": "partial-password-and-about-only-for-new-signup"
+    },
+    {
+      "id": "C06",
+      "source": "用户本轮明确回复：采用18+与上述可见性",
+      "rule": "注册必须年满18岁，按完整生日计算；生日只本地保存、不公开，资料只显示年龄。",
+      "currentStatus": "retained-with-new-flow"
+    }
+  ],
+  "implementationProposals": [
+    {
+      "id": "P01",
+      "text": "字段结构建议：Basic Info 必填显示名与已通过年龄检查的生日；性别提供不愿透露，代词和交流语言可选；University/Major/Goal 页面保留并允许暂不填写，不新增必填门槛。学校/专业本地稳定ID，可用其他/自填，绝不显示真实学生认证。",
+      "status": "proposal",
+      "impact": "需在相应页面开发前冻结字段及公共可见性；不阻塞认证底座。"
+    },
+    {
+      "id": "P03",
+      "text": "验证码页使用单一真实输入承接六格视觉，按钮显式验证；重发40秒冷却沿用蓝湖候选，仅节流，不使567567过期。返回改邮箱使旧验证上下文失效。",
+      "status": "proposal",
+      "impact": "冷却秒数可配置，不影响固定码规则。"
+    },
+    {
+      "id": "P04",
+      "text": "退出注册使用保留当前进程草稿的确认弹层；明确放弃才清理临时数据，杀进程后不恢复半成品账户。Complete 返回 Notifications，资料摘要可跳回对应步骤并回到摘要。",
+      "status": "proposal",
+      "impact": "补齐返回与取消体验；不增加注册步骤。"
+    },
+    {
+      "id": "P05",
+      "text": "固定测试账号不允许改密或删除，提示使用本地新建账号测试该路径；避免违背固定凭据要求。其他账号正常本地重置。",
+      "status": "proposal",
+      "impact": "需在忘记密码接入前决定测试账号例外文案。"
+    }
+  ],
+  "findings": [
+    "蓝湖同名“登录注册进入1”有两个不同imageId：#34是EULA，#52是Welcome，不能按名字合并。",
+    "浏览器 iOS 标注为390×844pt；清单195×422仅预览。#43生日面板所在画板更高，不统一假定所有稿844。",
+    "认证与九步资料的正式新流程没有成套直接蓝湖稿，主规范/参考原型定顺序，蓝湖定可复用视觉。新补稿没有蓝湖设计ID和版本，必须保留null而非借用旧ID伪装新稿。",
+    "字体不是全局一种：EULA标题/按钮为Plus Jakarta Sans，正文与引导为Poppins。字体文件与授权未在仓库发现。",
+    "旧性别等稿将明文密码当聊天回应，正式流程必须移除；密码只在当前受保护输入控件内显隐。",
+    "参考原型密码文案写至少8位且有数字，但signupReady仅检查长度和含@；按本轮已确认规则重建统一校验，不继承该缺陷。",
+    "原型Onboarding进度混用1/8、2/8、3/9、3/8；正式九步统一1/9至9/9，Complete为提交确认页，不作为第十个资料步骤。",
+    "原型的Unsupported University、Apple、校园已认证、测试状态按钮、Events/Auto Match不进入本阶段正式流程。主题/旧十题不追加为必经步骤，扩展需另行确认。"
+  ],
+  "designSources": [
+    {
+      "index": 34,
+      "imageId": "5f6cee99-f785-4f34-a2e1-8906d702f8d1",
+      "name": "登录注册进入1",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=5f6cee99-f785-4f34-a2e1-8906d702f8d1&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.388015Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 36,
+      "imageId": "1cece773-6a9f-4ab2-b4f7-a288bd2c64b2",
+      "name": "登录注册进入5--选择年龄",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=1cece773-6a9f-4ab2-b4f7-a288bd2c64b2&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.36525Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 43,
+      "imageId": "0d5262e5-3116-48c7-95bd-ff87f166ccf2",
+      "name": "生日选择",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=0d5262e5-3116-48c7-95bd-ff87f166ccf2&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.276048Z",
+      "previewDimensions": [
+        195,
+        460.5
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 50,
+      "imageId": "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+      "name": "登录注册进入2",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=10ee098e-bb57-41fe-8da0-e66bb0f3de34&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.418624Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 52,
+      "imageId": "9adcc63a-3b8b-43b8-a86a-8d5e9b110037",
+      "name": "登录注册进入1",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=9adcc63a-3b8b-43b8-a86a-8d5e9b110037&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.408562Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 57,
+      "imageId": "a456acfb-9db0-4a25-9007-7f28def3aee8",
+      "name": "登录注册进入3--账号注册发送验证码",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=a456acfb-9db0-4a25-9007-7f28def3aee8&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.389756Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 60,
+      "imageId": "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+      "name": "登录注册进入4--输入名字",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=19948d98-fffa-4b9f-bbcf-4f7122a40cf7&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.379728Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 62,
+      "imageId": "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9",
+      "name": "登录注册进入6--设置密码--默认",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=db0c7d5f-f6fe-4bec-970c-ada3c74de0c9&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.372251Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 64,
+      "imageId": "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+      "name": "登录注册进入7--选择性别",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=4b803c69-1b38-4fb8-8f14-a5fff076c0b1&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.367649Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 77,
+      "imageId": "34034a59-a9e7-42ce-8bf4-ec3003974cb4",
+      "name": "登录注册进入7--快速问答结束--编辑简介2",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=34034a59-a9e7-42ce-8bf4-ec3003974cb4&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.331327Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 78,
+      "imageId": "99e396e3-fae7-448c-83a8-06168057f53c",
+      "name": "登录注册进入7--快速问答结束--编辑简介1",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=99e396e3-fae7-448c-83a8-06168057f53c&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.329026Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": "版本1",
+      "historyLabel": "10月13日 15:14",
+      "reviewLevel": "browser-visual-version"
+    },
+    {
+      "index": 86,
+      "imageId": "2f7b087d-e23f-45bf-994f-4bf3450f1b62",
+      "name": "相机权限弹窗",
+      "url": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&project_id=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=2f7b087d-e23f-45bf-994f-4bf3450f1b62&fromEditor=true",
+      "updatedAtUTC": "2026-10-13T15:14:57.297055Z",
+      "previewDimensions": [
+        195,
+        422
+      ],
+      "observedVersion": null,
+      "historyLabel": null,
+      "reviewLevel": "catalog-reference-only"
+    }
+  ],
+  "layerEvidence": [
+    {
+      "id": "D01",
+      "index": 34,
+      "layer": "Terms & Policies",
+      "measurement": "x124 y294，143×23pt；Plus Jakarta Sans-ExtraBold，18pt/ExtraBold，line-height normal，#000000，字距0%，居中。",
+      "scope": "EULA标题；normal不能擅自填为某个数值行高。"
+    },
+    {
+      "id": "D02",
+      "index": 34,
+      "layer": "Agree",
+      "measurement": "x267.5 y708，41×18pt；Plus Jakarta Sans-SemiBold，14pt/SemiBold，line-height normal，#FFFFFF，字距0%。",
+      "scope": "这是按钮文字边界，不是按钮整体或触摸区域。"
+    },
+    {
+      "id": "D03",
+      "index": 34,
+      "layer": "协议富文本正文",
+      "measurement": "x68 y393，307×80pt；Poppins-Regular 14pt，行高20pt，#292929，左/顶对齐；链接段Poppins-Medium 14/20。",
+      "scope": "移除外来政策文案，维持字体系与链接层级；新的法语换行需独立验收。"
+    },
+    {
+      "id": "D04",
+      "index": 52,
+      "layer": "背景",
+      "measurement": "x0 y0，390×844pt；不透明度100%，圆角0；PNG切图可导出@1x390×844、@2x780×1688、@3x1170×2532。",
+      "scope": "浏览器所选为可导出位图，不是已读取渐变止点。不得猜测CSS渐变值；后续导出本地原图。"
+    },
+    {
+      "id": "D05",
+      "index": 50,
+      "layer": "Enter the mobile phone number",
+      "measurement": "x33 y539，238×23pt；Poppins-Regular 15pt，line-height normal，#282828，图层opacity30%，左对齐。",
+      "scope": "沿用为输入占位字体系；手机号语义替换邮箱。不能误把30%文字透明度套在整页。"
+    },
+    {
+      "id": "D06",
+      "index": 57,
+      "layer": "Rectangle 1317 验证码第一格",
+      "measurement": "x15 y488，50×50pt；四角10pt；背景#F4F4F4；内边框1.6pt，显示#C054FF和#7700FF两个端点。",
+      "scope": "边框角度/止点位置未读出，不虚构；390下50pt是参照，小屏按6格可用宽度适配。"
+    },
+    {
+      "id": "D07",
+      "index": 60,
+      "layer": "Let’s get acquainted …",
+      "measurement": "x73.5 y330，252×44pt；Poppins-Regular 15pt，行高22pt，#000000，字距0%，左对齐。",
+      "scope": "资料引导气泡正文字体。"
+    },
+    {
+      "id": "D08",
+      "index": 77,
+      "layer": "简介输入文本",
+      "measurement": "x33 y420，286×66pt；Poppins-Regular 15pt，行高22pt，#000000，字距0%，左对齐。",
+      "scope": "多行输入文字排版；旧预填简介不可当真实用户内容。"
+    }
+  ],
+  "sharedStates": [
+    "初始与返回恢复：字段、勾选、选项、滚动与焦点按内存上下文恢复；语言切换不清空。",
+    "所有异步真实任务：busy+disabled、取消、超时、稳定错误、重试；重复触摸只产生一次提交；页面销毁丢弃迟到结果并清理监听。",
+    "表单：空/未触碰、编辑/聚焦、失焦错误、输入法组合、有效/无效、密码显示隐藏、键盘开关；错误就地可读，保留用户输入。",
+    "内容：真实加载失败或本地数据缺失可恢复；纯本地静态页不人为制造加载、网络离线或虚假发送成功。",
+    "所有本阶段 H5 页面隐藏 TabBar 且不预留其空间；原生/H5 只处理一次 Safe Area；弹层内滚动、背景锁定、关闭后焦点归还。",
+    "媒体与权限：不弹出即视为允许；取消/拒绝/受限/不支持/失败独立；真实授权结果经唯一 Bridge 返回；本阶段不申请麦克风。",
+    "en/fr、320×568、375×667、375×812、390×844、393×852、430×932 是后续执行验收矩阵，本轮未运行应用。"
+  ],
+  "nativeContract": [
+    "启动：读取首选语言/安装沙盒标记，装载与校验本地包，首帧就绪回执、日志、超时和重试；不依赖 Keychain 残留判断首装。",
+    "凭据：统一安全存储服务负责校验/保存凭据；Web 不把明文密码放普通偏好、聊天记录或日志。Complete 提交采用幂等ID与可回滚的分阶段写入，避免跨Web/Keychain半提交。",
+    "媒体：选择相册/拍照、返回稳定本地媒体引用，导入/取消/权限/临时文件清理；系统选择器按实际 API 语义授权，不能为了选一张照片索取不必要的整库权限。",
+    "通知：主动点开启才请求系统通知授权；本地模式仅记录授权/提供已实现的本地通知，不承诺远程推送。",
+    "所有服务共用一套 Bridge：requestId/service/method/params、Promise、错误码、超时/取消/销毁清理。当前仓库无 Bridge，名称和契约留待基础实现，不表示已有可调用服务。"
+  ],
+  "flows": {
+    "startup": [
+      "S01",
+      "S02",
+      "A01"
+    ],
+    "signup": [
+      "A01",
+      "A02 (首次或未同意)",
+      "A03",
+      "A04",
+      "A05",
+      "A06",
+      "A07",
+      "A08",
+      "O01",
+      "O02",
+      "O03",
+      "O04",
+      "O05",
+      "O06",
+      "O07",
+      "O08",
+      "O09",
+      "O10",
+      "MAIN_ENTRY"
+    ],
+    "login": [
+      "A01",
+      "A09",
+      "MAIN_ENTRY"
+    ],
+    "reset": [
+      "A09",
+      "A10",
+      "A11",
+      "A12",
+      "A09"
+    ]
+  },
+  "pages": [
+    {
+      "id": "S01",
+      "name": "iOS Launch Screen",
+      "group": "启动",
+      "route": "native:launch",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        52
+      ],
+      "prototypeScreen": "Launch / Splash / Default",
+      "entry": "冷启动由系统展示",
+      "primary": "系统进入原生覆盖层 S02；无点击操作",
+      "back": "无返回",
+      "states": [
+        "系统静态启动画面",
+        "en/fr 本地启动资源",
+        "首装/后续启动"
+      ],
+      "retain": "继承 #52 的紫色到浅色背景视觉；品牌定位用 Eluva。",
+      "replace": "原型 CIRCA 标识、彩虹条和假进度；不能复制聊天记录到启动图。",
+      "gap": "缺独立启动稿。补同背景的 Eluva 品牌静态画面，按原生 Auto Layout 与 H5 共用视觉锚点；背景原图等比裁切，不能拉伸。品牌标识和各尺寸裁切示意需补审。",
+      "fields": "无表单；首帧语言不能先英文再闪法文。",
+      "save": "仅安装标记/语言独立偏好按主规范保存；不读取半成品账户。",
+      "native": "UIKit Launch Screen、本地资源、语言资源；不请求媒体或通知权限。",
+      "pending": [
+        "启动品牌图、展示名映射和字体文件未提供，具体画面待审。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "S02",
+      "name": "原生覆盖层与 H5 Boot",
+      "group": "启动",
+      "route": "native:overlay → /boot",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        52
+      ],
+      "prototypeScreen": "Launch / Splash / Default",
+      "entry": "S01，或本地包加载重试",
+      "primary": "本地包/关键CSS/启动资源/Vue首帧就绪才移除覆盖层；有有效会话进入主入口，无会话进入 A01",
+      "back": "不提供普通返回；失败页仅重试",
+      "states": "安装/语言决策中、资源装载中、首帧等待、正常分流、包缺失/损坏、超时、重试中、Bridge未就绪/取消；失效会话恢复至登录",
+      "retain": "S01 与 #52 背景连续，品牌位置一致。",
+      "replace": "网页假加载时长、白黑屏、真实进度未知仍显示百分比、迟到回调移除新覆盖层。",
+      "gap": "补底部轻量状态与失败/重试区域，原生与H5保持同一画面；错误不能把密码/路径等暴露给用户。",
+      "fields": "校验本地资源存在、MIME、解码、缓存版本和路径边界；路由守卫校验账户与会话关联。",
+      "save": "不清空用户库；会话失效只清理失效引用。",
+      "native": "首帧通知/日志、资源装载、安装与语言、统一Bridge超时取消。",
+      "pending": [
+        "超时阈值及诊断文案为实现参数，待基础工程确定。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A01",
+      "name": "Welcome",
+      "group": "认证",
+      "route": "/welcome",
+      "directDesignIndices": [
+        52
+      ],
+      "visualReferenceIndices": [
+        50
+      ],
+      "prototypeScreen": "Auth / Welcome / Default",
+      "entry": "S02 未登录分支；退出注册/登录返回",
+      "primary": "注册→A03；登录→A09；协议未同意先进入 A02；Terms/Privacy→L01/L02",
+      "back": "认证根，无伪返回；系统退出不当作同意",
+      "states": [
+        "首次EULA待处理、已同意、主动取消勾选、协议读取失败、偏好保存失败、返回恢复、快速连点、en/fr长协议换行"
+      ],
+      "retain": "保留 #52 紫背景、引导气泡、黑色/紫色胶囊双入口；#50 前置勾选布局可借用。",
+      "replace": "53Hz、Little Whale 的外来身份与 Online 真实在线暗示、旧手机号提示。",
+      "gap": "新增符合主规范的底部勾选+可点击条款块：勾选在文字前，换行顶对齐；按钮明确 Log In/Create Account，聊天引导使用 Eluva 自有文案。",
+      "fields": "EULA 同意状态为单一来源；链接点击不切换勾选。未同意时不得穿透到认证提交。",
+      "save": "同意/取消状态与欢迎勾选双向持久化；失败保持可重试，不乐观跳过。",
+      "native": "安装/语言偏好读取；本地偏好保存；无权限请求。",
+      "pending": [],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "existing-visual-adaptation"
+    },
+    {
+      "id": "A02",
+      "name": "EULA 协议确认弹层",
+      "group": "协议",
+      "route": "/welcome + eula",
+      "directDesignIndices": [
+        34
+      ],
+      "visualReferenceIndices": [
+        52
+      ],
+      "prototypeScreen": "无对应原型 EULA 弹层；原型 Legal 仅供正文导航参考",
+      "entry": "首次进入 A01；未同意点注册或登录；主动查看协议",
+      "primary": "Agree→持久化成功后返回 A01并勾选；Disagree→A01未勾选；正文链接→L01/L02",
+      "back": "只返回所属 Welcome；关闭/遮罩/返回不算同意",
+      "states": [
+        "展示、长内容滚动、正文往返、同意保存中、保存失败/重试、拒绝、重复点击、离页/后台恢复"
+      ],
+      "retain": "保留 #34 遮罩、底部白圆角面板、标题/图标层级、左右拒绝/同意按钮和政策链接。",
+      "replace": "TopLive、无依据联系方式、外来政策正文；年龄条款统一采用本轮确认的18+，不复制原产品政策。",
+      "gap": "用 Eluva 自有 en/fr 文本替换；小屏面板限可视高度内部滚动、按钮可见；同意只由明确按钮触发。",
+      "fields": "使用版本化同意记录；可读完整正文，不增加未确认的强制滑到底规则。",
+      "save": "仅明确同意后保存，勾选取消同步；社区协议不能由此自动同意。",
+      "native": "本地偏好持久化；无需网络或系统权限。",
+      "pending": [
+        "正式 EULA/Terms/Privacy en/fr 正文与真实联系信息为资源依赖。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "existing-visual-adaptation"
+    },
+    {
+      "id": "A03",
+      "name": "Age Confirmation",
+      "group": "注册",
+      "route": "/auth/age",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        36,
+        43
+      ],
+      "prototypeScreen": "Auth / Age Confirmation / Default",
+      "entry": "A01 注册且 EULA 已同意",
+      "primary": "有效生日并满足年龄门槛→A04；低龄→就地阻止并可回Welcome",
+      "back": "A01，保留当前进程草稿",
+      "states": [
+        "空日期、选择中、非法/不存在日期、未来日期、刚满门槛、未达门槛、返回恢复、修改生日使下游资格失效",
+        "18岁生日前一天/当天边界、闰日生日、跨年/本地日期边界"
+      ],
+      "retain": "借 #36 聊天气泡及选项按钮、#43 日期选择器样式。",
+      "replace": "90s/00s 时代选择代替准确年龄；把年龄步骤放在手机号验证之后的旧顺序。",
+      "gap": "缺准确年龄确认稿：一条18+说明气泡+生日字段+日期弹层+Continue及未成年返回提示；按完整年月日计算，不按出生年份粗减。",
+      "fields": "已确认必须年满18岁；拒绝未来或不存在日期。生日只存本地且不公开，资料只显示年龄；不采集身份证。",
+      "save": "只写内存 birthday/ageEligibility；EULA独立保存，不保存低龄正式账户。",
+      "native": "H5 日期选择组件；若用原生日期选择器也经唯一Bridge，无身份证/定位权限。",
+      "pending": [],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "1cece773-6a9f-4ab2-b4f7-a288bd2c64b2",
+        "0d5262e5-3116-48c7-95bd-ff87f166ccf2"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A04",
+      "name": "Community Agreement",
+      "group": "注册",
+      "route": "/auth/community",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        34,
+        52
+      ],
+      "prototypeScreen": "Auth / Community Agreement / Default",
+      "entry": "A03 年龄满足",
+      "primary": "明确确认社区规则→A05；正文→L01/L02/L03",
+      "back": "A03；正文返回保持勾选",
+      "states": [
+        "未确认、部分勾选/全选、正文往返、内容缺失、Continue禁用、有效、返回修改年龄"
+      ],
+      "retain": "借 #34 协议图标/排版与 #52 气泡；认证外壳一致。",
+      "replace": "原型 CIRCA 真实校园身份背书和未经批准的活动规则；不重新恢复 Apple。",
+      "gap": "独立社区摘要页：尊重/边界/禁止骚扰及举报拉黑说明；条款/隐私状态引用EULA，社区规则独立主动勾选；不让阅读链接兼任勾选。",
+      "fields": "EULA 已同意且社区确认有效；具体是否三项独立勾选采用原型结构候选，避免用EULA代替社区确认。",
+      "save": "社区同意先放注册草稿；Complete 时随账户保存版本与时间。",
+      "native": "无权限；本地化正文。",
+      "pending": [
+        "Eluva 社区规则正文、勾选结构具体补稿待审；不虚构线上审核团队。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1",
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A05",
+      "name": "Sign Up",
+      "group": "注册",
+      "route": "/auth/sign-up",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        50,
+        62
+      ],
+      "prototypeScreen": "Auth / Sign Up / Default",
+      "entry": "A04 确认；登录页面的新用户入口应回 A03，不跳过资格",
+      "primary": "校验通过建立/更新内存凭据草稿→A06；已存在账号→明确冲突并可去 A09",
+      "back": "A04；去登录先处理退出草稿 X02",
+      "states": [
+        "空、聚焦、邮箱非法、弱密码、确认不一致、邮箱占用、固定测试邮箱占用、校验中、读取失败重试、有效、密码显隐、键盘、重复提交"
+      ],
+      "retain": "借 #50 圆角输入体系、#62 密码眼睛、#52 紫背景和按钮视觉；正式采用明确标签表单。",
+      "replace": "手机号、Apple、原型校园域名白名单、Create Account按钮立即落库的误导；不得把密码回显为聊天消息。",
+      "gap": "补邮箱/密码/确认密码三字段及字段下错误；主操作文案表达继续验证，弱密码要求固定显示；删除Apple后按流式布局重排，不能留下空位。",
+      "fields": "已确认密码≥8且含数字，确认完全一致；一般邮箱语法，空白/大小写按拟定规范化规则，密码不trim；邮箱冲突不覆盖，固定账号占用；具体最大长度为技术参数待定义。",
+      "save": "全部仅内存；返回保留；修改邮箱立即撤销旧邮箱验证，修改密码不把明文写库/日志。",
+      "native": "本地账户索引读取；此时不创建Keychain正式凭据，不连接邮件服务。",
+      "pending": [],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A06",
+      "name": "Email Verification / Enter Email",
+      "group": "验证",
+      "route": "/auth/verify/email",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        50,
+        57
+      ],
+      "prototypeScreen": "Auth / Email Verification / Enter Email",
+      "entry": "A05；A07 改邮箱；A08 返回重新核对",
+      "primary": "确认承接邮箱→A07；操作标为本地模拟验证码，不声称发送真实邮件",
+      "back": "A05，保留草稿",
+      "states": [
+        "已带入邮箱、编辑、格式错误、占用冲突、准备模拟验证中、取消、失败/重试、重复发送"
+      ],
+      "retain": "借 #50 输入和 #57 验证提示气泡。",
+      "replace": "手机号、学校域名准入、真实邮件已发送、邮箱重复填写成为额外门槛。",
+      "gap": "缺稿：邮箱摘要与编辑/确认，明确测试验证码567567，说明仅本地流程；一个主要按钮开始模拟验证。",
+      "fields": "邮箱与Sign Up同一字段；有效且未占用；验证码上下文绑定 purpose=signup+规范化邮箱+draftID。",
+      "save": "仅内存创建/更新验证上下文；不落正式账户；改邮箱清旧码与授权。",
+      "native": "本地模拟服务；不接邮件/短信/第三方认证。",
+      "pending": [],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A07",
+      "name": "Email Verification / Code",
+      "group": "验证",
+      "route": "/auth/verify/code",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        57
+      ],
+      "prototypeScreen": "Auth / Email Verification / Code",
+      "entry": "A06 本地验证上下文有效",
+      "primary": "验证567567成功→A08；重发保持同一码；改邮箱→A06",
+      "back": "A06；保留当前输入，显式改邮箱才清理绑定",
+      "states": [
+        "空、1–5位、6位、粘贴/删除/焦点、错码INVALID_VERIFICATION_CODE且保留、验证中、成功、冷却/可重发、模拟失败重试、上下文丢失/离页取消"
+      ],
+      "retain": "保留 #57 六格、灰底、紫色焦点边框、提示气泡和改信息入口。",
+      "replace": "手机号、任意码通过、真实邮件承诺；原型482176不可作为有效码。",
+      "gap": "六格用一个真实数字输入；补字段级错误与显式Verify；法语提示可换行；重发冷却候选40秒(P03)，320宽时格子等宽收缩/间距自适应，不溢出。",
+      "fields": "严格六位数字且仅567567通过；用途/邮箱/草稿一致；直达路由无上下文应回A06。",
+      "save": "只保存内存验证授权；不创建用户；重复提交幂等。",
+      "native": "H5数字键盘/编辑粘贴；无SMS自动读码、网络邮件或原生权限。",
+      "pending": [
+        "P03 冷却秒数未确认；不得附加未确认的验证码有效期。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A08",
+      "name": "Email Verification / Success",
+      "group": "验证",
+      "route": "/auth/verify/success",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        57,
+        60
+      ],
+      "prototypeScreen": "Auth / Email Verification / Success",
+      "entry": "A07 校验成功",
+      "primary": "Continue→O01，不自动跳过资料步骤",
+      "back": "A06邮箱摘要（方案）；改邮箱撤销授权",
+      "states": [
+        "有效本地验证成功、无授权拦截、继续中/重复点击、返回修改邮箱、语言切换"
+      ],
+      "retain": "保留 #57/#60 验证成功后的引导气泡节奏。",
+      "replace": "原型学校徽章/verified student、真实邮件验证/真实身份认证、自动保存账户。",
+      "gap": "补 Eluva 紫色成功符号和明确本地模拟验证成功文案，再显示完善资料入口；不借用其他产品学校Logo。",
+      "fields": "校验当前邮箱授权仍有效，未结束草稿不存在正式账户。",
+      "save": "内存 emailVerifiedFor 字段；进入O01不写正式用户。",
+      "native": "无新增原生能力。",
+      "pending": [
+        "独立成功页暂无蓝湖稿；图标/留白为补稿设计待审。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8",
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A09",
+      "name": "Log In",
+      "group": "登录与重置",
+      "route": "/auth/log-in",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        50,
+        62
+      ],
+      "prototypeScreen": "Auth / Log In / Default",
+      "entry": "A01 登录；A05 已有账号；A12 重置成功返回",
+      "primary": "邮箱密码本地校验成功→蓝湖主入口 MAIN_ENTRY（具体主导航另行冻结）；Forgot Password→A10；Create Account→A03",
+      "back": "A01；返回不创建账户",
+      "states": [
+        "空、编辑/键盘、格式错误、密码显隐、busy、ACCOUNT_NOT_FOUND、密码错误、账户读取失败、凭据不可用、成功、重试、重复点击/离页"
+      ],
+      "retain": "借 #50 表单输入视觉与 #62密码显隐，Welcome同背景。",
+      "replace": "手机号/Apple、未验证半成品账号恢复、登录失败自动注册、原型开发测试状态按钮。",
+      "gap": "补清晰两字段、错误区、Forgot Password与注册入口；登录成功后清历史栈，返回不能露出密码页。",
+      "fields": "固定测试账号或完整本地账户；只要求登录密码非空，不用新注册强度拒绝已有合法凭据；unknown→ACCOUNT_NOT_FOUND；错误本地化。",
+      "save": "成功才保存会话；不覆盖账户和其他用户缓存；密码不写聊天或普通偏好。",
+      "native": "本地凭据/安全存储与会话服务，经统一Bridge；无外部登录SDK。",
+      "pending": [],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34",
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A10",
+      "name": "Forgot Password / Email",
+      "group": "登录与重置",
+      "route": "/auth/password/email",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        50
+      ],
+      "prototypeScreen": "Auth / Forgot Password / Email",
+      "entry": "A09 忘记密码，带入邮箱",
+      "primary": "已存在的本地账号→A11；未知账号就地ACCOUNT_NOT_FOUND",
+      "back": "A09，带回邮箱",
+      "states": [
+        "空/承接、格式错、账号不存在、固定账号例外、账户读取中/失败、准备模拟验证、重试/取消"
+      ],
+      "retain": "借 #50 明确邮箱输入和紫色主操作。",
+      "replace": "手机号、真实发信、原型大学邮箱限制。",
+      "gap": "补重置说明、邮箱字段、本地模拟提示与继续；unknown账号保持当前页不建号。",
+      "fields": "一般邮箱有效且accountID存在；重置上下文独立于注册。固定测试账号处理采用P05保护建议。",
+      "save": "仅内存 resetDraft，未验证不改密码。",
+      "native": "读取本地索引，模拟服务；无邮件能力。",
+      "pending": [
+        "P05 固定测试账号改密例外待确认；默认保护固定入口。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "10ee098e-bb57-41fe-8da0-e66bb0f3de34"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A11",
+      "name": "Forgot Password / Code",
+      "group": "登录与重置",
+      "route": "/auth/password/code",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        57
+      ],
+      "prototypeScreen": "Auth / Forgot Password / Code",
+      "entry": "A10 已找到本地账号且重置上下文有效",
+      "primary": "仅567567→A12；重发原值；改邮箱→A10",
+      "back": "A10；返回保留输入，切账号使旧授权失效",
+      "states": [
+        "空/不足六位/可提交、粘贴删除、INVALID_VERIFICATION_CODE保留输入、busy、重发冷却、失败重试、上下文失效、取消/重复点击"
+      ],
+      "retain": "与 A07 共用 #57 六格视觉。",
+      "replace": "登录验证码替代密码、注册验证授权用于重置、其他码通过、真实发送成功。",
+      "gap": "复用验证码页壳，区分找回密码标题/用途和账号摘要；新增必要错误状态。",
+      "fields": "六位且567567；绑定 purpose=reset+accountID+email；注册授权不可复用；深链不能绕过A10/A11。",
+      "save": "仅内存一次性 resetGrant；此页不改密码。",
+      "native": "无新增权限；H5键盘与统一本地服务。",
+      "pending": [
+        "冷却同P03，不引入真实有效期。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "a456acfb-9db0-4a25-9007-7f28def3aee8"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "A12",
+      "name": "Forgot Password / New Password",
+      "group": "登录与重置",
+      "route": "/auth/password/new",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        62
+      ],
+      "prototypeScreen": "Auth / Forgot Password / New Password",
+      "entry": "A11 重置授权有效",
+      "primary": "保存成功消费授权→A09，提示已重置并需重新登录",
+      "back": "A11；保持同一重置上下文",
+      "states": [
+        "无授权拦截、空、新密码弱、确认不一致、显隐、保存中、保存失败重试、成功、重复回调、账号已不存在、固定账号例外"
+      ],
+      "retain": "借 #62 密码框、眼睛、紫色操作体系。",
+      "replace": "旧稿密码气泡回显、保存后自动登录/建号、原型任意验证码直通。",
+      "gap": "补新密码+确认，要求与Sign Up同一校验函数；成功提示留在登录页，返回不再访问重置授权。",
+      "fields": "已确认≥8位且含数字+两次一致；只允许验证过的目标账户；固定账号例外P05。",
+      "save": "安全凭据写入成功后才提示完成，失败保留当前页；消费resetGrant；不改资料和其他账号。",
+      "native": "原生安全凭据更新；错误统一且无密码日志。",
+      "pending": [
+        "P05固定账号例外；跨存储失败恢复与幂等在基础实现冻结。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "L01",
+      "name": "Terms of Service 正文",
+      "group": "协议",
+      "route": "/legal/terms",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        34
+      ],
+      "prototypeScreen": "Legal / Terms of Service / Default",
+      "entry": "A01/A02/A04 的条款链接",
+      "primary": "阅读；返回原触发位置",
+      "back": "按来源回 A01/A02/A04，不重置勾选和滚动",
+      "states": [
+        "正文就绪、长内容滚动、en/fr缺译/内容缺失、加载失败重试、返回恢复"
+      ],
+      "retain": "沿用 #34 协议标题/链接字体系；正文页使用同背景+清晰返回。",
+      "replace": "TopLive/CIRCA等品牌、外来商品/活动/联系方式和原型的未来生效日期。",
+      "gap": "无蓝湖独立正文稿。补导航标题+版本/日期+分节正文，单一主滚动；内容由Eluva正式文本提供，不用其他App政策填充。",
+      "fields": "条款版本/语言匹配；阅读不是同意；缺正文应明确不可用并可返回，不能假装签署成功。",
+      "save": "只保存合理的阅读位置；此页不改EULA。",
+      "native": "本地文档资源；不需联网。",
+      "pending": [
+        "正式 en/fr 条款及适用版本未提供。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "L02",
+      "name": "Privacy Policy 正文",
+      "group": "协议",
+      "route": "/legal/privacy",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        34
+      ],
+      "prototypeScreen": "Legal / Privacy Policy / Default",
+      "entry": "A01/A02/A04 隐私链接",
+      "primary": "阅读并返回",
+      "back": "按来源返回；弹层来自A02时恢复弹层",
+      "states": [
+        "正文就绪、长文、缺译/文件缺失、失败重试、返回恢复"
+      ],
+      "retain": "与L01同一正文容器和 #34 政策排版。",
+      "replace": "原型的真实校园验证、服务器共享/远程推送等与当前本地模式不一致的承诺。",
+      "gap": "补本地数据/相册/相机/安全存储与本项目实际能力一致的说明，正式内容待提供；不擅自承诺不存在的隐私功能。",
+      "fields": "语言与版本有效；打开链接不切换任何同意状态。",
+      "save": "不保存个人输入或改变账户。",
+      "native": "本地资源，无权限申请。",
+      "pending": [
+        "正式 en/fr 隐私正文与联系渠道未提供。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "L03",
+      "name": "Community Guidelines 正文",
+      "group": "协议",
+      "route": "/legal/community",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        34
+      ],
+      "prototypeScreen": "参考 Auth / Community Agreement 的 Read；无独立可靠正式蓝湖稿",
+      "entry": "A04 阅读社区规则",
+      "primary": "阅读；返回 A04",
+      "back": "A04（未来设置入口则回其调用者）",
+      "states": [
+        "长文、内容缺失/缺译、重试、返回保留勾选"
+      ],
+      "retain": "沿用 #34 协议字号/层级，正文容器复用L01。",
+      "replace": "原型活动/自动匹配和未实现的真实认证/实时审核承诺。",
+      "gap": "补尊重边界、禁止骚扰、举报/拉黑、违规处理与申诉规则的自有正文；本地演示与真实后台处置范围应明确。",
+      "fields": "本地内容版本；阅读动作不自动确认社区协议。",
+      "save": "只记录阅读位置；实际同意由A04与Complete负责。",
+      "native": "本地文档；无权限。",
+      "pending": [
+        "正式社区/申诉文本待提供。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "5f6cee99-f785-4f34-a2e1-8906d702f8d1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O01",
+      "name": "Onboarding / Basic Info",
+      "group": "Onboarding",
+      "route": "/onboarding/basic",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        60,
+        64,
+        43
+      ],
+      "prototypeScreen": "Onboarding / Basic Info / Default",
+      "entry": "A08 Continue；Complete编辑入口",
+      "primary": "有效基本资料→O02；来自摘要编辑则保存草稿后回O10",
+      "back": "A08（普通向导）；O10（摘要编辑）",
+      "states": [
+        "1/9初始、姓名空/仅空白、编辑、生日承接/改生日、年龄无效、性别未选/不愿透露、自述选项、可选字段、语言切换、键盘与返回恢复"
+      ],
+      "retain": "沿用 #60 提问气泡/输入、#64 胶囊选项和 #43 底部生日面板；Poppins正文；进度重建为1/9。",
+      "replace": "旧注册1/6步骤、时代年龄、预填Lisa/Ethan/性别/代词、密码显示在对话中。",
+      "gap": "一屏包含显示名、生日摘要/编辑、性别选项；主问句+当前输入区，已答可折叠回看；生日修改不另开强制注册步骤。代词/交流语言先做可选候选。",
+      "fields": "拟定显示名去首尾空白且非空，保留重音/连字符，不限ASCII。生日复用已确认18+检查，只本地保存且不公开、资料只显示年龄。性别/代词/交流语言字段范围和可见性仍为P01候选。",
+      "save": "只更新内存草稿；不得预置其他用户资料；无正式资料缓存。",
+      "native": "H5输入/日期组件；无媒体或麦克风权限。",
+      "pending": [
+        "P01可选字段、其他资料可见性及显示名上限待页面补稿审定；生日隐私与18+已确认。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "0d5262e5-3116-48c7-95bd-ff87f166ccf2"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O02",
+      "name": "Onboarding / University",
+      "group": "Onboarding",
+      "route": "/onboarding/university",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        60,
+        64
+      ],
+      "prototypeScreen": "Onboarding / University / Default",
+      "entry": "O01；O10摘要编辑",
+      "primary": "选择或暂不填写→O03；摘要编辑→O10",
+      "back": "O01；摘要编辑回O10",
+      "states": [
+        "2/9、未选择、搜索/结果、无匹配、自填/其他、年级未选/已选、本地列表缺失重试、返回与切语言恢复"
+      ],
+      "retain": "沿用聊天提示、白/灰结果卡、紫色选中胶囊；认证/资料背景统一。",
+      "replace": "原型 HKUST已验证徽章、重复学校身份认证、邮箱域名绑定学校、写死某年级与毕业年。",
+      "gap": "缺稿：学校搜索输入+本地结果列表/其他自填+可选年级；不强制额外入学验证。University不重复收专业，专业留O03。",
+      "fields": "字段候选 universityId或other自填、yearId；以稳定ID保存，去重；空值可继续是P01保守方案，非已确认必填规则。",
+      "save": "内存草稿；本地选项不联网，不增加大学搜索服务。",
+      "native": "无新增原生能力。",
+      "pending": [
+        "P01 学校/年级是否必填及本地选项表待冻结；不预设学校名录覆盖全球。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O03",
+      "name": "Onboarding / Major",
+      "group": "Onboarding",
+      "route": "/onboarding/major",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        64
+      ],
+      "prototypeScreen": "Onboarding / Major / Default",
+      "entry": "O02；O10摘要编辑",
+      "primary": "选择专业或暂不填写→O04；摘要编辑→O10",
+      "back": "O02；摘要编辑回O10",
+      "states": [
+        "3/9、未选、已选、搜索无结果、其他自填、本地选项缺失、切语言保留选择"
+      ],
+      "retain": "借 #64 胶囊选项、聊天引导，不复制原型彩虹/emoji卡片。",
+      "replace": "原型emoji正式图标、与University重复专业字段、把英文显示名作主键。",
+      "gap": "缺稿：专业搜索+自适应选项/结果，单选候选，其他自填；与University共享目录输入组件，进度3/9。",
+      "fields": "候选majorId与可选自填，稳定ID，不因en/fr切换丢失；必填/多选未确认，不擅自加门槛。",
+      "save": "只写内存。",
+      "native": "无新增原生能力。",
+      "pending": [
+        "P01专业必填性与选项表；默认单选+可暂不填写为方案。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O04",
+      "name": "Onboarding / Photos",
+      "group": "Onboarding",
+      "route": "/onboarding/photos",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        52
+      ],
+      "prototypeScreen": "Onboarding / Photos / Empty 与 Added",
+      "entry": "O03；O10摘要编辑",
+      "primary": "≥2张有效本地图片→O05；添加/替换→X01；删除/设主图→原地更新",
+      "back": "O03；摘要编辑回O10；进行导入先取消任务",
+      "states": [
+        "4/9、0张/1张禁用、≥2张可继续、选择/拍照、导入中、失败/重试、取消、拒绝/受限/不支持、删除后不足2张、替换、主图变更、损坏文件/丢失、后台/迟到结果"
+      ],
+      "retain": "继承紫背景、聊天引导和胶囊按钮；媒体卡具体布局没有直接蓝湖稿。",
+      "replace": "原型演示照片自动加入、允许点击即假授权、复制外来用户头像、从相册直接上传远端。",
+      "gap": "补聊天提问+流式照片网格+单一添加入口。第一张有效图默认主图且可改（方案）；槽位按实际张数扩展，最大数量/压缩指标列技术参数，不把设计3张误当上限。",
+      "fields": "已确认至少2张；只计成功导入且可解码文件；替换失败保留旧图。文件格式/体积/像素阈值在媒体服务实现前定。拒绝相机可改选相册，拒绝全部可用来源则提示去设置；不能绕过已确认的2张门槛。",
+      "save": "媒体只导入注册临时目录，内存保存mediaID/顺序/主图；Complete成功后迁正式引用，放弃只清理未被引用临时文件。",
+      "native": "唯一Bridge相册选择/相机/权限结果/临时文件；本阶段无录音权限。",
+      "pending": [
+        "照片卡新布局待审；最大张数/裁剪比例/压缩阈值未确认，不增加人脸或真实身份识别。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O05",
+      "name": "Onboarding / About",
+      "group": "Onboarding",
+      "route": "/onboarding/about",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        77,
+        78
+      ],
+      "prototypeScreen": "Onboarding / About / Default",
+      "entry": "O04；O10摘要编辑",
+      "primary": "继续或Skip→O06；摘要编辑→O10",
+      "back": "O04；摘要编辑回O10",
+      "states": [
+        "5/9、空可跳过、输入1–300字、达到上限、粘贴超限/输入法组合、键盘、返回恢复、语言切换保留原文"
+      ],
+      "retain": "沿用 #77 多行紫边输入、#78 简介卡和气泡；Poppins15/22为已读层样式。",
+      "replace": "十题测评先决条件、8.7秒成绩、AI已了解你/自动生成简介、预填INFP等虚假个人信息。",
+      "gap": "把生成式文案改为自我介绍提问，空textarea+300字计数+Skip；不自动生成、不追加问卷。可在输入时显示当前草稿预览，绝不预填别人的简介。",
+      "fields": "已确认可空且最多300字；建议按用户可见字符计数，输入法composition结束后校验，不截断组合字符；en/fr不覆盖用户原文。",
+      "save": "只写内存 aboutOriginal，Skip保留已输入内容（方案，明确清空才删除）。",
+      "native": "H5输入与键盘；无AI服务、语音录入或翻译依赖。",
+      "pending": [
+        "计数字符算法为技术方案；无需新增业务门槛。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "34034a59-a9e7-42ce-8bf4-ec3003974cb4",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O06",
+      "name": "Onboarding / Interests",
+      "group": "Onboarding",
+      "route": "/onboarding/interests",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        64,
+        78
+      ],
+      "prototypeScreen": "Onboarding / Interests / Default",
+      "entry": "O05；O10摘要编辑",
+      "primary": "≥3个不同标签→O07；摘要编辑→O10",
+      "back": "O05；摘要编辑回O10",
+      "states": [
+        "6/9、0/1/2个不足、≥3可继续、选择/取消、长标签换行、空列表/缺译/加载失败、返回与切语言恢复"
+      ],
+      "retain": "借 #64 选项胶囊、#78 资料标签视觉和聊天式说明。",
+      "replace": "原型emoji图标、自动预选Photography/Coffee等、显示文字当稳定ID、活动推荐承诺。",
+      "gap": "缺稿：提问气泡+标签区+已选计数；选中紫色体系，至少3项要求旁显；多行法语自动换行，不新增未确认的自定义兴趣。",
+      "fields": "已确认至少3个唯一interestId；最大数量不擅定；可用Eluva自有本地标签表，en/fr成对。",
+      "save": "仅内存 interestIds；原始ID语言无关。",
+      "native": "无原生能力/网络推荐。",
+      "pending": [
+        "标签词库及是否允许自定义待补稿审定，先用本地固定表方案。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O07",
+      "name": "Onboarding / Connection Goal",
+      "group": "Onboarding",
+      "route": "/onboarding/goal",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        64
+      ],
+      "prototypeScreen": "Onboarding / Connection Goal / Default",
+      "entry": "O06；O10摘要编辑",
+      "primary": "选择连接意向或暂不填写→O08；摘要编辑→O10",
+      "back": "O06；摘要编辑回O10",
+      "states": [
+        "7/9、未选、已选/取消、单选或多选候选、缺译/列表缺失、返回恢复"
+      ],
+      "retain": "沿用胶囊/选项卡与提问气泡。",
+      "replace": "Campus Events/Auto Match等外来功能入口、未经批准的匹配权益和商业标签。",
+      "gap": "缺稿候选选项：认识校园朋友、分享日常、交流共同兴趣、语言交流；允许多选候选，未选可继续方案。选项仅资料标签，不自动发起匹配。",
+      "fields": "goalIds稳定，去重；选项和必填性P01；不得因未选意向阻断已确认的其他流程。",
+      "save": "仅内存。",
+      "native": "无原生能力。",
+      "pending": [
+        "P01 意向选项、单/多选与必填性尚未冻结；上述为候选。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O08",
+      "name": "Onboarding / Icebreakers",
+      "group": "Onboarding",
+      "route": "/onboarding/icebreakers",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        64,
+        78
+      ],
+      "prototypeScreen": "Onboarding / Icebreakers / Empty 与 Completed",
+      "entry": "O07；O10摘要编辑",
+      "primary": "恰好选3个不同问题→O09；选择/替换/移除在当前步骤内完成",
+      "back": "O07；摘要编辑回O10；选题弹层取消回当前草稿",
+      "states": [
+        "8/9、0–2个不足、3个完成、第4个提示替换、重复问题、替换/删除、题库空/缺译/失败重试、弹层返回恢复"
+      ],
+      "retain": "借选项胶囊、资料卡标签与聊天提问；不复用旧十题顺序。",
+      "replace": "强制回答十题/限时测评、AI画像、复制CIRCA题库和测试数据、把选问题等同已完成语音回答。",
+      "gap": "缺稿：三个槽位+本地问题列表弹层；选满后明确替换对象。允许自定义是可选候选，未确认前不作为必需功能；不要求录音。",
+      "fields": "已确认选3项且唯一；questionId稳定，题库自有en/fr；选择问题与回答内容区分，不能新增必答或必录音。",
+      "save": "仅内存 icebreakerQuestionIds；用户自定义如以后启用保留原文。",
+      "native": "无麦克风/翻译依赖；P0不做语音能力。",
+      "pending": [
+        "自有题库待提供/编写；自定义上限与是否启用为候选。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O09",
+      "name": "Onboarding / Notifications",
+      "group": "Onboarding",
+      "route": "/onboarding/notifications",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        52
+      ],
+      "prototypeScreen": "Onboarding / Notifications / Pre-Permission",
+      "entry": "O08；O10返回",
+      "primary": "Enable→真实系统结果后O10；Not Now直接O10；拒绝/受限亦可继续",
+      "back": "O08；系统面板返回恢复此页",
+      "states": [
+        "9/9、未决定、已授权、请求中、拒绝/受限、不支持/Bridge失败、取消/后台、已拒绝的去设置、NotNow、重复点击、返回App复查"
+      ],
+      "retain": "继承聊天引导、紫/黑按钮；系统弹窗遵循系统。",
+      "replace": "原型活动/自动匹配推送承诺、假系统权限对话框、拒绝后无法完成注册。",
+      "gap": "缺稿：说明仅现有消息/互动与本地演示边界；主要开启、次要暂不开启；拒绝后提供继续和可选设置入口，不能反复强弹。",
+      "fields": "通知授权不是注册必填字段；允许不授权；H5状态以原生结果为准。",
+      "save": "仅草稿记录引导选择和实际授权快照；系统权限由系统持久化，不应伪装可回滚；用户稍后改变需重读。",
+      "native": "唯一Bridge通知授权/查询/打开设置；不承诺远程推送、不请求媒体。",
+      "pending": [
+        "具体通知用途文案按实际实现与自有en/fr文案补齐。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "9adcc63a-3b8b-43b8-a86a-8d5e9b110037"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    },
+    {
+      "id": "O10",
+      "name": "Onboarding / Complete",
+      "group": "Onboarding",
+      "route": "/onboarding/complete",
+      "directDesignIndices": [],
+      "visualReferenceIndices": [
+        78
+      ],
+      "prototypeScreen": "Onboarding / Complete / Default",
+      "entry": "O09 任意授权选择；资料摘要编辑返回",
+      "primary": "审阅摘要→提交注册；全部持久化成功才建会话进入主入口；编辑摘要→对应O01–O08",
+      "back": "O09（未提交）；提交成功清栈，不能返回半成品注册",
+      "states": [
+        "未提交摘要、缺必填字段定位、媒体丢失、邮箱后来占用、资格/同意失效、提交中、防重复、凭据写入失败、媒体迁移失败、账户写入失败、回滚/重试、成功/回执丢失后幂等恢复"
+      ],
+      "retain": "借 #78 资料卡与已答标签样式；完成视觉延续紫背景。",
+      "replace": "未写入就展示账户已创建、假AI资料、活动匹配入口、复制原型测试账户或自动填图。",
+      "gap": "补照片+显示名/年龄/学校等真实草稿摘要与编辑入口；提交前文案为Ready to finish而非已完成。成功才显示完成反馈并转正式主入口。",
+      "fields": "再次整体校验已确认字段：密码8+数字、2照片、3兴趣、3破冰、About≤300、邮箱验证绑定及EULA/社区资格；未冻结字段按P01候选不额外拦截。",
+      "save": "唯一正式账户写入点：幂等提交ID；安全凭据、资料、正式媒体与索引成功后才标记committed并创建会话；失败不留可登录半账号，不覆盖固定账号，重试不重复建用户。",
+      "native": "唯一安全存储/媒体落地/本地库提交与会话服务；无远程注册或邮件。",
+      "pending": [
+        "多存储提交/回滚方案、正式主入口具体route、品牌完成图为实现依赖；不能宣称已实现原子事务。"
+      ],
+      "implementationStatus": "not-started",
+      "directDesignImageIds": [],
+      "visualReferenceImageIds": [
+        "99e396e3-fae7-448c-83a8-06168057f53c"
+      ],
+      "formalNewDesignVersion": null,
+      "ruleRefs": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06",
+        "C05"
+      ],
+      "sharedStateRefs": "全部适用 sharedStates；纯静态页不制造异步状态，业务特有状态见states。",
+      "mappingStatus": "missing-design-proposal"
+    }
+  ],
+  "auxiliaryPanels": [
+    {
+      "id": "X01",
+      "name": "Photos 添加来源、权限与失败面板",
+      "owners": [
+        "O04"
+      ],
+      "designIndices": [
+        86
+      ],
+      "reference": "原型 Permissions / Photos / Pre-Permission、Permissions / Camera / Pre-Permission；#86仅为原生权限视觉参考，本轮未核对其历史版本。",
+      "entry": "O04添加/替换照片",
+      "primary": "选相册或拍照→原生选择器；取消返回O04；拒绝提供继续操作其他入口/去设置。",
+      "back": "O04，原有图片和草稿保持。",
+      "states": [
+        "来源选择",
+        "选择器取消",
+        "相机拒绝/受限",
+        "相册有限范围/不可用",
+        "设备不支持",
+        "导入中/失败重试",
+        "后台返回",
+        "迟到回调丢弃"
+      ],
+      "gap": "补本地化来源Action Sheet和权限恢复卡；系统授权界面由iOS显示，不用H5伪造。相机图标用正式本地资源。",
+      "fields": "仅接受成功导入且可解码的图片；错误不计入2张。",
+      "save": "取消不变；成功只保存注册临时mediaID；替换成功才释放旧临时引用。",
+      "native": "相册、相机、权限、媒体文件；不请求麦克风。"
+    },
+    {
+      "id": "X02",
+      "name": "放弃注册确认",
+      "owners": [
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10"
+      ],
+      "designIndices": [
+        34
+      ],
+      "reference": "无直接蓝湖稿；继承#34遮罩/白圆角面板/主次按钮视觉。",
+      "entry": "显式离开注册去Welcome或Log In；普通上一步不弹。",
+      "primary": "继续填写回原步骤；明确放弃清理当前注册临时数据后回目标。",
+      "back": "关闭弹层=继续填写；提交中先取消/等待确定结果，不回滚已成功账户。",
+      "states": [
+        "有修改/无修改",
+        "继续",
+        "放弃",
+        "清理失败可重试",
+        "提交结果未定"
+      ],
+      "gap": "两操作确认，避免同一返回反复弹；文字说明退出本轮将丢失未提交资料，EULA/语言保持。此行为为P04方案。",
+      "fields": "按draftID与临时文件引用范围清理；不能删除其他用户数据。",
+      "save": "无正式账户写入；放弃只清当前草稿；已committed不能当未提交清理。",
+      "native": "临时文件清理，异步取消统一Bridge。"
+    },
+    {
+      "id": "X03",
+      "name": "通用失败、字段错误与重试",
+      "owners": [
+        "S02",
+        "A01",
+        "A02",
+        "A05",
+        "A06",
+        "A07",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "L01",
+        "L02",
+        "L03",
+        "O02",
+        "O03",
+        "O04",
+        "O06",
+        "O08",
+        "O09",
+        "O10"
+      ],
+      "designIndices": [
+        34,
+        50,
+        57
+      ],
+      "reference": "现有稿未覆盖全套错误；依蓝湖字体/输入与弹层体系补齐。",
+      "entry": "实际本地读取/写入/Bridge失败或字段校验失败",
+      "primary": "字段错误在字段下修正；页面级失败显示说明+重试+安全返回；权限拒绝使用X01/O09。",
+      "back": "返回所属页面的稳定状态，保留可恢复输入。",
+      "states": [
+        "字段无效",
+        "busy禁用",
+        "本地资料/资源缺失",
+        "超时",
+        "取消",
+        "离页结果丢弃",
+        "可重试/不可重试"
+      ],
+      "gap": "就地错误优先，避免所有异常都弹阻断框；固定验证码错误不清输入。无数据页应提示具体缺项，不造假网络错误。",
+      "fields": "确认错误码仅ACCOUNT_NOT_FOUND、INVALID_VERIFICATION_CODE来自主规范；其余码为建议命名需唯一错误表冻结。",
+      "save": "失败不乐观持久化，不刷新页面才能同步。",
+      "native": "Bridge标准错误、超时、取消/不支持。"
+    }
+  ],
+  "openResources": [
+    {
+      "id": "R01",
+      "text": "Eluva正式启动品牌图、法语展示名映射、App ID/Bundle ID。App ID空值不阻塞本轮映射；创建iOS工程/签名前补齐。"
+    },
+    {
+      "id": "R02",
+      "text": "正式EULA/Terms/Privacy/Community en/fr全文、版本/日期和真实联系渠道；不能用原型政策代替。"
+    },
+    {
+      "id": "R03",
+      "text": "Plus Jakarta Sans与Poppins所需字重本地文件、使用授权；背景PNG/图标正式导出并登记校验。"
+    },
+    {
+      "id": "R04",
+      "text": "按确认方向补绘无直接设计页面，确认新布局和全部错误/禁用状态；本轮是具体补稿方案，不是已完成视觉设计稿。"
+    },
+    {
+      "id": "R05",
+      "text": "自有en/fr大学/年级/专业/兴趣/目标/破冰词库，缺译策略；生日隐私已确认，其余选填字段及可见性按P01另行冻结。"
+    }
+  ],
+  "verification": {
+    "executed": [
+      "四份指定文档逐项阅读与冲突核对",
+      "蓝湖103条清单复查",
+      "Chrome中11个相关稿件可见版本标签/历史面板核对",
+      "8个图层样本参数读取",
+      "参考HTML认证与Onboarding浏览器查看及限定字段逻辑只读检查"
+    ],
+    "notExecuted": [
+      "应用开发与UI实现",
+      "完整切图/字体下载及授权验证",
+      "27个新页面像素比对",
+      "六视口和en/fr应用运行验收",
+      "Vite生产构建/资源同步",
+      "Xcode构建/模拟器/真机"
+    ]
+  },
+  "currentApplicability": {
+    "status": "historical-partly-superseded",
+    "effectiveDate": "2026-10-19",
+    "source": "用户明确改用蓝湖资料顺序与快速问答",
+    "currentPlan": "docs/auth-conversation-rebuild-plan.md",
+    "currentContract": "docs/auth-conversation-contract.json",
+    "historicalSections": [
+      "flows",
+      "pages",
+      "implementationProposals",
+      "findings"
+    ],
+    "note": "保留原P0核对与确认历史；C04、九步顺序和问答排除条款不再指导新实现。原照片/兴趣/破冰数量不再是新注册门槛。"
+  }
+}

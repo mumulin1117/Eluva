@@ -1,0 +1,35 @@
+
+> eluva@0.1.0 test
+> node --test tests/*.test.js
+
+✔ failed draft cleanup preserves the verification context for a retry (25.282333ms)
+✔ fixed account stable; unknown/wrong credentials do not create users (29.934ms)
+✔ draft is not an account; code context invalidates on email change and does not cross purpose (10.615083ms)
+✔ Complete is atomic on failure, retryable and idempotent under concurrent submissions (42.601083ms)
+✔ onboarding minima enforced, stored media is account isolated, reset grants consumed only on successful write (71.541084ms)
+✔ Bridge cancellation ignores late results and cleans up pending calls (3.228084ms)
+✔ Bridge timeout and structured native errors settle exactly once (21.051291ms)
+✔ timeout and disposal abort adapter work instead of leaving a late write alive (17.684708ms)
+✔ P1 vault migration preserves account and publishes atomically with stable retry identity (36.480291ms)
+✔ a malformed content migration is preserved and reported rather than silently replaced (21.393292ms)
+✔ configured quota is atomic: exhausted public posts fail, private posts and retries never spend it twice (21.275375ms)
+✔ private, friends-only, profile switches and hidden media cannot leak to another account (34.400041ms)
+✔ echo/comment identities are separate from friendships; failures keep counts and comments unique (35.989459ms)
+✔ collection references commit with publication; invalid, locked, empty and cancelled attempts spend nothing (22.861625ms)
+✔ hide/block are reversible and prevent details, reactions, comments and media reads (31.104834ms)
+✔ guide, discovery filters, reports and media staging are scoped; draft cleanup does not delete committed collection covers (31.2495ms)
+✔ every interface key, error and interpolation has matching English and French text (3.177625ms)
+✔ each locked audience choice has its own translated caption, without exposing a translation key (0.084166ms)
+✔ language changes retain the current business error and draft input (0.527416ms)
+✔ single-flight submission releases after failure and allows retry (0.137834ms)
+✔ birthday is a full-date 18+ boundary; impossible and future dates rejected (0.949292ms)
+✔ confirmed password and email rules; Gmail allowed, no hidden case/special-character requirement (8.64025ms)
+✔ only fixed code is accepted and locale follows preferred list with saved override (0.546583ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 298.320042

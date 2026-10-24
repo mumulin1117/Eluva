@@ -1,0 +1,23 @@
+
+> eluva@0.1.0 build
+> node scripts/prepare-assets.mjs && vite build && node scripts/audit-build.mjs && node scripts/sync-ios.mjs
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 165 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.40 kB │ gzip:   0.70 kB
+dist/assets/index-BSVPlngX.css  101.81 kB │ gzip:  19.74 kB
+dist/assets/index-Cl253u3k.js   484.21 kB │ gzip: 147.76 kB
+
+✓ built in 402ms
+file:///Users/linqian/Documents/Eluva/scripts/resource-reference.mjs:14
+  if (!files.has(resolved)) throw Error('Missing or case-mismatched resource: ' + source + ' → ' + reference)
+                                  ^
+
+Error: Missing or case-mismatched resource: index.html → /images/p5/theme-`+te.value+`.png
+    at localResource (file:///Users/linqian/Documents/Eluva/scripts/resource-reference.mjs:14:35)
+    at file:///Users/linqian/Documents/Eluva/scripts/audit-build.mjs:22:9
+
+Node.js v24.21.0

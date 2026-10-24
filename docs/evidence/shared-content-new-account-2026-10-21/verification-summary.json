@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-21",
+  "scope": "App-wide public supplied catalog plus reliable new-account Chats empty/failure states",
+  "sharedCatalog": {
+    "fixtureVersion": 3,
+    "people": 20,
+    "posts": 10,
+    "scope": "App-wide, subject to normal visibility and safety",
+    "privateFixtures": "Existing fixed-account conversations and relationships remain account-bound"
+  },
+  "web": {
+    "passed": 104,
+    "failed": 0,
+    "log": "web-tests-final.log",
+    "regressions": [
+      "independent read completes during global busy",
+      "coalesced empty read",
+      "read failure and successful empty retry",
+      "stale account response discarded",
+      "new account has shared catalog but not test chats",
+      "existing registered reader v2 migration rollback and retry"
+    ]
+  },
+  "native": {
+    "runs": {
+      "domain-and-ui": {
+        "passed": 12,
+        "failed": 0,
+        "skipped": 0,
+        "summary": "domain-and-ui-summary.json",
+        "attachments": "domain-and-ui-attachments/manifest.json",
+        "xcresult": "/private/tmp/Eluva-shared-content-new-account-20261021.xcresult"
+      },
+      "final-ui": {
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "summary": "final-ui-summary.json",
+        "attachments": "final-ui-attachments/manifest.json",
+        "xcresult": "/private/tmp/Eluva-shared-content-final-ui-20261021.xcresult"
+      }
+    },
+    "distinctTests": 12,
+    "finalUiRepeatTests": 4,
+    "coverage": "8 repository/migration/privacy/contact rules and 4 English/French full registration-to-Home-to-empty-Chats / pull-refresh tests; repeated UI run is not added as distinct cases"
+  },
+  "browser": {
+    "matrixCases": 24,
+    "matrix": "browser-matrix.json",
+    "flows": "browser-flows.json",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "fixture": "new-account-catalog.html calls existing complete registration in a UUID repository; diagnostic hold/failure are test-only",
+    "consoleWarnings": []
+  },
+  "build": {
+    "viteAuditSync": "passed",
+    "log": "build-final.log",
+    "unsignedDeviceRelease": "passed",
+    "deviceLog": "device-final-build.log",
+    "copies": {
+      "dist": {
+        "path": "dist",
+        "files": 259,
+        "matches": true,
+        "fixtureVersion": 3,
+        "sharedPosts": 10,
+        "sharedPeople": 20
+      },
+      "ios-web": {
+        "path": "ios/Eluva/Web",
+        "files": 259,
+        "matches": true,
+        "fixtureVersion": 3,
+        "sharedPosts": 10,
+        "sharedPeople": 20
+      },
+      "simulator": {
+        "path": ".build/profile-ios26/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+        "files": 259,
+        "matches": true,
+        "fixtureVersion": 3,
+        "sharedPosts": 10,
+        "sharedPeople": 20
+      },
+      "device": {
+        "path": ".build/device/Build/Products/Release-iphoneos/Eluva.app/Web",
+        "files": 259,
+        "matches": true,
+        "fixtureVersion": 3,
+        "sharedPosts": 10,
+        "sharedPeople": 20
+      }
+    }
+  },
+  "data": {
+    "migration": "Incremental v2 to v3 in existing atomic repository boundary",
+    "accountsDeleted": false,
+    "userDataCleared": false,
+    "privateMessagesCopiedToNewAccount": false,
+    "existingAccountRollbackVerified": true
+  },
+  "notVerified": [
+    "Physical-device UI and visible system keyboard manual verification",
+    "No new full Lanhu history-version signoff; existing UI retained with localized empty hint"
+  ]
+}

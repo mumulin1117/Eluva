@@ -1,0 +1,175 @@
+{
+  "phase": "P3",
+  "checkedAt": "2026-10-17T13:30:53.695690+00:00",
+  "browserScope": {
+    "primary": "http://127.0.0.1:4178",
+    "ignoreAndFinalMediaRetry": "http://127.0.0.1:4179",
+    "existingCompletedNewAccount": "http://127.0.0.1:4176",
+    "exploratoryPreserved": "http://127.0.0.1:4177",
+    "allData": "local IndexedDB only; no external social messages",
+    "cleanup": "No account database reset. Temporary QA tabs closed; final Chats preview retained. Existing P1/P2/user tabs preserved."
+  },
+  "flows": [
+    {
+      "path": "固定测试登录→Chats→All/Follow/未读/仅点亮→返回",
+      "observedResult": "筛选成功持久化，返回与重载保持；未读按消息/申请/事件各自计算。",
+      "screenshotStates": [
+        "chats-all",
+        "chats-follow-empty",
+        "chats-following",
+        "chats-unread",
+        "lights-list",
+        "chats-menu"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "资料关注/取消→非好友会话深链",
+      "observedResult": "实际follow/count更新，仍锁定私聊；不能因为关注或点亮持续发送。",
+      "screenshotStates": [
+        "profile-not-following",
+        "profile-following",
+        "nonfriend-locked"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "陌生资料→一条介绍→故障→切语言/取消/返回→双击重试",
+      "observedResult": "输入保留，成功只一个pending；再次打开不出现第二条输入。",
+      "screenshotStates": [
+        "intro-empty",
+        "friend-request-error",
+        "profile-request-sent",
+        "requests-sent"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "Received→接受失败→重试→好友列表→空会话→发送",
+      "observedResult": "失败仍pending；成功一组好友/线程，发送后立刻在Chats可见。",
+      "screenshotStates": [
+        "requests-received",
+        "accept-error",
+        "requests-accepted",
+        "friends",
+        "new-friend-conversation"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "Received→忽略确认取消→忽略失败→重试→已忽略资料",
+      "observedResult": "取消/失败保留pending；成功ignored且没有好友/线程和第二条介绍。",
+      "screenshotStates": [
+        "ignore-confirm",
+        "ignore-error",
+        "requests-ignored"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "原会话→文字/源表情→连续发送",
+      "observedResult": "文字与一个贴纸分别成功；双击同一次提交只一条，保留原两组文字/WAV消息。",
+      "screenshotStates": [
+        "conversation",
+        "expression-panel"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "会话→添加图片/取消/浏览器相机不支持→实际QA图片+说明→资料/返回/语言→发送失败→双击重试→整图→重载",
+      "observedResult": "真实文件导入；说明与附件失败时保留、媒体标记回滚；重试一条，保存后重载可读。最终多行输入和错误各显示一次。",
+      "screenshotStates": [
+        "chat-media-source",
+        "chat-media-unsupported",
+        "message-image-draft",
+        "message-error",
+        "chat-photo-viewer"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "会话语音夹具播放→停止/结束",
+      "observedResult": "观察到audio.paused=false、duration=2.866032、readyState=4；使用本地WAV，未声称完成录音或设备麦克风测试。",
+      "screenshotStates": [
+        "conversation"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "会话→通话入口",
+      "observedResult": "先检查好友，随后明确P4能力尚未接入，不请求假权限或显示假通话。",
+      "screenshotStates": [
+        "call-unavailable"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "举报spam→拉黑确认取消→确认→当前会话/资料/列表→重载→解除",
+      "observedResult": "举报明确仅本地；拉黑立即阻断且重载仍在，解除恢复既有关系和历史；无补发。",
+      "screenshotStates": [
+        "report-user",
+        "block-confirm",
+        "conversation-blocked",
+        "profile-blocked"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "点亮列表→标记点亮已读确认→取消→确认",
+      "observedResult": "只提交当时目标eventIds，普通会话未读保留；最终标题重拍时用第二条本地示例再次实走。",
+      "screenshotStates": [
+        "lights-list",
+        "lights-read-confirm",
+        "chats-unread"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "帮助→问题填入→保存→返回/语言",
+      "observedResult": "问题需显式保存；用户原文保留，展示独立预置说明；不制造真人/AI回复。",
+      "screenshotStates": [
+        "help-empty",
+        "help-saved"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "原已完成注册的新账户→Chats/Friends/Received→重载",
+      "observedResult": "零测试线程/好友/申请、无固定账号演示工具，空态可返回；无清库。",
+      "screenshotStates": [
+        "new-account-chats-empty",
+        "new-account-friends-empty",
+        "new-account-requests-empty"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "工具准备刷新失败→实际刷新→重试",
+      "observedResult": "STORAGE_FAILED保留原列表；重试成功，无无意义等待。",
+      "screenshotStates": [
+        "chats-refresh-error"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    },
+    {
+      "path": "会话→头像资料→聊天→Back",
+      "observedResult": "同会话复用原from路径，最终返回Chats；输入和合理滚动保留。",
+      "screenshotStates": [
+        "conversation",
+        "profile-following"
+      ],
+      "method": "actual browser UI via CUA; local QA data"
+    }
+  ],
+  "unitOnlyInThisPhase": [
+    "两个实际本地账户注册完成后互发申请、接收方接受和读取，验证发送方readAt来自真实接收者",
+    "跨账户已提交媒体拒绝；显式公开资料授予照片；被拉黑后连发送者也不能解析私聊文件",
+    "P2仅好友帖子在接受前不可读、接受后可读、拉黑不可读、解除恢复",
+    "格式损坏preserve；原生文件提交失败只回滚新拷贝；follow/help故障回滚"
+  ],
+  "limits": [
+    "浏览器账户不是iOS加密vault账户，两环境不共享数据",
+    "虚拟键盘、原生选择器、设备权限和物理设备未在P3实走",
+    "480矩阵是适配/状态证据；并非480次独立端到端业务操作或逐像素签核"
+  ]
+}

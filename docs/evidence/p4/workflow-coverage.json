@@ -1,0 +1,97 @@
+{
+  "phase": "P4",
+  "checkedAt": "2026-10-17T14:53:57.878376+00:00",
+  "resetUserData": false,
+  "cases": [
+    {
+      "case": "voice-import-and-validation",
+      "status": "passed-browser",
+      "evidence": "真实WAV导入；错误PNG返回MEDIA_UNSUPPORTED后重新选择恢复",
+      "matrixState": "voice-import-invalid"
+    },
+    {
+      "case": "voice-draft-preservation",
+      "status": "passed-browser",
+      "evidence": "文字与录音草稿返回/英法切换保留；未承诺完整重载恢复未提交草稿",
+      "matrixState": "voice-draft-ready"
+    },
+    {
+      "case": "voice-send-rollback-idempotence",
+      "status": "passed-browser-and-tests",
+      "evidence": "STORAGE_FAILED保留，双击重试只新增一条；后一次重拍草稿显式丢弃",
+      "matrixState": "voice-send-error"
+    },
+    {
+      "case": "voice-playback-pause-and-leave",
+      "status": "passed-browser",
+      "evidence": "实际Audio开始/暂停、位置约0.2s；返回会话移除旧播放器作用域",
+      "matrixState": "voice-playback-paused"
+    },
+    {
+      "case": "voice-gesture-cancel-and-staging-retry",
+      "status": "passed-state-unit-tests-only",
+      "evidence": "晚到开始/提前松手/上滑取消/双松手/失败暂存重试通过；真实触摸录音未执行"
+    },
+    {
+      "case": "video-native-unsupported",
+      "status": "passed-browser",
+      "evidence": "不支持可读错误，仍可选录制样片，无假硬件成功",
+      "matrixState": "video-unsupported"
+    },
+    {
+      "case": "incoming-demo",
+      "status": "passed-browser",
+      "evidence": "显式工具触发、拒绝、接受保持同callId；无远端通知",
+      "matrixState": "video-incoming-banner"
+    },
+    {
+      "case": "video-recorded-controls",
+      "status": "passed-browser",
+      "evidence": "真实样片播放、暂停、挂断、重开；麦克风/切换禁用并说明",
+      "matrixState": "video-recorded-paused"
+    },
+    {
+      "case": "video-block-and-unblock",
+      "status": "passed-browser-and-tests",
+      "evidence": "拉黑后video移除、结束原因blocked、重开禁用；已解除测试拉黑",
+      "matrixState": "video-blocked-ended"
+    },
+    {
+      "case": "nonfriend-direct-call",
+      "status": "passed-browser-and-tests",
+      "evidence": "直接访问非好友call页返回FRIENDSHIP_REQUIRED",
+      "matrixState": "video-nonfriend-denied"
+    },
+    {
+      "case": "video-reload-recovery",
+      "status": "passed-browser-and-tests",
+      "evidence": "活动样片重载后显示明确ready，不复活旧活动lease"
+    },
+    {
+      "case": "language-unavailable-original-kept",
+      "status": "passed-browser",
+      "evidence": "文字/语音/动态/评论系统能力不可用时保留原文；语音无转写则翻译禁用",
+      "matrixState": "voice-transcription-unavailable"
+    },
+    {
+      "case": "language-cache-atomic-auth",
+      "status": "passed-native-repository-tests",
+      "evidence": "合成单测参数验证派生结果独立、源指纹、账户和拉黑；不是系统模型成功证据"
+    },
+    {
+      "case": "native-permission-record-camera-transcribe-translate",
+      "status": "not-executed",
+      "evidence": "Mac locked; 最终两台配对iPhone均unavailable；无正式签名"
+    },
+    {
+      "case": "native-background-interruption-release",
+      "status": "not-executed-on-device",
+      "evidence": "清理代码和构建已核对；未以真机/原生UI实际操作验证"
+    },
+    {
+      "case": "native-safe-area-and-keyboard",
+      "status": "not-executed",
+      "evidence": "浏览器六尺寸不能证明原生键盘与Home Indicator"
+    }
+  ]
+}

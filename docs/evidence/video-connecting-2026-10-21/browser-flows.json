@@ -1,0 +1,30 @@
+{
+  "permissions": "granted/denied/hold are isolated fixture results, unsupported uses actual browser adapter",
+  "flows": [
+    {
+      "flow": "denied → allow fixture → retry → connecting",
+      "passed": true,
+      "screenshot": "retry-and-control-hint-en.png"
+    },
+    {
+      "flow": "control before connected → accurate hint",
+      "passed": true,
+      "screenshot": "retry-and-control-hint-en.png"
+    },
+    {
+      "flow": "block → close and return to blocked conversation",
+      "passed": true,
+      "screenshot": "blocked-return-en.png"
+    },
+    {
+      "flow": "permission pending → hangup → late callback → remains in conversation",
+      "passed": true,
+      "screenshot": "permission-cancel-late-response-en.png"
+    },
+    {
+      "flow": "actual browser unsupported → recoverable state",
+      "passed": true,
+      "screenshot": "browser-unsupported-fr.png"
+    }
+  ]
+}

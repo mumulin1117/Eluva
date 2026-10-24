@@ -1,0 +1,54 @@
+[
+  {
+    "case": "failure",
+    "error": "STORAGE_FAILED",
+    "route": "#/chats",
+    "skeleton": false
+  },
+  {
+    "case": "retry",
+    "content": true,
+    "route": "#/chats",
+    "rows": 4,
+    "skeleton": false
+  },
+  {
+    "case": "failure",
+    "error": "STORAGE_FAILED",
+    "route": "#/home",
+    "skeleton": false
+  },
+  {
+    "case": "retry",
+    "content": true,
+    "route": "#/home",
+    "rows": 0,
+    "skeleton": false
+  },
+  {
+    "case": "failure",
+    "error": "STORAGE_FAILED",
+    "route": "#/profile/demo-requester?from=/chats",
+    "skeleton": false
+  },
+  {
+    "case": "retry",
+    "content": true,
+    "route": "#/profile/demo-requester?from=/chats",
+    "rows": 0,
+    "skeleton": false
+  },
+  {
+    "case": "failure",
+    "error": "STORAGE_FAILED",
+    "route": "#/post/demo-post-female-02-v2?from=/home",
+    "skeleton": false
+  },
+  {
+    "case": "retry",
+    "content": true,
+    "route": "#/post/demo-post-female-02-v2?from=/home",
+    "rows": 0,
+    "skeleton": false
+  }
+]

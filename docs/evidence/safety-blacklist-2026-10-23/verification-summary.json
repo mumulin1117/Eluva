@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-23",
+  "rule": "Hiding another user post blocks its author; restore only via settings blacklist UI",
+  "webTests": {
+    "passed": 142,
+    "failed": 0
+  },
+  "native": {
+    "passed": 10,
+    "failed": 0,
+    "tests": [
+      {
+        "test": "testBlockHidesListsWithoutDeletingHistoryAndIsAccountScoped",
+        "status": "passed",
+        "seconds": 0.168
+      },
+      {
+        "test": "testContentHideBlocksAuthorAtomicallyAndKeepsSelfCompatibility",
+        "status": "passed",
+        "seconds": 0.067
+      },
+      {
+        "test": "testLegacyHiddenAuthorSafetyMigrationAndScopedBlacklistRestore",
+        "status": "passed",
+        "seconds": 0.101
+      },
+      {
+        "test": "testP2EchoCommentsRollbackAndSafety",
+        "status": "passed",
+        "seconds": 0.072
+      },
+      {
+        "test": "testP3ImageRollbackIsolationAndBlockingStopsExistingThread",
+        "status": "passed",
+        "seconds": 0.1
+      },
+      {
+        "test": "testProfileCollectionProjectionSafety",
+        "status": "passed",
+        "seconds": 0.07
+      },
+      {
+        "test": "testEnglishPostSafetyMore",
+        "status": "passed",
+        "seconds": 14.595
+      },
+      {
+        "test": "testEnglishProfileSafetyCollections",
+        "status": "passed",
+        "seconds": 12.861
+      },
+      {
+        "test": "testFrenchPostSafetyMore",
+        "status": "passed",
+        "seconds": 13.896
+      },
+      {
+        "test": "testFrenchProfileSafetyCollections",
+        "status": "passed",
+        "seconds": 12.483
+      }
+    ],
+    "environment": "iPhone 17 / iOS 26.5 simulator; actual bundled WKWebView and Native Bridge",
+    "safeArea": "Synthetic insets; not hardware matrix"
+  },
+  "locales": [
+    "en",
+    "fr"
+  ],
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      375,
+      667
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      393,
+      852
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "migration": {
+    "contentSafetyVersion": 1,
+    "legacyHiddenRecordsRetained": true,
+    "selfBlockSkipped": true,
+    "restoreScopedToViewerAndAuthor": true
+  },
+  "productionBuild": {
+    "passed": true,
+    "resources": 264
+  },
+  "unsignedDeviceBuild": {
+    "passed": true,
+    "installedOnPhysicalDevice": false
+  },
+  "physicalValidation": "Deferred per prior user instruction",
+  "knownWarnings": [
+    "Vite >500kB chunk warning",
+    "Simulator haptic/RBS/ProcessSuspension system lifecycle logs"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "scope": "Home Light Up button: actual save, larger one-shot 1500ms halo, then exact detail",
+  "webTests": {
+    "passed": 173,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "productionBuild": {
+    "passed": true,
+    "localResources": 265,
+    "synchronizedToIOS": true,
+    "log": "production-build.log"
+  },
+  "xcode": {
+    "simulatorTestsPassed": 2,
+    "failed": 0,
+    "resultBundle": ".build/home-light-up-edge-final-20261023.xcresult",
+    "deviceReleaseUnsignedBuild": true,
+    "signedDeviceInstall": false
+  },
+  "wk": {
+    "environment": "Visible WKWebView in a task-owned iPhone 17 iOS 26.5 simulator; six resized WK viewports and synthetic safe-area insets, not six hardware devices",
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "sizes": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "purpleSizeCases": 12,
+    "extraThemeCasesAt390x844": 6,
+    "extraThemes": [
+      "pink",
+      "orange",
+      "cyan"
+    ],
+    "naturalMatrixCases": 18,
+    "animationMs": 1500,
+    "tapToDetailElapsedMsRange": [
+      1520,
+      1621
+    ],
+    "stillHomeAt1200ms": true,
+    "boundaryCasesPerLocale": [
+      "direct-navigation",
+      "direct-navigation",
+      "held-native-save",
+      "native-save-failure-and-retry",
+      "screenshot",
+      "return-restoration",
+      "cancel-leave",
+      "cancel-help",
+      "cancel-filter",
+      "cancel-background",
+      "cancel-scroll",
+      "reduced-motion",
+      "last-arrival-glow-and-pending-guide"
+    ],
+    "screenshots": "English/French 390x844 purple, animation held at 750ms only for screenshot; timing matrix ran naturally",
+    "visualReview": "Viewed final EN/FR captures; enlarged warm-white/colored card outline, soft vertical shadow edge, unchanged card layout; normal discovery-panel boundary remains."
+  },
+  "data": "Isolated vault, preferences and nonpersistent WK data; no existing accounts/posts deleted; lit/count idempotency checked through actual Native Bridge repository",
+  "resolvedIssues": [
+    {
+      "issue": "Retry clearing STORAGE_FAILED banner clamps main scroll and cancelled new glow",
+      "evidence": "diagnostic-en-failure.json: height733->649, top82->22",
+      "fix": "Only verified height-related scroll correction keeps pending; normal later scroll still cancels; retry and scroll cases pass"
+    },
+    {
+      "issue": "Larger halo ended in a hard horizontal line in the scroller",
+      "evidence": "before-halo-edge-fade captures",
+      "fix": "A vertical mask fades only the added shadow space during Light Up; final captures viewed"
+    }
+  ],
+  "limitations": [
+    "Physical-device touch/performance and installation not tested, per prior user deferral",
+    "Actual system background gesture not performed: test dispatches visibilitychange with hidden overridden",
+    "System keyboard not retested; no editable control changed",
+    "Existing Vite chunk-size warning, test-only UIApplication.windows deprecation and simulator WebKit RBS/ProcessSuspension diagnostics remain; no this-scope constraint, overflow or missing-resource failure identified"
+  ],
+  "resourceIntegrity": "resource-integrity.json",
+  "initialFailedAttempts": "native-tests-first.log, native-tests-diagnostic.log and failure JSON retained; fixed before final pass"
+}

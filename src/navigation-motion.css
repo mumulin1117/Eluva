@@ -1,0 +1,34 @@
+/* One full-size live route, with no retained outgoing component or extra scroll. */
+.launch-page-host.navigation-page-host{display:block;position:relative;width:100%;height:100%;min-height:0;overflow:hidden}
+:root[data-navigation-motion]{view-transition-name:none}
+:root[data-navigation-motion] .navigation-page-host{view-transition-name:eluva-page}
+:root[data-navigation-motion] .eluva-tabs{view-transition-name:eluva-tabs}
+::view-transition-group(eluva-page),::view-transition-group(eluva-tabs){animation-duration:0s}
+::view-transition-old(eluva-page),::view-transition-new(eluva-page){mix-blend-mode:normal;animation-duration:360ms;animation-timing-function:cubic-bezier(.22,.68,.18,1);animation-fill-mode:both}
+::view-transition-image-pair(eluva-page){isolation:isolate}
+::view-transition-old(eluva-page){animation-name:eluva-page-recede}
+::view-transition-new(eluva-page){animation-name:eluva-page-forward}
+:root[data-navigation-motion=pop]::view-transition-old(eluva-page){animation-name:eluva-page-return-out;animation-duration:320ms;z-index:2}
+:root[data-navigation-motion=pop]::view-transition-new(eluva-page){animation-name:eluva-page-return-in;animation-duration:320ms;z-index:1}
+:root[data-navigation-motion^=tab-]::view-transition-old(eluva-page){animation-name:eluva-tab-out;animation-duration:240ms}
+:root[data-navigation-motion^=tab-]::view-transition-new(eluva-page){animation-name:eluva-tab-in;animation-duration:240ms}
+:root[data-navigation-motion=tab-back]{--navigation-tab-direction:-1}
+:root[data-navigation-motion=tab-forward]{--navigation-tab-direction:1}
+:root[data-navigation-motion=present]::view-transition-new(eluva-page){animation-name:eluva-page-rise}
+:root[data-navigation-motion=dismiss]::view-transition-old(eluva-page){animation-name:eluva-page-drop;animation-duration:320ms;z-index:2}
+:root[data-navigation-motion=dismiss]::view-transition-new(eluva-page){animation-name:eluva-page-return-in;animation-duration:320ms;z-index:1}
+:root[data-navigation-motion=fade]::view-transition-old(eluva-page){animation-name:eluva-page-fade-out;animation-duration:200ms}
+:root[data-navigation-motion=fade]::view-transition-new(eluva-page){animation-name:eluva-page-fade-in;animation-duration:200ms}
+::view-transition-old(eluva-tabs){animation:eluva-page-fade-out 160ms ease-out both;mix-blend-mode:normal}
+::view-transition-new(eluva-tabs){animation:eluva-page-fade-in 200ms ease-out both;mix-blend-mode:normal}
+@keyframes eluva-page-forward{from{opacity:.84;transform:translateX(36px)}to{opacity:1;transform:none}}
+@keyframes eluva-page-recede{from{opacity:1;transform:none}to{opacity:.72;transform:translateX(-12px)}}
+@keyframes eluva-page-return-out{from{opacity:1;transform:none}to{opacity:0;transform:translateX(48px)}}
+@keyframes eluva-page-return-in{from{opacity:.86;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes eluva-tab-in{from{opacity:.65;transform:translateX(calc(16px * var(--navigation-tab-direction)))}to{opacity:1;transform:none}}
+@keyframes eluva-tab-out{from{opacity:1;transform:none}to{opacity:.5;transform:translateX(calc(-10px * var(--navigation-tab-direction)))}}
+@keyframes eluva-page-rise{from{opacity:.85;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes eluva-page-drop{from{opacity:1;transform:none}to{opacity:0;transform:translateY(48px)}}
+@keyframes eluva-page-fade-in{from{opacity:0}to{opacity:1}}
+@keyframes eluva-page-fade-out{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}

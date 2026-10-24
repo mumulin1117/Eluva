@@ -1,0 +1,99 @@
+{
+  "createdAt": "2026-10-19T10:08:39.169Z",
+  "webTests": {
+    "passed": 84,
+    "failed": 0
+  },
+  "nativeHomeWebKitTests": {
+    "passed": 2,
+    "failed": 0,
+    "domObservations": 12,
+    "scope": "offscreen bundled WKWebView with native bridge; en/fr; six viewports each; refresh, return, failure/retry, filters; not physical device or system keyboard",
+    "attachments": "native-attachments/manifest.json"
+  },
+  "builds": {
+    "vite": true,
+    "iosResourceSync": true,
+    "simulator": true,
+    "unsignedDeviceTarget": true
+  },
+  "resources": {
+    "files": 215,
+    "sha256MatchedRoots": [
+      "dist",
+      "ios/Eluva/Web",
+      ".build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+      ".build/device/Build/Products/Debug-iphoneos/Eluva.app/Web"
+    ]
+  },
+  "browserScreenshots": [
+    {
+      "file": "screenshots/home-en-320x568.jpg",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "file": "screenshots/home-en-375x667.jpg",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "file": "screenshots/home-en-375x812.jpg",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "file": "screenshots/home-en-390x844.jpg",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "file": "screenshots/home-en-393x852.jpg",
+      "width": 393,
+      "height": 852
+    },
+    {
+      "file": "screenshots/home-en-430x932.jpg",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "screenshots/home-fr-320x568.jpg",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "file": "screenshots/home-fr-375x667.jpg",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "file": "screenshots/home-fr-375x812.jpg",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "file": "screenshots/home-fr-390x844.jpg",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "file": "screenshots/home-fr-393x852.jpg",
+      "width": 393,
+      "height": 852
+    },
+    {
+      "file": "screenshots/home-fr-430x932.jpg",
+      "width": 430,
+      "height": 932
+    }
+  ],
+  "physicalDeviceVerified": false,
+  "systemKeyboardVerified": false,
+  "notes": [
+    "Only current Home discovery batch is capped; authoritative content snapshots remain complete.",
+    "Earlier capture attempts had compositor-size mismatch and are retained separately, not accepted as screenshots.",
+    "First native attempt read DOM before Vue rendered the new batch; second expected literal scrollLeft zero despite mandatory WebKit scroll snapping. Final test waits for changed DOM and verifies the first card within leading-padding snap boundary.",
+    "WebKit process teardown includes RBS/ProcessSuspension warnings; zero native-console-warning status is not claimed."
+  ]
+}

@@ -1,0 +1,21 @@
+
+> eluva@0.1.0 build
+> node scripts/prepare-assets.mjs && vite build && node scripts/audit-build.mjs && node scripts/sync-ios.mjs
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 191 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.40 kB │ gzip:   0.70 kB
+dist/assets/index-DYO785dh.css  137.02 kB │ gzip:  25.93 kB
+dist/assets/index-kmQBGKnO.js   519.18 kB │ gzip: 157.59 kB
+
+✓ built in 604ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+Production resource audit passed: 255 local files
+Synchronized 255 production resources to iOS

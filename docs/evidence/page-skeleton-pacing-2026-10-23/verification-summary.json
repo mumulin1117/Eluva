@@ -1,0 +1,249 @@
+{
+  "date": "2026-10-23",
+  "presentation": {
+    "scope": [
+      "Chats first entry",
+      "Other profile entry",
+      "Post detail entry"
+    ],
+    "minimumFromReadStartMs": 1000,
+    "contentOpacityEnterMs": 180,
+    "dataAndImagesRunAlongsideMinimum": true,
+    "failureSkipsMinimum": true,
+    "unchanged": [
+      "Home discovery and guide timing",
+      "Chats cached return, category changes and pull refresh",
+      "Self profile and independent media viewer",
+      "Native Bridge and storage schema"
+    ]
+  },
+  "webTests": {
+    "passed": 164,
+    "failed": 0,
+    "helperTests": 12,
+    "newPacingTests": 5
+  },
+  "nativeTests": {
+    "passed": 2,
+    "failed": 0,
+    "runs": [
+      {
+        "name": "testEnglishThemedLoadingAndChatsGestures",
+        "seconds": 20.069
+      },
+      {
+        "name": "testFrenchThemedLoadingAndChatsGestures",
+        "seconds": 17.483
+      }
+    ],
+    "environment": "Visible UIWindowScene-hosted WKWebView; actual production bundle and Native Bridge; iPhone 17 / iOS 26.5 Simulator",
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "themes": [
+      "purple",
+      "pink",
+      "orange",
+      "cyan"
+    ],
+    "safeArea": "Synthetic insets; not six physical devices",
+    "regressions": [
+      "Read failures and retry",
+      "First images and decode preparation",
+      "Late old target results",
+      "Leaving during image preparation or minimum remainder",
+      "Target switch cannot be completed by the old timer",
+      "Chats category gestures and pull refresh",
+      "New-account empty placeholder",
+      "Cached Chats return does not replay skeleton"
+    ]
+  },
+  "locales": {
+    "en": {
+      "records": 46,
+      "fastEntry": [
+        {
+          "variant": "profile",
+          "visibleMs": 1004.0
+        },
+        {
+          "variant": "detail",
+          "visibleMs": 1002
+        }
+      ],
+      "slowEntry": [
+        {
+          "variant": "chats",
+          "realReadAndImagePreparationMs": 1231,
+          "afterReadyMs": 37
+        },
+        {
+          "variant": "profile",
+          "realReadAndImagePreparationMs": 1289,
+          "afterReadyMs": 25
+        },
+        {
+          "variant": "detail",
+          "realReadAndImagePreparationMs": 1241,
+          "afterReadyMs": 27.0
+        }
+      ],
+      "failure": [
+        {
+          "hiddenAt": 10231,
+          "path": "/profile/demo-requester?from=/chats",
+          "startedAt": 10119,
+          "afterFailureMs": 7.000000000001819,
+          "variant": "profile",
+          "visibleAt": 10122,
+          "visibleMs": 109,
+          "entryMs": 112,
+          "paceCase": "early failure skips minimum"
+        }
+      ],
+      "newAccount": {
+        "earlyFailure": {
+          "afterFailureMs": 130,
+          "hiddenAt": 229,
+          "visibleAt": 92,
+          "visibleMs": 137
+        },
+        "newAccount": "empty, not loading",
+        "placeholder": "No conversations yet.Reply to a moment or follow each other to start connecting.",
+        "variant": "chats",
+        "cachedReturn": "initial skeleton not repeated",
+        "fastRead": {
+          "visibleAt": 242,
+          "hiddenAt": 1248,
+          "visibleMs": 1006
+        }
+      }
+    },
+    "fr": {
+      "records": 46,
+      "fastEntry": [
+        {
+          "variant": "profile",
+          "visibleMs": 1012
+        },
+        {
+          "variant": "detail",
+          "visibleMs": 1003.0
+        }
+      ],
+      "slowEntry": [
+        {
+          "variant": "chats",
+          "realReadAndImagePreparationMs": 1256,
+          "afterReadyMs": 26
+        },
+        {
+          "variant": "profile",
+          "realReadAndImagePreparationMs": 1291,
+          "afterReadyMs": 28
+        },
+        {
+          "variant": "detail",
+          "realReadAndImagePreparationMs": 1299,
+          "afterReadyMs": 30
+        }
+      ],
+      "failure": [
+        {
+          "startedAt": 8859,
+          "paceCase": "early failure skips minimum",
+          "visibleMs": 99,
+          "hiddenAt": 8961,
+          "path": "/profile/demo-requester?from=/chats",
+          "afterFailureMs": 3,
+          "visibleAt": 8862,
+          "entryMs": 102,
+          "variant": "profile"
+        }
+      ],
+      "newAccount": {
+        "newAccount": "empty, not loading",
+        "variant": "chats",
+        "cachedReturn": "initial skeleton not repeated",
+        "earlyFailure": {
+          "hiddenAt": 136,
+          "visibleMs": 63,
+          "afterFailureMs": 79,
+          "visibleAt": 73
+        },
+        "fastRead": {
+          "visibleAt": 163,
+          "visibleMs": 1004,
+          "hiddenAt": 1167
+        },
+        "placeholder": "Aucune conversation pour le moment.Répondez à une publication ou suivez-vous mutuellement pour faire connaissance."
+      }
+    }
+  },
+  "builds": {
+    "viteProduction": "passed",
+    "resourceSync": "passed",
+    "iosSimulator": "passed",
+    "iosUnsignedGenericDevice": "passed"
+  },
+  "resources": {
+    "dist": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "iosSource": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "simulatorApp": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    },
+    "unsignedDeviceApp": {
+      "files": 264,
+      "passed": true,
+      "mismatches": []
+    }
+  },
+  "attachments": {
+    "total": 18,
+    "png": 16,
+    "json": 2,
+    "index": "wk-attachments.json"
+  },
+  "notPerformed": [
+    "Physical iPhone installation and touch validation",
+    "Actual system keyboard and physical reduced-motion toggle",
+    "Long duration performance profiling"
+  ],
+  "warnings": [
+    "Existing Vite chunk over 500 kB",
+    "Simulator RBS / ProcessSuspension system messages"
+  ]
+}

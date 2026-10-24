@@ -1,0 +1,25 @@
+{
+  "scope": "Home Light Up button feedback only",
+  "authority": "2026-10-23 user clarification: Light Up button glows its card more broadly, then opens detail",
+  "overrides": "historical image/body tap trigger; 1500ms duration preserved",
+  "staticReference": "../home-card-tap-2026-10-23/design-reference.json",
+  "newLanhuParameters": false,
+  "mutation": "existing content.echo lit:true, wait for successful persistence before success feedback",
+  "motion": {
+    "durationMs": 1500,
+    "iterations": 1,
+    "easing": "ease-in-out",
+    "peakOffset": 0.4,
+    "ringPx": 3,
+    "nearBlurPx": 42,
+    "nearSpreadPx": 12,
+    "farBlurPx": 72,
+    "farSpreadPx": 12,
+    "innerBlurPx": 14
+  },
+  "reducedMotion": "wait for actual echo success then open; no glow",
+  "bodyImage": "direct detail navigation without echo or feedback",
+  "failure": "stay Home with existing error/retry, no success glow",
+  "data": "existing idempotent echo, no new store or Bridge",
+  "haloBoundary": "Extra 32px top/bottom paint space; vertical opacity mask during Light Up only, no card geometry change"
+}

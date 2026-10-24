@@ -1,0 +1,313 @@
+{
+  "phase": "P2",
+  "baseline": "All repository files were already untracked at phase start; this is an explicit P2 change manifest, not a Git diff against a historical commit.",
+  "files": [
+    {
+      "file": "src/domain/content.js",
+      "purpose": "内容校验、共享预览策略、迁移验证、可见性、发现筛选与好友读取边界。",
+      "sha256": "00728848d92f00e265e15a8a2b52d84dccb579e1dac3440051a7be14c12096a8"
+    },
+    {
+      "file": "src/services/browser-content.js",
+      "purpose": "复用原IndexedDB事务，提供内容仓储、payload绑定幂等、额度回滚、安全与账户隔离。",
+      "sha256": "f95e5391a52d8d2aab04a99ff3f6b88905cb4e02e7ad4adeda2c69206de63a67"
+    },
+    {
+      "file": "src/services/browser-repository.js",
+      "purpose": "挂载内容服务；扩展临时草稿媒体、真实视频验证、受控读取和退出清理。",
+      "sha256": "3e8a98650d2e4f9b2c245a2b1d771ae562c9f2e5a0fd734d210bf183c81d6e2f"
+    },
+    {
+      "file": "src/content-state.js",
+      "purpose": "一个响应式内容快照、账户隔离缓存、内存发布/评论草稿、偏好与恢复状态。",
+      "sha256": "d10f16677e3532cc34d80642312a632acd1252c4b3a14d4f270e5f242df9354e"
+    },
+    {
+      "file": "src/views/HomeView.vue",
+      "purpose": "三Tab主入口、真实发现/空态、四步引导、筛选、失败重试与隐藏拉黑恢复。",
+      "sha256": "c82b81292156380babe7c399298d854f5763bc4faf15419bdeb59ffab55a77cc"
+    },
+    {
+      "file": "src/views/PostComposerView.vue",
+      "purpose": "有效内容提交、媒体、合集、受众/可见性工作副本、保留/放弃和原子发布。",
+      "sha256": "9c47892d424eb3a4b29ec0caee93fd24e789a9fd4d7378ae5599082feecb5c96"
+    },
+    {
+      "file": "src/views/PostDetailView.vue",
+      "purpose": "同一详情的点亮前后状态、实际评论、作者摘要、本地安全和媒体查看。",
+      "sha256": "ab25eb712c2e9721d9cf3a0c7fe0c7ff6d8b29a446de25a24a49065a4821a046"
+    },
+    {
+      "file": "src/views/PostListView.vue",
+      "purpose": "我的发布/点亮权威列表、真实时间和空态，二级无Tab。",
+      "sha256": "ea2f50168f042e2c9c264edfc6bc420526462f0eba74701767c8f999d17c44c8"
+    },
+    {
+      "file": "src/views/MainView.vue",
+      "purpose": "在现有Chats/Mine底座中连接内容计数、列表入口和新Tab；过滤被拉黑演示会话。",
+      "sha256": "e2f9372dccbc7995a7331a8f30eb7b60b6b6130e5dd173e0a67c8e603a85a4f4"
+    },
+    {
+      "file": "src/components/ContentShell.vue",
+      "purpose": "内容页面头/语言/返回/滚动/底部操作，保持单主滚动容器。",
+      "sha256": "d043bdb7040dd6f1975da6bad8a8e8b14070ea636e6c480e5b8c2801613a2152"
+    },
+    {
+      "file": "src/components/AppTabBar.vue",
+      "purpose": "三Tab原稿素材、选中状态和真实事件标记，仅一级挂载。",
+      "sha256": "ab79044fb3e68dcb8fa25eaebfa0063f1c7397e0a0818846399436c6e7c4a479"
+    },
+    {
+      "file": "src/components/PostCard.vue",
+      "purpose": "媒体/文字卡片、原稿点亮体系、我的列表缩略图及实际计数/时间。",
+      "sha256": "5b5bd81957e774b676d3f0fa63fa25f1313b85553aa548e2f392fd2d273b8480"
+    },
+    {
+      "file": "src/components/ContentMediaPicker.vue",
+      "purpose": "唯一Bridge的相册/相机、浏览器文件选择、删除、限制、拒绝/不支持恢复。",
+      "sha256": "fb634ad6bfeea5030744edb074657888b0b470809dcb1cfb71c66ee2e327402b"
+    },
+    {
+      "file": "src/components/VideoPlayer.vue",
+      "purpose": "真实本地视频播放、进度、解码失败重试和离页/后台释放。",
+      "sha256": "12ad93972eb01aeaf2d692ad91f49e3a23b75ea228920b99bdfb482ec5e10951"
+    },
+    {
+      "file": "src/components/AppModal.vue",
+      "purpose": "保持原P1默认行为，补齐源设计sheet、真实目标引导、嵌套焦点/背景锁与清理。",
+      "sha256": "136f23a77040e68794aa9f849c0bd95b1e0ffedbf8db63ba6efe5f365d90f6f5"
+    },
+    {
+      "file": "src/components/AppIcon.vue",
+      "purpose": "必要的线条图标补齐，不以emoji充当正式图标。",
+      "sha256": "a07a2d8ee36e0558236f160560832d601e9c4ae0b9bf1fe524413552236b2690"
+    },
+    {
+      "file": "src/components/PageShell.vue",
+      "purpose": "原页面壳滚动键加入账户维度，避免跨账户滚动状态混用。",
+      "sha256": "4f544ffcfe25fa0887eeda1f785582a01cc151ea54e8b5afa1b68b0ba164cd8b"
+    },
+    {
+      "file": "src/services/modal-stack.js",
+      "purpose": "共享弹层栈，子弹层关闭时不错误解锁父层/背景。",
+      "sha256": "d2c124de3a2353be09e137e2c4c47d16fd0f7b8181f97e592a71fcaa899c037e"
+    },
+    {
+      "file": "src/services/media-files.js",
+      "purpose": "可取消读取、图片/视频尺寸类型与实际时长验证。",
+      "sha256": "401fffa6054c6c2069cb75535e35a13af9e933915dc85c07a1a6bf921d205a1f"
+    },
+    {
+      "file": "src/domain/navigation.js",
+      "purpose": "新增受保护内容路由和账户级滚动键，保持认证导航。",
+      "sha256": "6fe79ccbfd50eb7fd42946a7bbe4f9bb30eb6824032c0a993c871ec906a80254"
+    },
+    {
+      "file": "src/router.js",
+      "purpose": "接入Home、发布、详情、媒体和我的二级路由及返回/认证边界。",
+      "sha256": "99d868914e23f792026aa7b70b07b9e95a054e4325690b79997e645ebb7dec22"
+    },
+    {
+      "file": "src/state.js",
+      "purpose": "沿用单操作busy/错误恢复；准备模拟失败提示在下一操作时清理。",
+      "sha256": "0c8a872bdb169418e4083455162b8da9497e44bf39087ef0b8b1fba68de6e140"
+    },
+    {
+      "file": "src/App.vue",
+      "purpose": "账户变更清理P2临时缓存；Home关键资源/字体可见后发送原有app.ready。",
+      "sha256": "d0a18e3b061f7f12728e579e0d62fa00de00b14eb29e0eb3989e985f89432ac5"
+    },
+    {
+      "file": "src/main.js",
+      "purpose": "加载内容样式。",
+      "sha256": "0db6364c93d57c32e4720e9502a36a290fa05810e7961151d8589f0164d3d9f6"
+    },
+    {
+      "file": "src/i18n.js",
+      "purpose": "复用双语接口合并P2文案与错误。",
+      "sha256": "3cbcd925efa9fdbf85a73ca209d0734270df433729d867f8c41e7179643a6d67"
+    },
+    {
+      "file": "src/data/content-messages.js",
+      "purpose": "EN/FR完整内容界面、恢复提示、稳定错误与动态受众说明。",
+      "sha256": "6b1d46b15d202f6d5959d375699cdc1dbaa840ec13b938750457c08e8c295495"
+    },
+    {
+      "file": "src/data/content-demo.js",
+      "purpose": "共享两个明确标识的本地示例，只对固定测试ID可见。",
+      "sha256": "46cd2c6b27525436274006f537bb38d74e683d60c8d862df526c09b40da55880"
+    },
+    {
+      "file": "src/content.css",
+      "purpose": "源设计字体/素材/间距/裁切、六尺寸流式适配、短屏布局和触摸范围。",
+      "sha256": "3a6e372948f3338b523d8a0e713b84f0a610d5d25916831d02d91e3c9c48fc3a"
+    },
+    {
+      "file": "index.html",
+      "purpose": "允许唯一受控eluva媒体协议用于本地视频；保持本地CSP边界。",
+      "sha256": "2c2d9645ad09dc356458aec86e9b4687a815dec767db8c73ebce7fb314ee943a"
+    },
+    {
+      "file": "ios/Eluva/ContentRepository.swift",
+      "purpose": "现有加密仓储的内容扩展，镜像事务/隐私/幂等/配额/安全、异步AVAsset导入。",
+      "sha256": "c13915a80f32f02096843cf0d36f3347f4da6c8f3d5876b3f229f33f1f608be8"
+    },
+    {
+      "file": "ios/Eluva/LocalRepository.swift",
+      "purpose": "复用vault/队列，增加内容域与暂存媒体、格式异常保留、路径/软链接守卫。",
+      "sha256": "b9f03e64cf580306692ab7fd074a92ab10b27dcf03b00a64b8600c17ea7771eb"
+    },
+    {
+      "file": "ios/Eluva/NativeBridge.swift",
+      "purpose": "同一eluva通道扩展内容服务和带draftId/imagesOnly媒体导入，无第二协议。",
+      "sha256": "875fa57ce10e83622bb9af1dcc4b06b6135e56fc6a169e73aebdfc735db122f9"
+    },
+    {
+      "file": "ios/Eluva/MediaCoordinator.swift",
+      "purpose": "原PHPicker/相机增加视频真实文件结果、后台读取、大小限制及取消处理。",
+      "sha256": "93d616528a11f0eca19428d86e981e1786ed733046e75224becfa38432d7583b"
+    },
+    {
+      "file": "ios/Eluva/LocalResources.swift",
+      "purpose": "本地MOV MIME和受控媒体资源支持，继续文件边界/范围读取。",
+      "sha256": "c527e5c945bb8c8330d2f4e4ae85f40a3c9da19d0ff198539661933280668628"
+    },
+    {
+      "file": "ios/Eluva/Info.plist",
+      "purpose": "媒体用途覆盖个人照片及发布，不新增启动权限请求。",
+      "sha256": "e5061afa7735f7772abbba92f2be89b4e601a23b1b39aa6e3a966d18c709e316"
+    },
+    {
+      "file": "ios/Eluva/en.lproj/InfoPlist.strings",
+      "purpose": "英语照片/相机用途与发布语义。",
+      "sha256": "c483778ef9d5f9913b7f9ed1ad74364e82c9500c7fcdcabc8a0bef343e9c1cfb"
+    },
+    {
+      "file": "ios/Eluva/fr.lproj/InfoPlist.strings",
+      "purpose": "法语照片/相机用途与发布语义。",
+      "sha256": "d4719122c6f05bc788050de02e15f19e3aaaf8b9b40b34cd8e633e04819dcd8a"
+    },
+    {
+      "file": "ios/EluvaTests/ContentTests.swift",
+      "purpose": "7项P2原生事务/实际视频/可见性/隔离/额度/损坏保留/路径边界测试。",
+      "sha256": "0cfccfca6e05062b9d70f34303d7bcbeaec52e0fbb24bde9b6b8d0c8089225d7"
+    },
+    {
+      "file": "ios/Eluva.xcodeproj/project.pbxproj",
+      "purpose": "生成工程纳入ContentRepository和测试，合成视频只进入测试Bundle。",
+      "sha256": "ecf1e0a327c0ed71284f6fe24603a13843a42657377b2f17b27d4bbd86f1a9aa"
+    },
+    {
+      "file": "ios/Eluva.xcodeproj/xcshareddata/xcschemes/Eluva.xcscheme",
+      "purpose": "生成的共享scheme和测试目标。",
+      "sha256": "8b32add4733c124e1f22d3d895f700b52fc1b53655c61f94731227ba68c4b109"
+    },
+    {
+      "file": "scripts/prepare-assets.mjs",
+      "purpose": "生成双端共享选择项、content-policy、content-demo的本地JSON。",
+      "sha256": "17a9888e8242a816ad22b7979546d9c563e640742a18441850dd3a348ea15acd"
+    },
+    {
+      "file": "scripts/generate-ios.rb",
+      "purpose": "生成内容扩展/测试和测试视频资源，保留项目现有构建方案。",
+      "sha256": "43b01d28171d4796b4fe2813a630927ba7eb57310e917de040ed3310f827e78c"
+    },
+    {
+      "file": "scripts/audit-build.mjs",
+      "purpose": "本轮本地资源审计清单保存到P2证据目录，不覆盖历史P1证据。",
+      "sha256": "7bd765d6451b01b6bc8297ab3dbfe7e3012c47ff9fe2c759edbe59835a4163cf"
+    },
+    {
+      "file": "scripts/sync-ios.mjs",
+      "purpose": "同步P2清单并移除过期生成hash资源，不触及用户数据目录。",
+      "sha256": "b57a417a13f6b05a4b2008f689986b5afeb1fba953cba3e396f44c94467a29a5"
+    },
+    {
+      "file": "scripts/generate-video-fixture.swift",
+      "purpose": "可复现的静音合成H264测试片段，不含真实人物/录音。",
+      "sha256": "3950c65c2503baf7a5070456bcb7070e7a92cfff9483bfd25b532fa9bd7ad256"
+    },
+    {
+      "file": "scripts/audit-p2-evidence.py",
+      "purpose": "372截图/31状态/双语六尺寸、非空白/边界/错误码与四份资源哈希审计。",
+      "sha256": "bfc2678802472f41be68827294043d20bf7a8edf391bf6ddfd22ae07dfb04887"
+    },
+    {
+      "file": "public/fonts/inter-bold.ttf",
+      "purpose": "源作者标签Inter-Bold本地字体。",
+      "sha256": "b37284b5701b6b168dfc770aa1a4ac492106422fd3ba76bc7641e37434e8019c"
+    },
+    {
+      "file": "public/fonts/inter-ofl.txt",
+      "purpose": "Inter官方字体授权/版权。",
+      "sha256": "3f47619ec943827026f4939fcaf76e0674f45d212c03f5aa8024ffd2492200fd"
+    },
+    {
+      "file": "public/fonts/zen-dots-regular.ttf",
+      "purpose": "源品牌Zen Dots字体本地化。",
+      "sha256": "ab3ff4b593e0128a5b781ad91b57c86a74e719ec8fdaa74d59e49b7e3485b455"
+    },
+    {
+      "file": "public/fonts/zen-dots-ofl.txt",
+      "purpose": "Zen Dots官方字体授权/版权。",
+      "sha256": "0e3843e018a2a0614803d61a66eb3ad22d5a89d1c40e08d3eac1aaf8dcedef25"
+    },
+    {
+      "file": "public/config/content-policy.json",
+      "purpose": "由共享策略生成供原生读取，未确认每日限额为null。",
+      "sha256": "4cd59674223d55f1472a762a95b4147c47acbce57cb8c040d802971785b7067a"
+    },
+    {
+      "file": "public/config/content-demo.json",
+      "purpose": "由共享本地示例生成，避免两端测试帖漂移。",
+      "sha256": "e0d0bb7e0c41a525212c88fa8c1578465c3c90ee682028b0f68de22275d2b0d9"
+    },
+    {
+      "file": "public/images/p2/",
+      "purpose": "蓝湖切图/派生SVG，逐项路径、来源、尺寸与哈希见asset-sources。"
+    },
+    {
+      "file": "ios/Eluva/Web/",
+      "purpose": "53本地生产文件同步，逐项见build-manifest；无开发机路径/远程设计引用。"
+    },
+    {
+      "file": "tests/content.test.js",
+      "purpose": "P2浏览器仓储原子性、跨账号隐私、媒体/合集/权限、可逆安全、额度及异常保留。",
+      "sha256": "5abeec39dd84cc80a75baec77511182cc51e828a5086129717dd6ccd86dd9efc"
+    },
+    {
+      "file": "tests/localization.test.js",
+      "purpose": "双语P2静态/动态键覆盖及不同受众说明回归。",
+      "sha256": "813aa4c10d38010f7a6bc4796d2e4ccfaf948002fcb479d5a43376d0f2381c46"
+    },
+    {
+      "file": "tests/fixtures/qa-video.mp4",
+      "purpose": "真实可解码1秒合成测试视频，非生产内容资源。",
+      "sha256": "ae2db97469c2920ddea442708751e51c90117ec7922855ac11cb0d0892e53c2a"
+    },
+    {
+      "file": "README.md",
+      "purpose": "更新当前P2能力、演示/策略边界、构建与证据复测方法。",
+      "sha256": "8e55e53937fa41c3f3e91aa04841dbab06738886268944234fd604203c25ebe6"
+    },
+    {
+      "file": "docs/app-flow-and-implementation-plan.md",
+      "purpose": "v4记录P2实际实施、未冻结规则和未验收差距，保留后续阶段。",
+      "sha256": "673777fabdba7b91c0d619abe1dce2342052e062e30fe80db82664caa3d6517d"
+    },
+    {
+      "file": "docs/p2-route-contracts.json",
+      "purpose": "14个页面/面板逐页设计映射、入口/返回/状态/校验/保存/Native依赖。",
+      "sha256": "88e48531173c963e49f39f84c27e9bf1424ef19af571d480dbdab97cb33221f7"
+    },
+    {
+      "file": "docs/p2-implementation-report.md",
+      "purpose": "修改报告、业务结果、证据与不能宣称完成的检查。",
+      "sha256": "7dea20fd95c5283b549d44e9a9c2d5b17a9b32a6ec201f3fbbde90832e3fdae3"
+    },
+    {
+      "file": "docs/evidence/p2/",
+      "purpose": "原始蓝湖标注、来源/资源清单、372最终截图/审计、日志和执行记录。"
+    }
+  ]
+}

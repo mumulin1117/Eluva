@@ -1,0 +1,177 @@
+📊 Design Analysis Results
+📁 Project: Eluva（心事回音点亮交友）--余加慧
+✓ 1/1 images downloaded
+✓ 0/1 HTML codes generated
+✓ 1 design(s) using Sketch annotation fallback (标注模式)
+
+📋 Design List (display order from top to bottom):
+下方图片顺序与列表中「设计图 1」「设计图 2」… 一一对应，请按序号关联图片与代码。
+
+🚨 CRITICAL: 设计稿代码使用流程（必须按顺序执行）
+以下 HTML+CSS 是从设计稿 Schema 生成的【设计规格书】，是所有设计参数的权威来源。
+⚠️ 权威优先级: HTML+CSS 代码 > Design Tokens 标注 > 设计图图片
+⚠️ 核心原则: 直接复用 CSS 属性值，禁止修改/简化/美化任何 CSS 值
+
+STEP 1 - 探测用户项目环境：
+  读取项目配置文件（package.json / tsconfig.json / pubspec.yaml / build.gradle / Podfile 等）
+  识别框架: React/Vue/Angular/Svelte/Flutter/SwiftUI/Compose/纯HTML
+  识别样式方案: CSS Modules / Tailwind / SCSS / Styled Components / scoped style 等
+  识别项目目录结构和命名规范
+  如无法判断框架，默认输出纯 HTML 单文件
+
+STEP 2 - 下载图片资源到本地（必须在生成代码前完成）：
+  下方每个设计图的 HTML 代码中，图片已替换为本地路径（./assets/slices/xxx.png）
+  每个设计图下方附有「图片资源下载映射」，列出 本地路径 ← 远程下载地址
+  文件名已按 CSS 类名生成（如 thumbnail_54.png、group_1.png），具备初步语义。
+  ⚠️ 若文件名仍不够语义化，在下载时重命名为更清晰的英文名，并同步更新 HTML 中的路径引用。
+  必须按映射表下载所有图片到项目本地 assets 目录：
+    macOS/Linux → curl -o <path> "<url>"
+    Windows → PowerShell Invoke-WebRequest -Uri "<url>" -OutFile <path>
+  如需更多切图（图标、背景等），调用 lanhu_get_design_slices(url, design_name)
+
+STEP 3 - 生成框架适配代码（直接复用 CSS 值，禁止修改）：
+  从下方 HTML+CSS 直接复制所有 CSS 属性值（颜色/字号/间距/圆角/渐变等）
+  ⚠️ 必须原样使用 CSS 值，禁止做任何修改：
+    - rgba(255,115,10,1) 不要改成 #FF730A
+    - linear-gradient 不要简化成纯色
+    - margin/padding 数值不要四舍五入
+    - font-family 不要删减或重排
+  按目标框架生成组件代码：
+    React/Next.js  → JSX + CSS Modules 或跟随项目已有方案
+    Vue/Nuxt       → .vue SFC + <style scoped>
+    Angular        → .ts + .html + .css
+    Flutter        → Widget + EdgeInsets/BoxDecoration，px→逻辑像素
+    SwiftUI        → View + ViewModifier，px→pt
+    Android Compose → @Composable + Modifier，px→dp，font px→sp
+    纯 HTML         → 单个 .html 文件，内联 <style>（含 common.css 工具类）
+  图片路径按框架约定适配（代码中已是本地路径，只需调整路径格式）：
+    React/Vue → import img from '@/assets/slices/xxx.png'
+    Flutter   → AssetImage('assets/images/xxx.png')
+    纯 HTML   → <img src="./assets/slices/xxx.png">（已就绪）
+
+STEP 4 - 对照 Design Tokens 补充校验（如下方包含 Design Tokens）：
+  Design Tokens 来自原始 Sketch 设计数据，作为补充参考。
+  优先级: HTML+CSS > Design Tokens > 设计图
+  仅当 HTML+CSS 中明显缺失某属性时，用 Design Token 补充：
+    如渐变填充、复杂阴影、多边圆角等 CSS 未能完整表达的属性
+  Design Token 不能覆盖 HTML+CSS 中已有的值。
+
+STEP 5 - 代码完成后逐属性还原度核查（必须执行，不得跳过）：
+  适用于所有目标平台：HTML/CSS、React、Vue、Flutter、SwiftUI、Compose、Android XML 等。
+  将设计稿 HTML+CSS 中每个属性映射到目标平台等价写法，逐一核查值是否还原：
+  ① 尺寸约束：设计稿固定 height 的地方，目标平台不得变为自适应/wrap
+     HTML: height 不能改成 min-height | Flutter: SizedBox 不能换成 Flexible
+     SwiftUI: .frame(height:) 不能省略 | Compose: height() 不能用 wrapContent
+  ② 裁剪：设计稿 overflow:hidden 的容器，各平台必须同步裁剪
+     HTML: overflow:hidden | Flutter: ClipRect/ClipRRect | SwiftUI: .clipped()
+     Compose: clip() | Android: android:clipChildren="true"
+  ③ 颜色值：rgba(r,g,b,a) 转换到目标平台格式时，数值不得偏移
+     HTML: 保持 rgba() | Flutter: Color.fromRGBO() | SwiftUI: Color(red:green:blue:opacity:)
+     Compose: Color(r,g,b,a) | Android XML: #AARRGGBB，禁止四舍五入
+  ④ 渐变：linear-gradient 必须映射为平台渐变，不能退化为纯色
+     Flutter: LinearGradient | SwiftUI: LinearGradient | Compose: Brush.linearGradient
+  ⑤ 绝对定位：left/top 坐标值必须原样映射
+     Flutter: Positioned(left:,top:) | SwiftUI: .offset() | Compose: Modifier.offset()
+  ⑥ 字体：family、weight、size 三者都必须还原；HTML 还需保留 fallback 顺序
+  ⑦ 间距：每个方向的 margin/padding 数值不得改动
+     Flutter: EdgeInsets | SwiftUI: .padding() | Compose: Modifier.padding()
+     Android: android:layout_margin / android:padding
+  ⑧ 图片资源：任何图片不得被 SVG/CSS形状/emoji/占位图替换
+  ⑨ 元素完整性：设计稿中每个可见元素，目标代码中必须对应存在
+  ⑩ 远程 URL：最终代码中不得残留任何蓝湖 CDN 远程地址
+  核查结论：对每处差异明确说明是「有意的平台适配（如 px→dp 单位换算）」
+  还是「错误偏差（值发生了改变）」，错误偏差必须立即修正后再交付。
+
+❌ 严禁行为：
+  - 禁止修改 CSS 属性值（不要改颜色格式、不要简化渐变、不要调整数值）
+  - 禁止凭空编造设计参数（颜色、尺寸、间距等必须来自下方 CSS）
+  - 禁止用设计图的视觉感受覆盖 CSS 中的精确值
+  - 禁止用 SVG/CSS 形状/emoji 替换切图资源
+  - 禁止省略任何视觉元素
+  - 禁止在最终代码中使用蓝湖远程 URL
+
+📐 common.css 工具类含义（用于理解布局意图）：
+  flex-col = Column 方向布局    flex-row = Row 方向布局
+  justify-between/center/start/end/around/evenly = 主轴对齐
+  align-start/center/end = 交叉轴对齐
+
+
+--- 设计图 1：使用帮助 ---
+
+   ⚠️ DDS Schema 不可用（store_schema_revise 失败: 登录权限校验失败），已使用「设计原图底图 + 真实文字 + CSS 标注」方案生成 HTML。
+   渲染策略：
+   - 设计原图作为 .design 容器的 background-image（一张图覆盖所有视觉效果）
+   - 文字图层：渲染真实文本（可选中/可编辑）+ font/color/size 属性
+   - 切图组件：<img> 标签 + 切图 URL
+   - 每个元素的 data-css 属性包含精确 CSS 标注值（颜色/圆角/阴影/字体等），供代码生成使用
+
+   📄 HTML+CSS 代码:
+   ```html
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=referrer content=no-referrer><meta name=viewport content="width=device-width,initial-scale=1.0"><title>Design</title><style>
+*{margin:0;padding:0;box-sizing:border-box}img{display:block}.design{position:relative;width:390.0px;height:844.0px;overflow:hidden;margin:0 auto;background:url(https://alipic.lanhuapp.com/FigmaCover06195fdb8c3814253807c6c87f200a8b.png) no-repeat;background-size:390.0px 844.0px}} .el1{position:absolute;left:169.0px;top:246.0px;width:52.0px;height:15.0px;z-index:10;color:rgba(190,185,193,1);font-size:12.0px;font-family:"Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el2{position:absolute;left:84.0px;top:363.0px;width:222.0px;height:198.0px;z-index:10;color:rgba(0,0,0,1);font-size:15.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:22.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el3{position:absolute;left:130.5px;top:288.5px;width:179.0px;height:21.0px;z-index:10;color:rgba(255,255,255,1);font-size:15.0px;font-family:"Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;line-height:140.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el4{position:absolute;left:335.0px;top:277.0px;width:40.0px;height:40.0px} .el5{position:absolute;left:32.0px;top:130.0px;width:327.0px;height:80.0px;z-index:10;color:rgba(167,35,244,1);font-size:12.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:16.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el6{position:absolute;left:20.0px;top:116.0px;width:350.0px;height:106.0px} .el7{position:absolute;left:25.3px;top:353.7px;width:30.7px;height:30.7px} .el8{position:absolute;left:20.0px;top:349.0px;width:40.0px;height:40.0px} .el9{position:absolute;left:73.3px;top:62.7px;width:30.7px;height:30.7px} .el10{position:absolute;left:68.0px;top:58.0px;width:40.0px;height:40.0px} .el11{position:absolute;left:128.0px;top:831.0px;width:134.0px;height:5.0px} .el12{position:absolute;left:210.0px;top:720.0px;width:123.0px;height:16.0px;z-index:10;color:rgba(118,21,255,1);font-size:13.0px;font-family:"Inter","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el13{position:absolute;left:200.0px;top:712.0px;width:143.0px;height:32.0px} .el14{position:absolute;left:25.0px;top:720.0px;width:157.0px;height:16.0px;z-index:10;color:rgba(118,21,255,1);font-size:13.0px;font-family:"Inter","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el15{position:absolute;left:33.0px;top:769.0px;width:53.0px;height:17.0px;z-index:10;color:rgba(40,40,40,1);font-size:14.0px;font-family:"Inter","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el16{position:absolute;left:337.1px;top:768.8px;width:23.3px;height:18.4px} .el17{position:absolute;left:15.0px;top:712.0px;width:177.0px;height:32.0px} .el18{position:absolute;left:15.0px;top:756.0px;width:360.0px;height:44.0px} .el19{position:absolute;left:114.0px;top:70.0px;width:90.0px;height:19.0px;z-index:10;color:rgba(0,0,0,1);font-size:16.0px;font-family:"Inter","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el20{position:absolute;left:33.8px;top:72.1px;width:9.7px;height:9.7px} .el21{position:absolute;left:26.2px;top:76.4px;width:7.8px;height:8.7px} .el22{position:absolute;left:15.0px;top:58.0px;width:40.0px;height:40.0px} .el23{position:absolute;left:338.0px;top:16.0px;width:27.3px;height:13.0px} .el24{position:absolute;left:311.0px;top:15.3px;width:17.1px;height:12.3px} .el25{position:absolute;left:282.0px;top:16.4px;width:19.2px;height:12.2px} .el26{position:absolute;left:24.0px;top:13.0px;width:29.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el27{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:144.0px} .el28{position:absolute;left:22.0px;top:0.0px;width:345.0px;height:42.0px} .el29{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:259.0px} .el30{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:176.0px} .el31{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:414.0px} .el32{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el33{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px}
+</style></head><body><div class=design><div class=el1 title="10:32 AM" data-css="position: absolute; left: 169.0px; top: 246.0px; width: 52.0px; height: 15.0px; color: rgba(190,185,193,1); font-size: 12.0px; font-family: Plus Jakarta Sans; font-weight: 500; text-align: center">10:32 AM</div><div class=el2 title="Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress." data-css="position: absolute; left: 84.0px; top: 363.0px; width: 222.0px; height: 198.0px; color: rgba(0,0,0,1); font-size: 15.0px; font-family: Poppins; font-weight: 400">Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress.</div><div class=el3 title="How does this app work?" data-css="position: absolute; left: 130.5px; top: 288.5px; width: 179.0px; height: 21.0px; color: rgba(255,255,255,1); font-size: 15.0px; font-family: Plus Jakarta Sans; font-weight: 500">How does this app work?</div><div class=el4 title=avatar data-css="position: absolute; left: 335.0px; top: 277.0px; width: 40.0px; height: 40.0px"></div><div class=el5 title="Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress." data-css="position: absolute; left: 32.0px; top: 130.0px; width: 327.0px; height: 80.0px; color: rgba(167,35,244,1); font-size: 12.0px; font-family: Poppins; font-weight: 400">Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress.</div><div class=el6 title="Rectangle 27" data-css="position: absolute; left: 20.0px; top: 116.0px; width: 350.0px; height: 106.0px"></div><div class=el7 title="image 15" data-css="position: absolute; left: 25.3px; top: 353.7px; width: 30.7px; height: 30.7px"></div><div class=el8 title="Ellipse 12" data-css="position: absolute; left: 20.0px; top: 349.0px; width: 40.0px; height: 40.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(244,230,255,1)"></div><div class=el9 title="image 15" data-css="position: absolute; left: 73.3px; top: 62.7px; width: 30.7px; height: 30.7px"></div><div class=el10 title="Ellipse 12" data-css="position: absolute; left: 68.0px; top: 58.0px; width: 40.0px; height: 40.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(244,230,255,1)"></div><div class=el11 title=indicator-bar data-css="position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)"></div><div class=el12 title="What should I post?" data-css="position: absolute; left: 210.0px; top: 720.0px; width: 123.0px; height: 16.0px; color: rgba(118,21,255,1); font-size: 13.0px; font-family: Inter; font-weight: 500">What should I post?</div><div class=el13 title="Rectangle 105" data-css="position: absolute; left: 200.0px; top: 712.0px; width: 143.0px; height: 32.0px; border: 1.0px solid rgba(153,64,255,1); background-color: rgba(250,245,255,1)"></div><div class=el14 title="How does this app work?" data-css="position: absolute; left: 25.0px; top: 720.0px; width: 157.0px; height: 16.0px; color: rgba(118,21,255,1); font-size: 13.0px; font-family: Inter; font-weight: 500">How does this app work?</div><div class=el15 title="Say hi..." data-css="position: absolute; left: 33.0px; top: 769.0px; width: 53.0px; height: 17.0px; color: rgba(40,40,40,1); font-size: 14.0px; font-family: Inter; font-weight: 500">Say hi...</div><div class=el16 title=Vector data-css="position: absolute; left: 337.1px; top: 768.8px; width: 23.3px; height: 18.4px; background-color: rgba(140,40,255,1)"></div><div class=el17 title="Rectangle 104" data-css="position: absolute; left: 15.0px; top: 712.0px; width: 177.0px; height: 32.0px; border: 1.0px solid rgba(153,64,255,1); background-color: rgba(250,245,255,1)"></div><div class=el18 title="Rectangle 103" data-css="position: absolute; left: 15.0px; top: 756.0px; width: 360.0px; height: 44.0px; background-color: rgba(244,244,244,1)"></div><div class=el19 title="Help Buddy" data-css="position: absolute; left: 114.0px; top: 70.0px; width: 90.0px; height: 19.0px; color: rgba(0,0,0,1); font-size: 16.0px; font-family: Inter; font-weight: 700">Help Buddy</div><div class=el20 title=Vector data-css="position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)"></div><div class=el21 title=Vector data-css="position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)"></div><div class=el22 title="Ellipse 14" data-css="position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)"></div><div class=el23 title=Vector data-css="position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)"></div><div class=el24 title=Vector data-css="position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)"></div><div class=el25 title=Vector data-css="position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)"></div><div class=el26 title=9:41 data-css="position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700">9:41</div><div class=el27 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 144.0px; background-color: rgba(255,255,255,1)"></div><div class=el28 title="Ellipse 1" data-css="position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)"></div><div class=el29 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px"></div><div class=el30 title="Rectangle 2" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px"></div><div class=el31 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px"></div><div class=el32 title="Rectangle 28" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div><div class=el33 title="Rectangle 29" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)"></div></div></body></html>
+   ```
+
+   📥 资源下载映射（共 1 个，请全部下载到项目本地后替换 HTML 中的 URL）:
+   ⚠️ 下载时必须带 Referer: https://lanhuapp.com/ 请求头
+     ./assets/designs/design.png ← https://alipic.lanhuapp.com/FigmaCover06195fdb8c3814253807c6c87f200a8b.png
+
+
+   🎯 使用指南:
+     1. 先下载上方所有资源到本地对应路径，然后替换 HTML 中的远程 URL 为本地路径
+     2. 其中 ./assets/designs/design.png 是设计底图，HTML 的 .design 容器用它做 background-image
+     3. 每个元素的 data-css 属性包含精确 CSS 标注值，请直接复用到代码中
+     4. 文字图层是真实文本（可选中/修改），切图是 <img> 标签
+     5. 调用 lanhu_get_design_slices 可获取更多细粒度切图资源
+
+
+   📐 图层精确 CSS 标注（共 33 个图层）:
+     [textLayer] 10:32 AM: position: absolute; left: 169.0px; top: 246.0px; width: 52.0px; height: 15.0px; color: rgba(190,185,193,1); font-size: 12.0px; font-family: Plus Jakarta Sans; font-weight: 500; text-align: center | text="10:32 AM"
+     [textLayer] Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress.: position: absolute; left: 84.0px; top: 363.0px; width: 222.0px; height: 198.0px; color: rgba(0,0,0,1); font-size: 15.0px; font-family: Poppins; font-weight: 400 | text="Whether you need help using a feature, run into a "
+     [textLayer] How does this app work?: position: absolute; left: 130.5px; top: 288.5px; width: 179.0px; height: 21.0px; color: rgba(255,255,255,1); font-size: 15.0px; font-family: Plus Jakarta Sans; font-weight: 500 | text="How does this app work?"
+     [shapeLayer] avatar: position: absolute; left: 335.0px; top: 277.0px; width: 40.0px; height: 40.0px
+     [textLayer] Whether you need help using a feature, run into a problem, or have an idea to share, just let me know. I’ll answer what I can right away. If something needs the team’s attention, I’ll help organize your feedback and keep you updated on any progress.: position: absolute; left: 32.0px; top: 130.0px; width: 327.0px; height: 80.0px; color: rgba(167,35,244,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text="Whether you need help using a feature, run into a "
+     [shapeLayer] Rectangle 27: position: absolute; left: 20.0px; top: 116.0px; width: 350.0px; height: 106.0px
+     [shapeLayer] image 15: position: absolute; left: 25.3px; top: 353.7px; width: 30.7px; height: 30.7px
+     [shapeLayer] Ellipse 12: position: absolute; left: 20.0px; top: 349.0px; width: 40.0px; height: 40.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(244,230,255,1)
+     [shapeLayer] image 15: position: absolute; left: 73.3px; top: 62.7px; width: 30.7px; height: 30.7px
+     [shapeLayer] Ellipse 12: position: absolute; left: 68.0px; top: 58.0px; width: 40.0px; height: 40.0px; border: 1.0px solid rgba(255,255,255,1); background-color: rgba(244,230,255,1)
+     [shapeLayer] indicator-bar: position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)
+     [textLayer] What should I post?: position: absolute; left: 210.0px; top: 720.0px; width: 123.0px; height: 16.0px; color: rgba(118,21,255,1); font-size: 13.0px; font-family: Inter; font-weight: 500 | text="What should I post?"
+     [shapeLayer] Rectangle 105: position: absolute; left: 200.0px; top: 712.0px; width: 143.0px; height: 32.0px; border: 1.0px solid rgba(153,64,255,1); background-color: rgba(250,245,255,1)
+     [textLayer] How does this app work?: position: absolute; left: 25.0px; top: 720.0px; width: 157.0px; height: 16.0px; color: rgba(118,21,255,1); font-size: 13.0px; font-family: Inter; font-weight: 500 | text="How does this app work?"
+     [textLayer] Say hi...: position: absolute; left: 33.0px; top: 769.0px; width: 53.0px; height: 17.0px; color: rgba(40,40,40,1); font-size: 14.0px; font-family: Inter; font-weight: 500 | text="Say hi..."
+     [shapeLayer] Vector: position: absolute; left: 337.1px; top: 768.8px; width: 23.3px; height: 18.4px; background-color: rgba(140,40,255,1)
+     [shapeLayer] Rectangle 104: position: absolute; left: 15.0px; top: 712.0px; width: 177.0px; height: 32.0px; border: 1.0px solid rgba(153,64,255,1); background-color: rgba(250,245,255,1)
+     [shapeLayer] Rectangle 103: position: absolute; left: 15.0px; top: 756.0px; width: 360.0px; height: 44.0px; background-color: rgba(244,244,244,1)
+     [textLayer] Help Buddy: position: absolute; left: 114.0px; top: 70.0px; width: 90.0px; height: 19.0px; color: rgba(0,0,0,1); font-size: 16.0px; font-family: Inter; font-weight: 700 | text="Help Buddy"
+     [shapeLayer] Vector: position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Ellipse 14: position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)
+     [shapeLayer] Vector: position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)
+     [textLayer] 9:41: position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700 | text="9:41"
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 144.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Ellipse 1: position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px
+     [shapeLayer] Rectangle 2: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px
+     [shapeLayer] Rectangle 28: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 29: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)
+
+   --- 设计标注详情（参考补充） ---
+============================================================
+设计标注信息（从原始 Sketch/PSD 数据提取）
+============================================================
+设计稿名称: 
+设备:   |  缩放: @1x
+画布尺寸: 0.0x0.0 (逻辑像素)
+画布背景色: #FFFFFF
+
+以下所有尺寸/坐标均为逻辑像素（已除以 @1x）
+------------------------------------------------------------
+
+============================================================
+   --- End 设计标注 ---
+

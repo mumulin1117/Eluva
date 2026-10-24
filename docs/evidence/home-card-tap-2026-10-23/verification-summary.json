@@ -1,0 +1,163 @@
+{
+  "task": "Home card single edge pulse before opening exact post detail",
+  "date": "2026-10-23",
+  "status": "implemented; targeted simulator verification passed; physical device pending",
+  "scope": [
+    "HomeView presentation and existing navigation",
+    "WKWebView regression tests",
+    "implementation plan, report and evidence",
+    "generated iOS Web bundle"
+  ],
+  "webTests": {
+    "passed": 164,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "nativeTests": {
+    "environment": "iPhone 17 / iOS 26.5 simulator; visible UIWindow-hosted production WKWebView and actual Native Bridge with isolated vault and preferences",
+    "finalTapRun": {
+      "passed": 2,
+      "failed": 0,
+      "resultBundle": ".build/home-card-tap-20261023-final.xcresult",
+      "log": "native-tests-tap-final.log",
+      "tests": [
+        "testEnglishHomeCardTapGlow",
+        "testFrenchHomeCardTapGlow"
+      ],
+      "seconds": {
+        "en": 16.834,
+        "fr": 16.061
+      }
+    },
+    "guideRegression": {
+      "passed": 2,
+      "failed": 0,
+      "resultBundle": ".build/home-card-tap-20261023.xcresult",
+      "log": "native-tests.log",
+      "tests": [
+        "testEnglishHomeGuideAfterDiscovery",
+        "testFrenchHomeGuideAfterDiscovery"
+      ],
+      "seconds": {
+        "en": 26.722,
+        "fr": 26.605
+      },
+      "note": "These two individual tests passed in the first run; the complete first run failed due to the separate tap trace assertion."
+    },
+    "attempts": [
+      {
+        "name": "attempt-1",
+        "wholeRun": "failed: 2 tap failures, 2 guide passes",
+        "tapFailure": "Test only observed hashchange; Vue Router pushState was not recorded. Failure JSON shows correct target, single completed 320ms animation and no duplicate actual navigation.",
+        "resolution": "Observe actual path changes through pushState, replaceState and hashchange; retain strict single-navigation assertion.",
+        "evidenceDirectory": "attempt-1"
+      },
+      {
+        "name": "attempt-2",
+        "wholeRun": "failed: both tap matrix runs reached the return fixture",
+        "tapFailure": "An arbitrary horizontal offset snapped back to zero; a nonzero fixture position was not established.",
+        "resolution": "Scroll to the real second-card mandatory snap point; wait for stable offset; retain <=1px restoration assertion.",
+        "log": "native-tests-tap-retry.log",
+        "evidenceDirectory": "attempt-2"
+      },
+      {
+        "name": "final",
+        "wholeRun": "passed: 2/2 tap tests",
+        "note": "Only test instrumentation/fixtures changed after the first production build; no product code workaround."
+      }
+    ],
+    "coverage": {
+      "locales": [
+        "en",
+        "fr"
+      ],
+      "viewports": [
+        [
+          320,
+          568
+        ],
+        [
+          375,
+          667
+        ],
+        [
+          375,
+          812
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          393,
+          852
+        ],
+        [
+          430,
+          932
+        ]
+      ],
+      "themeMatrix": "purple at all six sizes; pink, orange and cyan at 390x844, each locale",
+      "naturalTimingCases": 18,
+      "durationMs": 320,
+      "iterations": 1,
+      "actualNavigationElapsedRangeMs": [
+        332,
+        355
+      ],
+      "assertions": [
+        "same and different-card duplicate clicks ignored",
+        "one exact post navigation after animation finished",
+        "no content.echo mutation",
+        "no card transform or size change",
+        "no horizontal page overflow",
+        "no secondary TabBar",
+        "322px second-card feed offset and batch order restored",
+        "leave/help/filter/background cancel with no navigation after 450ms",
+        "reduced-motion skips pulse",
+        "late original two-second halo pauses while tap runs; pending first-use guide does not interrupt or write guideDone"
+      ],
+      "fixtureLimits": [
+        "Safe Area values are synthetic, not six physical devices.",
+        "Opening is triggered by DOM button clicks in actual WKWebView, not physical touch.",
+        "Background and reduced-motion changes are controlled events; real system settings pending.",
+        "Only the 150ms screenshot frame is held; 18 timing cases run without pausing.",
+        "The matrix color field was read after card unmount and is empty; it is not numerical color verification. Visual screenshot and production keyframes establish the edge effect."
+      ]
+    },
+    "attachments": "wk-attachments.json",
+    "localeResults": [
+      "Home-card-tap-en-matrix-and-boundaries.json",
+      "Home-card-tap-fr-matrix-and-boundaries.json"
+    ]
+  },
+  "build": {
+    "vite": "passed",
+    "auditAndSync": {
+      "passed": true,
+      "files": 264
+    },
+    "simulator": "passed with final tests",
+    "unsignedDevice": "passed; device-build.log",
+    "fourCopyResourceHashes": "resource-verification.json",
+    "warnings": [
+      "Existing Vite chunk >500kB warning.",
+      "Simulator RBSAssertion / ProcessSuspension diagnostics at WK process teardown; tests passed."
+    ]
+  },
+  "visualReview": {
+    "en": "Home-card-tap-en-150ms-test-held-frame-390x844-WKWebView.png",
+    "fr": "Home-card-tap-fr-150ms-test-held-frame-390x844-WKWebView.png",
+    "reviewed": true,
+    "observed": "Only selected card has soft warm edge glow; neighboring card and layout remain unchanged.",
+    "frameFixture": "150ms test-held visual frame; not timing evidence."
+  },
+  "dataBoundary": "No new persistent fields or social writes; tests use temporary isolated data and confirm 10 original posts.",
+  "unperformed": [
+    "Physical iPhone install and real-touch validation deferred per earlier user instruction.",
+    "Real system keyboard and reduced-motion switch; keyboard controls unchanged.",
+    "Long-duration physical-device performance profiling."
+  ],
+  "designReference": "design-reference.json",
+  "sources": "source-files.json"
+}

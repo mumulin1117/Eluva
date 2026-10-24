@@ -1,0 +1,284 @@
+{
+  "baselineAt": "2026-10-17T18:18:19.004548+00:00",
+  "files": [
+    {
+      "file": "README.md",
+      "change": "modified",
+      "purpose": "更新当前阶段、分层验证边界、复测命令和30秒来电技术假设。",
+      "beforeSha256": "ef63e0cb05f6083d4e556c795e2c35f4701a7a8e779531e76057952aff488d7c",
+      "sha256": "8bee415c218fcd999f444484ab45b7518da2c420106f49bfac8c99e1cd3a1606"
+    },
+    {
+      "file": "docs/app-flow-and-implementation-plan.md",
+      "change": "modified",
+      "purpose": "v9记录P7已执行部分和未通过出口，不改写历史确认。",
+      "beforeSha256": "3d279b3000fdfda4e447179f676c391ea57640a0c9d286d8f89b279003b302d1",
+      "sha256": "1ade680650b905b228bf64cd614ec6ce0076026f8fd219a3fbf973b931f72599"
+    },
+    {
+      "file": "docs/p7-acceptance-registry.json",
+      "change": "added",
+      "purpose": "54路由、原生启动与78契约的状态/设计/行为证据登记。",
+      "beforeSha256": null,
+      "sha256": "a44cd2f038cfd1ecb47b9bf2eb3ff86fb3d2b405361cc5925cc67e94e74e22de"
+    },
+    {
+      "file": "docs/p7-implementation-report.md",
+      "change": "added",
+      "purpose": "逐项交付报告、验证证据、保留QA数据与剩余步骤。",
+      "beforeSha256": null,
+      "sha256": "bba972b639f4b52ad92b6b02a674dc616bec0612a7ae62deb1375039f3e2b829"
+    },
+    {
+      "file": "docs/p7-visual-audit.json",
+      "change": "added",
+      "purpose": "字体素材、倍率、视觉保留项与明确缺稿差异。",
+      "beforeSha256": null,
+      "sha256": "7dd7b25dda27eae7129bd959db5212cef98f774323657f930444de3c03179ad4"
+    },
+    {
+      "file": "ios/Eluva/RealtimeRepository.swift",
+      "change": "modified",
+      "purpose": "同一原生服务允许timeout原因，保持首次结束结果幂等。",
+      "beforeSha256": "1c9aa9e74ac2d0a12e07002b7643196478533b89a8d87e0763098e8c89a106ff",
+      "sha256": "53f2290fdf8e459fccbfa1653b91ca03a6772a0e37c0a40e9465d515010f2d58"
+    },
+    {
+      "file": "ios/EluvaTests/RealtimeTests.swift",
+      "change": "modified",
+      "purpose": "验证超时写入回滚、重试释放占用和迟到离页不改原因。",
+      "beforeSha256": "5b6a74194228a3283ebb0febb693c3417bb461dc8506883f64c2bc95b7ed10de",
+      "sha256": "62ceb1a0f4b92bc9a475afa8cb0d3b7b76b57cfed2def5539be2725b912a2c96"
+    },
+    {
+      "file": "ios/EluvaTests/WebBundleTests.swift",
+      "change": "added",
+      "purpose": "实际本地包+原生Bridge的双语六尺寸离屏WKWebView读取验证。",
+      "beforeSha256": null,
+      "sha256": "c52ed61ff91583d04974ae4d7792d036f83ef0d27d7997387ff802b5c36f6faf"
+    },
+    {
+      "file": "public/config/realtime-policy.json",
+      "change": "modified",
+      "purpose": "构建从唯一JS策略生成原生共用配置；不是第二套规则。",
+      "beforeSha256": "fdacc118717db4d96b2c56a62ce4b8b2b9bf038d175858ee7a3cf2828c98413f",
+      "sha256": "2d2c0abf667762f3bad1161819ba031fd93b3426f3b2a888cefbd6434fa3eeac"
+    },
+    {
+      "file": "scripts/audit-build.mjs",
+      "change": "modified",
+      "purpose": "增加HTML/CSS/JS静态素材路径校验和可选证据目录。",
+      "beforeSha256": "12f8e375ababb65a9368127a0c060f178aaee80485c7a972c323191a624bd10a",
+      "sha256": "7dfce7ba50e3f5faa036d063e14605091208e3816383a415cca03ae630cc4a17"
+    },
+    {
+      "file": "scripts/audit-p7-evidence.py",
+      "change": "added",
+      "purpose": "核对真实截图尺寸、语言、溢出、TabBar、捕获包来源、四份资源和测试计数。",
+      "beforeSha256": null,
+      "sha256": "8e0fe1aaad249a2695b32e9d4b045725ff95f967ede8cc0b72af690e2404d926"
+    },
+    {
+      "file": "scripts/audit-p7-fonts.swift",
+      "change": "added",
+      "purpose": "用CoreText核对本地字体身份、字重轴和法语字符覆盖。",
+      "beforeSha256": null,
+      "sha256": "25f4d4834c544c2c04d3964c94b5b2bacf521d0f66dc5afe3d22b0b59bbca199"
+    },
+    {
+      "file": "scripts/build-p7-registry.py",
+      "change": "added",
+      "purpose": "将既有逐页契约、最新精确ID版本与实际观察状态关联，不自动签核。",
+      "beforeSha256": null,
+      "sha256": "52418d0e7306dd3f8e4533da756be55b0df90f8edf44d0e8ec560119c6682f47"
+    },
+    {
+      "file": "scripts/resource-reference.mjs",
+      "change": "added",
+      "purpose": "枚举精确路径校验资源，避免大小写不敏感磁盘掩盖错误。",
+      "beforeSha256": null,
+      "sha256": "c1220f66220f7b9f263a75759e348ab9ae2ff7ed9ce4fddaa7419ad1a5d2f697"
+    },
+    {
+      "file": "scripts/sync-ios.mjs",
+      "change": "modified",
+      "purpose": "将同步证据写入指定阶段目录，日常构建不覆盖P6历史。",
+      "beforeSha256": "f61ff588f57df6c888e8bcaad331e85ef42b358e2dd8400a6dafcc698875246b",
+      "sha256": "b3a1c04d0d835decd7400246f57e12111c6ceb450690cd98259c24a5e444beb5"
+    },
+    {
+      "file": "src/components/AppModal.vue",
+      "change": "modified",
+      "purpose": "首次引导增加源设计两侧气泡球位置。",
+      "beforeSha256": "7d5b148c3988e5b8a173fec793614b28d27fc301cb10892c47fb3f22648fa0b7",
+      "sha256": "9ffe042511a1a73f25e3b3133d8ebbb2c5cd1662363d56ca6e156ab4bac3529b"
+    },
+    {
+      "file": "src/components/CollectionEditor.vue",
+      "change": "modified",
+      "purpose": "删除确认打开前清掉无关媒体错误。",
+      "beforeSha256": "408991387803ca6cff1a463efb929f89e946e9b9dae9f707383a45ec715c7b18",
+      "sha256": "14dcf91440cb1ee6d0f9cb1425b957b2035a084368b2a59e8d4fc90146e74f99"
+    },
+    {
+      "file": "src/components/ContentMediaPicker.vue",
+      "change": "modified",
+      "purpose": "发帖媒体使用共享恢复，不再在浏览器引导无效系统设置。",
+      "beforeSha256": "fb634ad6bfeea5030744edb074657888b0b470809dcb1cfb71c66ee2e327402b",
+      "sha256": "5c71d059ef9e1e8a1a26fdce5deed6b485f3395a4388c31f84850034d0052f2c"
+    },
+    {
+      "file": "src/components/DeletePostDialog.vue",
+      "change": "modified",
+      "purpose": "帖子删除确认不继承之前无关错误。",
+      "beforeSha256": "d55af31bbb9f5d1977de70784ad5c82b827dec2170f533a9fc2cac64fecf7df6",
+      "sha256": "87c8d8b76a0116664c5357b0e798ad862b8ff1b2a15a3b394ceef7fb182e8089"
+    },
+    {
+      "file": "src/components/DraftImagePicker.vue",
+      "change": "modified",
+      "purpose": "资料/合集/反馈共享选图恢复入口。",
+      "beforeSha256": "be7a4faffbf0973c23c43cc4abb681534d44d3b98df782172057fe3371513b3a",
+      "sha256": "af663be6f5e67050dd2ce9d163f9472b3bc86c2701736c94ecc64d2bb43bc9df"
+    },
+    {
+      "file": "src/components/IncomingVideoBanner.vue",
+      "change": "modified",
+      "purpose": "无人接受的演示来电自然超时、取消计时、失败重试及离页清理。",
+      "beforeSha256": "d1ec7c32dcd3c1d88e98eb517c2879c5ab41552fdafda4575fc22762c6fb13bc",
+      "sha256": "4f3b3bfe8170871f12a6dda90b37e7905860b61938b407571a7610e11ec941d3"
+    },
+    {
+      "file": "src/components/MediaGrid.vue",
+      "change": "modified",
+      "purpose": "注册照片接入共享媒体恢复，保留当前选择。",
+      "beforeSha256": "032e92282d1e3cc0be883e736396e5fcb1c75315b5bfe4a06d1ca999c4fa3b8c",
+      "sha256": "a5e522bd6bdc4b03c41c8d949cd94cd4fb1b837db16e3d7ea83dd927f7f5d976"
+    },
+    {
+      "file": "src/components/MediaRecovery.vue",
+      "change": "added",
+      "purpose": "共享媒体恢复控件；浏览器不支持时改选来源，原生拒绝才显示系统设置。",
+      "beforeSha256": null,
+      "sha256": "f6b545bed856510bd6538678e47a6402d50bcab266301314e7550642d614690b"
+    },
+    {
+      "file": "src/components/VoiceMessage.vue",
+      "change": "modified",
+      "purpose": "未知时长显示占位，读取实际媒体后再显示真实秒数。",
+      "beforeSha256": "a3ede3a4dedf7f52a3540aa1d426ab402d727f980d1759746760f5551785b204",
+      "sha256": "0c3324aa8cb96c6ea6e3424ddcf1f26692936c07deb3a1077d1fb92bc557d8cb"
+    },
+    {
+      "file": "src/content.css",
+      "change": "modified",
+      "purpose": "恢复引导卡/球/字体参数，320宽法语按钮分行不挤断。",
+      "beforeSha256": "3a6e372948f3338b523d8a0e713b84f0a610d5d25916831d02d91e3c9c48fc3a",
+      "sha256": "ea5e814d5a9813cb8aeccf83d6427659b0360b0b83ddf08f4ee1d10973d886f6"
+    },
+    {
+      "file": "src/data/content-messages.js",
+      "change": "modified",
+      "purpose": "法语引导与正式三个Tab名称一致。",
+      "beforeSha256": "6b1d46b15d202f6d5959d375699cdc1dbaa840ec13b938750457c08e8c295495",
+      "sha256": "dc489b2298bdbeaa792956e36c5bd2de293e1d94fcda71022b8a8506e79b02d4"
+    },
+    {
+      "file": "src/data/realtime-messages.js",
+      "change": "modified",
+      "purpose": "双语来电过期及结束原因说明。",
+      "beforeSha256": "8c917292090ed30a9eb69530b1fd99dec7598474e3c84d63cd0897000fb9efd0",
+      "sha256": "6c3937fcbb97dc82d6d3f85905db805156b566158090ddbd04efa4ba49bca385"
+    },
+    {
+      "file": "src/data/social-messages.js",
+      "change": "modified",
+      "purpose": "真实语音消息标题双语，不冒称演示文件。",
+      "beforeSha256": "6feeab8107110c480598578a09888d94e3f7bfb040b7bfaa8bdcb4a240c64760",
+      "sha256": "889cdcca8368e1908c56256c2e72d3ce0514978c9dd390b94b2e8ad31cd78177"
+    },
+    {
+      "file": "src/domain/realtime.js",
+      "change": "modified",
+      "purpose": "唯一预览策略增加30秒来电期限与稳定timeout结束原因。",
+      "beforeSha256": "325491cd0be197f662e6b66f82372ba11abf3aa2d25f2ced85d944d7d2a1850c",
+      "sha256": "bc31276efbb638bc512f0d2a4491b924081c5bb098f2f2816998a50e358695c5"
+    },
+    {
+      "file": "src/i18n.js",
+      "change": "modified",
+      "purpose": "补齐改选媒体来源的英语/法语提示。",
+      "beforeSha256": "00a91c2771cd8f1820b243d397d87a9aeef253bbae0b5900aeb655d5fff2d175",
+      "sha256": "8471ad0251834b4cd27f006ec5ff35b6b4b7043ee7fce99188538fbddbb624e1"
+    },
+    {
+      "file": "src/styles.css",
+      "change": "modified",
+      "purpose": "恢复入口44pt触摸与长文案换行。",
+      "beforeSha256": "68f3c1312fd161f1cb724247104d50cb7e82792fbbff1a1cf3c106ddbdb14fd5",
+      "sha256": "195e0d919addc635a17960556ec1c080058aab525cad5dd57d7324edd9755d18"
+    },
+    {
+      "file": "src/views/ChatsView.vue",
+      "change": "modified",
+      "purpose": "真实用户语音与演示语音预览文案分别标识。",
+      "beforeSha256": "61ec77448f80b406792f2ba0eb489422e5093f950d886d6a06293fd61ded7eaf",
+      "sha256": "c7e5ba923f507075830cdb781a8c535938a8025099dc672bf2342d1e83304f0c"
+    },
+    {
+      "file": "src/views/ConversationView.vue",
+      "change": "modified",
+      "purpose": "会话图片恢复复用同一控件与既有Bridge。",
+      "beforeSha256": "da785703fb32eaf00ac1ffa610a0af17ca61d725f73cc0d8f9ab68b63aa94347",
+      "sha256": "3b54a27a4e88f52692233624eabd173609f443ed47eb9ce59c80d64f00469d69"
+    },
+    {
+      "file": "src/views/HomeView.vue",
+      "change": "modified",
+      "purpose": "私密帖不误判发现筛选空态，首次引导球按步骤切换侧边。",
+      "beforeSha256": "c82b81292156380babe7c399298d854f5763bc4faf15419bdeb59ffab55a77cc",
+      "sha256": "1dd26f60145fa618344baa44295d23c9e5f684864fcd91d4a459678cb027e267"
+    },
+    {
+      "file": "src/views/SettingsView.vue",
+      "change": "modified",
+      "purpose": "进入删号最终核对前清理无关错误，不提交删除。",
+      "beforeSha256": "98728ca07eae5d4d329c17ebd5edb0c316b35d6b8d914d6ece3ee960349352b3",
+      "sha256": "f5925261a430cdd558da3eb81a5e45246e74e8c643824ef29d3c12d4393c280c"
+    },
+    {
+      "file": "src/views/VideoCallView.vue",
+      "change": "modified",
+      "purpose": "重启重置样片/控制器状态；播放/暂停与实际video事件一致。",
+      "beforeSha256": "9f727e7e86ecb2e01bc697d172b7f0cc5e5ee42dab4019c22bae966b5879cb2c",
+      "sha256": "380fc8d365d2e0473e4e2a68b45931fc213f2655fdd95c26848960c6c67517cf"
+    },
+    {
+      "file": "tests/localization.test.js",
+      "change": "modified",
+      "purpose": "所有Vue字面量翻译键可解析，法语引导Tab名称一致。",
+      "beforeSha256": "7cd6c3702e07c0f3277a2a322bd0e723665854049962921a469b6ae30ea8b36e",
+      "sha256": "138452cb09a6e405c140066997edaddc7334fb0687e085b74c26fd9036e7500d"
+    },
+    {
+      "file": "tests/realtime.test.js",
+      "change": "modified",
+      "purpose": "来电超时仓储失败/重试/释放/迟到结束幂等。",
+      "beforeSha256": "b835065cef8581f7cf436cd33d2961a8e6b474fb5f88a9c2c7123fe96e82bba1",
+      "sha256": "9f2009e589e5f6d481a77ea06888a08158408fe4a38def89f946facd41e4da9e"
+    },
+    {
+      "file": "tests/resources.test.js",
+      "change": "added",
+      "purpose": "资源大小写、编码、缺失与越界边界回归。",
+      "beforeSha256": null,
+      "sha256": "9e0c810b4667059740a29adb10799f1c1650f615830ec9a36725453d8bb28ec6"
+    }
+  ],
+  "generatedXcodeProject": {
+    "file": "ios/Eluva.xcodeproj/project.pbxproj",
+    "sha256": "1be71f2341e738d15fc587047c64fcfdeeab54ae1606d01ce219fb56790376c9",
+    "note": "Existing generated project refreshed for new XCTest; pre-P7 hash not captured."
+  },
+  "generatedWeb": "173 files synchronized; see four-resource-hashes.json"
+}

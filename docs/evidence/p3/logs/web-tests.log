@@ -1,0 +1,43 @@
+
+> eluva@0.1.0 test
+> node --test tests/*.test.js
+
+✔ failed draft cleanup preserves the verification context for a retry (26.267292ms)
+✔ fixed account stable; unknown/wrong credentials do not create users (30.133042ms)
+✔ draft is not an account; code context invalidates on email change and does not cross purpose (10.68725ms)
+✔ Complete is atomic on failure, retryable and idempotent under concurrent submissions (46.068959ms)
+✔ onboarding minima enforced, stored media is account isolated, reset grants consumed only on successful write (70.051375ms)
+✔ Bridge cancellation ignores late results and cleans up pending calls (3.628208ms)
+✔ Bridge timeout and structured native errors settle exactly once (20.846208ms)
+✔ timeout and disposal abort adapter work instead of leaving a late write alive (16.961041ms)
+✔ P1 vault migration preserves account and publishes atomically with stable retry identity (41.201917ms)
+✔ a malformed content migration is preserved and reported rather than silently replaced (20.926584ms)
+✔ configured quota is atomic: exhausted public posts fail, private posts and retries never spend it twice (21.35875ms)
+✔ private, friends-only, profile switches and hidden media cannot leak to another account (39.54825ms)
+✔ echo/comment identities are separate from friendships; failures keep counts and comments unique (33.303792ms)
+✔ collection references commit with publication; invalid, locked, empty and cancelled attempts spend nothing (21.55275ms)
+✔ hide/block are reversible and prevent details, reactions, comments and media reads (34.767417ms)
+✔ guide, discovery filters, reports and media staging are scoped; draft cleanup does not delete committed collection covers (31.592792ms)
+✔ every interface key, error and interpolation has matching English and French text (5.008916ms)
+✔ each locked audience choice has its own translated caption, without exposing a translation key (0.135833ms)
+✔ P3 actual view keys and safety reason captions resolve in both languages (5.346167ms)
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (38.072167ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (26.131125ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (81.304292ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (21.164583ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (37.231792ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (34.19375ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (19.418875ms)
+✔ language changes retain the current business error and draft input (0.534083ms)
+✔ single-flight submission releases after failure and allows retry (0.137459ms)
+✔ birthday is a full-date 18+ boundary; impossible and future dates rejected (2.158167ms)
+✔ confirmed password and email rules; Gmail allowed, no hidden case/special-character requirement (10.665833ms)
+✔ only fixed code is accepted and locale follows preferred list with saved override (0.479334ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 336.612125

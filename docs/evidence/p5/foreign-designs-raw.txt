@@ -1,0 +1,259 @@
+📊 Design Analysis Results
+📁 Project: Eluva（心事回音点亮交友）--余加慧
+✓ 2/2 images downloaded
+✓ 0/2 HTML codes generated
+✓ 2 design(s) using Sketch annotation fallback (标注模式)
+
+📋 Design List (display order from top to bottom):
+下方图片顺序与列表中「设计图 1」「设计图 2」… 一一对应，请按序号关联图片与代码。
+
+🚨 CRITICAL: 设计稿代码使用流程（必须按顺序执行）
+以下 HTML+CSS 是从设计稿 Schema 生成的【设计规格书】，是所有设计参数的权威来源。
+⚠️ 权威优先级: HTML+CSS 代码 > Design Tokens 标注 > 设计图图片
+⚠️ 核心原则: 直接复用 CSS 属性值，禁止修改/简化/美化任何 CSS 值
+
+STEP 1 - 探测用户项目环境：
+  读取项目配置文件（package.json / tsconfig.json / pubspec.yaml / build.gradle / Podfile 等）
+  识别框架: React/Vue/Angular/Svelte/Flutter/SwiftUI/Compose/纯HTML
+  识别样式方案: CSS Modules / Tailwind / SCSS / Styled Components / scoped style 等
+  识别项目目录结构和命名规范
+  如无法判断框架，默认输出纯 HTML 单文件
+
+STEP 2 - 下载图片资源到本地（必须在生成代码前完成）：
+  下方每个设计图的 HTML 代码中，图片已替换为本地路径（./assets/slices/xxx.png）
+  每个设计图下方附有「图片资源下载映射」，列出 本地路径 ← 远程下载地址
+  文件名已按 CSS 类名生成（如 thumbnail_54.png、group_1.png），具备初步语义。
+  ⚠️ 若文件名仍不够语义化，在下载时重命名为更清晰的英文名，并同步更新 HTML 中的路径引用。
+  必须按映射表下载所有图片到项目本地 assets 目录：
+    macOS/Linux → curl -o <path> "<url>"
+    Windows → PowerShell Invoke-WebRequest -Uri "<url>" -OutFile <path>
+  如需更多切图（图标、背景等），调用 lanhu_get_design_slices(url, design_name)
+
+STEP 3 - 生成框架适配代码（直接复用 CSS 值，禁止修改）：
+  从下方 HTML+CSS 直接复制所有 CSS 属性值（颜色/字号/间距/圆角/渐变等）
+  ⚠️ 必须原样使用 CSS 值，禁止做任何修改：
+    - rgba(255,115,10,1) 不要改成 #FF730A
+    - linear-gradient 不要简化成纯色
+    - margin/padding 数值不要四舍五入
+    - font-family 不要删减或重排
+  按目标框架生成组件代码：
+    React/Next.js  → JSX + CSS Modules 或跟随项目已有方案
+    Vue/Nuxt       → .vue SFC + <style scoped>
+    Angular        → .ts + .html + .css
+    Flutter        → Widget + EdgeInsets/BoxDecoration，px→逻辑像素
+    SwiftUI        → View + ViewModifier，px→pt
+    Android Compose → @Composable + Modifier，px→dp，font px→sp
+    纯 HTML         → 单个 .html 文件，内联 <style>（含 common.css 工具类）
+  图片路径按框架约定适配（代码中已是本地路径，只需调整路径格式）：
+    React/Vue → import img from '@/assets/slices/xxx.png'
+    Flutter   → AssetImage('assets/images/xxx.png')
+    纯 HTML   → <img src="./assets/slices/xxx.png">（已就绪）
+
+STEP 4 - 对照 Design Tokens 补充校验（如下方包含 Design Tokens）：
+  Design Tokens 来自原始 Sketch 设计数据，作为补充参考。
+  优先级: HTML+CSS > Design Tokens > 设计图
+  仅当 HTML+CSS 中明显缺失某属性时，用 Design Token 补充：
+    如渐变填充、复杂阴影、多边圆角等 CSS 未能完整表达的属性
+  Design Token 不能覆盖 HTML+CSS 中已有的值。
+
+STEP 5 - 代码完成后逐属性还原度核查（必须执行，不得跳过）：
+  适用于所有目标平台：HTML/CSS、React、Vue、Flutter、SwiftUI、Compose、Android XML 等。
+  将设计稿 HTML+CSS 中每个属性映射到目标平台等价写法，逐一核查值是否还原：
+  ① 尺寸约束：设计稿固定 height 的地方，目标平台不得变为自适应/wrap
+     HTML: height 不能改成 min-height | Flutter: SizedBox 不能换成 Flexible
+     SwiftUI: .frame(height:) 不能省略 | Compose: height() 不能用 wrapContent
+  ② 裁剪：设计稿 overflow:hidden 的容器，各平台必须同步裁剪
+     HTML: overflow:hidden | Flutter: ClipRect/ClipRRect | SwiftUI: .clipped()
+     Compose: clip() | Android: android:clipChildren="true"
+  ③ 颜色值：rgba(r,g,b,a) 转换到目标平台格式时，数值不得偏移
+     HTML: 保持 rgba() | Flutter: Color.fromRGBO() | SwiftUI: Color(red:green:blue:opacity:)
+     Compose: Color(r,g,b,a) | Android XML: #AARRGGBB，禁止四舍五入
+  ④ 渐变：linear-gradient 必须映射为平台渐变，不能退化为纯色
+     Flutter: LinearGradient | SwiftUI: LinearGradient | Compose: Brush.linearGradient
+  ⑤ 绝对定位：left/top 坐标值必须原样映射
+     Flutter: Positioned(left:,top:) | SwiftUI: .offset() | Compose: Modifier.offset()
+  ⑥ 字体：family、weight、size 三者都必须还原；HTML 还需保留 fallback 顺序
+  ⑦ 间距：每个方向的 margin/padding 数值不得改动
+     Flutter: EdgeInsets | SwiftUI: .padding() | Compose: Modifier.padding()
+     Android: android:layout_margin / android:padding
+  ⑧ 图片资源：任何图片不得被 SVG/CSS形状/emoji/占位图替换
+  ⑨ 元素完整性：设计稿中每个可见元素，目标代码中必须对应存在
+  ⑩ 远程 URL：最终代码中不得残留任何蓝湖 CDN 远程地址
+  核查结论：对每处差异明确说明是「有意的平台适配（如 px→dp 单位换算）」
+  还是「错误偏差（值发生了改变）」，错误偏差必须立即修正后再交付。
+
+❌ 严禁行为：
+  - 禁止修改 CSS 属性值（不要改颜色格式、不要简化渐变、不要调整数值）
+  - 禁止凭空编造设计参数（颜色、尺寸、间距等必须来自下方 CSS）
+  - 禁止用设计图的视觉感受覆盖 CSS 中的精确值
+  - 禁止用 SVG/CSS 形状/emoji 替换切图资源
+  - 禁止省略任何视觉元素
+  - 禁止在最终代码中使用蓝湖远程 URL
+
+📐 common.css 工具类含义（用于理解布局意图）：
+  flex-col = Column 方向布局    flex-row = Row 方向布局
+  justify-between/center/start/end/around/evenly = 主轴对齐
+  align-start/center/end = 交叉轴对齐
+
+
+--- 设计图 1：他的动态合集 ---
+
+   ⚠️ DDS Schema 不可用（store_schema_revise 失败: 登录权限校验失败），已使用「设计原图底图 + 真实文字 + CSS 标注」方案生成 HTML。
+   渲染策略：
+   - 设计原图作为 .design 容器的 background-image（一张图覆盖所有视觉效果）
+   - 文字图层：渲染真实文本（可选中/可编辑）+ font/color/size 属性
+   - 切图组件：<img> 标签 + 切图 URL
+   - 每个元素的 data-css 属性包含精确 CSS 标注值（颜色/圆角/阴影/字体等），供代码生成使用
+
+   📄 HTML+CSS 代码:
+   ```html
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=referrer content=no-referrer><meta name=viewport content="width=device-width,initial-scale=1.0"><title>Design</title><style>
+*{margin:0;padding:0;box-sizing:border-box}img{display:block}.design{position:relative;width:390.0px;height:844.0px;overflow:hidden;margin:0 auto;background:url(https://alipic.lanhuapp.com/FigmaCover802e367b1f3ed0986aa3269a21d3adfb.png) no-repeat;background-size:390.0px 844.0px}} .el1{position:absolute;left:127.0px;top:267.0px;width:136.0px;height:144.0px} .el2{position:absolute;left:144.0px;top:65.0px;width:103.0px;height:27.0px;z-index:10;color:rgba(0,0,0,1);font-size:18.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:600;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el3{position:absolute;left:128.0px;top:831.0px;width:134.0px;height:5.0px} .el4{position:absolute;left:78.0px;top:402.0px;width:235.0px;height:20.0px;z-index:10;color:rgba(0,0,0,1);font-size:13.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el5{position:absolute;left:33.8px;top:72.1px;width:9.7px;height:9.7px} .el6{position:absolute;left:26.2px;top:76.4px;width:7.8px;height:8.7px} .el7{position:absolute;left:15.0px;top:58.0px;width:40.0px;height:40.0px} .el8{position:absolute;left:338.0px;top:16.0px;width:27.3px;height:13.0px} .el9{position:absolute;left:311.0px;top:15.3px;width:17.1px;height:12.3px} .el10{position:absolute;left:282.0px;top:16.4px;width:19.2px;height:12.2px} .el11{position:absolute;left:24.0px;top:13.0px;width:29.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el12{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el13{position:absolute;left:22.0px;top:0.0px;width:345.0px;height:42.0px} .el14{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:259.0px} .el15{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:176.0px} .el16{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:414.0px} .el17{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el18{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el19{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px}
+</style></head><body><div class=design><div class=el1 title="image 31" data-css="position: absolute; left: 127.0px; top: 267.0px; width: 136.0px; height: 144.0px"></div><div class=el2 title=Collections data-css="position: absolute; left: 144.0px; top: 65.0px; width: 103.0px; height: 27.0px; color: rgba(0,0,0,1); font-size: 18.0px; font-family: Poppins; font-weight: 600; text-align: center">Collections</div><div class=el3 title=indicator-bar data-css="position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)"></div><div class=el4 title="Their stories are still being collected." data-css="position: absolute; left: 78.0px; top: 402.0px; width: 235.0px; height: 20.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center">Their stories are still being collected.</div><div class=el5 title=Vector data-css="position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)"></div><div class=el6 title=Vector data-css="position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)"></div><div class=el7 title="Ellipse 14" data-css="position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)"></div><div class=el8 title=Vector data-css="position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)"></div><div class=el9 title=Vector data-css="position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)"></div><div class=el10 title=Vector data-css="position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)"></div><div class=el11 title=9:41 data-css="position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700">9:41</div><div class=el12 title="Rectangle 28" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div><div class=el13 title="Ellipse 1" data-css="position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)"></div><div class=el14 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px"></div><div class=el15 title="Rectangle 2" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px"></div><div class=el16 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px"></div><div class=el17 title="Rectangle 28" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div><div class=el18 title="Rectangle 29" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)"></div><div class=el19 title="Rectangle 29" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div></div></body></html>
+   ```
+
+   📥 资源下载映射（共 1 个，请全部下载到项目本地后替换 HTML 中的 URL）:
+   ⚠️ 下载时必须带 Referer: https://lanhuapp.com/ 请求头
+     ./assets/designs/design.png ← https://alipic.lanhuapp.com/FigmaCover802e367b1f3ed0986aa3269a21d3adfb.png
+
+
+   🎯 使用指南:
+     1. 先下载上方所有资源到本地对应路径，然后替换 HTML 中的远程 URL 为本地路径
+     2. 其中 ./assets/designs/design.png 是设计底图，HTML 的 .design 容器用它做 background-image
+     3. 每个元素的 data-css 属性包含精确 CSS 标注值，请直接复用到代码中
+     4. 文字图层是真实文本（可选中/修改），切图是 <img> 标签
+     5. 调用 lanhu_get_design_slices 可获取更多细粒度切图资源
+
+
+   📐 图层精确 CSS 标注（共 19 个图层）:
+     [shapeLayer] image 31: position: absolute; left: 127.0px; top: 267.0px; width: 136.0px; height: 144.0px
+     [textLayer] Collections: position: absolute; left: 144.0px; top: 65.0px; width: 103.0px; height: 27.0px; color: rgba(0,0,0,1); font-size: 18.0px; font-family: Poppins; font-weight: 600; text-align: center | text="Collections"
+     [shapeLayer] indicator-bar: position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)
+     [textLayer] Their stories are still being collected.: position: absolute; left: 78.0px; top: 402.0px; width: 235.0px; height: 20.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center | text="Their stories are still being collected."
+     [shapeLayer] Vector: position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Ellipse 14: position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)
+     [shapeLayer] Vector: position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)
+     [textLayer] 9:41: position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700 | text="9:41"
+     [shapeLayer] Rectangle 28: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Ellipse 1: position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px
+     [shapeLayer] Rectangle 2: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px
+     [shapeLayer] Rectangle 28: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 29: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)
+     [shapeLayer] Rectangle 29: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+
+   --- 设计标注详情（参考补充） ---
+============================================================
+设计标注信息（从原始 Sketch/PSD 数据提取）
+============================================================
+设计稿名称: 
+设备:   |  缩放: @1x
+画布尺寸: 0.0x0.0 (逻辑像素)
+画布背景色: #FFFFFF
+
+以下所有尺寸/坐标均为逻辑像素（已除以 @1x）
+------------------------------------------------------------
+
+============================================================
+   --- End 设计标注 ---
+
+--- 设计图 2：他的动态合集-展开 ---
+
+   ⚠️ DDS Schema 不可用（store_schema_revise 失败: 登录权限校验失败），已使用「设计原图底图 + 真实文字 + CSS 标注」方案生成 HTML。
+   渲染策略：
+   - 设计原图作为 .design 容器的 background-image（一张图覆盖所有视觉效果）
+   - 文字图层：渲染真实文本（可选中/可编辑）+ font/color/size 属性
+   - 切图组件：<img> 标签 + 切图 URL
+   - 每个元素的 data-css 属性包含精确 CSS 标注值（颜色/圆角/阴影/字体等），供代码生成使用
+
+   📄 HTML+CSS 代码:
+   ```html
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=referrer content=no-referrer><meta name=viewport content="width=device-width,initial-scale=1.0"><title>Design</title><style>
+*{margin:0;padding:0;box-sizing:border-box}img{display:block}.design{position:relative;width:390.0px;height:844.0px;overflow:hidden;margin:0 auto;background:url(https://alipic.lanhuapp.com/FigmaCover39e395986b31e98c422d71f9468e6591.png) no-repeat;background-size:390.0px 844.0px}} .el1{position:absolute;left:345.0px;top:68.0px;width:20.0px;height:20.0px} .el2{position:absolute;left:335.0px;top:58.0px;width:40.0px;height:40.0px} .el3{position:absolute;left:256.0px;top:73.0px;width:23.0px;height:13.0px;z-index:10;color:rgba(150,101,255,1);font-size:12.0px;font-family:"Baloo Paaji","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;text-align:center;line-height:13.0px;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el4{position:absolute;left:128.0px;top:831.0px;width:134.0px;height:5.0px} .el5{position:absolute;left:204.0px;top:352.0px;width:26.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:12.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el6{position:absolute;left:297.0px;top:350.0px;width:67.0px;height:21.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;text-align:right;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el7{position:absolute;left:270.0px;top:449.0px;width:28.0px;height:28.0px} .el8{position:absolute;left:204.0px;top:375.0px;width:160.0px;height:175.0px} .el9{position:absolute;left:203.8px;top:374.6px;width:160.0px;height:175.0px} .el10{position:absolute;left:198.0px;top:342.0px;width:172.0px;height:214.0px} .el11{position:absolute;left:21.0px;top:352.0px;width:26.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:12.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el12{position:absolute;left:119.0px;top:350.0px;width:62.0px;height:21.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;text-align:right;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el13{position:absolute;left:87.0px;top:449.0px;width:28.0px;height:28.0px} .el14{position:absolute;left:21.0px;top:375.0px;width:160.0px;height:175.0px} .el15{position:absolute;left:20.8px;top:374.6px;width:160.0px;height:175.0px} .el16{position:absolute;left:15.0px;top:342.0px;width:172.0px;height:214.0px} .el17{position:absolute;left:204.0px;top:126.0px;width:26.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:12.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el18{position:absolute;left:314.0px;top:124.0px;width:50.0px;height:21.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el19{position:absolute;left:270.0px;top:223.0px;width:28.0px;height:28.0px} .el20{position:absolute;left:204.0px;top:149.0px;width:160.0px;height:175.0px} .el21{position:absolute;left:203.8px;top:148.6px;width:160.0px;height:175.0px} .el22{position:absolute;left:198.0px;top:116.0px;width:172.0px;height:214.0px} .el23{position:absolute;left:21.0px;top:126.0px;width:26.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:12.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el24{position:absolute;left:131.0px;top:124.0px;width:44.0px;height:21.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:500;text-align:right;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el25{position:absolute;left:87.0px;top:223.0px;width:28.0px;height:28.0px} .el26{position:absolute;left:21.0px;top:149.0px;width:160.0px;height:175.0px} .el27{position:absolute;left:20.8px;top:148.6px;width:160.0px;height:175.0px} .el28{position:absolute;left:15.0px;top:116.0px;width:172.0px;height:214.0px} .el29{position:absolute;left:144.0px;top:65.0px;width:103.0px;height:27.0px;z-index:10;color:rgba(0,0,0,1);font-size:18.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:600;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el30{position:absolute;left:116.0px;top:694.0px;width:158.0px;height:24.0px;z-index:10;color:rgba(255,255,255,1);font-size:16.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:700;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el31{position:absolute;left:20.0px;top:681.0px;width:92.0px;height:16.0px} .el32{position:absolute;left:246.0px;top:696.0px;width:124.0px;height:35.0px} .el33{position:absolute;left:20.0px;top:681.0px;width:350.0px;height:50.0px} .el34{position:absolute;left:20.0px;top:681.0px;width:350.0px;height:50.0px} .el35{position:absolute;left:32.0px;top:742.0px;width:326.0px;height:40.0px;z-index:10;color:rgba(0,0,0,1);font-size:13.0px;font-family:"Poppins","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:400;text-align:center;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el36{position:absolute;left:33.8px;top:72.1px;width:9.7px;height:9.7px} .el37{position:absolute;left:26.2px;top:76.4px;width:7.8px;height:8.7px} .el38{position:absolute;left:15.0px;top:58.0px;width:40.0px;height:40.0px} .el39{position:absolute;left:338.0px;top:16.0px;width:27.3px;height:13.0px} .el40{position:absolute;left:311.0px;top:15.3px;width:17.1px;height:12.3px} .el41{position:absolute;left:282.0px;top:16.4px;width:19.2px;height:12.2px} .el42{position:absolute;left:24.0px;top:13.0px;width:29.0px;height:18.0px;z-index:10;color:rgba(0,0,0,1);font-size:14.0px;font-family:"Plus Jakarta Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;font-weight:700;line-height:1;white-space:pre-wrap;overflow:hidden;word-break:break-all} .el43{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el44{position:absolute;left:22.0px;top:0.0px;width:345.0px;height:42.0px} .el45{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:259.0px} .el46{position:absolute;left:0.0px;top:0.0px;width:390.0px;height:176.0px} .el47{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:414.0px} .el48{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el49{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px} .el50{position:absolute;left:0.0px;top:844.0px;width:390.0px;height:844.0px}
+</style></head><body><div class=design><div class=el1 title=Vector data-css="position: absolute; left: 345.0px; top: 68.0px; width: 20.0px; height: 20.0px; background-color: rgba(0,0,0,1)"></div><div class=el2 title="Ellipse 14" data-css="position: absolute; left: 335.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)"></div><div class=el3 title=change-photo-link data-css="position: absolute; left: 256.0px; top: 73.0px; width: 23.0px; height: 13.0px; color: rgba(150,101,255,1); font-size: 12.0px; font-family: Baloo Paaji; font-weight: 400; text-align: center">PRO</div><div class=el4 title=indicator-bar data-css="position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)"></div><div class=el5 title=Post data-css="position: absolute; left: 204.0px; top: 352.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400">Post</div><div class=el6 title=Thoughts data-css="position: absolute; left: 297.0px; top: 350.0px; width: 67.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right">Thoughts</div><div class=el7 title=Vector data-css="position: absolute; left: 270.0px; top: 449.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)"></div><div class=el8 title="Rectangle 1231" data-css="position: absolute; left: 204.0px; top: 375.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)"></div><div class=el9 title="Rectangle 1230" data-css="position: absolute; left: 203.8px; top: 374.6px; width: 160.0px; height: 175.0px"></div><div class=el10 title="Rectangle 1229" data-css="position: absolute; left: 198.0px; top: 342.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)"></div><div class=el11 title=Post data-css="position: absolute; left: 21.0px; top: 352.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400">Post</div><div class=el12 title="Daily Life" data-css="position: absolute; left: 119.0px; top: 350.0px; width: 62.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right">Daily Life</div><div class=el13 title=Vector data-css="position: absolute; left: 87.0px; top: 449.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)"></div><div class=el14 title="Rectangle 1231" data-css="position: absolute; left: 21.0px; top: 375.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)"></div><div class=el15 title="Rectangle 1230" data-css="position: absolute; left: 20.8px; top: 374.6px; width: 160.0px; height: 175.0px"></div><div class=el16 title="Rectangle 1229" data-css="position: absolute; left: 15.0px; top: 342.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)"></div><div class=el17 title=Post data-css="position: absolute; left: 204.0px; top: 126.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400">Post</div><div class=el18 title=Movies data-css="position: absolute; left: 314.0px; top: 124.0px; width: 50.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500">Movies</div><div class=el19 title=Vector data-css="position: absolute; left: 270.0px; top: 223.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)"></div><div class=el20 title="Rectangle 1231" data-css="position: absolute; left: 204.0px; top: 149.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)"></div><div class=el21 title="Rectangle 1230" data-css="position: absolute; left: 203.8px; top: 148.6px; width: 160.0px; height: 175.0px"></div><div class=el22 title="Rectangle 1229" data-css="position: absolute; left: 198.0px; top: 116.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)"></div><div class=el23 title=Post data-css="position: absolute; left: 21.0px; top: 126.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400">Post</div><div class=el24 title=Travel data-css="position: absolute; left: 131.0px; top: 124.0px; width: 44.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right">Travel</div><div class=el25 title=Vector data-css="position: absolute; left: 87.0px; top: 223.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)"></div><div class=el26 title="Rectangle 1231" data-css="position: absolute; left: 21.0px; top: 149.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)"></div><div class=el27 title="Rectangle 1230" data-css="position: absolute; left: 20.8px; top: 148.6px; width: 160.0px; height: 175.0px"></div><div class=el28 title="Rectangle 1229" data-css="position: absolute; left: 15.0px; top: 116.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)"></div><div class=el29 title=Collections data-css="position: absolute; left: 144.0px; top: 65.0px; width: 103.0px; height: 27.0px; color: rgba(0,0,0,1); font-size: 18.0px; font-family: Poppins; font-weight: 600; text-align: center">Collections</div><div class=el30 title="Create a Collection" data-css="position: absolute; left: 116.0px; top: 694.0px; width: 158.0px; height: 24.0px; color: rgba(255,255,255,1); font-size: 16.0px; font-family: Poppins; font-weight: 700; text-align: center">Create a Collection</div><div class=el31 title="Ellipse 5" data-css="position: absolute; left: 20.0px; top: 681.0px; width: 92.0px; height: 16.0px; background-color: rgba(255,255,255,1)"></div><div class=el32 title="Ellipse 6" data-css="position: absolute; left: 246.0px; top: 696.0px; width: 124.0px; height: 35.0px; background-color: rgba(255,255,255,1)"></div><div class=el33 title="Rectangle 107" data-css="position: absolute; left: 20.0px; top: 681.0px; width: 350.0px; height: 50.0px"></div><div class=el34 title="Rectangle 106" data-css="position: absolute; left: 20.0px; top: 681.0px; width: 350.0px; height: 50.0px"></div><div class=el35 title="Pick a theme or make one your own. Save any post to as many collections as you like." data-css="position: absolute; left: 32.0px; top: 742.0px; width: 326.0px; height: 40.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center">Pick a theme or make one your own. Save any post to as many collections as you like.</div><div class=el36 title=Vector data-css="position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)"></div><div class=el37 title=Vector data-css="position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)"></div><div class=el38 title="Ellipse 14" data-css="position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)"></div><div class=el39 title=Vector data-css="position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)"></div><div class=el40 title=Vector data-css="position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)"></div><div class=el41 title=Vector data-css="position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)"></div><div class=el42 title=9:41 data-css="position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700">9:41</div><div class=el43 title="Rectangle 28" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div><div class=el44 title="Ellipse 1" data-css="position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)"></div><div class=el45 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px"></div><div class=el46 title="Rectangle 2" data-css="position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px"></div><div class=el47 title="Rectangle 3" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px"></div><div class=el48 title="Rectangle 28" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div><div class=el49 title="Rectangle 29" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)"></div><div class=el50 title="Rectangle 29" data-css="position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)"></div></div></body></html>
+   ```
+
+   📥 资源下载映射（共 1 个，请全部下载到项目本地后替换 HTML 中的 URL）:
+   ⚠️ 下载时必须带 Referer: https://lanhuapp.com/ 请求头
+     ./assets/designs/design.png ← https://alipic.lanhuapp.com/FigmaCover39e395986b31e98c422d71f9468e6591.png
+
+
+   🎯 使用指南:
+     1. 先下载上方所有资源到本地对应路径，然后替换 HTML 中的远程 URL 为本地路径
+     2. 其中 ./assets/designs/design.png 是设计底图，HTML 的 .design 容器用它做 background-image
+     3. 每个元素的 data-css 属性包含精确 CSS 标注值，请直接复用到代码中
+     4. 文字图层是真实文本（可选中/修改），切图是 <img> 标签
+     5. 调用 lanhu_get_design_slices 可获取更多细粒度切图资源
+
+
+   📐 图层精确 CSS 标注（共 50 个图层）:
+     [shapeLayer] Vector: position: absolute; left: 345.0px; top: 68.0px; width: 20.0px; height: 20.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Ellipse 14: position: absolute; left: 335.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)
+     [textLayer] change-photo-link: position: absolute; left: 256.0px; top: 73.0px; width: 23.0px; height: 13.0px; color: rgba(150,101,255,1); font-size: 12.0px; font-family: Baloo Paaji; font-weight: 400; text-align: center | text="PRO"
+     [shapeLayer] indicator-bar: position: absolute; left: 128.0px; top: 831.0px; width: 134.0px; height: 5.0px; background-color: rgba(0,0,0,1)
+     [textLayer] Post: position: absolute; left: 204.0px; top: 352.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text="Post"
+     [textLayer] Thoughts: position: absolute; left: 297.0px; top: 350.0px; width: 67.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right | text="Thoughts"
+     [shapeLayer] Vector: position: absolute; left: 270.0px; top: 449.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 1231: position: absolute; left: 204.0px; top: 375.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Rectangle 1230: position: absolute; left: 203.8px; top: 374.6px; width: 160.0px; height: 175.0px
+     [shapeLayer] Rectangle 1229: position: absolute; left: 198.0px; top: 342.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)
+     [textLayer] Post: position: absolute; left: 21.0px; top: 352.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text="Post"
+     [textLayer] Daily Life: position: absolute; left: 119.0px; top: 350.0px; width: 62.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right | text="Daily Life"
+     [shapeLayer] Vector: position: absolute; left: 87.0px; top: 449.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 1231: position: absolute; left: 21.0px; top: 375.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Rectangle 1230: position: absolute; left: 20.8px; top: 374.6px; width: 160.0px; height: 175.0px
+     [shapeLayer] Rectangle 1229: position: absolute; left: 15.0px; top: 342.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)
+     [textLayer] Post: position: absolute; left: 204.0px; top: 126.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text="Post"
+     [textLayer] Movies: position: absolute; left: 314.0px; top: 124.0px; width: 50.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500 | text="Movies"
+     [shapeLayer] Vector: position: absolute; left: 270.0px; top: 223.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 1231: position: absolute; left: 204.0px; top: 149.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Rectangle 1230: position: absolute; left: 203.8px; top: 148.6px; width: 160.0px; height: 175.0px
+     [shapeLayer] Rectangle 1229: position: absolute; left: 198.0px; top: 116.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)
+     [textLayer] Post: position: absolute; left: 21.0px; top: 126.0px; width: 26.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 12.0px; font-family: Poppins; font-weight: 400 | text="Post"
+     [textLayer] Travel: position: absolute; left: 131.0px; top: 124.0px; width: 44.0px; height: 21.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Poppins; font-weight: 500; text-align: right | text="Travel"
+     [shapeLayer] Vector: position: absolute; left: 87.0px; top: 223.0px; width: 28.0px; height: 28.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 1231: position: absolute; left: 21.0px; top: 149.0px; width: 160.0px; height: 175.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Rectangle 1230: position: absolute; left: 20.8px; top: 148.6px; width: 160.0px; height: 175.0px
+     [shapeLayer] Rectangle 1229: position: absolute; left: 15.0px; top: 116.0px; width: 172.0px; height: 214.0px; box-shadow: 0.0px 2.0px 14.0px rgba(192,84,255,0.08); background-color: rgba(255,255,255,1)
+     [textLayer] Collections: position: absolute; left: 144.0px; top: 65.0px; width: 103.0px; height: 27.0px; color: rgba(0,0,0,1); font-size: 18.0px; font-family: Poppins; font-weight: 600; text-align: center | text="Collections"
+     [textLayer] Create a Collection: position: absolute; left: 116.0px; top: 694.0px; width: 158.0px; height: 24.0px; color: rgba(255,255,255,1); font-size: 16.0px; font-family: Poppins; font-weight: 700; text-align: center | text="Create a Collection"
+     [shapeLayer] Ellipse 5: position: absolute; left: 20.0px; top: 681.0px; width: 92.0px; height: 16.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Ellipse 6: position: absolute; left: 246.0px; top: 696.0px; width: 124.0px; height: 35.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 107: position: absolute; left: 20.0px; top: 681.0px; width: 350.0px; height: 50.0px
+     [shapeLayer] Rectangle 106: position: absolute; left: 20.0px; top: 681.0px; width: 350.0px; height: 50.0px
+     [textLayer] Pick a theme or make one your own. Save any post to as many collections as you like.: position: absolute; left: 32.0px; top: 742.0px; width: 326.0px; height: 40.0px; color: rgba(0,0,0,1); font-size: 13.0px; font-family: Poppins; font-weight: 400; text-align: center | text="Pick a theme or make one your own. Save any post t"
+     [shapeLayer] Vector: position: absolute; left: 33.8px; top: 72.1px; width: 9.7px; height: 9.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 26.2px; top: 76.4px; width: 7.8px; height: 8.7px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Ellipse 14: position: absolute; left: 15.0px; top: 58.0px; width: 40.0px; height: 40.0px; background-color: rgba(255,255,255,0.5)
+     [shapeLayer] Vector: position: absolute; left: 338.0px; top: 16.0px; width: 27.3px; height: 13.0px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 311.0px; top: 15.3px; width: 17.1px; height: 12.3px; background-color: rgba(0,0,0,1)
+     [shapeLayer] Vector: position: absolute; left: 282.0px; top: 16.4px; width: 19.2px; height: 12.2px; background-color: rgba(0,0,0,1)
+     [textLayer] 9:41: position: absolute; left: 24.0px; top: 13.0px; width: 29.0px; height: 18.0px; color: rgba(0,0,0,1); font-size: 14.0px; font-family: Plus Jakarta Sans; font-weight: 700 | text="9:41"
+     [shapeLayer] Rectangle 28: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Ellipse 1: position: absolute; left: 22.0px; top: 0.0px; width: 345.0px; height: 42.0px; background-color: rgba(124,101,255,1)
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 259.0px
+     [shapeLayer] Rectangle 2: position: absolute; left: 0.0px; top: 0.0px; width: 390.0px; height: 176.0px
+     [shapeLayer] Rectangle 3: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 414.0px
+     [shapeLayer] Rectangle 28: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+     [shapeLayer] Rectangle 29: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(254,252,255,1)
+     [shapeLayer] Rectangle 29: position: absolute; left: 0.0px; top: 844.0px; width: 390.0px; height: 844.0px; background-color: rgba(255,255,255,1)
+
+   --- 设计标注详情（参考补充） ---
+============================================================
+设计标注信息（从原始 Sketch/PSD 数据提取）
+============================================================
+设计稿名称: 
+设备:   |  缩放: @1x
+画布尺寸: 0.0x0.0 (逻辑像素)
+画布背景色: #FFFFFF
+
+以下所有尺寸/坐标均为逻辑像素（已除以 @1x）
+------------------------------------------------------------
+
+============================================================
+   --- End 设计标注 ---
+

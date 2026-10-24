@@ -1,0 +1,386 @@
+{
+  "generatedAt": "2026-10-17T18:14:01.100352+00:00",
+  "count": 47,
+  "scope": "P6 source/assets/docs changes relative to pre-P6 hashes. Generated Web bundles and saved evidence enumerated separately.",
+  "changes": [
+    {
+      "path": "README.md",
+      "status": "modified",
+      "purpose": "更新P6运行、验证、配置缺口与历史阶段入口",
+      "bytes": 8076,
+      "sha256": "ef63e0cb05f6083d4e556c795e2c35f4701a7a8e779531e76057952aff488d7c",
+      "previousSha256": "759ea1971506aea9f08b9f33acdf49643ea2a58502e9d1145cb754f5e1bac536"
+    },
+    {
+      "path": "docs/app-flow-and-implementation-plan.md",
+      "status": "modified",
+      "purpose": "v8区分P6基础设施实施与商业冻结/真机待验",
+      "bytes": 42817,
+      "sha256": "3d279b3000fdfda4e447179f676c391ea57640a0c9d286d8f89b279003b302d1",
+      "previousSha256": "fc768a583da1e716076894e45ff356ed3d743d18dd610415435e1c5136192550"
+    },
+    {
+      "path": "docs/p6-implementation-report.md",
+      "status": "added",
+      "purpose": "完整六项报告、设计差异、交易边界和未完成事项",
+      "bytes": 12139,
+      "sha256": "c346977509ed1458738ee925cba8810fedd4dfe3cef35937913a77f3a12485de",
+      "previousSha256": null
+    },
+    {
+      "path": "docs/p6-route-contracts.json",
+      "status": "added",
+      "purpose": "逐页来源版本、状态、入口、返回、保存和原生依赖",
+      "bytes": 9322,
+      "sha256": "ff1b9e14024590403ad6efbaa5a17a5aa92d54967781ef801308e2bb94fdd4a1",
+      "previousSha256": null
+    },
+    {
+      "path": "ios/Eluva/CommerceRepository.swift",
+      "status": "added",
+      "purpose": "原子余额和额度流水、交易去重、账户令牌、环境隔离及删号墓碑",
+      "bytes": 12060,
+      "sha256": "3ea637de087384b9cc1b7546fbdc6b175e39f98d7ee5184e178827070ee7d83a",
+      "previousSha256": null
+    },
+    {
+      "path": "ios/Eluva/ContentRepository.swift",
+      "status": "modified",
+      "purpose": "原生发布接统一额度，保留旧用量与回滚/幂等",
+      "bytes": 19708,
+      "sha256": "6cc4cda71081b4a4734ee6ba4769ab7d3054cb0f612608587c6fc98e27b5ef99",
+      "previousSha256": "c3292223bdf080b6f9d72a98a030f717f5040d8e544e98c0d3bfe8b0d5841e4f"
+    },
+    {
+      "path": "ios/Eluva/LocalRepository.swift",
+      "status": "modified",
+      "purpose": "增量commerce容错及快照RPC，沿用加密持久化",
+      "bytes": 30117,
+      "sha256": "c7e1858f8bfba792979a0cd4bc2fd062fcc475df20ce8b6eb75f7369c754c59b",
+      "previousSha256": "e6a62d1bb6f3bdb47b87c908823d3f46732b3b8dd308e1c2f0da509410bf1741"
+    },
+    {
+      "path": "ios/Eluva/NativeBridge.swift",
+      "status": "modified",
+      "purpose": "在唯一Bridge路由commerce服务，沿用超时和取消响应丢弃",
+      "bytes": 13953,
+      "sha256": "76d2ff6ddf17c1b5cc468336ab8c1c160970e67fa292ee923a19377d2cdf5f22",
+      "previousSha256": "e82e20124a4521d9eaa4d93fd4cde0dd6abc4ab17eb040d8b53f3647532224bf"
+    },
+    {
+      "path": "ios/Eluva/PersonalRepository.swift",
+      "status": "modified",
+      "purpose": "原生删号事务接入同一钱包清理边界",
+      "bytes": 16647,
+      "sha256": "c4a4b980b402efccd04affb6e79facaf43932e23dbb39881e3867411bf105a4b",
+      "previousSha256": "f0ae37280f9075b26cf0107d4e7e831f79e6c565c7e73c4486c1ba071d4acfb3"
+    },
+    {
+      "path": "ios/Eluva/StoreCoordinator.swift",
+      "status": "added",
+      "purpose": "StoreKit2商品/购买/验证/监听/恢复，到账持久化后finish",
+      "bytes": 8482,
+      "sha256": "a152041c2525b1a4787c1f1bf25466fd0a78d3bd4226c11766e5f8d30c1c36d3",
+      "previousSha256": null
+    },
+    {
+      "path": "ios/Eluva/WebViewController.swift",
+      "status": "modified",
+      "purpose": "原生应用启动安装交易监听，不依赖购买页存在",
+      "bytes": 11035,
+      "sha256": "ec5bcdea5f6a6a3b33165a79cb348c787ac97e62d5abb364efe258653bb7baf4",
+      "previousSha256": "427f9e6b10dcc21e2c5507417fc9518afa88cba2100d20992cf4a9a056185dca"
+    },
+    {
+      "path": "ios/Eluva.xcodeproj/project.pbxproj",
+      "status": "modified",
+      "purpose": "生成工程纳入原生StoreKit与测试文件/资源",
+      "bytes": 39426,
+      "sha256": "4d5c62eaaa1562353c942b1b84b1ddbc8e9a178bc6bd69626a1c41d93ca9e9f4",
+      "previousSha256": "cd7771fe4c82fa4da2763cd92304d8ea76ced89c1cc43b51c538d22d9658de33"
+    },
+    {
+      "path": "ios/Eluva.xcodeproj/xcshareddata/xcschemes/Eluva.xcscheme",
+      "status": "modified",
+      "purpose": "生成工程纳入原生StoreKit与测试文件/资源",
+      "bytes": 3597,
+      "sha256": "d0dbe2d5f203ce39eb08fe761c5c1ad0ffd68dbd2ce74147a5e57f04ecb3af78",
+      "previousSha256": "ff95c2f99862559fba007b118879f1be6870eb010bdfa8ef2106115f17b64f19"
+    },
+    {
+      "path": "ios/EluvaTests/CommerceTests.swift",
+      "status": "added",
+      "purpose": "原生去重/隔离/回滚/撤销与真实StoreKitTest集成",
+      "bytes": 9118,
+      "sha256": "6fe0d652d6aed6e64da8032e296a055b27249a82af2385722db93591c85906a7",
+      "previousSha256": null
+    },
+    {
+      "path": "ios/EluvaTests/Fixtures/CommerceQA.storekit",
+      "status": "added",
+      "purpose": "测试bundle专用SKU、价格及权益夹具；不是正式商品",
+      "bytes": 745,
+      "sha256": "755914f7b79ec2d74ea93246ac5284c411dd0fe434dc74e91a467cd8a76b2e71",
+      "previousSha256": null
+    },
+    {
+      "path": "public/config/commerce-policy.json",
+      "status": "added",
+      "purpose": "由唯一策略生成；未确认商品保持禁用和空目录",
+      "bytes": 138,
+      "sha256": "b3289b8f1bc2b5def16f587a828398b325752d9b6a4ddd9e1c28cdff187da521",
+      "previousSha256": null
+    },
+    {
+      "path": "public/fonts/braahone-ofl.txt",
+      "status": "added",
+      "purpose": "源稿Braah One400及SIL OFL授权本地化",
+      "bytes": 4393,
+      "sha256": "005dd8f296dfe349f4da0da2ab29fb730a1be2b16c760197740b133680c85769",
+      "previousSha256": null
+    },
+    {
+      "path": "public/fonts/braahone-regular.ttf",
+      "status": "added",
+      "purpose": "源稿Braah One400及SIL OFL授权本地化",
+      "bytes": 124592,
+      "sha256": "b571d948a89980dfed4e69170c852311989ce2807ec486572d6106049ffc9521",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/benefit-crown.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 3105,
+      "sha256": "450d487a042550f5766cd12275d7ea184ce92806c8bb0fbc361bfd12b7b2bf74",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/benefit-people.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 6022,
+      "sha256": "cd1b3605e2f29206b62908e2a8e916b39c6922ae610f7404e7775f126c602e04",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/benefit-spark.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 2361,
+      "sha256": "0b056eef58c8109ec0bb232d456dd8ba4baf7144dd4c1022d6d01a0f8309e712",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/pro-badge.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 4461,
+      "sha256": "821fb2bb2a4403c3f71a1c88cd41de8fbf49844d4896a4a5179a76b5df2ba67f",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/purchase-capsule.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 2776,
+      "sha256": "96671fa44c578a2d8bae0c3f6cb3804c469c6af037ec877bc8a2581367317bd2",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/store-background.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 286727,
+      "sha256": "21444f6d7b2af0634f0a84ad851142df7c1c60c3ba88770b812b69e75d091723",
+      "previousSha256": null
+    },
+    {
+      "path": "public/images/p6/store-hero.svg",
+      "status": "added",
+      "purpose": "蓝湖#28原始SVG的背景、宝石/字形/图标/胶囊图层本地化；见asset-sources.json",
+      "bytes": 286817,
+      "sha256": "434008589d95cb73607c2f23db745733f6073cc40f3347b41f789a9f3ebfe363",
+      "previousSha256": null
+    },
+    {
+      "path": "scripts/audit-build.mjs",
+      "status": "modified",
+      "purpose": "本轮生产构建证据写入P6，保留历史报告",
+      "bytes": 1708,
+      "sha256": "12f8e375ababb65a9368127a0c060f178aaee80485c7a972c323191a624bd10a",
+      "previousSha256": "a765276f80bcc29412db2235a82ebc449e81d5b6a278ab644afbc1ee1126ddab"
+    },
+    {
+      "path": "scripts/audit-p6-evidence.py",
+      "status": "added",
+      "purpose": "核对截图、四包资源、版本、测试日志与商业禁用边界",
+      "bytes": 4693,
+      "sha256": "bd0c661817d579bdcb39ad252db7a9ba789a2c2d5aee231c515f5c76eb934bb6",
+      "previousSha256": null
+    },
+    {
+      "path": "scripts/generate-ios.rb",
+      "status": "modified",
+      "purpose": "链接StoreKit及测试框架/QA配置，不引入正式商品",
+      "bytes": 3858,
+      "sha256": "518a94eb60c8c3b363eda7b44f8b1554c289fd419ef96ce0142c11551802ce49",
+      "previousSha256": "7ff7a8807c346c221a3e8d4a3bdf8a1a85426bab87325dcf71725a906c1f3900"
+    },
+    {
+      "path": "scripts/prepare-assets.mjs",
+      "status": "modified",
+      "purpose": "构建生成原生共用商业配置",
+      "bytes": 1345,
+      "sha256": "d6ede94f93997e8679df3c6437aa811a899a25419b23126c5cfcdd021c1ca6db",
+      "previousSha256": "62e2a266eacafc94ce9411fb59220d6d82e3ad24ea2610c88274d33d73b125ee"
+    },
+    {
+      "path": "scripts/sync-ios.mjs",
+      "status": "modified",
+      "purpose": "根据P6清单同步生成的本地Web资源",
+      "bytes": 1941,
+      "sha256": "f61ff588f57df6c888e8bcaad331e85ef42b358e2dd8400a6dafcc698875246b",
+      "previousSha256": "6d308360926c2f36323a0fb046b218c6c42733a5768bd512b6deced7bf51d5d6"
+    },
+    {
+      "path": "src/commerce-state.js",
+      "status": "added",
+      "purpose": "权威快照联动、选中商品、单次异步状态及换账户清理",
+      "bytes": 1974,
+      "sha256": "03081b875156bf406b32146c115e5db7c052ce38308ec25c7522dab4a1f759c6",
+      "previousSha256": null
+    },
+    {
+      "path": "src/commerce.css",
+      "status": "added",
+      "purpose": "本地源字体、原始图形渐变、胶囊、权益表与大小屏流式排版",
+      "bytes": 4460,
+      "sha256": "13cad697b7d951e1666004908cdb1aae70cc8b09773a11937b2a57533cc3257b",
+      "previousSha256": null
+    },
+    {
+      "path": "src/data/commerce-messages.js",
+      "status": "added",
+      "purpose": "英语和法语购买、环境、恢复边界与稳定错误码",
+      "bytes": 9147,
+      "sha256": "9650a1fbb21cc0bbbdb59e19daeb3c6480aa6e621fd49b49cc22f33439a251dd",
+      "previousSha256": null
+    },
+    {
+      "path": "src/domain/commerce.js",
+      "status": "added",
+      "purpose": "统一配置、按账户隔离额度/余额/流水和旧用量兼容；不启用未确认商业规则",
+      "bytes": 4570,
+      "sha256": "2bea7cbff648e54fb6596a82c655d6bcd2ffdbb8e8782c16b228d8c7ced447f7",
+      "previousSha256": null
+    },
+    {
+      "path": "src/domain/content.js",
+      "status": "modified",
+      "purpose": "既有内容配置引用唯一商业策略，预览继续无上限",
+      "bytes": 3854,
+      "sha256": "d94346b76b3ec5fe08d7251cd011ad10debc91913167833c8ec62efa7c75232d",
+      "previousSha256": "643415acd3000902d8900ad09e46c44419e90eac4f80c2ae89f78ea89b1deb7a"
+    },
+    {
+      "path": "src/domain/personal.js",
+      "status": "modified",
+      "purpose": "删除目标账户钱包/流水，保留最小交易去重墓碑",
+      "bytes": 4816,
+      "sha256": "ed6abc5c5e0a0955cfcd3b11755ace28da793484d0b0c605ec26ba18fb2435bc",
+      "previousSha256": "af07d467d627597837cc446114c00bd4d46cd644dc3f5c7c780cc2d4975115d8"
+    },
+    {
+      "path": "src/i18n.js",
+      "status": "modified",
+      "purpose": "接入P6双语和错误文本",
+      "bytes": 23422,
+      "sha256": "00a91c2771cd8f1820b243d397d87a9aeef253bbae0b5900aeb655d5fff2d175",
+      "previousSha256": "63248f4d7ce5c5d5f6e16f39f21c6f36a80895a161552e25d77bc3e530829893"
+    },
+    {
+      "path": "src/main.js",
+      "status": "modified",
+      "purpose": "注册P6样式",
+      "bytes": 280,
+      "sha256": "bf2902dd1e876a768dc93c5fb48c5aaf9071f02074e88a4381b6a4f8f23368e8",
+      "previousSha256": "f74ebaad0af32e21b432fbf45cab1b12b073c9a4374aafdbafbadc9456cb70d3"
+    },
+    {
+      "path": "src/router.js",
+      "status": "modified",
+      "purpose": "受保护的Store/Benefits/Wallet二级路由，不显示TabBar",
+      "bytes": 7169,
+      "sha256": "42a97e77482157a05c76a1e5413d2544e9d9737291191823519e1c51346cc4e4",
+      "previousSha256": "d51b622eabf18da7e8dfe1fa837c64003820a492dfe4b6793e4524e3b9cb8ad9"
+    },
+    {
+      "path": "src/services/browser-commerce.js",
+      "status": "added",
+      "purpose": "浏览器只读本地业务；明确原生购买不可用，拒绝虚构交易/发放RPC",
+      "bytes": 792,
+      "sha256": "4bd354984398977fa35391b1c76ff5910830fac9d203a15c9a5fc639d4a436e4",
+      "previousSha256": null
+    },
+    {
+      "path": "src/services/browser-content.js",
+      "status": "modified",
+      "purpose": "发布与中央使用流水同事务，重试和失败不重复记消耗",
+      "bytes": 10661,
+      "sha256": "ab19810c913921d9cfb9eec745f22b3c6649a6db82947f9cd5b96b44cb5e003b",
+      "previousSha256": "eb8f33aa99a9a0ce8e6d43985192cb88a4182ad256a5c2a819e7f392425473e7"
+    },
+    {
+      "path": "src/services/browser-repository.js",
+      "status": "modified",
+      "purpose": "现有浏览器适配器路由同一commerce服务并校验数据命名空间",
+      "bytes": 21314,
+      "sha256": "5b6ec8702d8a80f5cbab6aa2e7932741639759e70ac6c96eb91a4a7e310ae30a",
+      "previousSha256": "47e4ad17cea9d09bd8a3c13a7df56c56b7651a9efeeba34679dc81725af4673d"
+    },
+    {
+      "path": "src/views/MainView.vue",
+      "status": "modified",
+      "purpose": "原Pro入口跳转统一购买页",
+      "bytes": 3956,
+      "sha256": "d5721167769cc98388d8d083f12a20cc554ce3ea27cc5eb5458970ff020c2a7d",
+      "previousSha256": "3c9a9f5eb8156f186f8751de5905822268089f6ac61c23da3d78266a3919d275"
+    },
+    {
+      "path": "src/views/PostComposerView.vue",
+      "status": "modified",
+      "purpose": "筛选提示接购买页，直接返回不丢未提交正文",
+      "bytes": 9368,
+      "sha256": "53a28ff19758952d43ffafad440c168f557ad1b77ab6144e7b973d19f0f87ab3",
+      "previousSha256": "e7a80089d219d25bbf7186bd59cc035b38ef330e7e24d25aad8386a205cdc3c1"
+    },
+    {
+      "path": "src/views/ProfileEditView.vue",
+      "status": "modified",
+      "purpose": "头像框提示接购买页并保留已有草稿",
+      "bytes": 5108,
+      "sha256": "526ee4389bcfea9cc0fefbb8f6402314fd703c66907db9499e6299ccfff8d02a",
+      "previousSha256": "e926e8efc54212507808f20674a2fff1ee58a47ad6f300cb052f96b744d6cc36"
+    },
+    {
+      "path": "src/views/StoreView.vue",
+      "status": "added",
+      "purpose": "购买/权益/余额路由与不可用、重试、帮助、协议、取消/失败/待处理反馈",
+      "bytes": 6808,
+      "sha256": "3b45fdcb42989b8c5dd4f0358ec727313382b1851083ff9a2b2a589ba38ac45b",
+      "previousSha256": null
+    },
+    {
+      "path": "tests/commerce.test.js",
+      "status": "added",
+      "purpose": "浏览器不可购买、中央额度、失败/幂等/私密、隔离和容错回归",
+      "bytes": 5405,
+      "sha256": "44ac6bc1e9595331dc7505b4a5cd612812cdc94b5ffdab5883c0d28bd1af4ffc",
+      "previousSha256": null
+    }
+  ],
+  "generatedWebResources": "build-manifest.json",
+  "evidence": "browser-matrix.json",
+  "report": "../../p6-implementation-report.md"
+}

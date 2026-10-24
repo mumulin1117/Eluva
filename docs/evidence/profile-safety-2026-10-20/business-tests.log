@@ -1,0 +1,40 @@
+✔ carousel cycles in original order with one clock; manual selections restart the full interval (0.911792ms)
+✔ touch, modal, background, reduced motion and focus gates remain independent; stale callbacks cannot advance (0.099917ms)
+✔ a media refresh preserves the selected stable ID; empty/single images stop and manual controls still work with reduced motion (0.110708ms)
+✔ leaving the page clears the clock and rejects late automatic or manual work (1.000625ms)
+✔ detail clock uses two seconds while ordinary profile carousel retains four seconds (0.113ms)
+✔ P5 profile writes authority only after success; old fixture missing fields do not become a new registration gate (233.062625ms)
+✔ P5 real registered profile media cannot be replaced by another account or lose confirmed minimums (100.908792ms)
+✔ P5 collection references are shared, owner-only, atomic, idempotent and deleting a container keeps originals (108.582ms)
+✔ P5 collection projections never expose private/friends/hidden/blocked posts or another owner cover (46.437042ms)
+✔ P5 theme is account-isolated and login/bootstrap restore it; language remains the saved install preference (50.252042ms)
+✔ P5 feedback saves locally once with trusted images; failures preserve the staged attachment (38.5285ms)
+✔ P5 deleting an isolated QA account rolls back on failure and never deletes another account originals (79.220375ms)
+✔ P5 fixed account cannot be deleted and corrupt additive state is preserved (23.363375ms)
+✔ P5 real Vue form proxies are snapshotted before IndexedDB commit and cannot mutate stored authority (24.891208ms)
+✔ P5 a prepared local failure cannot cross accounts (41.575583ms)
+✔ P5 deleting a post preserves shared image references, then removing the final cover reclaims it (28.176959ms)
+✔ P5 account deletion removes derived commit copies for removed posts without deleting other authored posts (75.859083ms)
+✔ P5 logout reclaims only current-owner temporary attachments and preserves official profile and post media (88.040083ms)
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (179.665125ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (104.161833ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (140.636208ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (48.188292ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (52.97125ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (43.442084ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (21.828875ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (50.21225ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (85.3645ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (88.280209ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (32.193875ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (94.656916ms)
+✔ public profile collections hide private references, custom covers, blocked owners and other account fixtures (25.513625ms)
+✔ profile report failure is atomic, stable retry is deduplicated and targets the exact user (21.923209ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1093.447333

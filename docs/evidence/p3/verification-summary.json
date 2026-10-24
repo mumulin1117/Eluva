@@ -1,0 +1,51 @@
+{
+  "phase": "P3",
+  "checkedAt": "2026-10-17T13:30:53.695690+00:00",
+  "webTests": {
+    "passed": 31,
+    "failed": 0,
+    "log": "logs/web-tests.log"
+  },
+  "nativeRepositoryTests": {
+    "passed": 20,
+    "failed": 0,
+    "environment": "Dedicated iPhone SE simulator, iOS17.5, ad-hoc local signing supports actual Keychain",
+    "log": "logs/native-tests.log",
+    "doesNotCertify": "P3 app UI or virtual keyboard"
+  },
+  "builds": {
+    "vite": "passed",
+    "syncIOS": "passed",
+    "genericSimulator": "passed",
+    "genericUnsignedIOS": "passed",
+    "sourceWarnings": "Only Apple AppIntents metadata extraction skipped; no source compiler errors",
+    "logs": [
+      "logs/web-build.log",
+      "logs/simulator-build.log",
+      "logs/unsigned-device-build.log"
+    ]
+  },
+  "resourceAudit": {
+    "passed": true,
+    "resources": 98,
+    "copies": 4,
+    "result": "evidence-audit.json"
+  },
+  "browserMatrix": {
+    "passed": true,
+    "states": 40,
+    "screenshots": 480,
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewportCount": 6,
+    "result": "browser-matrix.json"
+  },
+  "nativeUI": "not executed in P3: Mac locked",
+  "physicalDevice": "not executed; formal signing details missing",
+  "chromeFreshLayerSignoff": "not executed in P3: Mac locked; current connector annotations/images/slices read",
+  "sameStatePixelSignoff": "pending",
+  "proposedLimitsAreConfirmed": false,
+  "dataReset": false
+}

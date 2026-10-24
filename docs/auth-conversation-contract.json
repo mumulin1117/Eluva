@@ -1,0 +1,459 @@
+{
+  "schemaVersion": "1.0",
+  "date": "2026-10-19",
+  "timezone": "Asia/Shanghai",
+  "status": "implemented-with-verification-limits",
+  "confirmation": {
+    "source": "Direct user reply in this chat",
+    "quote": "改用蓝湖资料顺序与快速问答",
+    "supersedes": [
+      "P0 C04 mixed independent-auth forms",
+      "prototype nine-step onboarding order",
+      "old theme/quiz excluded-from-registration plan"
+    ]
+  },
+  "authoritativePlan": "docs/auth-conversation-rebuild-plan.md",
+  "historicalPlan": "docs/p0-auth-onboarding-design-map.json",
+  "rules": {
+    "continuousConversation": true,
+    "credential": "email-and-password",
+    "phoneAuth": false,
+    "appleAuth": false,
+    "loginAutoCreatesAccount": false,
+    "verificationCode": "567567",
+    "minimumAge": 18,
+    "ageComputedFromFullBirthday": true,
+    "birthdayPublic": false,
+    "passwordMinimumLength": 8,
+    "passwordRequiresDigit": true,
+    "aboutMaximumLength": 300,
+    "formalAccountCreation": "after-bio-confirmation-atomic-commit",
+    "manualLanguageEntry": "mine/settings/language",
+    "oldNineStepsForNewSignup": false,
+    "newSignupPhotoMinimum": 0,
+    "newSignupInterestMinimum": 0,
+    "newSignupLegacyIcebreakerMinimum": 0,
+    "existingAccountData": "preserve",
+    "quizGroupSkipPolicy": "no-whole-group-skip; source Q1 hides individual skip"
+  },
+  "registrationSequence": [
+    "consent",
+    "greeting",
+    "chooseFirstVisit",
+    "email",
+    "verifyCode",
+    "name",
+    "birthday",
+    "password",
+    "theme",
+    "gender",
+    "quizIntro",
+    "quickQuiz",
+    "bioGenerate",
+    "bioReview-or-edit",
+    "commit",
+    "home"
+  ],
+  "returningSequence": [
+    "greeting",
+    "chooseReturning",
+    "loginEmail",
+    "loginPassword",
+    "home"
+  ],
+  "resetSequence": [
+    "loginPassword",
+    "resetEmail",
+    "resetCode",
+    "resetPassword",
+    "loginPassword"
+  ],
+  "mainProfileStages": [
+    {
+      "id": "name",
+      "position": 1,
+      "designId": "19948d98-fffa-4b9f-bbcf-4f7122a40cf7",
+      "sourceName": "登录注册进入4--输入名字"
+    },
+    {
+      "id": "birthday",
+      "position": 2,
+      "designId": "1cece773-6a9f-4ab2-b4f7-a288bd2c64b2",
+      "sourceName": "登录注册进入5--选择年龄"
+    },
+    {
+      "id": "password",
+      "position": 3,
+      "designId": "db0c7d5f-f6fe-4bec-970c-ada3c74de0c9",
+      "sourceName": "登录注册进入6--设置密码--默认"
+    },
+    {
+      "id": "theme",
+      "position": 4,
+      "designId": "a8438228-ddbf-4bc3-b916-eceff84cb790",
+      "sourceName": "登录注册进入7--选择一个主题色吧"
+    },
+    {
+      "id": "gender",
+      "position": 5,
+      "designId": "4b803c69-1b38-4fb8-8f14-a5fff076c0b1",
+      "sourceName": "登录注册进入7--选择性别"
+    },
+    {
+      "id": "quickQuiz",
+      "position": 6,
+      "designId": "1d339685-db5c-47ee-afd6-cc922bd8441b",
+      "sourceName": "登录注册进入7--快速问答"
+    }
+  ],
+  "questions": [
+    {
+      "id": "quick-quiz-01",
+      "position": 1,
+      "designId": "4b993fa6-7efd-4884-8242-728a9e8190a2",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.349616Z",
+      "sourcePromptEn": "Are you an Introvert or Extrovert?",
+      "finalFrCopy": "Êtes-vous plutôt introverti ou extraverti ?",
+      "options": [
+        {
+          "id": "introvert",
+          "sourceLabelEn": "Introvert"
+        },
+        {
+          "id": "extrovert",
+          "sourceLabelEn": "Extrovert"
+        }
+      ],
+      "skipVisibleInDesign": false,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-02",
+      "position": 2,
+      "designId": "752b41d0-884c-4674-9b34-3033a9f6f4bd",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.359043Z",
+      "sourcePromptEn": "Do you share your deep thoughts with AI?",
+      "finalFrCopy": "Confiez-vous vos pensées profondes à une IA ?",
+      "options": [
+        {
+          "id": "yes",
+          "sourceLabelEn": "Yep"
+        },
+        {
+          "id": "no",
+          "sourceLabelEn": "Nope"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-03",
+      "position": 3,
+      "designId": "7c38e151-9e79-4c74-95d7-061931a046cb",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.382956Z",
+      "sourcePromptEn": "Do you share your deep thoughts with AI?",
+      "finalFrCopy": "Confiez-vous vos pensées profondes à une IA ?",
+      "options": [
+        {
+          "id": "yes",
+          "sourceLabelEn": "Yep"
+        },
+        {
+          "id": "no",
+          "sourceLabelEn": "Nope"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": "quick-quiz-02",
+      "reviewStatus": "implemented-source-duplicate-preserved"
+    },
+    {
+      "id": "quick-quiz-04",
+      "position": 4,
+      "designId": "aa765f4f-3cc3-40de-bfa1-2e1c1ff5f82f",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.353436Z",
+      "sourcePromptEn": "Do you lose interest fast, or take time to warm up to things?",
+      "finalFrCopy": "Vous lassez-vous vite ou prenez-vous du temps pour vous intéresser aux choses ?",
+      "options": [
+        {
+          "id": "quick-interest",
+          "sourceLabelEn": "Quick to lose interest"
+        },
+        {
+          "id": "slow-warmup",
+          "sourceLabelEn": "Slow to warm up"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-05",
+      "position": 5,
+      "designId": "1eecc0df-9b50-440c-8c40-c9817fbb1cc5",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.360842Z",
+      "sourcePromptEn": "When making choices, do you trust your gut or logic?",
+      "finalFrCopy": "Pour décider, suivez-vous votre intuition ou la logique ?",
+      "options": [
+        {
+          "id": "intuition",
+          "sourceLabelEn": "Trust my gut"
+        },
+        {
+          "id": "logic",
+          "sourceLabelEn": "Use logic"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-06",
+      "position": 6,
+      "designId": "759772d1-3876-406b-85a2-a4fed8a13213",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.355162Z",
+      "sourcePromptEn": "In your free time, do you prefer alone time or hanging out with friends?",
+      "finalFrCopy": "Pendant votre temps libre, préférez-vous être seul ou retrouver des amis ?",
+      "options": [
+        {
+          "id": "alone",
+          "sourceLabelEn": "Alone time"
+        },
+        {
+          "id": "friends",
+          "sourceLabelEn": "Hang with friends"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-07",
+      "position": 7,
+      "designId": "f852c5e5-76f5-4eb2-81f3-73fec8ae9b8b",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.345399Z",
+      "sourcePromptEn": "Do you easily start conversations with new people?",
+      "finalFrCopy": "Engagez-vous facilement la conversation avec de nouvelles personnes ?",
+      "options": [
+        {
+          "id": "yes",
+          "sourceLabelEn": "Yep"
+        },
+        {
+          "id": "no",
+          "sourceLabelEn": "Nope"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-08",
+      "position": 8,
+      "designId": "d529ffc0-af7c-4fba-8741-9f03b451f916",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.347652Z",
+      "sourcePromptEn": "Do you prefer thrilling content or calm, cozy content?",
+      "finalFrCopy": "Préférez-vous les contenus intenses ou calmes et chaleureux ?",
+      "options": [
+        {
+          "id": "thrilling",
+          "sourceLabelEn": "Thrilling content"
+        },
+        {
+          "id": "cozy",
+          "sourceLabelEn": "Cozy calm content"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-09",
+      "position": 9,
+      "designId": "a72bc937-b656-484d-9f6c-deab1d18d4f4",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.338472Z",
+      "sourcePromptEn": "For trips, are you a planner or go-with-the-flow?",
+      "finalFrCopy": "En voyage, préférez-vous tout prévoir ou suivre vos envies ?",
+      "options": [
+        {
+          "id": "planner",
+          "sourceLabelEn": "Planner"
+        },
+        {
+          "id": "flow",
+          "sourceLabelEn": "Go with the flow"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    },
+    {
+      "id": "quick-quiz-10",
+      "position": 10,
+      "designId": "b0d3f881-da3c-4db4-bf07-1a0192f1f325",
+      "designUpdatedAtUTC": "2026-10-13T15:14:57.336945Z",
+      "sourcePromptEn": "Do you know your MBTI personality type?",
+      "finalFrCopy": "Connaissez-vous votre type de personnalité MBTI ?",
+      "options": [
+        {
+          "id": "INTJ",
+          "sourceLabelEn": "INTJ"
+        },
+        {
+          "id": "INTP",
+          "sourceLabelEn": "INTP"
+        },
+        {
+          "id": "ENTJ",
+          "sourceLabelEn": "ENTJ"
+        },
+        {
+          "id": "ENTP",
+          "sourceLabelEn": "ENTP"
+        },
+        {
+          "id": "INFJ",
+          "sourceLabelEn": "INFJ"
+        },
+        {
+          "id": "INFP",
+          "sourceLabelEn": "INFP"
+        },
+        {
+          "id": "ENFJ",
+          "sourceLabelEn": "ENFJ"
+        },
+        {
+          "id": "ENFP",
+          "sourceLabelEn": "ENFP"
+        },
+        {
+          "id": "ISTJ",
+          "sourceLabelEn": "ISTJ"
+        },
+        {
+          "id": "ISFJ",
+          "sourceLabelEn": "ISFJ"
+        },
+        {
+          "id": "ESTJ",
+          "sourceLabelEn": "ESTJ"
+        },
+        {
+          "id": "ESFJ",
+          "sourceLabelEn": "ESFJ"
+        },
+        {
+          "id": "ISTP",
+          "sourceLabelEn": "ISTP"
+        },
+        {
+          "id": "ISFP",
+          "sourceLabelEn": "ISFP"
+        },
+        {
+          "id": "ESTP",
+          "sourceLabelEn": "ESTP"
+        },
+        {
+          "id": "ESFP",
+          "sourceLabelEn": "ESFP"
+        }
+      ],
+      "skipVisibleInDesign": true,
+      "duplicateOf": null,
+      "reviewStatus": "implemented-bilingual-copy-needs-editorial-signoff"
+    }
+  ],
+  "questionBank": {
+    "slots": 10,
+    "distinctSourcePrompts": 9,
+    "duplicatePositions": [
+      2,
+      3
+    ],
+    "sourceTimeSeconds": 5,
+    "timeoutPolicy": {
+      "status": "implemented-reversible-assumption-not-user-confirmation",
+      "value": "record-timeout-without-answer-then-advance",
+      "pauseOnBackground": true,
+      "firstActionWins": true
+    },
+    "sourceSkipPolicy": "Q1 skip not visible; Q2-Q10 skip visible; whole-group skip not established",
+    "scorePolicy": "actual-duration-only-no-fabricated-ranking"
+  },
+  "bioGeneration": {
+    "status": "implemented-reversible-assumption-not-user-confirmation",
+    "method": "deterministic-short-phrases-from-explicit-answers",
+    "publicAfter": "user-keeps-or-edits-bio",
+    "skippedAnswers": "omit",
+    "mbti": "explicit-valid-self-selection-only",
+    "aiService": "none",
+    "forcedDelay": false
+  },
+  "dataContract": {
+    "status": "implemented-and-tested-web-and-ios",
+    "versionMarker": "lanhu-conversation-v1",
+    "privateAnswersLocation": "account.onboarding",
+    "personalSaveMustPreserveQuiz": true,
+    "themeCommit": "same-atomic-account-transaction",
+    "legacyAccounts": "no-reset-no-questionnaire-required",
+    "nullMedia": "default-avatar-and-empty-array"
+  },
+  "sourceReview": {
+    "catalogRetrieved": true,
+    "fullQuizThemeAgeBioDesignsRead": 17,
+    "fullDDSSchemaAvailable": false,
+    "browserVersionHistoryRechecked": false,
+    "designEvidence": "docs/evidence/auth-conversation-plan-2026-10-19/design-sources.json",
+    "logicalBaseline": [
+      390,
+      844
+    ],
+    "previewBaseline": [
+      195,
+      422
+    ],
+    "sliceVersionRechecked": "版本1 returned for email/quiz/theme",
+    "currentEvidence": "docs/evidence/auth-conversation-2026-10-19"
+  },
+  "notConfirmed": [
+    "whether quiz slot 3 should use a different prompt",
+    "exact expiry and whole-group skip behavior",
+    "final French editorial signoff",
+    "clear gender labels replacing source Yep/Nope",
+    "full DDS values and browser version history",
+    "deterministic biography template"
+  ],
+  "directDependencies": [
+    "src/views/WelcomeView.vue",
+    "src/views/AuthView.vue",
+    "src/views/OnboardingView.vue",
+    "src/router.js",
+    "src/state.js",
+    "src/domain/validation.js",
+    "src/services/browser-repository.js",
+    "ios/Eluva/LocalRepository.swift",
+    "src/services/browser-personal.js",
+    "ios/Eluva/PersonalRepository.swift",
+    "src/data/choices.js",
+    "src/i18n.js"
+  ],
+  "implementationCompleted": true,
+  "deliveryReport": "docs/auth-conversation-implementation-report.md",
+  "stateMap": "docs/auth-conversation-state-map.json",
+  "deliveryDecision": {
+    "date": "2026-10-19",
+    "quote": "先交付，真机验证列为待办",
+    "physicalDeviceVerification": "deferred-by-user"
+  }
+}

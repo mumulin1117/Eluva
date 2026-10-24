@@ -1,0 +1,53 @@
+
+> eluva@0.1.0 test
+> node --test tests/*.test.js
+
+✔ failed draft cleanup preserves the verification context for a retry (36.567458ms)
+✔ fixed account stable; unknown/wrong credentials do not create users (33.580584ms)
+✔ draft is not an account; code context invalidates on email change and does not cross purpose (11.263875ms)
+✔ Complete is atomic on failure, retryable and idempotent under concurrent submissions (44.73675ms)
+✔ onboarding minima enforced, stored media is account isolated, reset grants consumed only on successful write (74.354166ms)
+✔ Bridge cancellation ignores late results and cleans up pending calls (2.796375ms)
+✔ Bridge timeout and structured native errors settle exactly once (20.76275ms)
+✔ timeout and disposal abort adapter work instead of leaving a late write alive (15.175834ms)
+✔ P1 vault migration preserves account and publishes atomically with stable retry identity (49.869792ms)
+✔ a malformed content migration is preserved and reported rather than silently replaced (22.8665ms)
+✔ configured quota is atomic: exhausted public posts fail, private posts and retries never spend it twice (21.826167ms)
+✔ private, friends-only, profile switches and hidden media cannot leak to another account (38.109875ms)
+✔ echo/comment identities are separate from friendships; failures keep counts and comments unique (35.008208ms)
+✔ collection references commit with publication; invalid, locked, empty and cancelled attempts spend nothing (22.154041ms)
+✔ hide/block are reversible and prevent details, reactions, comments and media reads (32.858375ms)
+✔ guide, discovery filters, reports and media staging are scoped; draft cleanup does not delete committed collection covers (33.389667ms)
+✔ every interface key, error and interpolation has matching English and French text (5.702083ms)
+✔ each locked audience choice has its own translated caption, without exposing a translation key (0.219667ms)
+✔ P3 actual view keys and safety reason captions resolve in both languages (8.043708ms)
+✔ P4 actual media views and controls resolve in both interface languages (5.068084ms)
+✔ P4 real WAV validation rejects spoofed/truncated media and out-of-bound audio (4.276541ms)
+✔ P4 voice send is atomic, retry-idempotent and blocked media never remains readable (52.405458ms)
+✔ P4 one peer draft cannot send its recording to a different peer; nonfriends never record (29.099833ms)
+✔ P4 local call transitions require friendship, deduplicate and survive failure without fake connection (27.373625ms)
+✔ P4 blocked calls and language reads preserve original content and reject unavailable system results (29.049ms)
+✔ P4 corrupt additive state is preserved instead of clearing accounts (21.381417ms)
+✔ P4 release before asynchronous record-start completion cannot produce a voice message (0.233291ms)
+✔ P4 armed cancellation never sends; repeated release commits one captured recording (0.224708ms)
+✔ P4 failed voice staging retains the stopped capture for one explicit retry (0.086958ms)
+✔ P3 migration retains two P1 thread identities and text/voice fixtures without account changes (45.172584ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (28.301ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (88.724958ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (22.05025ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (36.572917ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (34.257375ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (19.219709ms)
+✔ language changes retain the current business error and draft input (0.545917ms)
+✔ single-flight submission releases after failure and allows retry (0.844958ms)
+✔ birthday is a full-date 18+ boundary; impossible and future dates rejected (2.568667ms)
+✔ confirmed password and email rules; Gmail allowed, no hidden case/special-character requirement (7.72225ms)
+✔ only fixed code is accepted and locale follows preferred list with saved override (0.7865ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 339.780875

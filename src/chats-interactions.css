@@ -1,0 +1,43 @@
+/* Chats interaction controls extend the existing Eluva capsules and theme palette. */
+.chats-shell{--chats-accent:#945aff;--chats-deep:#7700ff;--chats-tint:#f1e4ff;--chats-ink:#67349b}
+html[data-theme=pink] .chats-shell{--chats-accent:#ed79bb;--chats-deep:#bb2987;--chats-tint:#ffe7f5;--chats-ink:#843557}
+html[data-theme=orange] .chats-shell{--chats-accent:#e7a463;--chats-deep:#ab581e;--chats-tint:#fff0df;--chats-ink:#805127}
+html[data-theme=cyan] .chats-shell{--chats-accent:#51c5d2;--chats-deep:#14879b;--chats-tint:#dff8fb;--chats-ink:#276773}
+.chats-interactions{min-height:100%}
+.chats-shell .social-filters.chats-category-tabs{position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(100%,250px);gap:3px;margin:2px 0 8px;padding:4px;border:1px solid #ffffffe6;border-radius:30px;background:linear-gradient(120deg,#ffffffb8,color-mix(in srgb,var(--chats-tint) 70%,transparent));box-shadow:0 3px 14px color-mix(in srgb,var(--chats-deep) 8%,transparent),inset 0 1px 0 #fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.chats-shell .chats-category-tabs>button{position:relative;grid-row:1;z-index:1;width:100%;min-width:0;min-height:44px;margin:0;padding:8px 12px;border:0;border-radius:24px;background:transparent;color:var(--chats-ink);font:600 14px/21px 'Poppins',sans-serif;overflow-wrap:anywhere;transition:color .2s ease,opacity .2s ease}
+.chats-shell .chats-category-tabs>button:nth-of-type(1){grid-column:1}
+.chats-shell .chats-category-tabs>button:nth-of-type(2){grid-column:2}
+.chats-shell .chats-category-tabs>button::before{display:none}
+.chats-shell .chats-category-tabs>button[aria-pressed=true]{color:#fff;background:transparent;text-shadow:0 1px 3px #4a156720}
+.chats-shell .chats-category-tabs>button:disabled{opacity:.7}
+.chats-shell .chats-filter-indicator{grid-area:1/1;width:100%;height:100%;border:1px solid #ffffffc9;border-radius:24px;background:radial-gradient(ellipse at 50% 150%,var(--chats-deep) 12%,var(--chats-accent) 73%,#f6e6ff 120%);box-shadow:inset 0 1px 5px #fff6,0 3px 9px color-mix(in srgb,var(--chats-deep) 21%,transparent);transform:translateX(calc(var(--chats-tab-index) * (100% + 3px)));transition:transform .25s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.chats-shell .chats-pager{width:100%;min-height:240px;overflow:hidden;touch-action:pan-y}
+.chats-shell .chats-pager-track{display:flex;align-items:flex-start;width:100%;transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+.chats-shell .chats-pager.is-dragging .chats-pager-track{transition:none;will-change:transform}
+.chats-shell .chats-category-panel{flex:0 0 100%;width:100%;min-width:0;min-height:240px;padding:0 1px}
+.chats-shell .pull-refresh-reveal{transition:height .24s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
+.chats-shell .pull-refresh.dragging .pull-refresh-reveal{transition:none}
+.chats-shell .chats-refresh-signal{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;max-width:calc(100% - 24px);padding:3px 12px 7px;color:var(--chats-ink);text-align:center;opacity:calc(.35 + var(--pull-progress) * .65)}
+.chats-shell .pull-refresh-glyph{display:block;flex:none;width:48px;height:40px;overflow:visible;fill:none}
+.chats-shell .refresh-echo-track{stroke:var(--chats-accent);stroke-width:1;opacity:.14}
+.chats-shell .refresh-echo-rotor{transform-origin:24px 20px;transform:rotate(var(--pull-turn));opacity:.88}
+.chats-shell .refresh-echo-arc{stroke:var(--chats-deep);stroke-width:1.65;stroke-linecap:round;transform:rotate(-90deg);transform-origin:24px 20px}
+.chats-shell .refresh-echo-inner{stroke:var(--chats-accent);stroke-width:1.1;stroke-linecap:round;opacity:.48;transform:rotate(-90deg);transform-origin:24px 20px}
+.chats-shell .refresh-echo-satellite{fill:var(--chats-accent);stroke:#fff;stroke-width:1;filter:drop-shadow(0 0 2px color-mix(in srgb,var(--chats-accent) 30%,transparent))}
+.chats-shell .refresh-echo-core{fill:var(--chats-accent);opacity:.55;transition:opacity .2s ease}
+.chats-shell .chats-refresh-caption{font:500 11px/17px 'Poppins',sans-serif;overflow-wrap:anywhere}
+.chats-shell .pull-refresh.is-armed .refresh-echo-rotor{opacity:1}
+.chats-shell .pull-refresh.refreshing .refresh-echo-rotor{animation:chats-echo-orbit 1.6s linear infinite}
+.chats-shell .pull-refresh.refreshing .refresh-echo-core{animation:chats-echo-breathe 2.4s ease-in-out infinite}
+.chats-shell .refresh-echo-check{stroke:var(--chats-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.chats-shell .pull-refresh.is-complete .refresh-echo-rotor{opacity:.22;transition:opacity .2s ease}
+.chats-shell .pull-refresh.is-complete .refresh-echo-core{opacity:0}
+.chats-shell .pull-refresh.is-complete .refresh-echo-check{opacity:1;stroke-dashoffset:0;transition:stroke-dashoffset .24s ease,opacity .15s ease}
+.chats-shell .pull-refresh[data-animation-paused=true] .refresh-echo-rotor,.chats-shell .pull-refresh[data-animation-paused=true] .refresh-echo-core{animation-play-state:paused}
+.chats-shell .pull-refresh-accessible:focus-visible{color:var(--chats-ink);background:var(--chats-tint)}
+.chats-shell .chats-refresh-error{border-color:color-mix(in srgb,var(--chats-accent) 25%,white);background:color-mix(in srgb,var(--chats-tint) 66%,white);color:var(--chats-ink)}
+.chats-shell .chats-refresh-error .text-link{color:var(--chats-deep)}
+@keyframes chats-echo-orbit{from{transform:rotate(150deg)}to{transform:rotate(510deg)}}
+@keyframes chats-echo-breathe{0%,100%{opacity:.45}50%{opacity:.7}}
+@media(prefers-reduced-motion:reduce){.chats-shell .chats-filter-indicator,.chats-shell .chats-pager,.chats-shell .chats-pager-track,.chats-shell .pull-refresh-reveal,.chats-shell .refresh-echo-core,.chats-shell .refresh-echo-rotor,.chats-shell .refresh-echo-check{transition:none}.chats-shell .pull-refresh.refreshing .refresh-echo-rotor,.chats-shell .pull-refresh.refreshing .refresh-echo-core{animation:none}}

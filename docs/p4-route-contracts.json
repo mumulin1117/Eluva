@@ -1,0 +1,496 @@
+{
+  "phase": "P4",
+  "updatedAt": "2026-10-17T14:53:57.878376+00:00",
+  "status": "implementation-and-browser-build-complete; physical-device-and-formal-visual-signoff-pending",
+  "common": {
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "secondaryTabBar": false,
+    "backPreservation": "本次运行内，按账户和对象保留输入/选择；完整重载与退出不承诺恢复未提交草稿",
+    "bridge": "existing eluva protocol, service realtime",
+    "unverified": "原生UI/权限/键盘/硬件成功路径未执行；浏览器不能替代真机验收"
+  },
+  "technicalPreviewAssumptions": {
+    "userConfirmed": false,
+    "voiceSeconds": [
+      1,
+      60
+    ],
+    "voiceMaxMiB": 10,
+    "cancelSlideLogicalPx": 72,
+    "nativeFormat": "mono AAC 16kHz 64kbps",
+    "browserImport": "actual PCM WAV"
+  },
+  "pages": [
+    {
+      "page": "conversation-voice-capture",
+      "route": "/conversation/:peer",
+      "designs": [
+        {
+          "index": 42,
+          "id": "ab244eca-5838-4997-baac-d07282091d8a",
+          "name": "消息详情--发送语音消息",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCover03038f64aefe8b0c69926601cdcc0f90.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.236483Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ab244eca-5838-4997-baac-d07282091d8a",
+          "savedAnnotations": "evidence/p4/spec-42.json"
+        },
+        {
+          "index": 38,
+          "id": "01b126d5-1bb9-4a45-b941-781ea65559a2",
+          "name": "消息详情--发送语音消息--取消发送",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCover4d19a476b859efc7891bd560fccb154d.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.293211Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=01b126d5-1bb9-4a45-b941-781ea65559a2",
+          "savedAnnotations": "evidence/p4/spec-38.json"
+        }
+      ],
+      "entry": "已确认好友会话→麦克风→权限解释→用户启用麦克风→重新按住",
+      "actions": {
+        "hold": "启动实际AVAudioRecorder并显示真实电平/计时",
+        "release": "合法长度录音暂存后原子发送；独立文字草稿保留",
+        "slideUp": "超过72逻辑像素进入取消态，松手丢弃",
+        "cancel": "pointercancel/lostpointercapture/取消按钮/后台/离页丢弃当前录音",
+        "limit": "到上限停录后进入待发送确认",
+        "retry": "暂存失败保留原始临时音频，显式重试或丢弃"
+      },
+      "back": "route.query.from 合法Chats/好友/资料入口；停止硬件并保留已暂存语音/文字草稿",
+      "states": [
+        "loading-permission",
+        "notDetermined",
+        "authorized",
+        "denied",
+        "restricted",
+        "unsupported",
+        "starting",
+        "recording",
+        "cancel-armed",
+        "stopping",
+        "retry-staging",
+        "staged",
+        "send-busy",
+        "send-failed",
+        "sent",
+        "cancelled"
+      ],
+      "visualKeep": [
+        "180×80气泡与源渐变",
+        "390×104底部弧形原图",
+        "32麦克风",
+        "44/54取消按钮",
+        "Inter15/500/18计时",
+        "实际音量控制波形高度"
+      ],
+      "retired": [
+        "无音频文件的假录音与假进度",
+        "非好友持续发送"
+      ],
+      "missingPlan": "权限、失败、待发确认补充页沿用现有字体/紫色圆角体系；真实录音覆盖层同状态真机截图待补",
+      "validation": [
+        "当前账户及social draft归属",
+        "确认好友/未拉黑",
+        "实际可解码音频",
+        "技术预览1–60秒/10MiB；上限不是已确认产品规则"
+      ],
+      "save": "先暂存；social.send同事务提交媒体引用+消息；成功才清voice，失败保留；voiceCommitId幂等",
+      "native": [
+        "AVAudioApplication",
+        "AVAudioRecorder",
+        "AVAudioSession",
+        "existing NativeBridge"
+      ],
+      "browser": "不模拟麦克风成功；真实PCM WAV导入→同一附件事务"
+    },
+    {
+      "page": "voice-playback",
+      "route": "/conversation/:peer",
+      "designs": [
+        {
+          "index": 42,
+          "id": "ab244eca-5838-4997-baac-d07282091d8a",
+          "name": "消息详情--发送语音消息",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCover03038f64aefe8b0c69926601cdcc0f90.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.236483Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ab244eca-5838-4997-baac-d07282091d8a",
+          "savedAnnotations": "evidence/p4/spec-42.json"
+        }
+      ],
+      "entry": "好友消息中的语音播放按钮",
+      "actions": {
+        "play": "实际读取授权消息音频，单一播放器",
+        "pauseResume": "暂停或继续原播放位置",
+        "seek": "读取实际时长后调整播放位置",
+        "retry": "文件缺失/播放失败重新请求，原消息保留"
+      },
+      "back": "保持会话合理滚动，离页停止，不保留后台播放",
+      "states": [
+        "idle",
+        "loading",
+        "playing",
+        "paused",
+        "ended",
+        "missing",
+        "failed",
+        "blocked",
+        "cancelled"
+      ],
+      "visualKeep": [
+        "会话消息层级/本地字体"
+      ],
+      "retired": [
+        "把装饰波形当播放结果"
+      ],
+      "missingPlan": "按实际播放器状态补充播放/暂停/可编辑进度范围和错误；旧夹具时长在首次实际播放后获取",
+      "validation": [
+        "消息参与者",
+        "当前账户",
+        "确认好友",
+        "拉黑即时拒绝",
+        "fixture asset白名单或受保护沙盒文件"
+      ],
+      "save": "播放位置为运行时状态，不改消息正文或伪造已读",
+      "native": [
+        "AVAudioPlayer",
+        "AVAudioSession"
+      ],
+      "browser": "实际Audio播放，不伪造计时"
+    },
+    {
+      "page": "local-incoming-invitation",
+      "route": "/chats",
+      "designs": [
+        {
+          "index": 1,
+          "id": "2b12fe2f-5554-4c4a-bfc2-231ceddc984a",
+          "name": "视频来电弹窗",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCoverc404f35acde0b88378da5b6d838d0b82.png",
+          "has_comment": false,
+          "update_time": "2026-10-14T09:48:40.642202Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=2b12fe2f-5554-4c4a-bfc2-231ceddc984a",
+          "savedAnnotations": "evidence/p4/spec-1.json"
+        }
+      ],
+      "entry": "固定测试账号主动选择Local social checks→Try a local incoming video invitation",
+      "actions": {
+        "accept": "携带原callId进入连接中页，依次准备摄像头／麦克风权限；授权不接通",
+        "declineClose": "幂等保存declined并关闭横幅",
+        "backgroundLeave": "结束未接受的邀请，清理作用域"
+      },
+      "back": "保持Chats列表/筛选；一级页保留TabBar",
+      "states": [
+        "incoming",
+        "accepting",
+        "declining",
+        "failed-retry",
+        "dismissed"
+      ],
+      "visualKeep": [
+        "白色磨砂卡片",
+        "Jakarta14.8/700/19姓名和11.9副标题",
+        "红色拒绝/紫色胶囊接受"
+      ],
+      "retired": [
+        "伪造远端主动呼叫",
+        "假在线状态"
+      ],
+      "missingPlan": "本地演示说明替换原远端通知文案；小图标无完整独立切片时复用本地AppIcon矢量",
+      "validation": [
+        "固定账号夹具",
+        "好友/未拉黑",
+        "每账户只有一个活动演示",
+        "稳定callId与请求payload匹配"
+      ],
+      "save": "创建邀请即保存本地记录；接受不创建第二条call；拒绝失败保留横幅",
+      "native": [
+        "existing NativeBridge/repository"
+      ],
+      "browser": "本地显式触发，可验证接受/拒绝"
+    },
+    {
+      "page": "video-connecting",
+      "route": "/call/:peer",
+      "designs": [
+        {
+          "index": 27,
+          "id": "40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "name": "接通后",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCovere87f24b443ee5c1ac9b3d35b74506f3b.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.212219Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "savedAnnotations": "evidence/p4/spec-27.json"
+        }
+      ],
+      "entry": "好友会话Video call；或来电横幅接受原callId",
+      "actions": {
+        "entry": "进入即经realtime.prepareCall顺序请求摄像头与麦克风；头像布局；授权不接通",
+        "controls": "前三按钮只提示接通后可用",
+        "hangup": "立即取消授权并返回来源；结束记录异步保存",
+        "retry": "拒绝、受限、失败可重试或打开设置"
+      },
+      "back": "仅允许from为会话/Chats/好友列表；其它回当前对象会话",
+      "states": [
+        "loading",
+        "connecting",
+        "permission-pending",
+        "permission-denied",
+        "permission-restricted",
+        "unsupported",
+        "failed-retry",
+        "closing"
+      ],
+      "visualKeep": [
+        "对方头像全屏填充",
+        "本人头像90x120小窗",
+        "原始四按钮SVG",
+        "Jakarta20/800/25与12/700/15"
+      ],
+      "retired": [
+        "页面内相机或样片选择器",
+        "授权即active或开始计时",
+        "假在线绿点"
+      ],
+      "missingPlan": "无头像回退默认图；接口未完整标注的小窗采用原图90x120/16圆角测量值，记录在本轮报告",
+      "validation": [
+        "当前用户",
+        "peerId与call记录一致",
+        "好友且未拉黑",
+        "稳定callId",
+        "多调用/双击幂等",
+        "相机会话互斥"
+      ],
+      "save": "ready本地记录；授权不写startedAt；退出保存endedAt/reason，不扣额度",
+      "native": [
+        "realtime.prepareCall",
+        "AVCaptureDevice.requestAccess",
+        "AVAudioApplication.requestRecordPermission",
+        "取消与关系复核"
+      ],
+      "browser": "真实浏览器adapter返回DEVICE_UNSUPPORTED；权限结果夹具仅在tests/fixtures内",
+      "confirmedAt": "2026-10-21"
+    },
+    {
+      "page": "local-video-active-and-ended",
+      "route": "/call/:peer",
+      "designs": [
+        {
+          "index": 27,
+          "id": "40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "name": "接通后",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCovere87f24b443ee5c1ac9b3d35b74506f3b.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.212219Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "savedAnnotations": "evidence/p4/spec-27.json"
+        },
+        {
+          "index": 18,
+          "id": "7773795d-a561-4e6a-8d63-502f973f613e",
+          "name": "视频通话--接通中",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCoverd2d3072f06e86bc91eb939061e74eb9d.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.24284Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=7773795d-a561-4e6a-8d63-502f973f613e",
+          "savedAnnotations": "evidence/p4/spec-18.json"
+        }
+      ],
+      "entry": "真实本机摄像头启动成功或用户选择录制样片",
+      "actions": {
+        "mute": "默认关闭；用户打开后真实麦克风输入电平，仅本地演示",
+        "flip": "真实切换AVCaptureDevice输入，失败回滚",
+        "camera": "真实停/启会话；样片模式对应暂停/继续且标签明确",
+        "hangup": "先释放本机资源，再幂等保存结束原因；写入失败可重试",
+        "block": "原关系事务立即结束演示并停止后续硬件/读取",
+        "restart": "生成新callId，结束记录不能重新激活",
+        "back": "结束并返回调用来源"
+      },
+      "states": [
+        "camera-active",
+        "camera-off",
+        "mic-muted",
+        "mic-local-meter",
+        "fixture-playing",
+        "fixture-paused",
+        "control-busy",
+        "failed",
+        "ended-hangup",
+        "ended-background",
+        "ended-left",
+        "ended-blocked",
+        "ended-interrupted"
+      ],
+      "visualKeep": [
+        "主画面+右下小窗层次",
+        "48控制和56挂断原图",
+        "Jakarta20/800/25与12/700/15"
+      ],
+      "retired": [
+        "远端人物/假视频流",
+        "假在线绿点",
+        "样片可假开麦或假换摄像头"
+      ],
+      "missingPlan": "右下小窗以无远端视频占位替换；录制样片/本机摄像头始终显示local说明；语言/安全入口补充白色圆形底",
+      "validation": [
+        "每次控制重查账户/好友/拉黑",
+        "作用域callId",
+        "AV输入切换回滚",
+        "样片禁用不适用控制"
+      ],
+      "save": "本地startedAt/endedAt/reason；不发网络、不计费、不改关系",
+      "native": [
+        "AVCaptureSession",
+        "AVAudioEngine local meter only",
+        "AVAudioSession",
+        "app background/interruption/Web failure cleanup"
+      ],
+      "browser": "真实MP4播放暂停；拉黑、挂断删除video元素；重载终止旧lease",
+      "status": "retired-ui-2026-10-21",
+      "handling": "旧预览/样片能力保留底层兼容，不再由当前VideoCallView提供入口；本路径采用video-connecting契约"
+    },
+    {
+      "page": "language-tools-message-post-comment",
+      "route": "/conversation/:peer or /post/:id",
+      "designs": [
+        {
+          "index": 42,
+          "id": "ab244eca-5838-4997-baac-d07282091d8a",
+          "name": "消息详情--发送语音消息",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCover03038f64aefe8b0c69926601cdcc0f90.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.236483Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=ab244eca-5838-4997-baac-d07282091d8a",
+          "savedAnnotations": "evidence/p4/spec-42.json"
+        },
+        {
+          "index": 27,
+          "id": "40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "name": "接通后",
+          "width": 195,
+          "height": 422,
+          "url": "https://alipic.lanhuapp.com/FigmaCovere87f24b443ee5c1ac9b3d35b74506f3b.png",
+          "has_comment": false,
+          "update_time": "2026-10-13T15:14:57.212219Z",
+          "sectors": [],
+          "version": "版本1",
+          "reference": "https://lanhuapp.com/web/#/item/project/detailDetach?pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969&image_id=40107aab-69f4-4524-8feb-0c1a32b3fb25",
+          "savedAnnotations": "evidence/p4/spec-27.json"
+        }
+      ],
+      "entry": "文字/语音消息或动态/评论Language tools",
+      "actions": {
+        "transcribe": "语音选择en/fr源语言→SFSpeechURLRecognitionRequest设备端识别",
+        "translate": "文本或已有对应转写→Bridge→iOS18+ TranslationTask；系统模型按设备授权下载",
+        "sourceLanguage": "源语言改变仅切缓存视图，不改原文",
+        "targetLanguage": "目标跟随当前界面en/fr",
+        "showHide": "独立展示派生文字，保留原始内容",
+        "cancel": "取消任务/系统宿主；后台/离页/账户或权限改变丢弃晚到结果"
+      },
+      "back": "保留同账户同对象源语言、展开状态与已有成功结果；不改未提交正文",
+      "states": [
+        "collapsed",
+        "empty",
+        "loading",
+        "transcribing",
+        "transcript-saved",
+        "translating",
+        "translation-saved",
+        "same-language-original",
+        "unsupported",
+        "denied",
+        "no-speech",
+        "cancelled",
+        "timeout",
+        "save-failed",
+        "blocked",
+        "content-changed"
+      ],
+      "visualKeep": [
+        "复用已入本地字体、紫色圆角和可滚动容器"
+      ],
+      "retired": [
+        "直接把音频当作文本翻译",
+        "云端ASR回退",
+        "虚构译文"
+      ],
+      "missingPlan": "该工具无直接蓝湖稿，使用紧凑独立面板；正式缺稿视觉签核待补",
+      "validation": [
+        "原文可见性与参与者授权",
+        "好友/拉黑",
+        "语音先有同源转写",
+        "原文fingerprint不变",
+        "源语言auto/en/fr，语音en/fr；目标en/fr",
+        "设备及模型支持"
+      ],
+      "save": "成功才写原vault.realtime.language，key按viewer/type/id/kind/语言；原始内容不覆盖，失效指纹不展示",
+      "native": [
+        "SFSpeechRecognizer supportsOnDeviceRecognition",
+        "requiresOnDeviceRecognition=true",
+        "NaturalLanguage detection",
+        "Translation iOS18+ via minimal SwiftUI UIHostingController"
+      ],
+      "browser": "返回LANGUAGE_UNAVAILABLE，无生成的假结果"
+    }
+  ],
+  "connectingPermissionContract": {
+    "service": "realtime",
+    "method": "prepareCall",
+    "params": {
+      "callId": "owned stable UUID"
+    },
+    "result": {
+      "callId": "same UUID",
+      "camera": "authorized|denied|restricted|unsupported",
+      "microphone": "authorized|denied|restricted|unsupported",
+      "environment": "ios"
+    },
+    "errors": [
+      "AUTH_REQUIRED",
+      "CALL_UNAVAILABLE",
+      "FRIENDSHIP_REQUIRED",
+      "USER_BLOCKED",
+      "CALL_ENDED",
+      "MEDIA_BUSY",
+      "CANCELLED",
+      "TIMEOUT",
+      "DEVICE_UNSUPPORTED"
+    ],
+    "sideEffects": "OS authorization only. No capture, active transition, remote signalling or quota deduction."
+  }
+}

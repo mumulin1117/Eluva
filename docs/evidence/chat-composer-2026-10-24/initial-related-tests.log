@@ -1,0 +1,46 @@
+✔ every interface key, error and interpolation has matching English and French text (4.115167ms)
+✔ each locked audience choice has its own translated caption, without exposing a translation key (1.195125ms)
+✔ the navigation guide names the same three destinations as the actual tabs (0.095875ms)
+✔ all literal UI translation keys resolve in both interface languages (23.964833ms)
+✔ P3 actual view keys and safety reason captions resolve in both languages (0.899917ms)
+✔ P4 actual media views and controls resolve in both interface languages (0.504583ms)
+✔ P5 actual account/collection/settings views resolve EN/FR including dynamic settings states (0.817666ms)
+✔ P4 real WAV validation rejects spoofed/truncated media and out-of-bound audio (4.020875ms)
+✔ P4 voice send is atomic, retry-idempotent and blocked media never remains readable (57.539375ms)
+✔ P4 one peer draft cannot send its recording to a different peer; nonfriends never record (33.603208ms)
+✔ P4 local call transitions require friendship, deduplicate and survive failure without fake connection (26.181917ms)
+✔ P4 blocked calls and language reads preserve original content and reject unavailable system results (25.338125ms)
+✔ P7 incoming expiry is atomic, frees the lease and keeps its reason after a late leave (23.101875ms)
+✔ P4 corrupt additive state is preserved instead of clearing accounts (22.105791ms)
+✔ P4 release before asynchronous record-start completion cannot produce a voice message (0.255167ms)
+✔ P4 armed cancellation never sends; repeated release commits one captured recording (0.233291ms)
+✔ P4 failed voice staging retains the stopped capture for one explicit retry (0.095458ms)
+✔ voice cancellation after a late start targets only the cancelled gesture (0.208042ms)
+✔ a stopped capture returned after leaving is discarded instead of emitted (0.095291ms)
+✔ the 60-second review draft keeps its review intent when staging is retried (0.827875ms)
+✔ native interruption restores idle and announces that no recording was sent (0.583ms)
+✔ recording meter clamps invalid native values and repeated holds own one start (0.337042ms)
+✔ holding over the cancellation target at the recording limit discards the capture (0.202708ms)
+✔ P3 migration retains two P1 thread identities and text-only fixtures without account changes (47.155ms)
+✔ follow never grants chat/media; one intro is idempotent, duplicates and ignored retries rejected (29.025291ms)
+✔ recipient accepts atomically; both accounts unlock and only real reader marks outgoing messages read (85.542875ms)
+✔ accept/ignore failure leaves pending request and retry creates one friendship/thread (24.170209ms)
+✔ image/send rollback, stable retry, friendship and cross-account media boundaries (41.334625ms)
+✔ targeted light read markers never change normal unread messages; local help and safety stay scoped (38.243792ms)
+✔ malformed social root is preserved rather than resetting accounts or messages (20.698292ms)
+✔ light-only category moves after an actual Reply without granting ongoing chat; clearing is scoped and reversible (43.547542ms)
+✔ dynamic Reply is atomic, pair-scoped and only recipient text response unlocks chat (76.416167ms)
+✔ Decline failure retains pending; retry is idempotent and mutual follows provide the second path (76.835166ms)
+✔ legacy friendships migrate once; snapshots never silently refollow after unfollow (26.347875ms)
+✔ recipient reply during mutual following establishes an independent connection that survives unfollow (65.45825ms)
+✔ public profile collections hide private references, custom covers, blocked owners and other account fixtures (23.308625ms)
+✔ profile report failure is atomic, stable retry is deduplicated and targets the exact user (21.615333ms)
+✔ blocking hides posts, threads, incoming and outgoing requests without deleting history or affecting another account (61.699083ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 781.006

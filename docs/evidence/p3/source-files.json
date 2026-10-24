@@ -1,0 +1,874 @@
+{
+  "phase": "P3",
+  "generatedAt": "2026-10-17T13:31:55.874290+00:00",
+  "baseline": "All repository files were untracked at phase start. This explicit phase manifest is not a Git diff against a historical commit. Prior P2 hashes are comparison records when available.",
+  "files": [
+    {
+      "file": "src/domain/social.js",
+      "purpose": "增量社交域、稳定pair/fixture ID、公开资料裁剪、好友/拉黑/媒体权限与点亮事件。",
+      "sha256": "04f36e53377be9b96aa3d7f588aaf8bbe198889f6cbf5e7a2cbdfc6f676d29a5",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/services/browser-social.js",
+      "purpose": "复用IndexedDB事务；关系/单次申请/接受忽略/线程/消息/已读/帮助/安全、payload幂等和实际媒体授权。",
+      "sha256": "3fd6df8fe54e607b6a9396d4025e36ddc154955e8a64173b60e2f23bdceeaf4a",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/social-state.js",
+      "purpose": "账户隔离响应式快照、按对象的内存草稿、串行加载、晚到结果丢弃及P2联动。",
+      "sha256": "9bf423ed980a00f808d23732354c30e59189b8d22c94f61be3730a1e20abf8d1",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/data/social-demo.js",
+      "purpose": "Eluva自有固定账号夹具元数据及按图层位置排序的28表情ID。",
+      "sha256": "579a34dcc6b7c95b17487690986b30de6e5a219d3ceaaf60aaac1cdd519961e1",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/data/social-messages.js",
+      "purpose": "P3完整英语/法语页面、反馈和稳定错误文案；不改写用户原文。",
+      "sha256": "6feeab8107110c480598578a09888d94e3f7bfb040b7bfaa8bdcb4a240c64760",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/social.css",
+      "purpose": "图层字体/颜色/间距/原图资源、资料玻璃卡、消息/表情、锚点菜单、弹层与小屏布局。",
+      "sha256": "0c0e8c6126ffffa2f257b4c58889c77b9926195830beeef6a902a78654798c71",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/services/textarea-size.js",
+      "purpose": "多行输入随内容增长，按真实visualViewport限高；resize监听卸载清理。",
+      "sha256": "89f58f567fce59de17da95a4507d98ff2ad61099fbb7cdf73ac227dc45237709",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/views/ChatsView.vue",
+      "purpose": "正式一级Chats，All/Follow/未读/点亮分类、真实未读、菜单与点亮定向已读。",
+      "sha256": "ba364755b37543de43dd4c85a2ecfba3ee15bd957c83ab29ef3eecc6ddab89b6",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/views/FriendsView.vue",
+      "purpose": "好友列表、收到/已发送请求、接受/忽略确认及pending/accepted/ignored/blocked状态。",
+      "sha256": "7c8e32fc8f3a57dba9ff7bf56362ef74ef9cc6d2018e2fc27444fe703f3750a7",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/views/ProfileView.vue",
+      "purpose": "他人资料、实际关注统计、一次申请/好友聊天入口、受控照片和可读公开内容。",
+      "sha256": "df288d68f7df8405b1afa9f62da65e239879b835c56d5dd714cc3bd11f71aa63",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/views/ConversationView.vue",
+      "purpose": "好友服务校验、文字/表情/图片、真实已读、内存草稿、媒体失败/取消与图库、安全。",
+      "sha256": "709c9c253805924dcf1a8d97b3f4d2641243d411c286c51dd752ff7bd33602ed",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/views/HelpView.vue",
+      "purpose": "明确本地预置说明与显式保存的账户反馈，无假客服/AI。",
+      "sha256": "33756dbc51ca4b5dcad2d88ee93c1311780faf3efab572eaf1f694ef39648e3a",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/components/PersonAvatar.vue",
+      "purpose": "经授权的真实头像读取与本地默认头像。",
+      "sha256": "6d2553811c31ec9cca712662b328c280f6fda2200aebbb1cc94630d4020eac31",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/components/ConnectionAction.vue",
+      "purpose": "关系分流、一次介绍、失败保留、pending/ignored解释及有界会话返回。",
+      "sha256": "e96740db8d4c68c1c9ec1e9bff1fa751da57353558053e158a533fbe331ef62e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/components/SocialSafety.vue",
+      "purpose": "复用举报/拉黑/解除体系；明确本地记录、busy保护和失败保留。",
+      "sha256": "a94080758840becd8af3f6ac1ea127aeec6b607996f56fccd9987b80e82890b7",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "src/domain/content.js",
+      "purpose": "P2仅好友可见性读取迁移后的同一canonical friendship。",
+      "sha256": "643415acd3000902d8900ad09e46c44419e90eac4f80c2ae89f78ea89b1deb7a",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "00728848d92f00e265e15a8a2b52d84dccb579e1dac3440051a7be14c12096a8"
+    },
+    {
+      "file": "src/services/browser-content.js",
+      "purpose": "作者元数据/被拉黑人名与social一致，封面拒绝聊天私密媒体。",
+      "sha256": "a4e7b4cb157e2027232c36f2aec1d8e7eadf01616034a1ebbc05f668c55213c1",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "f95e5391a52d8d2aab04a99ff3f6b88905cb4e02e7ad4adeda2c69206de63a67"
+    },
+    {
+      "file": "src/services/browser-repository.js",
+      "purpose": "挂载social、校验损坏数据、受控社交草稿媒体和显式照片授予、退出清理临时授权。",
+      "sha256": "f12e2b86832bf295ca1a8a82a0b4bf73e1329693c434fe788bf20543bd67b5fb",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "3e8a98650d2e4f9b2c245a2b1d771ae562c9f2e5a0fd734d210bf183c81d6e2f"
+    },
+    {
+      "file": "src/views/PostDetailView.vue",
+      "purpose": "View Profile连接真实资料，允许从资料/Chats安全返回。",
+      "sha256": "d276845e0253bd89ad1181857da3e9e7c4def1451d0a9db7c2bfce06294d7e23",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "ab25eb712c2e9721d9cf3a0c7fe0c7ff6d8b29a446de25a24a49065a4821a046"
+    },
+    {
+      "file": "src/components/ContentShell.vue",
+      "purpose": "显式透传attrs，新增leading与可选单处错误展示，保留单主滚动与账户滚动状态。",
+      "sha256": "0a113dca4ae86fc97e5d3c11d75155a3e6bacb46c0e130b05afefbf4431bb9d4",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "d043bdb7040dd6f1975da6bad8a8e8b14070ea636e6c480e5b8c2801613a2152"
+    },
+    {
+      "file": "src/components/AppTabBar.vue",
+      "purpose": "实际请求/消息/事件未读总数；仅一级显示，不增加第二层占位。",
+      "sha256": "8288521d163aed788b27d7c83b9bbdf36f5f6e156bb6c17b458884ae62fb7ddf",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "ab79044fb3e68dcb8fa25eaebfa0063f1c7397e0a0818846399436c6e7c4a479"
+    },
+    {
+      "file": "src/components/AppModal.vue",
+      "purpose": "原P1默认保留；新增测量锚点popover/居中确认与隐藏控件焦点过滤。",
+      "sha256": "24f5eb9ae8c292140dfb953faa043f450c342266f03aad9715fc8557cf764279",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "136f23a77040e68794aa9f849c0bd95b1e0ffedbf8db63ba6efe5f365d90f6f5"
+    },
+    {
+      "file": "src/components/AppIcon.vue",
+      "purpose": "缺失切图处复用线条SVG扩展，不以emoji代替产品图标。",
+      "sha256": "032f1b4154b657145d329416b4d897e42b5c332807bbd52bd3be7965a4186a7a",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "a07a2d8ee36e0558236f160560832d601e9c4ae0b9bf1fe524413552236b2690"
+    },
+    {
+      "file": "src/router.js",
+      "purpose": "Chats与全部P3受保护路由；复用原账户/草稿/导航守卫。",
+      "sha256": "5484783f48ec5b5fbf97dadb2db906b48a9903edd4ccee43111181edec242347",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "99d868914e23f792026aa7b70b07b9e95a054e4325690b79997e645ebb7dec22"
+    },
+    {
+      "file": "src/state.js",
+      "purpose": "下一实际动作清理一次失败工具提示，复用原busy/critical/取消。",
+      "sha256": "8e856f7c2645952ccd2c3ba6ceddebfa54daa69430ff67b38bedb1e67c797db1",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "0c8a872bdb169418e4083455162b8da9497e44bf39087ef0b8b1fba68de6e140"
+    },
+    {
+      "file": "src/App.vue",
+      "purpose": "账户切换重置社交内存快照/草稿，不清持久化数据。",
+      "sha256": "cfe677b3122a1d728d0b406a8f859e0a1c499c8d45bebe4decdd8f6b142a84f4",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "d0a18e3b061f7f12728e579e0d62fa00de00b14eb29e0eb3989e985f89432ac5"
+    },
+    {
+      "file": "src/main.js",
+      "purpose": "加载本地P3样式。",
+      "sha256": "975b6026d526dfa4e1894e7f0279070b4df45d4edaae452557a2bc9af44304f8",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "0db6364c93d57c32e4720e9502a36a290fa05810e7961151d8589f0164d3d9f6"
+    },
+    {
+      "file": "src/i18n.js",
+      "purpose": "并入P3双语页面和稳定错误码。",
+      "sha256": "b1ba4b278911cae0e98b1077905e714a77bfbf958233b5381c5ad6da1f247e23",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "3cbcd925efa9fdbf85a73ca209d0734270df433729d867f8c41e7179643a6d67"
+    },
+    {
+      "file": "ios/Eluva/SocialRepository.swift",
+      "purpose": "既有加密vault/仓储队列上的原生社交事务、媒体回滚/权限、请求/消息/已读/帮助与本地安全。",
+      "sha256": "1cfeb1f1e393b9fb1dd8c1877e4e7d1e0a2b0319826c7116d42cfad29bcb5a36",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "ios/Eluva/LocalRepository.swift",
+      "purpose": "social服务分发、损坏域校验、草稿/文件边界、显式公开照片授权和退出瞬态清理。",
+      "sha256": "14eebb980e308e69530c68d30eedb680bee5db28e6382becd2a42c16f1c56a6f",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "b9f03e64cf580306692ab7fd074a92ab10b27dcf03b00a64b8600c17ea7771eb"
+    },
+    {
+      "file": "ios/Eluva/ContentRepository.swift",
+      "purpose": "P2/P3共享好友和拉黑、聊天媒体防公开泄露、实际作者公开信息一致。",
+      "sha256": "7d0e40e5b4e5c365e6082a1dfc9ae7375f088f1b8f6bfe9a99aa95747b1bfd81",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "c13915a80f32f02096843cf0d36f3347f4da6c8f3d5876b3f229f33f1f608be8"
+    },
+    {
+      "file": "ios/EluvaTests/SocialTests.swift",
+      "purpose": "7项原生关系/幂等/故障/双账户已读/文件隔离/增量迁移与跨P2权限测试。",
+      "sha256": "760871609705fa8a432d374ecfeb05a14fba53414563abc40cfaac1e73cb859e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "ios/Eluva.xcodeproj/project.pbxproj",
+      "purpose": "生成工程纳入SocialRepository和SocialTests，保持原构建/签名配置。",
+      "sha256": "f2b671b64f4e90d8ae371efa6e6381022f0a49fbc17bff5c1b3650f5f5623761",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "ecf1e0a327c0ed71284f6fe24603a13843a42657377b2f17b27d4bbd86f1a9aa"
+    },
+    {
+      "file": "ios/Eluva.xcodeproj/xcshareddata/xcschemes/Eluva.xcscheme",
+      "purpose": "生成scheme更新发现的测试与工程引用。",
+      "sha256": "6a05973a7df1f470e10f9eff5ff26834447ecdfae546623e96592d7a6ccac8f1",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "8b32add4733c124e1f22d3d895f700b52fc1b53655c61f94731227ba68c4b109"
+    },
+    {
+      "file": "scripts/prepare-assets.mjs",
+      "purpose": "由同一social-demo源生成原生读取的本地JSON，不复制第二份规则。",
+      "sha256": "f12d82548924b7ad9c508ba338898cc13507c172ab082c340b6fb6b2a4ccdb3e",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "17a9888e8242a816ad22b7979546d9c563e640742a18441850dd3a348ea15acd"
+    },
+    {
+      "file": "scripts/audit-build.mjs",
+      "purpose": "生产资源审计保存当前P3构建清单，保留P2历史。",
+      "sha256": "89c329761f4a82b675ae9fe53d3a67852bb506e93e3934262a1215e6c10b2eb2",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "7bd765d6451b01b6bc8297ab3dbfe7e3012c47ff9fe2c759edbe59835a4163cf"
+    },
+    {
+      "file": "scripts/sync-ios.mjs",
+      "purpose": "同步当前资源至原生Web并记录P3同步结果，仅移除过期生成文件。",
+      "sha256": "ff0de6aec498858c5cab22a54244bae7d8cab4573758a3ea3b8d937d0eaa9820",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "b57a417a13f6b05a4b2008f689986b5afeb1fba953cba3e396f44c94467a29a5"
+    },
+    {
+      "file": "scripts/audit-p3-evidence.py",
+      "purpose": "审核40状态480张截图与最终98资源四份位图/几何/字体/错误码/TabBar/哈希一致性。",
+      "sha256": "f7b08088ab004216b5b75ef948ebdeace0a2910c256b0ceb33ef689e64ae819d",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/config/social-demo.json",
+      "purpose": "构建生成的同源本地夹具配置供原生读取。",
+      "sha256": "a03383b016edd4ba80ed0793236d87a7470c0850fcb768a26961a8f58b207835",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/fonts/inter-medium.ttf",
+      "purpose": "补齐帮助问题胶囊的Inter500，本地官方TTF，保留OFL。",
+      "sha256": "8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "tests/social.test.js",
+      "purpose": "7项Web社交仓储及原P1/P2边界回归，含真实双账户/图片/已读/好友内容与损坏数据保留。",
+      "sha256": "b8dfb91e55b34bdf6dbd6559b0a61267d3caa95bf560ceafb27f674debc5098d",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "tests/localization.test.js",
+      "purpose": "实际P3视图键和安全原因双语检查，继续验证整套语言键与插值。",
+      "sha256": "bae8f52ded623a1cb755ffc8cf7aea20c94e1a74f830e1f3578226f926250212",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "813aa4c10d38010f7a6bc4796d2e4ccfaf948002fcb479d5a43376d0f2381c46"
+    },
+    {
+      "file": "README.md",
+      "purpose": "P3运行、夹具、失败工具、限制、审计和原生验证边界。",
+      "sha256": "a076dda6e8a3de2204c1d4e45195815f37d600c7a46ef9cd02f04db476f04c80",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "8e55e53937fa41c3f3e91aa04841dbab06738886268944234fd604203c25ebe6"
+    },
+    {
+      "file": "docs/app-flow-and-implementation-plan.md",
+      "purpose": "v5记录P3实际结果，保留P1/P2历史；未确认技术/关系政策独立标记。",
+      "sha256": "dc21e30386260f80e9b64dee7711bb2e1023eb0bda5ec6ec64f8c073aecc8c73",
+      "change": "modified from recorded P2 content",
+      "previousRecordedP2Sha256": "673777fabdba7b91c0d619abe1dce2342052e062e30fe80db82664caa3d6517d"
+    },
+    {
+      "file": "docs/p3-route-contracts.json",
+      "purpose": "11组正式页面/弹层的来源版本、入口操作返回、状态视觉、缺稿/校验/保存/原生依赖。",
+      "sha256": "925bbe8a8bdf76ee92136fdc9835936859107b3d67e96fac931a0eea859b1af0",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "docs/p3-implementation-report.md",
+      "purpose": "阶段修改目的、设计依据、业务、数据影响、适配、验证证据与未验事项。",
+      "sha256": "0dbf2d7b7a66d48c55a24189d828c44f8426b2498418edef1456e1b4949c5dfe",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/chat-action.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "8d7b2988ac6dbe0d1b4f0b49defcddcabcb8e05372605547a099664afe427419",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/chats-background.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "e4b1d8b4ad70f4a487b960ddca0e8e3dad5f3e2a0f625cd267d81a061424c9ce",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/echo-avatar.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "97675a611ec626f3467c49b5e02b24aaa24542991d17808e7a7c45955dbb6daf",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/expression-delete.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "82bca93f5cc33d6d0dd9fe024308e0a29047491fc1453461578fc1609f9cc5b7",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/follow-background.svg",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "cb8907792f86b2015533fbd8f40171cf5b0d90821ac72e22eceebdb1c6461333",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/follow-icon.svg",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "96e3a04fcefaed93e62d82f69549cf0dc70319af98e5cf80ea5d562415a58f62",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/friends-button.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "9f5aed405bcfc832cbdf30b47ebb7847e3b6b183d37cc1c4ed5c7bf1ef06484c",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/help-avatar.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "9f9df6cc04149f6bb5832f3c4dcb0f6cd08db5ff22e57032480de554c7c4da4e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/more-button.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "df798ac46158085b58956db482009ea127274548957a7294dea42c109501695c",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/profile-chat.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "d32e6e62e0483963fc9e54435ec0e1dc30fba19e96889968d02381b3665f5b41",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/profile-collections.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "7a59c3715f00eee1f16a09a304645d4d739cf210ad4b877dd56e2c5267402013",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/requests-avatar.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "033ebf6016a83b1cb11e75dad11b6b76c72f8a1e134c1548cc9e341c4293c95d",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/requests-background.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "eede9ed894d825720f81e1c024ca4e1890453c6738ef6e50764c5114a21e266e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/send.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "391641838ce156dc69b03397ff2c5c826c867ac416f5c3a1434b8e4d467b215e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-01.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "4f9d49d8a19faef16bf3f82dee2add84fbb12dcc24af79ebea394eef2881a00f",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-02.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "aa0bf60428b0c618656fa7d4be9c430414855bde8dea633b2ea756f777df022a",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-03.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "6fd9d5465465ad4dfaf9f6300893532d0a1e13f8c904eb7beacbba44b1ed446e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-04.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "f279b9d5b801a620aed4ce387dbcd371a7877e618e2ad0a8655b4653ed69b9d7",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-05.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "a5de62783842e260de808101b8a4503761dd41e9e647846cb0cb34fdc23a4527",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-06.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "afcd464d5051b40695d05087cf43ff6972c8c81d272e940094b64ee6dc997aee",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-07.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "e630d04c8d0b06d2c110c8a88c8c13065377dbe1be9a9ff85b7e0906c004578a",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-08.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "be2276cedc28ff92ca975d4cd637aae6d29dc0201ac8fea47808d1e2a1e4c855",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-09.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "06329a50ee1a1aee5bc4009bd5ff37de8cae21b39555575245c07415d6666c87",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-10.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "9ea49737abb05d36868afbcb74c50595c38a0ba5958b6fbe213ee012c0584c24",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-11.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "5a40f04f170b2649bd71ed48e0c680080451347c72d4a1854b9f9cc36d17f6f1",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-12.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "7ce5adbe921abc52a420ea9ab189c350a9704d13c650904e22ab89106c356846",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-13.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "ea46a023e2a1e5823990660fb2112435337b132d097c179acf8aa70f46bb8768",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-14.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "93aa476fb1aafb97b7a784e4fddda7cd025b24610b8da430cf7038e3e3490d68",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-15.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "730ec4d7ad7395e9e13e11d57b2f3b50aced55f46e7906cb06f905d96b42f79b",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-16.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "dbb42ffcd938ab34963ac70b70ce3a3cb6db7b37d9726281f05262942324cbb4",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-17.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "df0f103cb1b865ac2defd8d29ecc5cc648d43e92b2aeb36d3da97a7cc37c3114",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-18.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "7ea41ab83c36b7d08d34f64b7f7ed09023218dd21a7559d730c9d95d4fdfef90",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-19.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "8c2d83940a4abb798d107c07a068b480074d7bcde2f3402dd5835fece27efbaf",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-20.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "dd663881a60d97d0c1bc63a2d253fe761354372428b5b3ccf4d3ffb28f71ac1e",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-21.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "93546be775004090cef0ee4453cf5e984aacb7ac4aeada638d91f473d2343e7c",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-22.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "056707b3465eab08f64b971ce66a84422a4b8c1c40f700aa5fd5dbec03be557b",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-23.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "1b2b0c28367fad0a4c717ab159f86fc881954d1c82e23f8e3ad9bd769d702743",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-24.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "8ee4e5a0572f429f683c612ee446646d15a1b12b40a2dd5f6f4cbaf153579a18",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-25.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "89e7e9890f7f71f3c7a13a630cb85ab02b61fc860b112f7a5db2f0934b80aa1f",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-26.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "e5cc280b7a7108379cb8444bafdcc8f6ea021029f60c02479ecd09d45a65ce44",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-27.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "f915bf8f858db7e799795811aa9c065d0cf17338c9e79b686d9f81b9d4823173",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/sticker-28.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "86b09dcf619d95196ae7f26f616a933ba3bea9021030b54f1c76b75386476da1",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    },
+    {
+      "file": "public/images/p3/thread-background.png",
+      "purpose": "本地蓝湖原始切图或原Follow SVG派生资源；逐图来源/图层/尺寸/哈希见asset-sources.json。",
+      "sha256": "6b70b6d76f9fd362d738157fb0cbba3f509b51af4fdff5bbdd01c6ddc13b419d",
+      "change": "P3 added or explicit directly affected file",
+      "previousRecordedP2Sha256": null
+    }
+  ],
+  "generatedGroups": [
+    {
+      "paths": [
+        "dist/**",
+        "ios/Eluva/Web/**",
+        ".build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Web/**",
+        ".build/device/Build/Products/Debug-iphoneos/Eluva.app/Web/**"
+      ],
+      "purpose": "98-resource production copies; exact paths/bytes/SHA256 in build-manifest and evidence-audit. Generated-only pruning; no user vault clearing."
+    },
+    {
+      "paths": [
+        "docs/evidence/p3/screenshots/**"
+      ],
+      "purpose": "480 accepted matrix JPEGs plus final preview captures; screenshot hashes in evidence-audit. Source refs indexed separately."
+    }
+  ],
+  "unchangedReused": [
+    "AGENTS.md",
+    "AGENTS_UI.md",
+    "ios/Eluva/NativeBridge.swift",
+    "ios/Eluva/MediaCoordinator.swift",
+    "ios/Eluva/WebViewController.swift",
+    "src/services/bridge.js",
+    "src/services/media-files.js",
+    "src/components/DemoAudioPlayer.vue",
+    "scripts/generate-ios.rb",
+    "src/views/MainView.vue",
+    "tests/ui-state.test.js"
+  ],
+  "evidenceFiles": [
+    {
+      "file": "docs/evidence/p3/asset-sources.json",
+      "sha256": "504065390e1bf5a28c147bc171fb43bf755083db35d73d55511e88ba099da0a0"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-final-deliverable.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-final.json",
+      "sha256": "03be9416ac58db7af22df094239915340a4bb191bfb56af8c77a3efa3c469706"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-ignore.json",
+      "sha256": "d11401fb3435ff814a6327fdc2e3b918c71d0dff79ecdfab6d7c970204ee4180"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-input-fix.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-main.json",
+      "sha256": "d4bf6abf40ab4c48fce1aa228cf81cb52810e171f25843e4c7e2ee8ef02af0bd"
+    },
+    {
+      "file": "docs/evidence/p3/browser-console-title-fix.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "docs/evidence/p3/browser-matrix.json",
+      "sha256": "5bf0cd5e60ac64b34f2fd296cd9ea9401a12ab2804676d6bfd048646e421d6f8"
+    },
+    {
+      "file": "docs/evidence/p3/build-iterations.json",
+      "sha256": "bf15d2597845a4254338ce727fdf9ea982e31821ba7ad80770b215ee362b5218"
+    },
+    {
+      "file": "docs/evidence/p3/build-manifest.json",
+      "sha256": "09f841aea87123a7fa35d60667d23a8e049786b56cd24c299675ff1c0280247b"
+    },
+    {
+      "file": "docs/evidence/p3/design-sources.json",
+      "sha256": "b9c3cbb032d37a119468e51a82ec25a4c385e429ddfeb1cea56ac5d6d2682ab9"
+    },
+    {
+      "file": "docs/evidence/p3/evidence-audit.json",
+      "sha256": "ec87833c62643bc6ad127bd7f027d5772091e5b8c4fe6a3b4cc4832f91413f84"
+    },
+    {
+      "file": "docs/evidence/p3/follow-button-source.svg",
+      "sha256": "b96b8581e25f6df92d55282e356493ca54dfe817d2ab0544e275394f488aa577"
+    },
+    {
+      "file": "docs/evidence/p3/inter-medium-source.css",
+      "sha256": "62921996286e66d523b5b5c150d58246b7dd2b564101e3f957a87756149f1ef2"
+    },
+    {
+      "file": "docs/evidence/p3/logs/native-tests.log",
+      "sha256": "f37934f9a3e3f9752835d91a51020f954745823ad5133e4acc6a74afaf3afab2"
+    },
+    {
+      "file": "docs/evidence/p3/logs/simulator-build.log",
+      "sha256": "c6cfd1182e4f7cc463e1990a61a3c292848006e49e17467917d846ed7d1cdcae"
+    },
+    {
+      "file": "docs/evidence/p3/logs/unsigned-device-build.log",
+      "sha256": "1a681eaec456eb9449fbb91cbf8cfd6d0d698b6045ddc863d332326e78b869d0"
+    },
+    {
+      "file": "docs/evidence/p3/logs/web-build.log",
+      "sha256": "2932cbc6f2f0375438b879bd943a906a199801c4423bf73d99ceba1519829c76"
+    },
+    {
+      "file": "docs/evidence/p3/logs/web-tests.log",
+      "sha256": "44beb0c57d5d920b479efc1ba95af41ef50e293eda8646765d9c650b80ed9f99"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-103.png",
+      "sha256": "8d02d4bc7647b04c26ae009a26d93b507b9c9335a6c4ba5d32b1f5ab0ecd5d03"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-12.png",
+      "sha256": "9b8330dc3da1d008b6d230b1110fc3cc3c709ff74cc35d13256f61f167f1e94a"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-13.png",
+      "sha256": "676b99140f0cc1fa82e0624f7218912a9a070dceb49b5e5402580ed88674e154"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-16.png",
+      "sha256": "42d37a180ace7aa42782940a3757eea4016539fdd32e4949670982451383a44a"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-19.png",
+      "sha256": "c266c9f2120c67eaa183645fc68ec147a9700e5efb4b45a645f303ca241d9dd6"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-21.png",
+      "sha256": "20a77a90dcdf27ef861ee647d171e7e85cf981fb6584c75dfb4e219f781bd519"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-31.png",
+      "sha256": "dfa8a9e2437e0d7dfa93f34274515db459c4f55741a0eef93faea417c513d5d9"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-40.png",
+      "sha256": "b4ea98b54a7188cac6763673f701a6530d2a99a49f41817792e00a56b9d3ac51"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-47.png",
+      "sha256": "8fc8cea50648b578f76fc28babc8571f220a54d682fe9994b7c37418bd39ad2a"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-56.png",
+      "sha256": "b92c679e417afe816b00976a9f5db54934f7924e965b15f1dd6aa375c75326fe"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-81.png",
+      "sha256": "dbf103813902f2f6bc818505c7657568ab4e0cbca4591841a487fdd03612be86"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-82.png",
+      "sha256": "2a39a5d5c54146c0b954d5ab35c179495bebca11a757e0fe6ccbc70bd5f34308"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-83.png",
+      "sha256": "679d61cd89979a72830c9bc96bc3bfb2049b889e35f6529b596f1180b988b6b2"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-87.png",
+      "sha256": "79202960555a3cf467504156cbe9f680762ef126f7aef2cab40f51c43ed5a82b"
+    },
+    {
+      "file": "docs/evidence/p3/references/design-99.png",
+      "sha256": "4e078a426527dda7096971f12cceb456aa853a7a4bcec45a0feded093a25d33b"
+    },
+    {
+      "file": "docs/evidence/p3/references/index.json",
+      "sha256": "eef23b3059673e3388c2667b076eee5b85e8daf62c894ac04ed15b9310efbc72"
+    },
+    {
+      "file": "docs/evidence/p3/spec-01.json",
+      "sha256": "b3f5f48356371c7f7ad76414c52b70b830331fe4c40c8c6943e95b6813e8fac1"
+    },
+    {
+      "file": "docs/evidence/p3/spec-02.json",
+      "sha256": "58784df04e11405d9b80076a9d3dc158bd2cb5512f85c56466e4c7ecb0055d5d"
+    },
+    {
+      "file": "docs/evidence/p3/spec-03.json",
+      "sha256": "a40338b30a449fe5ed505a59e6ccc8e7e489de75eaa7a9f525307a168a95fc11"
+    },
+    {
+      "file": "docs/evidence/p3/spec-04.json",
+      "sha256": "e4b18a54f50f31e744cbdeff8aa151b5781096601b5198a785391fc46706e18a"
+    },
+    {
+      "file": "docs/evidence/p3/spec-05.json",
+      "sha256": "674d32990e9bb49731061d90eae14196aff2a84a2e2150cd8da961d8d9ba053c"
+    },
+    {
+      "file": "docs/evidence/p3/spec-06.json",
+      "sha256": "5b676446c51c522bf942fdbcfc4977224a58277573d8bce7280859b206631cf4"
+    },
+    {
+      "file": "docs/evidence/p3/spec-07.json",
+      "sha256": "2aa8e022c706979aa92164c147c750f12e17cd4f6a5193898a5f537faa6135b8"
+    },
+    {
+      "file": "docs/evidence/p3/spec-08.json",
+      "sha256": "ef622c0bd4c256938863eb8a2ab148a57da58665e8ac0dc0e74bf1db17ca5289"
+    },
+    {
+      "file": "docs/evidence/p3/spec-09.json",
+      "sha256": "0844c16dda81ba954617b509c6ef095fc3d2e4b16a57e369621a9c5c4216a752"
+    },
+    {
+      "file": "docs/evidence/p3/spec-10.json",
+      "sha256": "6c6b12383048448679303aa9741ce1f8ee53fb4bb7f91decc75cc7e8378cd122"
+    },
+    {
+      "file": "docs/evidence/p3/spec-11.json",
+      "sha256": "bfcdda92863dcbf32ca93e85709011a962955e8ebd96fc23fd58ab0f68edbf30"
+    },
+    {
+      "file": "docs/evidence/p3/spec-12.json",
+      "sha256": "09c1abbcf6f9a252b1ef7f991ac3d2c55832934ad92643c16e1cedf2449a86a8"
+    },
+    {
+      "file": "docs/evidence/p3/spec-13.json",
+      "sha256": "117616bad5b12fde133c893664c462d63258f2d06fc94876545748746ad2939e"
+    },
+    {
+      "file": "docs/evidence/p3/spec-14.json",
+      "sha256": "68ac4aaccb866bab6bfe9d72baf45780403cc1c26b2b569dffa71c9bfeecd713"
+    },
+    {
+      "file": "docs/evidence/p3/spec-15.json",
+      "sha256": "20db0dd464891d2658d399738d13a5b40a1f23b85b69ef1ab976d4460bbdc74f"
+    },
+    {
+      "file": "docs/evidence/p3/verification-summary.json",
+      "sha256": "5b65966696bd203ab52d74e272ed2534f04d92acfe5b304969c41083b65a1e26"
+    },
+    {
+      "file": "docs/evidence/p3/visual-audit.json",
+      "sha256": "64721bbb88bdd724110f659d0adcea1021b22de089447c4c59074add2bc9433d"
+    },
+    {
+      "file": "docs/evidence/p3/workflow-coverage.json",
+      "sha256": "8cc0f3bbafb3725eaa93956e6521159fb104522f000a96c6dd265b91a5513114"
+    }
+  ]
+}

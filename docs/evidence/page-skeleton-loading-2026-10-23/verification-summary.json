@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-23",
+  "scope": [
+    "Chats first visit",
+    "Post detail entry",
+    "Other user profile entry"
+  ],
+  "web_tests": {
+    "passed": 157,
+    "failed": 0,
+    "log": "web-tests.log"
+  },
+  "wkwebview_tests": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "name": "testEnglishThemedLoadingAndChatsGestures",
+        "seconds": 7.159
+      },
+      {
+        "name": "testFrenchThemedLoadingAndChatsGestures",
+        "seconds": 6.013
+      }
+    ],
+    "environment": "iPhone 17 / iOS 26.5 Simulator; visible UIWindowScene-hosted WKWebView; production bundle; existing Native Bridge and LocalResourceHandler",
+    "locales": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "themes": [
+      "purple",
+      "pink",
+      "orange",
+      "cyan"
+    ],
+    "safe_area": "Synthetic insets within one simulator; not six hardware devices",
+    "behaviors": [
+      "read failure exits skeleton and retry succeeds",
+      "skeleton remains while first-image decode is pending",
+      "late old target responses discarded",
+      "leaving during media preparation ignores late completion",
+      "new account without chats shows empty placeholder",
+      "cached return does not replay skeleton",
+      "existing Chats category gestures and pull refresh regression"
+    ],
+    "attachments": 18,
+    "attachment_index": "wk-attachments.json",
+    "log": "native-tests.log"
+  },
+  "builds": {
+    "vite_production": "passed",
+    "ios_simulator": "passed",
+    "ios_unsigned_generic_device": "passed",
+    "production_log": "production-build.log",
+    "device_log": "device-build.log"
+  },
+  "resources": {
+    "files": 264,
+    "sha256_equal_in": [
+      "dist",
+      "ios/Eluva/Web",
+      ".build/ios/Build/Products/Debug-iphonesimulator/Eluva.app/Web",
+      ".build/device/Build/Products/Debug-iphoneos/Eluva.app/Web"
+    ],
+    "evidence": "resource-verification.json"
+  },
+  "not_performed": [
+    "Physical iPhone installation and validation (previously deferred by user)",
+    "Real system keyboard and physical touch gestures",
+    "Long-duration performance profiling"
+  ],
+  "warnings": [
+    "Existing Vite chunk over 500 kB warning",
+    "Simulator RBS / ProcessSuspension system log messages"
+  ],
+  "data_impact": "No production account, messages, posts, relations, or subscription storage model changes; no user data clearing",
+  "out_of_scope": "Home guide sequencing and Home discovery animation unchanged"
+}
