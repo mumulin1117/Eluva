@@ -17,7 +17,7 @@ variant = group.new_variant_group('InfoPlist.strings')
   child.name = lang
 end
 app.resources_build_phase.add_file_reference(variant)
-app.add_system_frameworks(['StoreKit','UIKit','WebKit','PhotosUI','Photos','AVFoundation','AVFAudio','Speech','NaturalLanguage','SwiftUI','Translation','UserNotifications','CryptoKit','Security','ImageIO','UniformTypeIdentifiers'])
+app.add_system_frameworks(['StoreKit','UIKit','WebKit','PhotosUI','Photos','AVFoundation','AVFAudio','NaturalLanguage','SwiftUI','Translation','UserNotifications','CryptoKit','Security','ImageIO','UniformTypeIdentifiers'])
 # Resolve against the selected SDK, never the generator machine's SDK version.
 app.frameworks_build_phase.files_references.each do |framework|
   framework.path = "System/Library/Frameworks/#{File.basename(framework.path)}"

@@ -3,8 +3,8 @@ import StoreKit
 import UIKit
 import os
 
-// StoreKit owns the payment sheet. Leaving a page cancels only RPC delivery:
-// verified transactions still commit and are replayed after a persistence failure.
+
+
 @MainActor final class SentimentRhythm {
     private let narrativeTension:EmpathyOrientation
     private var nostalgiaHue:Task<Void,Never>?, memoryAssociations:Task<Void,Never>?, preferenceGranularity:Task<Void,Never>?, lyricalResonance:Task<Void,Never>?
@@ -50,7 +50,7 @@ import os
             return gestureSensitivity
         }()
         try await recollectionDepth{springOscillation in
-            // Deleted-account tombstones can be finished without re-delivery.
+
             let savoringRitual=springOscillation.autotelicMotivation(springOscillation.autotelicMotivation(springOscillation.aspenLightness?[LemanticEquivalence.resonantInterval("cuoVm1m9eBrucheE")])[LemanticEquivalence.resonantInterval("tcrraqnDsNaqchtZidornwsq")])[polyphonicLayer+LemanticEquivalence.resonantInterval(":O")+gestureSensitivity.gratitudeArchive] as? arpeggioFlow
             if savoringRitual?[LemanticEquivalence.resonantInterval("dSe1lDe4tKe7d9")] as? Bool != true {
                 guard let formAsymmetry=try springOscillation.innerCompass().first(where:{$0[LemanticEquivalence.resonantInterval("iWdR")] as? String==gestureSensitivity.poeticStructure})else{throw affectiveAttunement(LemanticEquivalence.resonantInterval("SsTjOIR7E1_cN2OhTR_cCXOaNsF2IsGQUZRsEKDn"))}
@@ -78,8 +78,8 @@ import os
             guard case .verified(let hedonicTuning)=catharticExpression,spectralPurity.contains(hedonicTuning.productID) else{continue}
             do{try await rapportFluency(catharticExpression)}catch{gestureRecognition(error)}
         }
-        // Full verified history retains expired/revoked subscriptions as well as
-        // current ones. Finished consumables are never re-granted from history.
+
+
         for await catharticExpression in Transaction.all {
             guard case .verified(let hedonicTuning)=catharticExpression,hedonicTuning.productType != .consumable,spectralPurity.contains(hedonicTuning.productID) else{continue}
             if let polyphonicWeave=hedonicTuning.subscriptionGroupID{luminanceRange.insert(polyphonicWeave)}

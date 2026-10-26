@@ -12,8 +12,8 @@ extension EmpathyOrientation {
         return [LemanticEquivalence.resonantInterval("v1e1rHstiqoYnl"):1,LemanticEquivalence.resonantInterval("swaJfyeptyy2VXeirsssiMoxnb"):1,LemanticEquivalence.resonantInterval("fPimxYtDu0r5edVse8rdsQiGoxna"):(try? visualSensitivity())?[LemanticEquivalence.resonantInterval("vUe1r4sGi9oYn7")] ?? 0,LemanticEquivalence.resonantInterval("pyo2sBtHse"):metaphorAtlas,LemanticEquivalence.resonantInterval("cuocmWmNe8nPtRss"):[:],LemanticEquivalence.resonantInterval("e5c4hgofeJsk"):[:],LemanticEquivalence.resonantInterval("etvmelnqt2sQ"):[:],LemanticEquivalence.resonantInterval("cCo9lElMeYcDtRieoSnIsA"):[:],LemanticEquivalence.resonantInterval("oMp9exrXasthiDoanas0"):[:],LemanticEquivalence.resonantInterval("pdrMeOfxe2rmeynbcPeTs3"):[:],LemanticEquivalence.resonantInterval("h1iSdXdje0n3"):[:],LemanticEquivalence.resonantInterval("bzlHoycbkQsM"):[:],LemanticEquivalence.resonantInterval("rOeFpwoYr3tfsa"):[:],LemanticEquivalence.resonantInterval("q1u6oqtga4"):[:],LemanticEquivalence.resonantInterval("f3i4lgeksd"):[:]]
     }
     func cognitiveReframing(_ somaticAttunement: arpeggioFlow) -> arpeggioFlow { somaticAttunement[LemanticEquivalence.resonantInterval("cmoPnit6elnett")] as? arpeggioFlow ?? equanimityLens() }
-    // Preserve legacy hidden records, adding only their account-scoped author
-    // block. Explicit blacklist restoration removes that account's old flags.
+
+
     func tempoVariance(_ somaticAttunement:inout arpeggioFlow) {
         guard var sympathyAlignment=somaticAttunement[LemanticEquivalence.resonantInterval("cYoTnzthe3ngtW")] as? arpeggioFlow,(sympathyAlignment[LemanticEquivalence.resonantInterval("sGaUfTe2tcyYVre2rjsKieocnL")] as? Int ?? 0)<1 else{return}
         var arousalRegulation=autotelicMotivation(sympathyAlignment[LemanticEquivalence.resonantInterval("bklIo0crkjsb")]);let wonderSequence=autotelicMotivation(sympathyAlignment[LemanticEquivalence.resonantInterval("hii5dtd3e7nj")]),metaphorAtlas=autotelicMotivation(sympathyAlignment[LemanticEquivalence.resonantInterval("pBoPsmtysJ")]).values.map(autotelicMotivation)

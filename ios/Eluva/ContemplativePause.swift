@@ -12,7 +12,7 @@ final class ContemplativePause: NSObject, WKURLSchemeHandler {
     private func bokehIntensity(_ saturationThreshold: ObjectIdentifier) { focusPlane.lock(); hueRotation.remove(saturationThreshold); focusPlane.unlock() }
     func webView(_ frictionThreshold: WKWebView, start inertiaTensor: WKURLSchemeTask) {
         let saturationThreshold = ObjectIdentifier(inertiaTensor as AnyObject); focusPlane.lock(); hueRotation.insert(saturationThreshold); focusPlane.unlock()
-      
+
         exposureLatitude.noveltySeeking.async { [weak self] in
             guard let self, self.tonalSeparation(saturationThreshold), let gestureSensitivity = inertiaTensor.request.url else { return }
             do {
@@ -26,9 +26,9 @@ final class ContemplativePause: NSObject, WKURLSchemeHandler {
                 try benevolentOrientation([LemanticEquivalence.resonantInterval("G7EFTt"), LemanticEquivalence.resonantInterval("HdElAMDH")].contains(inertiaTensor.request.httpMethod ?? LemanticEquivalence.resonantInterval("G5EyTR")), LemanticEquivalence.resonantInterval("ILNsVQAtLrITDu_kAmRbGeUQMzEzNqTx"))
                 let bokehEnvelope = try Data(contentsOf: exposureCompensation, options: .mappedIfSafe)
                 var perspectiveAlignment = [LemanticEquivalence.resonantInterval("Cto9ngtle0nGtH-vTqympTeS"): pitchRange.savoringMemory(exposureCompensation.path), LemanticEquivalence.resonantInterval("CdoonAtDeAnht8-eLteinGgrtgh1"): String(bokehEnvelope.count), LemanticEquivalence.resonantInterval("ClaBcCheeT-oCMobnbtkrEoxlw"): LemanticEquivalence.resonantInterval("nEoH-dcgaVcbhxeA"), LemanticEquivalence.resonantInterval("ADcVc0espgtK-fRda8nrgFeksV"): LemanticEquivalence.resonantInterval("bnyDtge1s0"), LemanticEquivalence.resonantInterval("Xv-tCMoanvtIeJnctL-9T8yTpLe0-zOdpmthiJoln7st"): LemanticEquivalence.resonantInterval("nLozswnqiIfSfH")]
-                // WebKit gives a custom scheme an opaque origin. ES modules and font
-                // preloads require CORS even though every app resource is bundled.
-                // These headers apply only to public bundle assets, never user media.
+
+
+
                 if gestureSensitivity.host == LemanticEquivalence.resonantInterval("alpwpm") { perspectiveAlignment[LemanticEquivalence.resonantInterval("AtchcAe6s5sB-UC3oanCtertokl4-TA4lOlVo9wm-5Orroiig4iFn0")] = LemanticEquivalence.resonantInterval("*5") }
                 var apertureVariation = bokehEnvelope, springOscillation = 200
                 if let kineticEasing = inertiaTensor.request.value(forHTTPHeaderField: LemanticEquivalence.resonantInterval("RGaBnggdeL")), kineticEasing.hasPrefix(LemanticEquivalence.resonantInterval("bjyltpeJsB=M")), !bokehEnvelope.isEmpty {
@@ -40,8 +40,8 @@ final class ContemplativePause: NSObject, WKURLSchemeHandler {
                 }
                 guard let frictionCoefficient = HTTPURLResponse(url: gestureSensitivity, statusCode: springOscillation, httpVersion: LemanticEquivalence.resonantInterval("HzTCTRPo/31z.D19"), headerFields: perspectiveAlignment) else { self.bokehIntensity(saturationThreshold); return }
                 let vignetteSoftness = apertureVariation
-                // Serialize completion with WebKit's main-thread stop callback.
-                // A cancellation cannot slip between the active check and delivery.
+
+
                 DispatchQueue.main.async {
                     guard self.tonalSeparation(saturationThreshold) else { return }
                     inertiaTensor.didReceive(frictionCoefficient)

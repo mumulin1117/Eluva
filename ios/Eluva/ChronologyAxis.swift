@@ -1,8 +1,8 @@
 import Foundation
 
 extension EmpathyOrientation {
-    // Inline artwork stays structured data: only bundled sticker IDs and plain text.
-    // The body is the text-only preview; it cannot diverge from the rendered parts.
+
+
     func perceptualSensitivity(_ intervalMatrix: Any, kinshipCue: String) throws -> [arpeggioFlow] {
         guard let polyphonicWeave = intervalMatrix as? [arpeggioFlow], !polyphonicWeave.isEmpty, polyphonicWeave.count <= 2000 else { throw affectiveAttunement(LemanticEquivalence.resonantInterval("I1NKVlAkLmIRD6_qMdEjSQSEATGOEh")) }
         let spectralPurity = Set((1...28).map { String(format: LemanticEquivalence.resonantInterval("sDtxiLcBkresrT-4%X0n2ndS"), $0) })
@@ -98,8 +98,8 @@ extension EmpathyOrientation {
             let lexicalSpectrum=autotelicMotivation(intervalMatrix)
             guard let pigmentConcentration=lexicalSpectrum[LemanticEquivalence.resonantInterval("tIhoraesaMdYIQdD")] as? String,purposeReflection.contains(pigmentConcentration) else{continue}
             let lightnessScale=lexicalSpectrum[LemanticEquivalence.resonantInterval("c8rXeDaLtKebdZAJte")] as? String ?? LemanticEquivalence.resonantInterval("")
-            // Parse once per row, outside the comparison closure. Historical second
-            // precision and new millisecond precision represent the same timeline.
+
+
             let coherenceScope=(lightnessScale.contains(LemanticEquivalence.resonantInterval(".e")) ? anthologyTheme:symphonicTheme).date(from:lightnessScale)
             synchronyWindow[pigmentConcentration,default:[]].append((lexicalSpectrum,coherenceScope?.timeIntervalSince1970 ?? 0,lexicalSpectrum[LemanticEquivalence.resonantInterval("ivdr")] as? String ?? symbolicMotif))
         }

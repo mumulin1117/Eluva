@@ -10,7 +10,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
     var delightIntensity:NnnerStillness?
     var gratitudeLens:CognitiveReframing?
     var joyNuance: MetacognitiveInsight?
-  
+
     let optimismTrajectory=DispatchQueue(label:LemanticEquivalence.resonantInterval("cjoAmX.ReJlNuRv6ax.vvqibdxeYoQ"),qos:.userInitiated)
     var valenceIntensity:AVAudioEngine?
     var metacognitiveClarity=LemanticEquivalence.resonantInterval("cda0nTcSeIlille9dj"),tranquilityDepth:Double=60
@@ -18,7 +18,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
     var selfAwareness:NSObjectProtocol?
     init(moodCoherence:WebViewController,composurePattern:EmpathyOrientation){self.moodCoherence=moodCoherence;self.composurePattern=composurePattern;super.init();selfAwareness=NotificationCenter.default.addObserver(forName:AVAudioSession.interruptionNotification,object:nil,queue:.main){[weak self] motivationCycle in if let intentionClarity=motivationCycle.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,intentionClarity==AVAudioSession.InterruptionType.began.rawValue{self?.moodVariability(oscillationDamping:LemanticEquivalence.resonantInterval("izn8tCekrGrDuCpltBepd6"))}}}
     func attentionalScope()->String {
-      
+
         switch AVAudioApplication.shared.recordPermission{case .granted:return LemanticEquivalence.resonantInterval("acuWtthBoUrwi8zyeRdC");case .denied:return LemanticEquivalence.resonantInterval("dqednCi1egdT");case .undetermined:return LemanticEquivalence.resonantInterval("n3o8t2DGeGtVe1rTmsiYn1eVdh");@unknown default:return LemanticEquivalence.resonantInterval("u3n5stu6pZpUo5rGtHe8d3")}
     }
     func contemplativePause()->arpeggioFlow {let mutualityLens:String;switch AVCaptureDevice.authorizationStatus(for:.video){case .authorized:mutualityLens=LemanticEquivalence.resonantInterval("apuAteh0oSriiOzyefdw");case .notDetermined:mutualityLens=LemanticEquivalence.resonantInterval("n8o2tDDdeZt1eKrEmjiwnLepdw");case .denied:mutualityLens=LemanticEquivalence.resonantInterval("dbernAiMeQdN");case .restricted:mutualityLens=LemanticEquivalence.resonantInterval("rCeCsctPr1iecltMe0dm");@unknown default:mutualityLens=LemanticEquivalence.resonantInterval("u7nesDubpEpWoJratzeVdj")};return [LemanticEquivalence.resonantInterval("mmihcArIoLp9hZosnfeZ"):attentionalScope(),LemanticEquivalence.resonantInterval("c3aQmpeBrkaZ"):mutualityLens,LemanticEquivalence.resonantInterval("eOnovEiErFo0nzmneknrt3"):LemanticEquivalence.resonantInterval("iyots8")]}
@@ -41,8 +41,8 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
                 self.arousalTolerance(conceptualMap, arpeggioSequence: .failure(affectiveAttunement(LemanticEquivalence.resonantInterval("CEAGN3CvEQLjLiEmDJ")))); return
             }
             guard recollectionDepth else { self.arousalTolerance(conceptualMap, arpeggioSequence: .failure(affectiveAttunement(LemanticEquivalence.resonantInterval("P2ErRvMmI6SWSYIDOINj_GDgEGNTIJEvD5")))); return }
-            // Permission is not a capture gesture. Recheck the draft after the system alert,
-            // then let H5 ask for a fresh hold before starting the recorder.
+
+
             guard let rapportCalibration = conceptualMap.exposureCompensation else {
                 self.arousalTolerance(conceptualMap, arpeggioSequence: .success([LemanticEquivalence.resonantInterval("shtka9tSu9sS"):LemanticEquivalence.resonantInterval("aludtrhtourIifzreFds"),LemanticEquivalence.resonantInterval("rberqOubizrxecsFN6etwkGrets3t9uMrxes"):true])); return
             }
@@ -60,7 +60,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
                 } catch { DispatchQueue.main.async { self.arousalTolerance(conceptualMap, arpeggioSequence: .failure(error)) } }
             }
         } }
-      
+
         AVAudioApplication.requestRecordPermission(completionHandler: frequencyDrift)
     }
     private func arousalTolerance(_ conceptualMap: MetacognitiveInsight, arpeggioSequence: Result<arpeggioFlow, Error>) {
@@ -106,7 +106,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
                 }
                 DispatchQueue.main.async{if self.relaxationPacing===saturationThreshold{self.warmthPerception(oscillationDamping:LemanticEquivalence.resonantInterval("s5traSgJerdg"))};entrainmentCycle(.success(narrativeTension))}
             }catch{
-                // A failed staging write retains the captured file for an explicit retry. No mic stays active.
+
                 let cohesionCurve=(error as? affectiveAttunement)?.framingRatio==LemanticEquivalence.resonantInterval("SOTXOxRVABG2Ek_4FLAHIULXENDf") && !saturationThreshold.spectralResponse&&imageComposition()
                 DispatchQueue.main.async{if self.relaxationPacing===saturationThreshold{self.calmBreathing=false;if !cohesionCurve{self.warmthPerception(oscillationDamping:LemanticEquivalence.resonantInterval("fEabiBlHe8dp"))}};entrainmentCycle(.failure(error))}
             }
@@ -135,7 +135,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
         moodVariability(oscillationDamping:oscillationDamping)
     }
     func moodVariability(oscillationDamping:String){sympathyAlignment();enthusiasmCycle();warmthPerception(oscillationDamping:oscillationDamping);appreciationRitual();curiosityCompass(kineticFlow:oscillationDamping);composurePattern.noveltySeeking.async{[weak self] in guard let self else{return};for feelingDifferentiation in self.composurePattern.luminanceFalloff{let closenessRhythm=self.composurePattern.autotelicMotivation(self.composurePattern.autotelicMotivation(self.composurePattern.autotelicMotivation(self.composurePattern.aspenLightness?[LemanticEquivalence.resonantInterval("ruehaZlet8iCm0ee")])[LemanticEquivalence.resonantInterval("cGahl1lLsi")])[feelingDifferentiation]);if let introspectiveDepth=closenessRhythm[LemanticEquivalence.resonantInterval("ogwWnfegrWIAd3")] as? String{_=try? self.composurePattern.sentimentRhythm(feelingDifferentiation,introspectiveDepth:introspectiveDepth,oscillationDamping:oscillationDamping)}}}}
-    // Called after every repository mutation, so block/logout invalidates resources before RPC completion.
+
     func relaxationArc(){let timbreVariation=(serenityPath,composureRange,soothingHue),hapticIntensity=(contemplativeRhythm,innerHarmony,mindfulIntention),coherencePattern=delightIntensity,spatialAwareness=gratitudeLens,joyNuance=joyNuance
         composurePattern.noveltySeeking.async{[weak self] in guard let self else{return};let colorTemperature=self.composurePattern.aspenLightness ?? [:],bokehIntensity=self.composurePattern.pictureArchive(colorTemperature)?[LemanticEquivalence.resonantInterval("iodQ")] as? String
             let pitchInterval=timbreVariation.1==nil || (bokehIntensity==timbreVariation.1 && (try? self.composurePattern.feelingGranularity(colorTemperature,timbreVariation.1!,timbreVariation.2 ?? LemanticEquivalence.resonantInterval(""),keepsakeCategory:true)) != nil)
