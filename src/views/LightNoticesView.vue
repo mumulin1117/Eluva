@@ -13,7 +13,7 @@ const rows=computed(()=>social.events.filter(x=>x.lightOnly))
 let alive=true
 onBeforeUnmount(()=>{alive=false})
 watch(()=>social.loaded,ready=>{if(ready&&!social.preferences.lightHelpSeen)help.value=true})
-onMounted(async()=>{const owner=state.user?.id;await loadSocial();if(alive&&state.user?.id===owner&&social.loaded&&!social.preferences.lightHelpSeen)help.value=true})
+onMounted(async()=>{const owner=state.user?.id;await loadSocial({reuse:true});if(alive&&state.user?.id===owner&&social.loaded&&!social.preferences.lightHelpSeen)help.value=true})
 function showHelp(){if(state.ui.busy)return;clearError();helpError.value=false;help.value=true}
 async function understood(){if(state.ui.busy)return;helpError.value=false;if(social.preferences.lightHelpSeen||await socialAction('lightHelpSeen',{seen:true},{notice:''}))help.value=false;else helpError.value=true}
 async function clear(){if(state.ui.busy||!rows.value.length)return;const ids=rows.value.map(x=>x.id);if(await socialAction('clearLightEvents',{eventIds:ids,commitId:newId()},{notice:''}))cleared.value=ids}

@@ -17,8 +17,6 @@ export function socialSnapshot(root){
 }
 export async function browserSocial(repo,method,p,signal){
   const root=await repo.read(),viewer=own(root);socialState(root);repo.socialDrafts||=new Map()
-  if(method==='simulateFailure'){invariant(root.accounts[viewer].isTest&&['send','request','accept','ignore','snapshot','follow','help','replyPost','declineConnection'].includes(p.operation),'INVALID_ARGUMENT');repo.socialFailure=p.operation;return {armed:true}}
-  if(method==='snapshot'&&repo.socialFailure===method){repo.socialFailure=null;invariant(false,'STORAGE_FAILED')}
   const grant=peer=>{repo.profileMediaGrants||=new Map();const ids=repo.profileMediaGrants.get(viewer)||new Set();if(!isBlocked(root,viewer,peer))for(const photo of profileFor(root,peer,viewer).photos)ids.add(photo.id);repo.profileMediaGrants.set(viewer,ids)}
   if(method==='profile'){profileFor(root,p.peerId,viewer);grant(p.peerId);return socialSnapshot(root)}
   if(method==='thread'){requireThread(root,viewer,p.peerId);grant(p.peerId);return socialSnapshot(root)}
@@ -61,7 +59,6 @@ export async function browserSocial(repo,method,p,signal){
       case 'help':{const body=String(p.body||'').trim();invariant(body&&characterCount(body)<=2000,'INVALID_MESSAGE');invariant(['how','posting','privacy','feedback'].includes(p.topic),'INVALID_ARGUMENT');resultId=crypto.randomUUID();d.feedback[resultId]={id:resultId,ownerId:viewer,body,topic:p.topic,createdAt:now,simulation:true};break}
       default:invariant(false,'METHOD_NOT_FOUND')
     }
-    if(repo.socialFailure===method){repo.socialFailure=null;invariant(false,'STORAGE_FAILED')}
     if(idempotent)d.operations[op]={method,payload:stable(p),resultId};return {state:s,result:{...socialSnapshot(s),...(resultId?{resultId}:{})}}
   },signal)
 }

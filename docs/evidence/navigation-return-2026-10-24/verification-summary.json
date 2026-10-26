@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-24",
+  "task": "Restore successfully presented parent pages without remount reads or skeleton replay",
+  "focusedWebTests": {
+    "passed": 51,
+    "failed": 0
+  },
+  "allWebTests": {
+    "passed": 253,
+    "failed": 1,
+    "total": 254,
+    "failure": "tests/subscriptions.test.js: missing ios/Eluva/viu.storekit (ENOENT); subscription configuration was not changed in this task"
+  },
+  "nativeTests": {
+    "repository": 11,
+    "wkWebView": 9,
+    "total": 20,
+    "failed": 0,
+    "log": "native-wk-final.log"
+  },
+  "newWkReturnTests": {
+    "passed": 2,
+    "failed": 0,
+    "log": "wk-return-fixed.log",
+    "actualViewports": [
+      [
+        390,
+        667
+      ],
+      [
+        402,
+        874
+      ]
+    ],
+    "cases": [
+      "Profile to Post to Profile",
+      "Post to Profile to Post",
+      "Home to Profile to Home",
+      "Chats Follow to Conversation to Chats"
+    ],
+    "assertions": [
+      "No repeated content/social snapshot, post or profile calls",
+      "No transient skeleton insertion",
+      "Current scroll, media page, category and feed order restored",
+      "Completed Home presentation does not replay",
+      "First target still uses existing loading presentation"
+    ]
+  },
+  "builds": {
+    "vite": "passed",
+    "iosDebugSimulator": "passed",
+    "iosReleaseUnsigned": "passed",
+    "runtimeFiles": 265,
+    "fiveBundlesByteIdentical": true
+  },
+  "limitations": [
+    "No physical iPhone, system keyboard, real touch or long-duration performance verification",
+    "Browser matrix is distinct from actual simulator WKWebView tests",
+    "No user account or stored social data was cleared",
+    "Missing StoreKit test configuration remains unresolved"
+  ],
+  "browser": {
+    "summary": "browser-verification.json",
+    "homeReturns": 12,
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        375,
+        667
+      ],
+      [
+        375,
+        812
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        393,
+        852
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "readsOnReturn": 0,
+    "skeletonInsertionsOnReturn": 0,
+    "horizontalOverflow": false,
+    "consoleErrors": [],
+    "otherCases": [
+      "Post to Profile to Post retains media2/2",
+      "Home explicit refresh failure preserves list; retry succeeds"
+    ]
+  }
+}

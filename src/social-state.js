@@ -5,7 +5,7 @@ import { content,loadContent } from './content-state.js'
 import { newId } from './domain/id.js'
 import { AppError,asAppError } from './domain/errors.js'
 
-const empty=()=>({ownerId:null,loaded:false,loadError:'',chatsVisited:false,profiles:[],threads:[],requests:[],events:[],unreadCount:0,preferences:{filter:'all',unreadOnly:false},feedback:[],profilePosts:[],collections:[],drafts:{},intros:{},reportDrafts:{},helpDraft:{body:'',topic:'feedback',commitId:newId()}})
+const empty=()=>({ownerId:null,loaded:false,loadError:'',chatsVisited:false,presentedProfiles:{},presentedThreads:{},profiles:[],threads:[],requests:[],events:[],unreadCount:0,preferences:{filter:'all',unreadOnly:false},feedback:[],profilePosts:[],collections:[],drafts:{},intros:{},reportDrafts:{},helpDraft:{body:'',topic:'feedback',commitId:newId()}})
 export const social=reactive(empty())
 let loading,loadController,loadOwner,blockProjectionEpoch=0,publishingSocialBlocks=false
 function cancelRead(){loadController?.abort();loadController=null;loading=null;loadOwner=null}
@@ -74,9 +74,10 @@ export async function applySocial(result,signal){
 }
 // Read-only snapshots must finish independently of the global mutation lock.
 // TabBar and Chats share one request, including an empty successful snapshot.
-export function loadSocial({quiet=false}={}){
+export function loadSocial({quiet=false,reuse=false}={}){
  const owner=state.user?.id
  if(!owner)return Promise.resolve(false)
+ if(reuse&&social.loaded&&social.ownerId===owner)return Promise.resolve(true)
  if(!quiet&&!state.ui.busy)state.ui.error=null
  if(loading&&loadOwner===owner)return loading
  cancelRead();const controller=new AbortController();loadController=controller;loadOwner=owner;social.loadError=''

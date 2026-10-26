@@ -20,7 +20,7 @@ import PostImageCarousel from '../components/PostImageCarousel.vue'
 import LoadingSkeleton from '../components/LoadingSkeleton.vue'
 import SocialSafety from '../components/SocialSafety.vue'
 import '../post-detail.css'
-const route=useRoute(),ready=ref(false),authorReady=ref(false),sheet=ref(''),navigating=ref(false)
+const route=useRoute(),ready=ref(false),authorReady=ref(false),sheet=ref(''),navigating=ref(false),entryReveal=ref(false)
 const post=computed(()=>content.posts.find(x=>x.id===route.params.id)),isMine=computed(()=>post.value?.authorId===state.user?.id),revealed=computed(()=>post.value?.lit||isMine.value)
 const author=computed(()=>person(post.value?.authorId)),relation=computed(()=>author.value?.relationship),draft=computed(()=>introDraft(post.value?.authorId)),connection=computed(()=>relation.value?.connection)
 content.detailMediaIndices||={}
@@ -29,13 +29,21 @@ const mediaMode=computed(()=>route.name==='postMedia'),viewerIndex=computed(()=>
 const images=computed(()=>post.value?.media.every(x=>x.kind==='image')),replyWaiting=computed(()=>!relation.value?.canMessage&&!!connection.value),about=computed(()=>author.value?.aboutTranslations?.[state.locale]||author.value?.about||post.value?.author.about||t('s.noAbout'))
 let generation=0,releaseWait,loadingController
 onBeforeUnmount(()=>{generation++;loadingController?.abort();releaseWait?.()})
+function restorePost(){
+ const owner=state.user?.id,id=String(route.params.id)
+ if(!owner||!content.presentedPosts?.[id]||!content.loaded||content.ownerId!==owner||!social.loaded||social.ownerId!==owner||post.value?.id!==id||!author.value||relation.value?.blocked)return false
+ generation++;loadingController?.abort();releaseWait?.()
+ ready.value=true;authorReady.value=true;entryReveal.value=false
+ return true
+}
+restorePost()
 async function load(){
  loadingController?.abort()
  releaseWait?.()
  const controller=new AbortController(),pace=mediaMode.value?null:createLoadingPace(controller.signal);loadingController=controller
  const version=++generation,id=String(route.params.id),owner=state.user?.id
  const current=()=>!controller.signal.aborted&&generation===version&&state.user?.id===owner&&String(route.params.id)===id
- ready.value=false;authorReady.value=false
+ ready.value=false;authorReady.value=false;entryReveal.value=false
  try{
  await paintLoading(controller.signal);if(!current())return
  // A route may replace a cancelled read before its finalizer releases the
@@ -56,14 +64,16 @@ async function load(){
   await prepareLoadingImages([firstMedia?.kind==='image'?firstMedia.url:null,revealed.value?author.value?.photos?.[0]?.url:null],{signal:controller.signal})
   if(!current())return
   await pace?.finish()
+  if(!current())return
+  content.presentedPosts[id]=true;entryReveal.value=!mediaMode.value
  }
  }catch(error){
   if(!current()||asAppError(error).code==='CANCELLED')return
   authorReady.value=false;state.ui.error=asAppError(error).code
  }finally{pace?.cancel();if(current())ready.value=true}
 }
-onMounted(load)
-watch(()=>route.params.id,()=>{sheet.value='';load()})
+onMounted(()=>{if(!restorePost())load()})
+watch(()=>route.params.id,()=>{sheet.value='';if(!restorePost())load()})
 watch(viewerIndex,index=>{if(mediaMode.value)mediaIndex.value=index})
 watch(()=>relation.value?.blocked,blocked=>{if(blocked){sheet.value='';document.querySelectorAll('audio,video').forEach(x=>x.pause())}})
 function back(){if(mediaMode.value)router.replace({name:'post',params:{id:route.params.id},query:route.query});else router.push(typeof route.query.from==='string'&&(['/home','/my-posts','/my-lights','/mine','/chats'].includes(route.query.from)||route.query.from.startsWith('/profile/')||route.query.from.startsWith('/collections/')||route.query.from.startsWith('/conversation/'))?route.query.from:'/home')}
@@ -81,7 +91,7 @@ function changeMedia(delta){const n=post.value.media.length,index=(viewerIndex.v
  <LoadingSkeleton v-if="!ready" variant="detail" :label="t('p2.loading')"/>
  <div v-else-if="!post||relation?.blocked||!authorReady" class="content-state"><h2>{{ t(relation?.blocked?'s.blocked':post&&!authorReady?'s.profileUnavailable':'p2.unavailable') }}</h2><ActionButton @click="load">{{ t('retry') }}</ActionButton><ActionButton secondary @click="back">{{ t('back') }}</ActionButton></div>
  <section v-else-if="mediaMode" class="media-view"><VideoPlayer v-if="currentMedia?.kind==='video'&&currentMedia.url" :key="currentMedia.id" :src="currentMedia.url"/><img v-else-if="currentMedia?.url" :src="currentMedia.url" :alt="t('photoNumber',{n:viewerIndex+1})" draggable="false"/><div v-else class="content-state"><p>{{ t('p2.mediaMissing') }}</p><button class="text-link" @click="load">{{ t('retry') }}</button></div><div v-if="post.media.length>1" class="media-pagination"><button class="icon-button" :aria-label="t('p2.previous')" @click="changeMedia(-1)"><AppIcon name="back"/></button><span>{{ viewerIndex+1 }} / {{ post.media.length }}</span><button class="icon-button" :aria-label="t('p2.next')" @click="changeMedia(1)"><AppIcon name="arrow"/></button></div></section>
- <article v-else class="detail-layout loading-content-reveal">
+ <article v-else class="detail-layout" :class="{'loading-content-reveal':entryReveal}">
   <div v-if="post.media.length" class="detail-hero" :class="{revealed}">
    <PostImageCarousel v-if="images" :key="post.id" :media="post.media" detail :delay="2000" :initial-index="mediaIndex" @change="mediaIndex=$event" @open="viewMedia" @retry="load"/>
    <VideoPlayer v-else-if="post.media[0]?.url" :src="post.media[0].url" expandable @expand="viewMedia(0)"/>

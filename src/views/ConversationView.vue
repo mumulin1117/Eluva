@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import { allowedReturnPath } from '../domain/navigation.js'
 import { router } from '../router.js'
 import { state,t,bridge,run } from '../state.js'
-import { person,conversation,messageDraft,loadSocial,socialAction,ensureMessageDraft,applySocial } from '../social-state.js'
+import { social,person,conversation,messageDraft,loadSocial,socialAction,ensureMessageDraft,applySocial } from '../social-state.js'
 import { readBase64,validateMediaFile } from '../services/media-files.js'
 import { newId } from '../domain/id.js'
 import { AppError } from '../domain/errors.js'
@@ -28,10 +28,13 @@ function context(){return {owner:state.user?.id,peer:peer.value,draft:d.value,ge
 function current(c){return alive&&c.owner===state.user?.id&&c.peer===peer.value&&c.generation===generation&&d.value===c.draft&&!mediaMode.value}
 function requireCurrent(c,signal){if(signal?.aborted||!current(c)||!readable.value)throw new AppError('CANCELLED')}
 async function revealLast(c){await nextTick();if(!c||current(c))document.querySelector('.message-line:last-of-type')?.scrollIntoView({block:'end'})}
-async function load(){const epoch=++generation,target=peer.value;ready.value=false;await loadSocial();if(!alive||epoch!==generation||target!==peer.value)return;if(readable.value){if(await socialAction('thread',{peerId:target},{notice:''})){if(!alive||epoch!==generation)return;if(thread.value?.unread)await socialAction('read',{peerId:target},{notice:''});if(allowed.value)await ensureMessageDraft(target)}}if(alive&&epoch===generation)ready.value=true}
-onMounted(load)
+async function load(){const epoch=++generation,target=peer.value,owner=state.user?.id;delete social.presentedThreads[target];ready.value=false;await loadSocial();if(!alive||epoch!==generation||target!==peer.value||owner!==state.user?.id)return;if(readable.value){if(await socialAction('thread',{peerId:target},{notice:''})){if(!alive||epoch!==generation||owner!==state.user?.id)return;social.presentedThreads[target]=true;if(thread.value?.unread)await socialAction('read',{peerId:target},{notice:''});if(allowed.value)await ensureMessageDraft(target)}}if(alive&&epoch===generation&&owner===state.user?.id)ready.value=true}
+function restore(){const owner=state.user?.id;if(!owner||!social.loaded||social.ownerId!==owner||!social.presentedThreads?.[peer.value]||!p.value||!thread.value||!readable.value)return false;generation++;ready.value=true;return true}
+restore()
+async function enter(){if(!restore())return load();const epoch=generation,target=peer.value,owner=state.user?.id;if(thread.value.unread)await socialAction('read',{peerId:target},{notice:''});if(alive&&epoch===generation&&target===peer.value&&owner===state.user?.id&&allowed.value)await ensureMessageDraft(target)}
+onMounted(enter)
 function stop(target=peer.value){document.querySelectorAll('audio,video').forEach(x=>x.pause());bridge.call('realtime','cancel',{scope:'peer',peerId:target,reason:document.hidden?'background':'left'}).catch(()=>{})}
-watch(peer,(value,previous)=>{stop(previous);expressions.value=false;recordMode.value=false;composing.value=false;pendingBrowserPhoto=null;photoPermissionError.value='';load()})
+watch(peer,(value,previous)=>{stop(previous);expressions.value=false;recordMode.value=false;composing.value=false;pendingBrowserPhoto=null;photoPermissionError.value='';enter()})
 watch(allowed,value=>{if(!value){generation++;stop();expressions.value=false;recordMode.value=false}})
 watch(()=>state.ui.error,value=>{if(value!==photoPermissionError.value)photoPermissionError.value=''})
 onBeforeUnmount(()=>{alive=false;generation++;pendingBrowserPhoto=null;stop()})

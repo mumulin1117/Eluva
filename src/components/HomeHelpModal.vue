@@ -1,5 +1,5 @@
 <script setup>
-import { computed,nextTick,onBeforeUnmount,ref } from 'vue'
+import { computed,nextTick,onBeforeUnmount,onMounted,ref } from 'vue'
 import { t } from '../state.js'
 import { homeHelpSlides } from '../data/home-help.js'
 import AppModal from './AppModal.vue'
@@ -21,26 +21,33 @@ function status(i,value){if(alive)statuses.value[i]=value}
 function retry(){const i=index.value;if(statuses.value[i]!=='failed')return;statuses.value[i]='loading';attempts.value[i]++}
 function artStyle(art){return {left:art.x/360*100+'%',top:art.y/242*100+'%',width:art.width/360*100+'%',height:art.height/242*100+'%',objectPosition:art.position||'50% 50%'}}
 function pointerDown(event){
-  if(!event.isPrimary||event.button!==0||event.target.closest('button'))return
-  gesture={id:event.pointerId,x:event.clientX,y:event.clientY,target:event.currentTarget}
-  event.currentTarget.setPointerCapture(event.pointerId)
+  if(event.isPrimary===false){cancelPointer();return}
+  if(!alive||document.hidden||gesture||event.button!==0||event.target.closest('button'))return
+  gesture={id:event.pointerId,x:event.clientX,y:event.clientY,target:event.currentTarget,axis:''}
+  try{event.currentTarget.setPointerCapture(event.pointerId)}catch{cancelPointer()}
 }
-function pointerMove(event){if(gesture?.id===event.pointerId&&Math.abs(event.clientX-gesture.x)>10&&Math.abs(event.clientX-gesture.x)>Math.abs(event.clientY-gesture.y))event.preventDefault()}
+function pointerMove(event){
+  if(gesture?.id!==event.pointerId)return
+  if(document.hidden){cancelPointer();return}
+  const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y
+  if(!gesture.axis&&Math.max(Math.abs(dx),Math.abs(dy))>10)gesture.axis=Math.abs(dx)>Math.abs(dy)?'horizontal':'vertical'
+  if(gesture.axis==='horizontal'&&event.cancelable)event.preventDefault()
+}
 function pointerUp(event){
   if(gesture?.id!==event.pointerId)return
-  const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y
+  const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y,swipe=gesture.axis!=='vertical'&&!document.hidden
   cancelPointer()
-  if(Math.abs(dx)>=36&&Math.abs(dx)>Math.abs(dy))select(index.value+(dx<0?1:-1))
+  if(swipe&&Math.abs(dx)>=36&&Math.abs(dx)>Math.abs(dy))select(index.value+(dx<0?1:-1))
 }
-function cancelPointer(){const old=gesture;gesture=null;if(old?.target.hasPointerCapture(old.id))old.target.releasePointerCapture(old.id)}
+function cancelPointer(event){if(event?.pointerId!==undefined&&gesture?.id!==event.pointerId)return;const old=gesture;gesture=null;if(old?.target.hasPointerCapture?.(old.id)){try{old.target.releasePointerCapture(old.id)}catch{}}}
 function keydown(event){
   if(event.repeat)return
   const target={ArrowLeft:index.value-1,ArrowRight:index.value+1,Home:0,End:homeHelpSlides.length-1}[event.key]
   if(target!==undefined){event.preventDefault();select(target)}
 }
 function hidden(){if(document.hidden)cancelPointer()}
-document.addEventListener('visibilitychange',hidden)
-onBeforeUnmount(()=>{alive=false;cancelPointer();document.removeEventListener('visibilitychange',hidden)})
+onMounted(()=>{document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',cancelPointer);window.addEventListener('blur',cancelPointer);window.addEventListener('eluva:cancel-interactions',cancelPointer)})
+onBeforeUnmount(()=>{alive=false;cancelPointer();document.removeEventListener('visibilitychange',hidden);window.removeEventListener('pagehide',cancelPointer);window.removeEventListener('blur',cancelPointer);window.removeEventListener('eluva:cancel-interactions',cancelPointer)})
 </script>
 <template>
   <AppModal centered variant="home-help" hide-header :dismiss-on-backdrop="false" :title="t('p2.help')" @close="close">
@@ -67,8 +74,9 @@ onBeforeUnmount(()=>{alive=false;cancelPointer();document.removeEventListener('v
 .home-help-recovery p{max-width:260px}.home-help-retry{min-width:100px;min-height:44px;padding:8px 16px;background:#fff;color:#582ca0;border-radius:24px;font:600 14px/20px 'Plus Jakarta Sans',sans-serif}
 .home-help-tour .home-help-copy{padding:0 26.5px;margin:15px 0 0;min-height:52px;white-space:normal;overflow-wrap:break-word;text-align:center;font:500 17px/26px 'Poppins',sans-serif;color:rgba(255,255,255,1)}
 .home-help-pagination{display:flex;justify-content:center;align-items:center;gap:4px;height:44px;margin-top:7px}
-.home-help-pagination button{display:grid;place-items:center;padding:0;min-width:0;width:20px;height:44px;background:transparent;flex-shrink:0}
-.home-help-pagination button.active{width:50px}.home-help-pagination button>span{display:block;width:100%;height:4px;border-radius:4px;background:rgba(255,255,255,.4);transform:translateY(1px)}
+.home-help-pagination button{display:grid;place-items:center;padding:0;min-width:44px;width:44px;height:44px;background:transparent;flex-shrink:0}
+.home-help-pagination button.active{width:50px}.home-help-pagination button>span{display:block;width:20px;height:4px;border-radius:4px;background:rgba(255,255,255,.4);transform:translateY(1px)}
+.home-help-pagination button.active>span{width:50px}
 .home-help-pagination button.active>span{background:rgba(255,255,255,1)}
 .home-help-panel .modal-footer{padding:24px 15px 25px;gap:12px;margin:0}
 .modal-panel.home-help-panel .modal-footer>.action-button{flex:1;min-width:0;min-height:48px;border-radius:40px;padding:12px 10px;font:600 14px/18px 'Plus Jakarta Sans',sans-serif;white-space:normal;overflow-wrap:break-word}

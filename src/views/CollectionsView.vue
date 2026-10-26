@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { router } from '../router.js'
 import { state,t,bridge,run } from '../state.js'
 import { content } from '../content-state.js'
+import { social,person } from '../social-state.js'
 import { personal,loadPersonal,applyPersonal,personalAction,waitPersonalIdle } from '../personal-state.js'
 import { newId } from '../domain/id.js'
 import ContentShell from '../components/ContentShell.vue'
@@ -19,8 +20,24 @@ const otherEntry=computed(()=>String(route.query.from||'').startsWith('/profile/
 const empty=computed(()=>ready.value&&!detail.value&&!content.collections.length)
 let generation=0
 onBeforeUnmount(()=>{generation++})
-async function load(){const version=++generation,id=route.params.id,isManaging=managing.value;ready.value=false;current.value=null;if(!id){await loadPersonal();if(version===generation)ready.value=personal.loaded;return}await waitPersonalIdle();if(version!==generation)return;await run('collection-load',async signal=>{const r=await bridge.call('personal','collection',{id:String(id)},{signal});await applyPersonal(r,signal);if(signal.aborted||version!==generation)return;current.value=r.collection;if(isManaging&&r.collection.editable)personal.collectionSelections[r.collection.id]||={postIds:[...r.collection.postIds],commitId:newId()}});if(version===generation)ready.value=true}
-onMounted(load);watch(()=>route.fullPath,()=>{editor.value=false;load()})
+function restore(){
+ const owner=state.user?.id,id=String(route.params.id||'')
+ if(!owner||!personal.loaded||personal.ownerId!==owner||!content.loaded||content.ownerId!==owner||!social.loaded||social.ownerId!==owner||id&&!personal.presentedCollections?.[id])return false
+ generation++;current.value=null
+ if(id){
+  const collection=content.collections.find(x=>x.id===id)||social.collections.find(x=>x.id===id)
+  if(collection){
+   const own=collection.ownerId===owner,author=person(collection.ownerId)
+   const postIds=collection.postIds.filter(id=>content.posts.some(p=>p.id===id&&(own||p.visibility?.profile)))
+   if(own||author&&!author.relationship?.blocked&&postIds.length)current.value={...collection,postIds,editable:own,coverId:own?collection.coverId:null}
+  }
+  if(managing.value&&current.value?.editable)personal.collectionSelections[id]||={postIds:[...current.value.postIds],commitId:newId()}
+ }
+ ready.value=true;return true
+}
+restore()
+async function load(){const version=++generation,id=route.params.id,isManaging=managing.value,owner=state.user?.id;ready.value=false;current.value=null;if(id)delete personal.presentedCollections[String(id)];if(!id){await loadPersonal();if(version===generation&&owner===state.user?.id)ready.value=personal.loaded;return}await waitPersonalIdle();if(version!==generation||owner!==state.user?.id)return;await run('collection-load',async signal=>{const r=await bridge.call('personal','collection',{id:String(id)},{signal});await applyPersonal(r,signal);if(signal.aborted||version!==generation||owner!==state.user?.id)return;current.value=r.collection;personal.presentedCollections[String(id)]=true;if(isManaging&&r.collection.editable)personal.collectionSelections[r.collection.id]||={postIds:[...r.collection.postIds],commitId:newId()}});if(version===generation&&owner===state.user?.id)ready.value=true}
+onMounted(()=>{if(!restore())load()});watch(()=>route.fullPath,()=>{editor.value=false;if(!restore())load()})
 function back(){if(managing.value)return router.push({name:'collection',params:{id:route.params.id},query:route.query});const f=route.query.from;router.push(detail.value?(typeof f==='string'&&(f==='/collections'||f.startsWith('/profile/'))?f:'/collections'):'/mine')}
 function cover(x){return x.coverUrl||content.posts.find(p=>x.postIds.includes(p.id)&&p.media[0]?.url)?.media[0]?.url}
 function open(id){router.push({name:'collection',params:{id},query:{from:detail.value?'/collections':route.fullPath}})}

@@ -1,8 +1,7 @@
 <script setup>
-import { showDiagnostics } from '../services/presentation.js'
 import { computed,onMounted,onBeforeUnmount,nextTick,ref,watch } from 'vue'
 import { router } from '../router.js'
-import { state,t,run,bridge,canNavigate,notify } from '../state.js'
+import { state,t,canNavigate } from '../state.js'
 import { content,loadContent,refreshContent,discovered,hasDiscoverablePosts,mutateContent,newPostDraft,dirtyPost } from '../content-state.js'
 import { defaultFeedFilter } from '../domain/content.js'
 import { choices } from '../data/choices.js'
@@ -26,7 +25,7 @@ const sourcePosts=computed(discovered)
 const empty=computed(()=>ready.value&&sourcePosts.value.length===0)
 const filteredEmpty=computed(()=>empty.value&&hasDiscoverable.value)
 const enteringComposer=ref(false),refreshFeedback=ref(''),readOperation=ref(''),readPending=ref(!ready.value)
-const map=ref(null),filterOpen=ref(false),helpOpen=ref(false),demoOpen=ref(false),filter=ref(defaultFeedFilter())
+const map=ref(null),filterOpen=ref(false),helpOpen=ref(false),filter=ref(defaultFeedFilter())
 const guideOpen=ref(false),entryReadSucceeded=ref(false)
 const openingId=ref('')
 let openingCard=null,directOpening=false
@@ -77,7 +76,7 @@ function cancelCardOpen(){
  presentation.hold('card-open',false)
 }
 function availableCard(post){
- if(openingCard||directOpening||disposed||router.currentRoute.value.name!=='home'||!ready.value||state.ui.busy||!canNavigate()||pagePaused.value||guideOpen.value||helpOpen.value||filterOpen.value||demoOpen.value||!posts.value.some(x=>x.id===post.id))return
+ if(openingCard||directOpening||disposed||router.currentRoute.value.name!=='home'||!ready.value||state.ui.busy||!canNavigate()||pagePaused.value||guideOpen.value||helpOpen.value||filterOpen.value||!posts.value.some(x=>x.id===post.id))return
  const card=[...feedElement()?.children||[]].find(x=>x.dataset.postId===post.id)
  if(!card?.isConnected||getComputedStyle(card).visibility==='hidden')return
  return card
@@ -189,7 +188,7 @@ function syncPause(){
 function reducedMotion(){clearDecorations();presentation.reduceMotion(motionQuery.matches)}
 // Discovery's business clock becomes idle before the final card's two-second
 // glow ends. Wait for the actual decorations too, never a guessed timeout.
-const guideCanOpen=computed(()=>!guideOpen.value&&!content.preferences.guideDone&&ready.value&&entryReadSucceeded.value&&!readPending.value&&!readOperation.value&&!motion.value.busy&&!arrival.value&&!glowingIds.value.length&&!motionPaused.value&&!helpOpen.value&&!filterOpen.value&&!demoOpen.value&&!enteringComposer.value&&!state.ui.busy&&router.currentRoute.value.name==='home'&&presentedSource===sourceSignature.value)
+const guideCanOpen=computed(()=>!guideOpen.value&&!content.preferences.guideDone&&ready.value&&entryReadSucceeded.value&&!readPending.value&&!readOperation.value&&!motion.value.busy&&!arrival.value&&!glowingIds.value.length&&!motionPaused.value&&!helpOpen.value&&!filterOpen.value&&!enteringComposer.value&&!state.ui.busy&&router.currentRoute.value.name==='home'&&presentedSource===sourceSignature.value)
 watch([guideCanOpen,sourceSignature],async([allowed],_previous,onCleanup)=>{
  if(!allowed)return
  const controller=new AbortController(),owner=state.user?.id,source=sourceSignature.value
@@ -230,8 +229,12 @@ onMounted(async()=>{
  modalObserver=new MutationObserver(syncPause);const app=document.getElementById('app');if(app)modalObserver.observe(app,{attributes:true,attributeFilter:['inert']});syncPause()
  intersectionObserver=new IntersectionObserver(entries=>{inView.value=!!entries[0]?.isIntersecting;presentation.hold('offscreen',!inView.value)},{threshold:0})
  if(map.value)intersectionObserver.observe(map.value)
- if(ready.value&&content.feedPresentation?.key===feedKey.value)syncPresentation()
- await restoreFeed();await readHome({quiet:content.loaded});await restoreFeed()
+ if(ready.value&&content.feedPresentation?.key===feedKey.value){
+  // Returning restores the completed presentation, including a successful
+  // empty result. Mutations already update the shared, permission-filtered data.
+  syncPresentation();entryReadSucceeded.value=true;readPending.value=false
+ }else await readHome({quiet:content.loaded,reuse:true})
+ await restoreFeed()
 })
 onBeforeUnmount(()=>{
  cancelCardOpen()
@@ -247,7 +250,6 @@ function openFilter(){clearDecorations();presentation.finish();readOperation.val
 async function saveFilter(){if(await mutateContent('preferences',{feedFilter:{...filter.value}})){entryReadSucceeded.value=true;filterOpen.value=false;refreshFeedback.value='';content.feedScroll=0;await restoreFeed()}}
 async function resetFilter(){readOperation.value='';if(await mutateContent('preferences',{feedFilter:defaultFeedFilter()})){entryReadSucceeded.value=true;refreshFeedback.value='';content.feedScroll=0;await restoreFeed()}}
 async function finishGuide(){if(await mutateContent('preferences',{guideDone:true})){content.guideStep=null;guideOpen.value=false}}
-async function armFailure(operation){await run('content-demo',async signal=>{await bridge.call('content','simulateFailure',{operation},{signal});notify('p2.failureArmed');demoOpen.value=false})}
 </script>
 <template>
 <ContentShell home :class="{'home-empty-state':empty,'home-discovering':discovering}" :data-discovery-phase="motion.phase" :data-motion-paused="motionPaused" :data-opening-post="openingId||undefined" :data-guide-pending="ready&&!content.preferences.guideDone" :data-guide-open="guideOpen" :ready="ready" :show-error="ready" :error-key="readErrorKey" :title="t('p2.home')" @help="openHelp" @filters="openFilter">
@@ -265,10 +267,10 @@ async function armFailure(operation){await run('content-demo',async signal=>{awa
  <section v-else-if="sourcePosts.length" class="discovery-panel" :aria-busy="motion.busy">
   <TransitionGroup tag="div" name="discovery-cards" class="discovery-list" @leave="removeCard" @scroll="content.feedScroll=$event.target.scrollLeft"><PostCard v-for="post in posts" :key="post.id" :post="post" :echo-busy="openingId===post.id" :interaction-disabled="!!openingId" :data-post-id="post.id" :style="signalStyle(post.id)" :data-glow-id="glowingIds.includes(post.id)?post.id:undefined" :data-open-feedback="openingId===post.id?true:undefined" :aria-busy="openingId===post.id?true:undefined" :class="{'discovery-card-reveal':motion.activeId===post.id,'discovery-card-landing':arrival?.id===post.id,'discovery-card-glow':glowingIds.includes(post.id)}" @open="openPost(post)" @echo="echo(post)"/></TransitionGroup>
  </section>
- <div v-if="ready&&((showDiagnostics&&state.user?.isTest)||(content.draft&&dirtyPost()))" class="home-local-tools"><button v-if="showDiagnostics&&state.user?.isTest" class="text-link" @click="demoOpen=true">{{ t('p2.demoChecks') }}</button><button v-if="content.draft&&dirtyPost()" class="text-link" @click="compose">{{ t('p2.continueDraft') }}</button></div>
+ <div v-if="ready&&content.draft&&dirtyPost()" class="home-local-tools"><button class="text-link" @click="compose">{{ t('p2.continueDraft') }}</button></div>
  <template #tabs><div v-if="empty" class="home-empty-footer"><HomeEmptyPanel :filtered="filteredEmpty" :busy="!!state.ui.busy||discovering" :entering="enteringComposer" :feedback="refreshFeedback" @compose="compose" @reset="resetFilter"/><AppTabBar :lights="content.events.length"/></div><AppTabBar v-else :lights="content.events.length"/></template>
  <template #overlay><HomeLandscape :paused="motionPaused"/><div v-if="arrival" class="discovery-flight-stage" :style="arrival.stage" aria-hidden="true" inert><div :key="arrival.id" class="discovery-flight" :data-post-id="arrival.id" data-flight-phase="falling" :style="arrival.card" @animationend="finishArrival"><PostCard :post="arrival.post" :style="signalStyle(arrival.id)" :data-glow-id="arrival.id" class="discovery-flight-card discovery-card-glow"/></div></div></template>
 </ContentShell>
 <HomeHelpModal v-if="helpOpen" @close="helpOpen=false"/>
 <AppModal v-if="guideOpen&&content.guideStep!==null&&!content.preferences.guideDone" :title="t('p2.guideTitle')" :coach-side="content.guideStep%2?'right':'left'" :coach-target="guideTargets[content.guideStep]" :closable="!state.ui.busy" @close="finishGuide"><div class="home-guide" :data-guide-step="content.guideStep"><p>{{ t('p2.guide'+content.guideStep) }}</p><span>{{ t('p2.guideStep',{n:content.guideStep+1}) }}</span></div><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="finishGuide">{{ t('p2.guideSkip') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="content.guideStep===3?finishGuide():content.guideStep++">{{ t(content.guideStep===3?'p2.guideDone':'p2.next') }}</ActionButton></template></AppModal>
-<AppModal v-if="filterOpen" :closable="!state.ui.busy" :title="t('p2.feedFilters')" @close="filterOpen=false"><p class="sheet-hint">{{ t('p2.feedHint') }}</p><fieldset :disabled="!!state.ui.busy"><legend>{{ t('p2.filters') }}</legend><div class="chips"><button v-for="id in ['all','image','video','text']" :key="id" class="chip" :class="{selected:filter.media===id}" :aria-pressed="filter.media===id" @click="filter.media=id">{{ t('p2.'+({image:'images'}[id]||id)) }}</button></div></fieldset><fieldset class="sheet-field"><legend>{{ t('p2.topics') }}</legend><select class="plain-select" :disabled="!!state.ui.busy" v-model="filter.topic" :aria-label="t('p2.topics')"><option value="all">{{ t('p2.all') }}</option><option v-for="x in choices.interests" :key="x.id" :value="x.id">{{ x[state.locale] }}</option></select></fieldset><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="filterOpen=false">{{ t('cancel') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="saveFilter">{{ t('save') }}</ActionButton></template></AppModal><AppModal v-if="showDiagnostics&&demoOpen" :title="t('p2.demoChecks')" @close="demoOpen=false"><p class="sheet-hint">{{ t('p2.demoChecksHint') }}</p><div class="source-actions"><ActionButton v-for="[op,key] in [['publish','failPublish'],['comment','failComment'],['snapshot','failRefresh']]" :key="op" secondary @click="armFailure(op)">{{ t('p2.'+key) }}</ActionButton></div></AppModal></template>
+<AppModal v-if="filterOpen" :closable="!state.ui.busy" :title="t('p2.feedFilters')" @close="filterOpen=false"><p class="sheet-hint">{{ t('p2.feedHint') }}</p><fieldset :disabled="!!state.ui.busy"><legend>{{ t('p2.filters') }}</legend><div class="chips"><button v-for="id in ['all','image','video','text']" :key="id" class="chip" :class="{selected:filter.media===id}" :aria-pressed="filter.media===id" @click="filter.media=id">{{ t('p2.'+({image:'images'}[id]||id)) }}</button></div></fieldset><fieldset class="sheet-field"><legend>{{ t('p2.topics') }}</legend><select class="plain-select" :disabled="!!state.ui.busy" v-model="filter.topic" :aria-label="t('p2.topics')"><option value="all">{{ t('p2.all') }}</option><option v-for="x in choices.interests" :key="x.id" :value="x.id">{{ x[state.locale] }}</option></select></fieldset><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="filterOpen=false">{{ t('cancel') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="saveFilter">{{ t('save') }}</ActionButton></template></AppModal></template>

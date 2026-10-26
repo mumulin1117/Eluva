@@ -16,7 +16,7 @@ final class LocalRepository: @unchecked Sendable {
     static let testID = "eluva-test-user-v1"
     let queue = DispatchQueue(label: "com.eluva.repository", qos: .userInitiated)
     let root: URL
-    private let preferences: UserDefaults
+    private let preferences = UserDefaults.standard
     var snapshot: JSONObject?
     private var key: SymmetricKey?
     private var flows: [String: Flow] = [:]
@@ -26,19 +26,10 @@ final class LocalRepository: @unchecked Sendable {
     var socialDrafts: [String:(owner:String,peer:String)] = [:]
     var profileMediaGrants: [String:Set<String>] = [:]
     var callLeases = Set<String>()
-    var socialFailure: String?
-    var personalFailure: (owner:String,method:String)?
-    var contentFailure: String?
-    var contentPolicyOverride: JSONObject?
-    var commercePolicyOverride: JSONObject?
-    var writeOverride: ((Data, URL) throws -> Void)?
-    private let suppliedKey: SymmetricKey?
-    private let suppliedChoices: [String: Set<String>]?
     private struct Flow { var purpose: String; var email: String; var password: String; var userID: String?; var verified: Bool; var version: String? = nil }
 
-    init(root: URL? = nil, key: SymmetricKey? = nil, preferences: UserDefaults = .standard, choices: [String: Set<String>]? = nil) {
-        self.root = root ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Eluva", isDirectory: true)
-        self.suppliedKey = key; self.preferences = preferences; self.suppliedChoices = choices
+    init() {
+        self.root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Eluva", isDirectory: true)
     }
     static func language(_ preferred: [String], saved: String?) -> String {
         if let saved, ["en", "fr"].contains(saved) { return saved }
@@ -79,7 +70,7 @@ final class LocalRepository: @unchecked Sendable {
             let installID = preferences.string(forKey: "eluva.installID") ?? UUID().uuidString.lowercased()
             preferences.set(installID, forKey: "eluva.installID")
         
-            key = try suppliedKey ?? keychainKey(installID: installID)
+            key = try keychainKey(installID: installID)
            
             let url = root.appendingPathComponent("accounts.vault")
             if FileManager.default.fileExists(atPath: url.path) {
@@ -110,8 +101,7 @@ final class LocalRepository: @unchecked Sendable {
             let data = try JSONSerialization.data(withJSONObject: next, options: [.sortedKeys])
             let encrypted = try AES.GCM.seal(data, using: key!).combined!
             let url = root.appendingPathComponent("accounts.vault")
-            if let writeOverride { try writeOverride(encrypted, url) }
-            else { try encrypted.write(to: url, options: [.atomic, .completeFileProtection]) }
+            try encrypted.write(to: url, options: [.atomic, .completeFileProtection])
             snapshot = next // Publish only after the durable atomic replacement succeeds.
         } catch let error as EluvaError { throw error }
         catch { throw EluvaError("STORAGE_FAILED") }
@@ -138,8 +128,7 @@ final class LocalRepository: @unchecked Sendable {
         return current.year! - birth.year! - (beforeBirthday ? 1 : 0)
     }
     private func choiceIDs() throws -> [String: Set<String>] {
-        if let suppliedChoices { return suppliedChoices }
-        guard let url = Bundle.main.url(forResource: "choices", withExtension: "json", subdirectory: "Web/config"), let value = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: [JSONObject]] else { throw EluvaError("RESOURCE_MISSING") }
+        guard let url = EncryptedWebResources.shared.url(forResource: "choices", withExtension: "json", subdirectory: "config"), let value = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: [JSONObject]] else { throw EluvaError("RESOURCE_MISSING") }
         return value.mapValues { Set($0.compactMap { $0["id"] as? String }) }
     }
     func validateProfile(_ raw: JSONObject, existing: JSONObject? = nil, sparse: Bool = false) throws -> JSONObject {
@@ -167,7 +156,7 @@ final class LocalRepository: @unchecked Sendable {
         return profile
     }
     func validateConversationOnboarding(_ raw:JSONObject)throws->JSONObject {
-        guard let url=Bundle.main.url(forResource:"auth-conversation",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let policy=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{throw EluvaError("RESOURCE_MISSING")}
+        guard let url=EncryptedWebResources.shared.url(forResource:"auth-conversation",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let policy=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{throw EluvaError("RESOURCE_MISSING")}
         try require(raw["version"] as? String==policy["version"] as? String,"INVALID_PROFILE")
         let theme=raw["theme"] as? String ?? "";try require((policy["themes"] as? [String] ?? []).contains(theme),"INVALID_PROFILE")
         let rows=array(raw["answers"]),questions=array(policy["questions"]);try require(rows.count==questions.count && questions.count==10,"INVALID_PROFILE")
@@ -236,7 +225,7 @@ final class LocalRepository: @unchecked Sendable {
             let candidate = try hash(value("password"), salt: salt); try require(equal(candidate["hash"] as? String ?? "", stored["hash"] as? String ?? ""), "WRONG_PASSWORD")
             let session: JSONObject = ["userId": user["id"]!, "token": UUID().uuidString.lowercased()]; next["session"] = session; try persist(next)
             return ["theme":object(object(object(next["personal"])["preferences"])[user["id"] as? String ?? ""])["theme"] ?? "purple","user": publicUser(user), "session": session, "fixtures": object(next["fixtures"])[user["id"] as? String ?? ""] ?? ["threads": [], "friends": [], "requests": []]]
-        case "auth.logout": personalFailure=nil; next["session"] = NSNull(); try persist(next); flows.removeAll(); callLeases.removeAll(); socialDrafts.removeAll();profileMediaGrants.removeAll();socialFailure=nil;contentDrafts.removeAll(); stagedKinds.removeAll(); contentFailure=nil; removeStaging(); return ["loggedOut": true]
+        case "auth.logout": next["session"] = NSNull(); try persist(next); flows.removeAll(); callLeases.removeAll(); socialDrafts.removeAll();profileMediaGrants.removeAll();contentDrafts.removeAll(); stagedKinds.removeAll(); removeStaging(); return ["loggedOut": true]
         case "auth.completeRegistration":
             let commit = value("commitId"), flowID = value("flowId"); try require(UUID(uuidString: commit) != nil, "INVALID_ARGUMENT")
             let commits = object(next["commits"])
@@ -267,7 +256,7 @@ final class LocalRepository: @unchecked Sendable {
         default: throw EluvaError("METHOD_NOT_FOUND")
         }
     }
-    func clearPersonalRuntime(){ flows.removeAll();callLeases.removeAll();socialDrafts.removeAll();profileMediaGrants.removeAll();contentDrafts.removeAll();stagedKinds.removeAll();personalFailure=nil;socialFailure=nil;contentFailure=nil;removeStaging() }
+    func clearPersonalRuntime(){ flows.removeAll();callLeases.removeAll();socialDrafts.removeAll();profileMediaGrants.removeAll();contentDrafts.removeAll();stagedKinds.removeAll();removeStaging() }
     func validateMediaFlow(_ id: String) throws { try prepare(); if let draft=socialDrafts[id] {try require(currentUser(snapshot!)?["id"] as? String==draft.owner,"DRAFT_EXPIRED");try requireSocialPeer(snapshot!,draft.owner,draft.peer,friend:true);return}; if let owner = contentDrafts[id] { try require(currentUser(snapshot!)?["id"] as? String == owner, "DRAFT_EXPIRED"); return }; let item = try flow(id, purpose: "signup"); try require(item.verified, "VERIFICATION_REQUIRED") }
     func importImage(_ data: Data, flowID: String) throws -> JSONObject {
         try validateMediaFlow(flowID); try require(data.count <= 20 * 1024 * 1024, "MEDIA_TOO_LARGE")

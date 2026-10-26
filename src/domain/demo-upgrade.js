@@ -23,7 +23,61 @@ export function upgradePresentation(root) {
     if(migrateCopy&&peer&&thread.title?.en?.startsWith('Local demo '))thread.title={en:peer.displayName,fr:peer.displayName}
     for(const message of thread.messages||[])if(migrateCopy&&message.kind==='text'&&message.body?.en===old)message.body={...presentationFixture.greeting}
   }
+  upgradeDemoChatPeers(root)
   root.presentationVersion=presentationFixture.version
+}
+
+// Only the fixed account's shipped chat fixtures move. Persona identities,
+// posts, blocks and conversations created by the user keep their owners.
+function upgradeDemoChatPeers(root) {
+  if(root.accounts?.[demoScope]?.isTest!==true)return
+  const fixture=root.fixtures?.[demoScope],social=root.social,stamp='2026-10-17T08:00:00.000Z'
+  const pair=(a,b)=>[a,b].sort().join('|')
+  for(const item of demoConversations){
+    const oldPeer=item.legacyPeerId,peer=item.peerId,oldPair=pair(demoScope,oldPeer),newPair=pair(demoScope,peer)
+    if(fixture){
+      fixture.friends=[...new Set((fixture.friends||[]).map(id=>id===oldPeer?peer:id))]
+      for(const thread of fixture.threads||[])if(thread.id===item.legacyThreadId&&thread.participantId===oldPeer){
+        thread.id=item.threadId;thread.participantId=peer
+        const name=demoPeople.find(p=>p.id===peer).displayName;thread.title={en:name,fr:name}
+      }
+    }
+    const oldThread=social?.threads?.[item.legacyThreadId]
+    if(!oldThread||oldThread.createdAt!==stamp||oldThread.users?.length!==2||!oldThread.users.includes(demoScope)||!oldThread.users.includes(oldPeer))continue
+    const rows=Object.values(social.messages).filter(m=>m.threadId===oldThread.id)
+    const shipped=rows.filter(m=>m.demo===true&&m.kind==='text'&&!m.mediaId&&m.senderId===oldPeer&&m.recipientId===demoScope&&(
+      (m.id===demoScope+':'+item.greetingId&&m.createdAt===stamp&&m.body===presentationFixture.greeting.en)||
+      (m.id===demoScope+':'+item.messageId&&m.createdAt===item.createdAt&&m.body===item.legacyBody)
+    ))
+    const hasUserHistory=rows.length!==shipped.length||!!social.connections?.[oldPair]||Object.values(social.requests).some(r=>r.pair===oldPair)||Object.values(root.realtime?.calls||{}).some(c=>[c.ownerId,c.peerId].includes(demoScope)&&[c.ownerId,c.peerId].includes(oldPeer))
+    const existing=Object.values(social.threads).find(t=>t.pair===newPair)
+    const targetHasRelationship=!!(existing||social.friendships[newPair]||social.follows[demoScope+':'+peer]||social.follows[peer+':'+demoScope]||social.connections?.[newPair]||Object.values(social.requests).some(r=>r.pair===newPair))
+    const thread=existing||{...oldThread,id:item.threadId,pair:newPair,users:[demoScope,peer]}
+    social.threads[thread.id]=thread
+    for(const message of shipped){
+      message.threadId=thread.id;message.senderId=peer
+      if(message.id===demoScope+':'+item.messageId){message.body=item.text.en;message.translations={...item.text}}
+    }
+    if(!hasUserHistory){
+      delete social.threads[oldThread.id]
+      const friendship=social.friendships[oldPair]
+      if(friendship?.createdAt===stamp){
+        if(!targetHasRelationship)social.friendships[newPair]={...friendship,id:newPair,users:[demoScope,peer]}
+        delete social.friendships[oldPair]
+      }
+      for(const [a,b]of [[demoScope,oldPeer],[oldPeer,demoScope]]){
+        const key=a+':'+b,follow=social.follows[key],sender=a===oldPeer?peer:a,recipient=b===oldPeer?peer:b
+        if(follow?.createdAt===stamp){
+          if(!targetHasRelationship)social.follows[sender+':'+recipient]={...follow,senderId:sender,recipientId:recipient}
+          delete social.follows[key]
+        }
+      }
+    } else if(!targetHasRelationship){
+      // Existing real exchanges stay with their original participant and permissions.
+      social.friendships[newPair]={id:newPair,users:[demoScope,peer],createdAt:stamp}
+      for(const [a,b]of [[demoScope,peer],[peer,demoScope]])social.follows[a+':'+b]={senderId:a,recipientId:b,createdAt:stamp}
+    }
+  }
 }
 
 // Update shipped fixture records only. User-authored posts, relationships,

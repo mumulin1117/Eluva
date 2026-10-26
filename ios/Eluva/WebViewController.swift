@@ -40,17 +40,17 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     private var echoRings = [UIView](), revealCompletedWhileInactive = false
     private var launchDestination: LaunchDestination = .other
     private var activeNavigation: WKNavigation?, inactive = false
-    private let reduceMotion: () -> Bool
+    private let reduceMotion = { UIAccessibility.isReduceMotionEnabled }
     private(set) var launchID = ""
     private(set) var launchPhase: LaunchPhase = .covering
     private(set) var welcomeMotion = "brief"
     private var timer: Timer?, webFinished = false, frameFinished = false
     private let log = Logger(subsystem: "com.eluva.app", category: "launch")
-    init(repository: LocalRepository = LocalRepository(), reduceMotion: @escaping () -> Bool = { UIAccessibility.isReduceMotionEnabled }) {
-        self.repository = repository; self.reduceMotion = reduceMotion
+    init(repository: LocalRepository = LocalRepository()) {
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
-    required init?(coder: NSCoder) { fatalError("Use init(repository:reduceMotion:)") }
+    required init?(coder: NSCoder) { fatalError("Use init(repository:)") }
     override var preferredStatusBarStyle: UIStatusBarStyle { cameraPreview==nil&&videoAppearanceID==nil ? .darkContent:.lightContent }
     override func viewDidLoad() {
         super.viewDidLoad(); view.backgroundColor = UIColor(red: 0.996, green: 0.988, blue: 1, alpha: 1)
@@ -70,7 +70,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
        
         bridge.webView = webView; bridge.host = self
         view.insertSubview(webView, belowSubview: cover); NSLayoutConstraint.activate([webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),webView.topAnchor.constraint(equalTo: view.topAnchor),webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
-        store.start();loadLocal()
+        loadLocal()
         inactiveObserver=NotificationCenter.default.addObserver(forName:UIApplication.willResignActiveNotification,object:nil,queue:.main){[weak self] _ in self?.pauseLaunch()}
         backgroundObserver=NotificationCenter.default.addObserver(forName:UIApplication.didEnterBackgroundNotification,object:nil,queue:.main){[weak self] _ in self?.pauseLaunch();self?.media.cancel();self?.realtime.cancelAll(reason:"background");self?.language.cancel()}
         activeObserver=NotificationCenter.default.addObserver(forName:UIApplication.didBecomeActiveNotification,object:nil,queue:.main){[weak self] _ in guard let self else { return }; self.inactive=false;if self.launchPhase == .covering && !(self.frameFinished && self.webFinished) { self.armLaunchTimeout() };self.revealIfReady()}
@@ -120,9 +120,26 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         launchDestination = .other; welcomeMotion = "brief"
         webFinished = false; frameFinished = false; cover.alpha = 1; cover.isHidden = false; failurePanel.isHidden = true; status.text = nil
         webView.isUserInteractionEnabled = false; webView.accessibilityElementsHidden = true
-        guard let root = Bundle.main.resourceURL?.appendingPathComponent("Web"), FileManager.default.fileExists(atPath: root.appendingPathComponent("index.html").path) else { failed("RESOURCE_MISSING"); return }
-        activeNavigation = webView.load(URLRequest(url: URL(string: "eluva://app/index.html?launch=" + launchID)!))
         if !inactive { armLaunchTimeout() }
+        let attempt = launchID
+        webView.stopLoading()
+        repository.queue.async { [weak self] in
+            do {
+                try EncryptedWebResources.shared.prepare()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self, self.launchID == attempt, self.launchPhase == .covering else { return }
+                    // Configuration must be available before StoreKit can read or
+                    // migrate account data. The document cannot call Bridge earlier.
+                    self.store.start()
+                    self.activeNavigation = self.webView.load(URLRequest(url: URL(string: "eluva://app/index.html?launch=" + attempt)!))
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self, self.launchID == attempt, self.launchPhase == .covering else { return }
+                    self.failed("RESOURCE_PACKAGE_INVALID")
+                }
+            }
+        }
     }
     private func armLaunchTimeout() {
         timer?.invalidate(); let attempt = launchID
@@ -244,14 +261,5 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         for observer in [backgroundObserver,inactiveObserver,activeObserver,reduceMotionObserver].compactMap({$0}) { NotificationCenter.default.removeObserver(observer) }
         mediaInstance?.cancel(); realtimeInstance?.cancelAll(reason:"left"); languageInstance?.cancel(); bridgeInstance?.dispose()
         webView?.configuration.userContentController.removeScriptMessageHandler(forName:"eluva")
-    }
-}
-
-
-private final class LaunchEchoRingView: UIView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = bounds.width / 2
-        layer.shadowPath = UIBezierPath(ovalIn: bounds).cgPath
     }
 }

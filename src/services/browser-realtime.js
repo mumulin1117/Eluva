@@ -47,14 +47,13 @@ export async function browserRealtime(repo,method,p,signal){
  return repo.write(s=>{
   invariant(viewerOf(s)===viewer,'AUTH_REQUIRED');const rt=realtimeState(s),now=new Date().toISOString();let result
   if(method==='createCall'){
-   uuid(p.callId);requirePeer(s,viewer,p.peerId,{friend:true});invariant(['outgoing','incoming'].includes(p.direction),'INVALID_ARGUMENT');invariant(p.direction!=='incoming'||s.accounts[viewer].isTest,'INVALID_ARGUMENT')
+   uuid(p.callId);requirePeer(s,viewer,p.peerId,{friend:true});invariant(p.direction==='outgoing','INVALID_ARGUMENT')
    const prior=rt.calls[p.callId];if(prior){invariant(prior.ownerId===viewer&&prior.peerId===p.peerId&&prior.direction===p.direction,'COMMIT_CONFLICT');return {state:s,result:{call:prior}}}
    for(const c of Object.values(rt.calls))if(c.ownerId===viewer&&c.state!=='ended'){if(repo.callLeases.has(c.id))throw new AppError('CALL_BUSY');c.state='ended';c.reason='interrupted';c.endedAt=now}
-   const call={id:p.callId,ownerId:viewer,peerId:p.peerId,direction:p.direction,state:p.direction==='incoming'?'incoming':'ready',localOnly:true,createdAt:now};rt.calls[p.callId]=call;result={call}
-  }else if(method==='activateDemo'||method==='endCall'){
+   const call={id:p.callId,ownerId:viewer,peerId:p.peerId,direction:p.direction,state:'ready',localOnly:true,createdAt:now};rt.calls[p.callId]=call;result={call}
+  }else if(method==='endCall'){
    const c=rt.calls[p.callId];invariant(c?.ownerId===viewer,'CALL_UNAVAILABLE')
-   if(method==='endCall'){invariant(callReasons.includes(p.reason),'INVALID_ARGUMENT');if(c.state!=='ended'){c.state='ended';c.reason=p.reason;c.endedAt=now}}
-   else{requirePeer(s,viewer,c.peerId,{friend:true});invariant(c.state!=='ended'&&repo.callLeases.has(c.id),'CALL_ENDED');c.state='active';c.mode='fixture';c.startedAt||=now}
+   invariant(callReasons.includes(p.reason),'INVALID_ARGUMENT');if(c.state!=='ended'){c.state='ended';c.reason=p.reason;c.endedAt=now}
    result={call:c}
   }else throw new AppError('METHOD_NOT_FOUND')
   return {state:s,result}

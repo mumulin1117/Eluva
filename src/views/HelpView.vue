@@ -23,9 +23,9 @@ function schedule(){
  const due=messages.value.map(helpReplyDue).filter(value=>value>now.value)
  if(due.length)timer=setTimeout(()=>{schedule();revealLast()},Math.max(1,Math.min(...due)-now.value))
 }
-async function load(){failed.value=false;const ok=await loadSocial();if(disposed)return;failed.value=!ok;ready.value=true;schedule()}
+async function load({reuse=false}={}){failed.value=false;const ok=await loadSocial({reuse});if(disposed)return;failed.value=!ok;ready.value=true;schedule()}
 watch(()=>[state.user?.id,social.feedback.map(item=>item.id+':'+item.createdAt).join('|')],schedule)
-onMounted(()=>{load();schedule();document.addEventListener('visibilitychange',schedule)})
+onMounted(()=>{load({reuse:true});schedule();document.addEventListener('visibilitychange',schedule)})
 onBeforeUnmount(()=>{disposed=true;clearTimeout(timer);document.removeEventListener('visibilitychange',schedule)})
 function choose(topic){d.value.body=t('s.'+topic);d.value.topic=topic}
 async function save(){const draft=d.value,owner=state.user?.id,body=draft.body,topic=helpTopic(body);if(await socialAction('help',{body,topic,commitId:draft.commitId},{notice:''})){if(state.user?.id!==owner)return;draft.body='';draft.commitId=newId();draft.topic='feedback';if(!disposed){failed.value=false;ready.value=true;schedule();await revealLast()}}}

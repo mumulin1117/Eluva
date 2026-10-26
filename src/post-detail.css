@@ -10,11 +10,12 @@
 .detail-hero.revealed{aspect-ratio:1/1}
 .detail-hero-shade{position:absolute;inset:0 0 auto;height:min(259px,60%);background:url('/images/post-detail/hero-overlay.png') center top/100% 100% no-repeat;pointer-events:none}
 .detail-carousel,.detail-carousel .post-carousel-frame{width:100%;height:100%;max-height:none;aspect-ratio:auto;border-radius:0}
-.detail-carousel .post-carousel-controls{position:absolute;inset:auto 0 0;height:24px;z-index:1;justify-content:center}
+.detail-carousel .post-carousel-controls{position:absolute;inset:auto 0 0;height:44px;z-index:1;justify-content:center}
 .detail-carousel .post-carousel-dots{flex:none;max-width:100%;gap:2px;align-items:center;padding:0 12px}
-.detail-carousel .post-carousel-dots>button{width:22px;min-width:22px;height:44px}
-.detail-carousel .post-carousel-dots>button>span{height:4px;width:10px;background:#ffffff80;border-radius:4px}
-.detail-carousel .post-carousel-dots>button[aria-pressed=true]{width:28px;min-width:28px}
+.detail-carousel .post-carousel-dots>button{width:44px;min-width:44px;height:44px}
+/* Keep the design's small bars at their original baseline inside full touch targets. */
+.detail-carousel .post-carousel-dots>button>span{height:4px;width:10px;background:#ffffff80;border-radius:4px;transform:translateY(10px)}
+.detail-carousel .post-carousel-dots>button[aria-pressed=true]{width:44px;min-width:44px}
 .detail-carousel .post-carousel-dots>button[aria-pressed=true]>span{width:28px;background:#fff}
 .detail-carousel>.text-link{position:absolute;bottom:44px;left:15px;right:15px;z-index:2;background:#fff;border-radius:24px}
 .detail-carousel .post-carousel-toggle:focus-visible{clip:auto;width:44px;height:44px;left:12px;bottom:24px;z-index:2;background:#fff;border-radius:50%}

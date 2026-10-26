@@ -10,15 +10,15 @@ import { resetContent } from './content-state.js'
 import { resetSocial } from './social-state.js'
 import { firstFrameSources, launchRecoveryTarget, prepareFirstFrame } from './services/launch-presentation.js'
 import { installNavigationMotion } from './services/navigation-motion.js'
+import { installTouchPolicy,isEditableTarget } from './services/touch-policy.js'
 import './launch.css'
 import './navigation-motion.css'
 watch(()=>state.theme,value=>{document.documentElement.dataset.theme=value||'purple'},{immediate:true})
 const pageHost=ref(null),mountedRoute=ref(''),retrying=ref(false)
-let readySent=false,readyOperation=null,disposed=false,failedLaunch=''
+let readySent=false,readyOperation=null,disposed=false,failedLaunch='',removeTouchPolicy
 const navigationMotion=installNavigationMotion(router,{getHost:()=>pageHost.value,isReady:()=>readySent&&!state.booting&&!state.bootError,ownerId:()=>state.user?.id,canCapture:from=>!blockedDestination(from)})
 watch(()=>state.user?.id,(id,previous)=>{if(id!==previous){navigationMotion.reset();resetContent();resetSocial()}})
-function viewport(){const v=window.visualViewport;document.documentElement.style.setProperty('--visual-height',(v?.height||window.innerHeight)+'px');document.documentElement.style.setProperty('--visual-top',(v?.offsetTop||0)+'px');const active=document.activeElement;if(active?.matches('input,textarea'))active.scrollIntoView({block:'nearest',inline:'nearest'})}
-function preventExtract(event){if(!event.target.closest('input,textarea,[contenteditable="true"]'))event.preventDefault()}
+function viewport(){const v=window.visualViewport;document.documentElement.style.setProperty('--visual-height',(v?.height||window.innerHeight)+'px');document.documentElement.style.setProperty('--visual-top',(v?.offsetTop||0)+'px');const active=document.activeElement;if(isEditableTarget(active))active.scrollIntoView({block:'nearest',inline:'nearest'})}
 function cancelReady(){const operation=readyOperation;readyOperation=null;operation?.controller.abort()}
 function routeRendered(path){mountedRoute.value=path}
 async function reportStartupFailure(code){
@@ -61,6 +61,8 @@ watch(()=>[state.booting,state.bootError,retrying.value,router.currentRoute.valu
  signalReady()
 },{flush:'post'})
 function launchVisibilityChanged(){if(readySent)return;if(document.hidden)cancelReady();else signalReady()}
+function suspendInteractions(){window.dispatchEvent(new CustomEvent('eluva:cancel-interactions',{detail:{reason:'background'}}))}
+function visibilityChanged(){if(document.hidden)suspendInteractions();launchVisibilityChanged()}
 async function retryBootstrap(){
  if(retrying.value||state.booting)return
  retrying.value=true;cancelReady();failedLaunch=''
@@ -72,8 +74,8 @@ async function retryBootstrap(){
   await nextTick()
  }finally{retrying.value=false}
 }
-onMounted(()=>{viewport();signalReady();window.visualViewport?.addEventListener('resize',viewport);window.visualViewport?.addEventListener('scroll',viewport);window.addEventListener('resize',viewport);document.addEventListener('visibilitychange',launchVisibilityChanged);document.addEventListener('contextmenu',preventExtract);document.addEventListener('dragstart',preventExtract)})
-onBeforeUnmount(()=>{disposed=true;navigationMotion.dispose();cancelReady();window.visualViewport?.removeEventListener('resize',viewport);window.visualViewport?.removeEventListener('scroll',viewport);window.removeEventListener('resize',viewport);document.removeEventListener('visibilitychange',launchVisibilityChanged);document.removeEventListener('contextmenu',preventExtract);document.removeEventListener('dragstart',preventExtract);bridge.dispose()})
+onMounted(()=>{removeTouchPolicy=installTouchPolicy();viewport();signalReady();window.visualViewport?.addEventListener('resize',viewport);window.visualViewport?.addEventListener('scroll',viewport);window.addEventListener('resize',viewport);window.addEventListener('pagehide',suspendInteractions);document.addEventListener('visibilitychange',visibilityChanged)})
+onBeforeUnmount(()=>{disposed=true;removeTouchPolicy?.();navigationMotion.dispose();cancelReady();window.visualViewport?.removeEventListener('resize',viewport);window.visualViewport?.removeEventListener('scroll',viewport);window.removeEventListener('resize',viewport);window.removeEventListener('pagehide',suspendInteractions);document.removeEventListener('visibilitychange',visibilityChanged);bridge.dispose()})
 async function logout(){await run('logout',async(signal,finished)=>{await bridge.call('auth','logout',{}, {signal});finishSignOut();finished();await router.replace({name:'welcome'})},{critical:true})}
 </script>
 <template>

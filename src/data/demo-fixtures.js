@@ -1,7 +1,7 @@
 // Device-local fictional personas; the supplied post text stays original in both UI languages.
 export const demoFixtureVersion = 3
 export const demoScope = 'eluva-test-user-v1'
-export const presentationFixture = {version:2,accountName:'Alex Morgan',greeting:{en:'Hey! How has your day been?',fr:'Salut ! Comment s’est passée ta journée ?'}}
+export const presentationFixture = {version:3,accountName:'Alex Morgan',greeting:{en:'Hey! How has your day been?',fr:'Salut ! Comment s’est passée ta journée ?'}}
 const female = [
  ['Maya Brooks',22,'A slower day, a good film, and room to breathe.','Une journée tranquille, un bon film et le temps de respirer.',['film','music','coffee'],'arts'],
  ['Chloe Martin',23,'Finding time for little conversations between busy days.','Trouver du temps pour échanger entre deux journées chargées.',['books','coffee','music'],'social'],
@@ -50,8 +50,8 @@ export const demoPosts=postSpecs.map(([gender,number,count,body,tagIds],index)=>
  visibility:{private:false,audience:'everyone',discover:true,profile:true},audienceFilter:'any',tagIds,createdAt:new Date(Date.UTC(2026,9,18,12,-index*10)).toISOString()}
 })
 export const demoConversations=[
- {peerId:'demo-friend-echo',threadId:'demo-thread-echo',messageId:'echo-context-v2',createdAt:'2026-10-18T12:30:00.000Z',text:{en:'Taking a quiet evening after that post. Thanks for checking in — what helps you unwind?',fr:'Je prends une soirée tranquille après cette publication. Merci de prendre des nouvelles — qu’est-ce qui t’aide à décompresser ?'}},
- {peerId:'demo-friend-notes',threadId:'demo-thread-notes',messageId:'notes-context-v2',createdAt:'2026-10-18T12:20:00.000Z',text:{en:'A walk and a few pages helped me slow down. Do you have a favourite quiet spot?',fr:'Une balade et quelques pages m’ont aidé à ralentir. Tu as un endroit calme préféré ?'}},
+ {peerId:'demo-person-female-06',threadId:'demo-thread-nora',messageId:'echo-context-v2',legacyPeerId:'demo-friend-echo',legacyThreadId:'demo-thread-echo',legacyBody:'Taking a quiet evening after that post. Thanks for checking in — what helps you unwind?',greetingId:'echo-text',createdAt:'2026-10-18T12:30:00.000Z',text:{en:'Taking a quiet evening today. What helps you unwind?',fr:'Je prends une soirée tranquille aujourd’hui. Qu’est-ce qui t’aide à décompresser ?'}},
+ {peerId:'demo-person-male-01',threadId:'demo-thread-liam',messageId:'notes-context-v2',legacyPeerId:'demo-friend-notes',legacyThreadId:'demo-thread-notes',legacyBody:'A walk and a few pages helped me slow down. Do you have a favourite quiet spot?',greetingId:'notes-text',createdAt:'2026-10-18T12:20:00.000Z',text:{en:'A coffee break and some music helped me slow down. What are you listening to lately?',fr:'Une pause café et un peu de musique m’ont aidé à ralentir. Qu’est-ce que tu écoutes en ce moment ?'}},
 ]
 export const demoRequestText={
  'demo-request-in':'Busy days can still feel lonely. Would you like to say hello?',

@@ -88,6 +88,8 @@ You have seen enough content without feeling anything. Download Eluva. Light up 
 - 原生层负责启动、Web 资源装载、Keychain、相机、相册、麦克风、录音、视频、权限、StoreKit 及系统翻译能力；
 - UIKit 原生界面必须使用 Auto Layout 和 `safeAreaLayoutGuide`，不得用固定屏幕坐标完成核心布局；
 - 原生耗时任务不得阻塞主线程。
+- 每个 Swift 类独立放在与类名一致的 `.swift` 文件中，禁止在同一文件声明多个类；新增辅助类也遵守此规则。
+- 同一类的功能扩展可以按职责保留独立 `extension` 文件；拆分时只调整必要的访问级别，并同步 Xcode 编译引用，不改变运行逻辑。
 
 ### 5.3 Native Bridge
 
@@ -174,7 +176,7 @@ H5 不能直接调用 Apple Translation framework。翻译必须由 H5 经 Nativ
 
 固定账号 eluva@gmail.com   密码：123qweasd。 必须具有稳定用户 ID，且不得被其他注册数据覆盖。测试数据至少包括：
 
-- 两个已经互为好友的关系；
+- 两个已经互为好友的关系；2026-10-26 用户确认固定账号的预置 Chats 好友采用没有发布预置动态的 Nora Ellis、Liam Carter，与十位同频动态作者分离。只迁移内置聊天记录，用户后来主动建立的聊天和关系保持原对象；
 - 两个会话线程；
 - 每个会话至少包含文字消息；2026-10-21 用户确认测试聊天历史不预置语音，旧版本的两条内置语音占位记录定向迁移移除，用户实际发送的录音不受影响；
 - 好友请求数据，至少覆盖收到和已发送状态；

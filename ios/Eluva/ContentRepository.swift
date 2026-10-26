@@ -1,20 +1,14 @@
 import Foundation
 import AVFoundation
-// The callback is invoked exactly once on the repository queue, after metadata validation.
-private final class ContentImportCompletion: @unchecked Sendable {
-    let receive: (Result<JSONObject,Error>)->Void
-    init(_ receive: @escaping (Result<JSONObject,Error>)->Void){self.receive=receive}
-}
 
 extension LocalRepository {
     var contentPolicy: JSONObject {
-        if let contentPolicyOverride {return contentPolicyOverride}
-        guard let url = Bundle.main.url(forResource: "content-policy", withExtension: "json", subdirectory: "Web/config"), let data = try? Data(contentsOf: url), let policy = try? JSONSerialization.jsonObject(with: data) as? JSONObject else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
+        guard let url = EncryptedWebResources.shared.url(forResource: "content-policy", withExtension: "json", subdirectory: "config"), let data = try? Data(contentsOf: url), let policy = try? JSONSerialization.jsonObject(with: data) as? JSONObject else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
         return policy
     }
     func emptyContent() -> JSONObject {
         var posts: JSONObject=[:]
-        if let url=Bundle.main.url(forResource:"content-demo",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject] {for post in list {if let id=post["id"] as? String {posts[id]=post}}}
+        if let url=EncryptedWebResources.shared.url(forResource:"content-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject] {for post in list {if let id=post["id"] as? String {posts[id]=post}}}
         return ["version":1,"safetyVersion":1,"fixtureVersion":(try? suppliedDemoConfiguration())?["version"] ?? 0,"posts":posts,"comments":[:],"echoes":[:],"events":[:],"collections":[:],"operations":[:],"preferences":[:],"hidden":[:],"blocks":[:],"reports":[:],"quota":[:],"files":[:]]
     }
     func content(_ state: JSONObject) -> JSONObject { state["content"] as? JSONObject ?? emptyContent() }
@@ -53,23 +47,33 @@ extension LocalRepository {
         if author==viewer { return true }; let v=object(post["visibility"])
         return v["private"] as? Bool != true && (v["audience"] as? String=="everyone" || friends(state,viewer,author))
     }
+    func discoveryEligible(_ state:JSONObject,_ post:JSONObject,_ viewer:String)->Bool {
+        if post["authorId"] as? String==viewer{return true}
+        let gender=object(object(object(state["accounts"])[viewer])["profile"])["gender"] as? String ?? ""
+        switch post["audienceFilter"] as? String ?? "any" {
+        case "men":return gender=="man"
+        case "women":return gender=="woman"
+        case "excludeMen":return gender != "man"
+        case "excludeWomen":return gender != "woman"
+        default:return true
+        }
+    }
     func availablePost(_ state: JSONObject, _ id: String, _ viewer: String) throws -> JSONObject { let p=object(object(content(state)["posts"])[id]); try require(canReadPost(state,p,viewer),"POST_UNAVAILABLE"); return p }
     func contentSnapshot(_ state: JSONObject) throws -> JSONObject {
         let viewer=try contentOwner(state), c=content(state), all=object(c["posts"]).values.map(object), posts=all.filter{canReadPost(state,$0,viewer)}, ids=Set(posts.compactMap{$0["id"] as? String}), echoes=object(c["echoes"]), comments=object(c["comments"]).values.map(object).filter{object(c["blocks"])[viewer+":"+($0["authorId"] as? String ?? "")] as? Bool != true && object(c["blocks"])[($0["authorId"] as? String ?? "")+":"+viewer] as? Bool != true}, accounts=object(state["accounts"])
         let visible: [JSONObject]=posts.map { p in
             var post=p;let id=p["id"] as! String, authorID=p["authorId"] as! String, profile=object(object(accounts[authorID])["profile"] ?? object(object(state["social"])["profiles"])[authorID])
-            post["author"]=["id":authorID,"displayName":profile["displayName"] ?? p["demoName"] ?? "Eluva","age":(profile["birthday"] != nil ? Self.age(profile["birthday"] as? String ?? "") as Any? : profile["age"]) ?? NSNull(),"about":profile["about"] ?? "","interestIds":profile["interestIds"] ?? []] as JSONObject
+            var author:JSONObject=["id":authorID,"displayName":profile["displayName"] ?? p["demoName"] ?? "Eluva","age":(profile["birthday"] != nil ? Self.age(profile["birthday"] as? String ?? "") as Any? : profile["age"]) ?? NSNull(),"about":profile["about"] ?? "","interestIds":profile["interestIds"] ?? []]
+            author.merge(proAppearance(state,authorID)){_,new in new};post["author"]=author;post["discoveryEligible"]=discoveryEligible(state,p,viewer)
             post["lit"]=echoes[viewer+":"+id] != nil;post["litAt"]=object(echoes[viewer+":"+id])["createdAt"] ?? NSNull();post["echoCount"]=echoes.values.map(object).filter{$0["postId"] as? String==id}.count;post["commentCount"]=comments.filter{$0["postId"] as? String==id}.count;return post
         }
         let visibleComments=comments.filter{ids.contains($0["postId"] as? String ?? "")}.map{ x -> JSONObject in var v=x;v["authorName"]=object(object(accounts[x["authorId"] as? String ?? ""])["profile"])["displayName"] ?? "Eluva";return v }
         let collections=object(c["collections"]).values.map(object).filter{$0["ownerId"] as? String==viewer}.map { x -> JSONObject in var v=x;v["postIds"]=(x["postIds"] as? [String] ?? []).filter{ids.contains($0)};return v }
-        let day=quotaDay(Date())
-        return ["ownerId":viewer,"blockedAuthors":object(c["blocks"]).keys.filter{$0.hasPrefix(viewer+":")}.map{key -> JSONObject in let id=String(key.dropFirst(viewer.count+1));return ["id":id,"name":object(object(accounts[id])["profile"])["displayName"] ?? object(object(object(state["social"])["profiles"])[id])["displayName"] ?? all.first{$0["authorId"] as? String==id}?["demoName"] ?? "Eluva"]},"hiddenPosts":all.filter{object(c["hidden"])[viewer+":"+($0["id"] as? String ?? "")] as? Bool==true && canReadPost(state,$0,viewer,ignoreHidden:true)}.map{["id":$0["id"]!,"authorId":$0["authorId"]!,"body":$0["body"] ?? "","demoKey":$0["demoKey"] ?? NSNull()]},"posts":visible,"comments":visibleComments,"events":object(c["events"]).values.map(object).filter{$0["recipientId"] as? String==viewer && object(c["blocks"])[viewer+":"+($0["senderId"] as? String ?? "")] as? Bool != true && object(c["blocks"])[($0["senderId"] as? String ?? "")+":"+viewer] as? Bool != true && ids.contains($0["postId"] as? String ?? "")},"collections":collections,"preferences":object(c["preferences"])[viewer] ?? ["guideDone":false,"feedFilter":["media":"all","topic":"all"]],"quota":["day":day,"used":object(object(object(object(state["commerce"])["accounts"])[viewer])["usage"])["publicPost:"+day] ?? object(c["quota"])[viewer+":"+day] ?? 0,"limit":contentPolicy["dailyPublicPosts"] ?? NSNull(),"simulation":true],"policy":contentPolicy]
+        let day=quotaDay(Date());var verifiedPolicy=contentPolicy;verifiedPolicy["proAudienceEnabled"]=hasProAccess(state,owner:viewer)
+        return ["ownerId":viewer,"blockedAuthors":object(c["blocks"]).keys.filter{$0.hasPrefix(viewer+":")}.map{key -> JSONObject in let id=String(key.dropFirst(viewer.count+1));return ["id":id,"name":object(object(accounts[id])["profile"])["displayName"] ?? object(object(object(state["social"])["profiles"])[id])["displayName"] ?? all.first{$0["authorId"] as? String==id}?["demoName"] ?? "Eluva"]},"hiddenPosts":all.filter{object(c["hidden"])[viewer+":"+($0["id"] as? String ?? "")] as? Bool==true && canReadPost(state,$0,viewer,ignoreHidden:true)}.map{["id":$0["id"]!,"authorId":$0["authorId"]!,"body":$0["body"] ?? "","demoKey":$0["demoKey"] ?? NSNull()]},"posts":visible,"comments":visibleComments,"events":object(c["events"]).values.map(object).filter{$0["recipientId"] as? String==viewer && object(c["blocks"])[viewer+":"+($0["senderId"] as? String ?? "")] as? Bool != true && object(c["blocks"])[($0["senderId"] as? String ?? "")+":"+viewer] as? Bool != true && ids.contains($0["postId"] as? String ?? "")},"collections":collections,"preferences":object(c["preferences"])[viewer] ?? ["guideDone":false,"feedFilter":["media":"all","topic":"all"]],"quota":["day":day,"used":object(object(object(object(state["commerce"])["accounts"])[viewer])["usage"])["publicPost:"+day] ?? object(c["quota"])[viewer+":"+day] ?? 0,"limit":contentPolicy["dailyPublicPosts"] ?? NSNull(),"simulation":true],"policy":verifiedPolicy]
     }
     func executeContent(_ method: String, params: JSONObject) throws -> JSONObject {
         var next=snapshot!;let viewer=try contentOwner(next), string={ (key:String) in params[key] as? String ?? "" }
-        if method=="simulateFailure" {try require(currentUser(next)?["isTest"] as? Bool==true && ["publish","comment","snapshot"].contains(string("operation")),"INVALID_ARGUMENT");contentFailure=string("operation");return ["armed":true]}
-        if method=="snapshot" && contentFailure==method {contentFailure=nil;throw EluvaError("STORAGE_FAILED")}
         if method=="snapshot" { return try contentSnapshot(next) }
         if method=="post" { _=try availablePost(next,string("id"),viewer);return try contentSnapshot(next) }
         if method=="beginDraft" { let id=string("draftId");try require(UUID(uuidString:id) != nil && (contentDrafts[id]==nil || contentDrafts[id]==viewer),"INVALID_ARGUMENT");contentDrafts[id]=viewer;return ["draftId":id] }
@@ -89,7 +93,8 @@ extension LocalRepository {
                 try require(body.count <= (contentPolicy["bodyLimit"] as? Int ?? 2000),"POST_TOO_LONG");try require(!body.isEmpty || !media.isEmpty,"EMPTY_POST")
                 try require(mids.count==media.count && Set(mids).count==mids.count && media.allSatisfy{["image","video"].contains($0["kind"] as? String ?? "")},"INVALID_MEDIA")
                 try require(videos>0 ? videos==1 && media.count==1 : media.count <= (contentPolicy["imageLimit"] as? Int ?? 9),"MEDIA_LIMIT")
-                try require(string("audienceFilter")=="any","PRO_LOCKED")
+                let audienceFilter=string("audienceFilter");try require(["any","men","women","excludeMen","excludeWomen"].contains(audienceFilter),"INVALID_FILTER")
+                try require(audienceFilter=="any" || hasProAccess(next,owner:viewer),"PRO_LOCKED")
                 let v=object(params["visibility"]);try require(v["private"] is Bool && v["discover"] is Bool && v["profile"] is Bool && ["everyone","friends"].contains(v["audience"] as? String ?? ""),"INVALID_VISIBILITY")
                 var visibility=v;if v["private"] as? Bool==true {visibility["discover"]=false;visibility["profile"]=false}
                 let tags=params["tagIds"] as? [String] ?? [];try require(tags.allSatisfy{contentInterestIDs.contains($0)},"INVALID_FILTER")
@@ -97,7 +102,7 @@ extension LocalRepository {
                 let collection=string("collectionId");var collections=object(c["collections"]);if !collection.isEmpty {try require(object(collections[collection])["ownerId"] as? String==viewer,"COLLECTION_UNAVAILABLE")}
                 let newPostID=UUID().uuidString.lowercased();try consumePublicPost(&next,owner:viewer,commit:string("commitId"),post:newPostID,hidden:visibility["private"] as? Bool==true,date:Date())
                 if visibility["private"] as? Bool != true {var q=object(c["quota"]);let key=viewer+":"+quotaDay(Date()), used=q[key] as? Int ?? 0;q[key]=used+1;c["quota"]=q}
-                let id=newPostID;resultID=id;var posts=object(c["posts"]);posts[id]=["id":id,"authorId":viewer,"body":body,"media":media.map{["id":$0["id"]!,"kind":$0["kind"]!]},"visibility":visibility,"audienceFilter":"any","tagIds":Array(Set(tags)),"createdAt":now];c["posts"]=posts
+                let id=newPostID;resultID=id;var posts=object(c["posts"]);posts[id]=["id":id,"authorId":viewer,"body":body,"media":media.map{["id":$0["id"]!,"kind":$0["kind"]!]},"visibility":visibility,"audienceFilter":audienceFilter,"tagIds":Array(Set(tags)),"createdAt":now];c["posts"]=posts
                 if !collection.isEmpty {var item=object(collections[collection]);var refs=item["postIds"] as? [String] ?? [];refs.append(id);item["postIds"]=refs;collections[collection]=item;c["collections"]=collections}
             case "echo":
                 let p=try availablePost(next,string("postId"),viewer), id=p["id"] as! String, key=viewer+":"+id;try require(params["lit"] is Bool,"INVALID_ARGUMENT");var echoes=object(c["echoes"]), events=object(c["events"])
@@ -123,13 +128,12 @@ extension LocalRepository {
                 let author=string("authorId");try require(author != viewer && params["blocked"] is Bool,"INVALID_ARGUMENT");try require(object(next["accounts"])[author] != nil || object(c["posts"]).values.map(object).contains{$0["authorId"] as? String==author},"ACCOUNT_NOT_FOUND");setContentAuthorBlock(&next,content:&c,viewer:viewer,author:author,blocked:params["blocked"] as? Bool==true)
             default: throw EluvaError("METHOD_NOT_FOUND")
             }
-            if contentFailure==method {contentFailure=nil;throw EluvaError("STORAGE_FAILED")}
             if idempotent {var ops=object(c["operations"]);ops[opKey]=["method":method,"target":target,"payload":payload,"resultId":resultID ?? ""];c["operations"]=ops};next["content"]=c;try persist(next)
         } catch {copied.forEach{try? FileManager.default.removeItem(at:$0)};throw (error as? EluvaError) ?? EluvaError("STORAGE_FAILED")}
         if method=="publish" {removeStaging(flowID:string("draftId"));contentDrafts.removeValue(forKey:string("draftId"))}
         var output=try contentSnapshot(next);if let resultID {output["resultId"]=resultID};return output
     }
-    var contentInterestIDs: Set<String> { guard let url=Bundle.main.url(forResource:"choices",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let all=try? JSONSerialization.jsonObject(with:data) as? JSONObject else {return []};return Set(array(all["interests"]).compactMap{$0["id"] as? String}) }
+    var contentInterestIDs: Set<String> { guard let url=EncryptedWebResources.shared.url(forResource:"choices",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let all=try? JSONSerialization.jsonObject(with:data) as? JSONObject else {return []};return Set(array(all["interests"]).compactMap{$0["id"] as? String}) }
     func promoteContentMedia(_ id: String, viewer: String, content c: inout JSONObject, copied: inout [URL]) throws {
         var files=object(c["files"]);if let existing=files[id] as? JSONObject {try require(existing["ownerId"] as? String==viewer,"MEDIA_MISSING");return}
         guard let staged=staging[id],contentDrafts[staged.flow]==viewer else {throw EluvaError("MEDIA_MISSING")}

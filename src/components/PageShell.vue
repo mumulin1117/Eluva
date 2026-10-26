@@ -4,15 +4,16 @@ import { useRoute } from 'vue-router'
 import { state, t, canNavigate } from '../state.js'
 import { scrollPositions as positions,scrollKey } from '../domain/navigation.js'
 import AppIcon from './AppIcon.vue'
+import { isInteractiveTarget } from '../services/touch-policy.js'
 defineProps({ title: String, back: Boolean, sourceBack: Boolean, guide: Boolean, step: Number })
 defineEmits(['back'])
 const route = useRoute(), scroller = ref(null)
 const restore = async () => { await nextTick(); if (scroller.value) scroller.value.scrollTop = positions.get(scrollKey(route.fullPath,state.user?.id)) || 0 }
 onMounted(restore)
 watch(() => route.fullPath, restore)
-function dismissKeyboard(event) { if (!event.target.closest('input,textarea,select,button,a,[role="button"]')) document.activeElement?.blur?.() }
+function dismissKeyboard(event) { if (!isInteractiveTarget(event.target)) document.activeElement?.blur?.() }
 </script>
-<template><div class="page-shell" :class="{ 'guide-shell': guide }" @pointerdown="dismissKeyboard">
+<template><div class="page-shell" :class="{ 'guide-shell': guide }" @click="dismissKeyboard">
   <header class="page-header" :class="{'source-back-header':sourceBack}">
     <button v-if="back" :class="sourceBack?'source-icon':'icon-button'" :aria-label="t('back')" :disabled="!canNavigate()" @click="$emit('back')"><img v-if="sourceBack" src="/images/p2/back-button.png" alt="" draggable="false"/><AppIcon v-else name="back" /></button>
     <div v-else class="guide-mark" aria-hidden="true">e</div>

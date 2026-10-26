@@ -6,6 +6,7 @@ import { upgradeDemoContent } from './demo-upgrade.js'
 // Local preview policy. Commercial limits remain unfrozen; one configuration feeds both repositories.
 export const contentPolicy = Object.freeze({ bodyLimit: 2000, commentLimit: 1000, imageLimit: 9, videoLimit: 1, videoBytes: 50 * 1024 * 1024, videoSeconds: 60, dailyPublicPosts: commercePolicy.confirmed ? commercePolicy.publicPostFree : null, proAudienceEnabled: false })
 export const defaultVisibility = () => ({ private: false, audience: 'everyone', discover: true, profile: true })
+export const audienceFilterIds = Object.freeze(['any','men','women','excludeMen','excludeWomen'])
 export const defaultFeedFilter = () => ({ media: 'all', topic: 'all' })
 export const characterCount = value => [...new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(value || '')].length
 export function visibility(raw = {}) {
@@ -19,6 +20,7 @@ export function validatePost(raw, policy = contentPolicy) {
   invariant(body || media.length, 'EMPTY_POST')
   const videos = media.filter(x => x.kind === 'video').length
   invariant(videos ? videos === 1 && media.length === 1 : media.length <= policy.imageLimit, 'MEDIA_LIMIT')
+  invariant(audienceFilterIds.includes(raw.audienceFilter), 'INVALID_FILTER')
   invariant(raw.audienceFilter === 'any' || policy.proAudienceEnabled, 'PRO_LOCKED')
   return { body, media: media.map(({ id, kind }) => ({ id, kind })), visibility: visibility(raw.visibility), audienceFilter: raw.audienceFilter, tagIds: [...new Set(raw.tagIds || [])] }
 }
@@ -60,8 +62,20 @@ export function canReadPost(root, post, viewer, { ignoreHidden = false } = {}) {
   if (post.authorId === viewer) return true
   return !post.visibility.private && (post.visibility.audience === 'everyone' || areFriends(root, viewer, post.authorId))
 }
+// Discovery preferences never grant or remove detail/profile viewing access.
+export function discoveryEligible(root, post, viewer) {
+  if (post.authorId === viewer) return true
+  const gender = root.accounts?.[viewer]?.profile?.gender
+  switch (post.audienceFilter) {
+    case 'men': return gender === 'man'
+    case 'women': return gender === 'woman'
+    case 'excludeMen': return gender !== 'man'
+    case 'excludeWomen': return gender !== 'woman'
+    default: return true // Old posts without a preference use the open default.
+  }
+}
 export function feedPosts(posts, filter = defaultFeedFilter(), { viewerId = null } = {}) {
-  return posts.filter(p => p.authorId !== viewerId && !p.visibility.private && p.visibility.discover && (filter.media === 'all' || (filter.media === 'text' ? !p.media.length : p.media.some(m => m.kind === filter.media))) && (filter.topic === 'all' || p.tagIds.includes(filter.topic)))
+  return posts.filter(p => p.authorId !== viewerId && p.discoveryEligible !== false && !p.visibility.private && p.visibility.discover && (filter.media === 'all' || (filter.media === 'text' ? !p.media.length : p.media.some(m => m.kind === filter.media))) && (filter.topic === 'all' || p.tagIds.includes(filter.topic)))
 }
 export const discoveryBatchLimit = 5
 // Select a bounded circular batch without changing the authoritative post list.

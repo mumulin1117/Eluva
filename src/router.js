@@ -75,6 +75,7 @@ watch(()=>[state.user?.id,social.ownerId,social.profiles.filter(p=>p.relationshi
 let ready
 router.beforeEach(async (to, from) => {
   if (!canNavigate()) return false
+  window.dispatchEvent(new CustomEvent('eluva:cancel-interactions',{detail:{reason:'navigation'}}))
   if (from.fullPath) scrollPositions.set(scrollKey(from.fullPath,state.user?.id), document.querySelector('.page-content')?.scrollTop || 0)
   cancelTransient()
   if (!ready) ready = bootstrap()

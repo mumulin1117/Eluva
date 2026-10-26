@@ -1,0 +1,29 @@
+✔ first receipt read selects the paid plan; refreshes preserve deliberate choices and a verified plan change follows the new plan (1.136625ms)
+✔ an explicit choice before the first read is preserved, including a purchase quote snapshot (5.176416ms)
+✔ background subscription reads neither block controls nor erase errors; duplicate reads coalesce (1.080958ms)
+✔ account changes discard a background receipt snapshot and preserve account isolation (0.444416ms)
+✔ pending plan changes keep the old paid plan and only actual approval clears pending feedback (0.438458ms)
+✔ purchase reads an Apple quote only on confirmation; failure and rapid retry preserve the selection and paid state (0.610584ms)
+✔ missing selected product and restricted purchases never switch plans or call payment (0.316666ms)
+✔ the quote read and Apple purchase share one lock; restore cannot interleave (0.227833ms)
+✔ account change during quote lookup discards the quote and never opens payment (0.217042ms)
+✔ unknown catalog IDs are rejected before looking up products (0.241708ms)
+✔ restore cancels an older background snapshot and rejected duplicates keep status (0.364791ms)
+✔ a confirmed next renewal preserves the current plan and uses paid expiry, not accessUntil (7.576833ms)
+✔ Apple approval and a confirmed future renewal are independent from current paid access (0.239208ms)
+✔ cancelled renewal, expiry and revocation cannot promise a new term; billing grace never invents its start date (1.056375ms)
+✔ legacy paid records keep their known billing plan; unknown future IDs cannot invent product names (0.308542ms)
+✔ approved Pro product policy preserves IDs and periods separately from the fixed USD display catalog (37.814666ms)
+✔ subscription expiry and disabled renewal retain only the paid access period (0.451791ms)
+✔ verified renewal replaces the displayed plan; owners, tombstones and refunds cannot leak access (0.217916ms)
+✔ billing grace uses Apple grace date; billing retry without grace does not grant Pro (0.173042ms)
+✔ Xcode subscription configuration matches the current purchase catalog, prices and periods (1.026916ms)
+✔ changing the purchase catalog preserves the actual ID and expiry of an existing verified receipt (0.2285ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 207.633167

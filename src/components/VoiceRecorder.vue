@@ -15,9 +15,9 @@ const waveHeights=[5,9,14,20,12,24,16,10,22,18,24,15,19,11,8,5]
 let controller=new AbortController(),permissionController=null,permissionGeneration=0,contextGeneration=0,pointer=null,startY=0,keyboardHeld=false,alive=true
 const call=(...args)=>bridge.call(...args)
 const hold=new VoiceHold({call,changed:value=>Object.assign(info,value),media:(media,options)=>emit('voice',media,options),error:e=>{if(alive)error.value=e.code||'RECORDING_FAILED'}})
-function releaseCapture(){const id=pointer;pointer=null;if(id!==null&&button.value?.hasPointerCapture?.(id))button.value.releasePointerCapture(id)}
+function releaseCapture(){const id=pointer;pointer=null;if(id!==null&&button.value?.hasPointerCapture?.(id)){try{button.value.releasePointerCapture(id)}catch{}}}
 async function checkPermission(request=false){
- if(!alive||props.disabled)return
+ if(!alive||document.hidden||props.disabled)return
  const generation=++permissionGeneration;permissionController?.abort();const pending=new AbortController();permissionController=pending
  busy.value=true;error.value=''
  try{
@@ -43,7 +43,8 @@ async function checkPermission(request=false){
 }
 function allow(){if(!busy.value)checkPermission(true)}
 function begin(e){
- if(props.disabled||busy.value||permission.value!=='authorized'||info.phase!=='idle'||e.button!==0||e.isPrimary===false)return
+ if(e.isPrimary===false){if(pointer!==null)cancel('cancelled');return}
+ if(!alive||document.hidden||props.disabled||busy.value||pointer!==null||keyboardHeld||permission.value!=='authorized'||info.phase!=='idle'||e.button!==0||e.isPrimary===false)return
  e.preventDefault();document.activeElement?.blur?.();pointer=e.pointerId;startY=e.clientY
  try{button.value.setPointerCapture(pointer)}catch{pointer=null;return}
  error.value='';hold.start({peerId:props.peerId,draftId:props.draftId})
@@ -55,31 +56,37 @@ function keyboard(e,up){
  if(![' ','Enter'].includes(e.key))return
  e.preventDefault()
  if(up){if(keyboardHeld){keyboardHeld=false;hold.release()}return}
- if(e.repeat||keyboardHeld||props.disabled||busy.value||permission.value!=='authorized'||info.phase!=='idle')return
+ if(e.repeat||!alive||document.hidden||keyboardHeld||pointer!==null||props.disabled||busy.value||permission.value!=='authorized'||info.phase!=='idle')return
  keyboardHeld=true;error.value='';hold.start({peerId:props.peerId,draftId:props.draftId})
 }
 function cancel(reason='cancelled'){releaseCapture();keyboardHeld=false;hold.cancel(reason)}
-function suspend(){cancel('background');contextGeneration++;permissionGeneration++;permissionController?.abort();permissionController=null;busy.value=false}
+function suspend(reason='background'){cancel(reason);contextGeneration++;permissionGeneration++;permissionController?.abort();permissionController=null;controller.abort();controller=new AbortController();busy.value=false}
 function visibility(){if(document.hidden)suspend();else checkPermission(false)}
 function pageHide(){suspend()}
-async function openSettings(){try{await call('system','openSettings',{}, {signal:controller.signal})}catch(e){if(alive&&e.code!=='CANCELLED')error.value=e.code}}
+function interrupt(event){suspend(event?.detail?.reason==='navigation'?'left':'cancelled')}
+function blur(){if(pointer!==null||keyboardHeld)cancel('interrupted')}
+async function openSettings(){
+ if(!alive||document.hidden||busy.value||props.disabled||info.phase!=='idle')return
+ const generation=contextGeneration;busy.value=true
+ try{await call('system','openSettings',{}, {signal:controller.signal})}catch(e){if(alive&&generation===contextGeneration&&e.code!=='CANCELLED')error.value=e.code}finally{if(alive&&generation===contextGeneration)busy.value=false}
+}
 async function importVoice(e){
- const chosen=e.target.files[0];e.target.value='';if(!chosen||busy.value||props.disabled)return
- error.value='';busy.value=true;const generation=contextGeneration,draftId=props.draftId
+ const chosen=e.target.files[0];e.target.value='';if(!chosen||!alive||document.hidden||busy.value||props.disabled||info.phase!=='idle')return
+ error.value='';busy.value=true;const generation=contextGeneration,draftId=props.draftId,signal=controller.signal
  try{
-  const media=await call('realtime','importVoice',{draftId,base64:await readBase64(chosen,controller.signal)},{signal:controller.signal})
+  const media=await call('realtime','importVoice',{draftId,base64:await readBase64(chosen,signal)},{signal})
   if(alive&&generation===contextGeneration&&!document.hidden)emit('voice',media,{send:false})
   else if(media?.id)call('media','remove',{id:media.id,draftId}).catch(()=>{})
  }catch(e){if(alive&&generation===contextGeneration&&e.code!=='CANCELLED')error.value=e.code}finally{if(alive&&generation===contextGeneration)busy.value=false}
 }
-watch(()=>props.disabled,(value,previous)=>{if(value){cancel('cancelled');contextGeneration++;permissionGeneration++;permissionController?.abort();permissionController=null;busy.value=false}else if(previous)checkPermission(true)})
-watch(()=>[props.peerId,props.draftId],()=>{cancel('left');contextGeneration++;permissionGeneration++;permissionController?.abort();permissionController=null;busy.value=false;checkPermission(true)})
+watch(()=>props.disabled,(value,previous)=>{if(value)suspend('cancelled');else if(previous)checkPermission(true)})
+watch(()=>[props.peerId,props.draftId],()=>{suspend('left');checkPermission(true)})
 onMounted(()=>{
  // Mounting follows an explicit tap on the chat microphone; permission never
  // starts a recording. The next hold is always a new user gesture.
- checkPermission(true);document.addEventListener('visibilitychange',visibility);window.addEventListener('pagehide',pageHide)
+ checkPermission(true);document.addEventListener('visibilitychange',visibility);window.addEventListener('pagehide',pageHide);window.addEventListener('blur',blur);window.addEventListener('eluva:cancel-interactions',interrupt)
 })
-onBeforeUnmount(()=>{alive=false;cancel('left');permissionGeneration++;permissionController?.abort();controller.abort();document.removeEventListener('visibilitychange',visibility);window.removeEventListener('pagehide',pageHide)})
+onBeforeUnmount(()=>{alive=false;cancel('left');permissionGeneration++;permissionController?.abort();controller.abort();document.removeEventListener('visibilitychange',visibility);window.removeEventListener('pagehide',pageHide);window.removeEventListener('blur',blur);window.removeEventListener('eluva:cancel-interactions',interrupt)})
 </script>
 <template>
  <section class="voice-recorder" :data-recording-phase="info.phase">
@@ -89,10 +96,10 @@ onBeforeUnmount(()=>{alive=false;cancel('left');permissionGeneration++;permissio
   <p v-if="permission==='authorized'&&info.phase==='idle'" class="media-explanation">{{ t('p4.holdHint') }}</p>
   <button ref="button" type="button" class="hold-to-talk" :class="{'is-holding':recording}" :aria-label="t('p4.hold')" :disabled="disabled||busy||permission!=='authorized'||['stopping','retry'].includes(info.phase)" @pointerdown="begin" @pointermove="move" @pointerup="release" @pointercancel="cancelPointer" @lostpointercapture="cancelPointer" @keydown="keyboard($event,false)" @keyup="keyboard($event,true)" @blur="keyboardHeld&&cancel()"><img src="/images/p4/record-mic.png" alt=""/><span>{{ t(info.phase==='stopping'?'working':'p4.hold') }}</span></button>
   <div v-if="info.phase==='retry'" class="source-actions horizontal"><ActionButton :disabled="disabled" @click="error='';hold.finish()">{{ t('retry') }}</ActionButton><button class="text-link" @click="hold.cancel('cancelled')">{{ t('p4.discardVoice') }}</button></div>
-  <button v-if="!bridge.isNative" class="text-link" :disabled="busy||disabled" @click="file.click()">{{ t('p4.importVoice') }}</button>
+  <button v-if="!bridge.isNative" class="text-link" :disabled="busy||disabled||info.phase!=='idle'" @click="file.click()">{{ t('p4.importVoice') }}</button>
   <input ref="file" class="file-input" type="file" accept="audio/wav,.wav" tabindex="-1" aria-hidden="true" @change="importVoice"/>
   <p v-if="error" class="error-banner" role="alert" :data-error-code="error">{{ t(permissionBlocked?'p4.microphonePermissionNeeded':error==='MEDIA_UNSUPPORTED'?'p4.voiceFileInvalid':error==='MEDIA_TOO_LARGE'?'p4.voiceTooLarge':'errors.'+error) }}</p>
-  <button v-if="bridge.isNative&&permissionBlocked" class="text-link" :disabled="busy" @click="openSettings">{{ t('openSettings') }}</button>
+  <button v-if="bridge.isNative&&permissionBlocked" class="text-link" :disabled="busy||disabled" @click="openSettings">{{ t('openSettings') }}</button>
  </section>
  <Teleport to="body">
   <div v-if="recording" class="recording-overlay" :class="{'cancel-armed':info.cancelArmed}" :data-phase="info.phase">

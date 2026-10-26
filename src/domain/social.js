@@ -3,6 +3,7 @@ import { TEST_USER_ID, ageOn } from './validation.js'
 import { contentState, canReadPost } from './content.js'
 import { socialDemo } from '../data/social-demo.js'
 import { upgradeDemoSocial,demoPhotoAsset } from './demo-upgrade.js'
+import { publicProAppearance } from './personal.js'
 
 export const pairId = (a,b) => [a,b].sort().join('|')
 export function compareSocialMessages(a,b){
@@ -45,7 +46,7 @@ export function isBlocked(root,a,b){const blocks=contentState(root).blocks;retur
 export function profileFor(root,id,viewer){
   const a=root.accounts[id],p=a?.profile||socialState(root).profiles[id]
   invariant(p&&(!p.scope||p.scope===viewer),'PROFILE_UNAVAILABLE')
-  return {id,displayName:p.displayName||'Eluva',about:p.about||'',...(p.aboutTranslations?{aboutTranslations:p.aboutTranslations}:{}),age:a?ageOn(p.birthday):p.age,photos:(p.photos||[]).map(x=>({id:x.id,...(!a&&p.demo&&demoPhotoAsset(id,x.id)?{asset:demoPhotoAsset(id,x.id)}:{})})),interestIds:p.interestIds||[],university:p.university||'',major:p.major||'',demo:!!p.demo||!!a?.isTest}
+  return {id,displayName:p.displayName||'Eluva',about:p.about||'',...(p.aboutTranslations?{aboutTranslations:p.aboutTranslations}:{}),age:a?ageOn(p.birthday):p.age,photos:(p.photos||[]).map(x=>({id:x.id,...(!a&&p.demo&&demoPhotoAsset(id,x.id)?{asset:demoPhotoAsset(id,x.id)}:{})})),interestIds:p.interestIds||[],university:p.university||'',major:p.major||'',demo:!!p.demo||!!a?.isTest,...publicProAppearance(root,id)}
 }
 export function relationship(root,viewer,peer){
   const s=socialState(root),pair=pairId(viewer,peer),request=Object.values(s.requests).find(x=>x.pair===pair)

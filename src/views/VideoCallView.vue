@@ -35,7 +35,7 @@ async function initialize(){
  const token=++generation;busy.value='loading';error.value='';await loadSocial({quiet:true})
  if(!valid(token))return
  try{
-  const result=await bridge.call('realtime',route.query.callId?'call':'createCall',{callId:callID.value,peerId:peer.value,direction:route.query.direction==='incoming'?'incoming':'outgoing'},{signal:work.signal})
+  const result=await bridge.call('realtime',route.query.callId?'call':'createCall',{callId:callID.value,peerId:peer.value,direction:'outgoing'},{signal:work.signal})
   if(!valid(token))return
   call.value=result.call
   if(call.value.state==='ended')return close('left')

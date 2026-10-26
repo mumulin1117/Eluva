@@ -1,8 +1,22 @@
-import { removeCommerceAccount } from './commerce.js'
+import { removeCommerceAccount, hasProAccess } from './commerce.js'
 import { invariant } from './errors.js'
 import { contentState, canReadPost } from './content.js'
 
 export const themeIds = ['purple','pink','orange','cyan']
+export const avatarFrameIds = Object.freeze(['frame-1','frame-2','frame-3','frame-4','frame-5','frame-6'])
+export function publicProAppearance(root, id, now = Date.now() / 1000) {
+  const proActive = hasProAccess(root, id, now), saved = root.accounts?.[id]?.profile?.avatarFrameId
+  return { proActive, avatarFrameId: proActive && avatarFrameIds.includes(saved) ? saved : '' }
+}
+export function savedAvatarFrame(root, owner, raw, previous = {}) {
+  // Omitted fields in older editors must not erase an existing choice.
+  if (!Object.hasOwn(raw, 'avatarFrameId')) return previous.avatarFrameId ?? ''
+  const frame = raw.avatarFrameId
+  invariant(typeof frame === 'string' && (frame === '' || avatarFrameIds.includes(frame)), 'INVALID_AVATAR_FRAME')
+  // Expired members may preserve their choice while editing, or remove it.
+  invariant(!frame || frame === previous.avatarFrameId || hasProAccess(root, owner), 'PRO_LOCKED')
+  return frame
+}
 export const feedbackTopics = ['lag','crash','payment','other']
 export const personalPolicy = {feedbackLimit:2000,feedbackImages:3,collectionNameLimit:60,collectionDescriptionLimit:300}
 export function personalState(root) {

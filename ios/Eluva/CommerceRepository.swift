@@ -19,8 +19,7 @@ struct VerifiedSubscriptionRenewal:Sendable {
 
 extension LocalRepository {
     var commercePolicy:JSONObject {
-        if let commercePolicyOverride {return commercePolicyOverride}
-        guard let url=Bundle.main.url(forResource:"commerce-policy",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let result=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["version":1,"confirmed":false,"products":[]]}
+        guard let url=EncryptedWebResources.shared.url(forResource:"commerce-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let result=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["version":1,"confirmed":false,"products":[]]}
         return result
     }
     func commerceProducts()throws->[JSONObject] {
@@ -105,7 +104,8 @@ extension LocalRepository {
         var c=object(next["commerce"]),transactions=object(c["transactions"])
         let key=receipt.environment+":"+receipt.id,prior=object(transactions[key])
         if prior["deleted"] as? Bool==true {return}
-        guard let product=try commerceProducts().first(where:{$0["id"] as? String==receipt.productID})else{throw EluvaError("STORE_NOT_CONFIGURED")}
+        let configuredProducts=try commerceProducts()
+        guard let product=configuredProducts.first(where:{$0["id"] as? String==receipt.productID})else{throw EluvaError("STORE_NOT_CONFIGURED")}
         let token=receipt.token.uuidString.lowercased(),owner=storeOwnerForToken(token,state:next)
         try require(owner != nil && object(next["accounts"])[owner!] != nil,"STORE_ACCOUNT_MISMATCH")
         let ownerID=owner!,purchased=ISO8601DateFormatter().string(from:receipt.purchasedAt)
@@ -132,13 +132,23 @@ extension LocalRepository {
         }
         else if product["type"] as? String=="nonRenewable",let duration=product["durationSeconds"] as? Int {transaction["expiresAt"]=receipt.purchasedAt.addingTimeInterval(Double(duration)).timeIntervalSince1970}
         else if product["type"] as? String=="autoRenewable" {throw EluvaError("STORE_VERIFICATION_FAILED")}
+        var confirmedScheduledPending=false
         if let renewal=receipt.renewal,renewal.signedAt.timeIntervalSince1970 >= (prior["renewalSignedAt"] as? Double ?? 0) {
             transaction["renewalState"]=renewal.state;transaction["willAutoRenew"]=renewal.willAutoRenew
             transaction["renewalSignedAt"]=renewal.signedAt.timeIntervalSince1970
             transaction["graceUntil"]=renewal.graceUntil?.timeIntervalSince1970 ?? NSNull()
             transaction["nextProductId"]=renewal.nextProductID ?? NSNull()
+            // Approval may confirm a different product for the next renewal
+            // without creating that product's transaction yet. Only a verified
+            // renewal signed after this pending request can resolve it.
+            if let pending=a["pendingProductId"] as? String,let pendingAt=a["pendingAt"] as? Double {
+                let knownProPlan=configuredProducts.contains{$0["id"] as? String==pending && $0["entitlement"] as? String=="pro" && $0["type"] as? String=="autoRenewable"}
+                let freshForRequest=renewal.signedAt.timeIntervalSince1970>=pendingAt
+                confirmedScheduledPending=renewal.state=="active" && renewal.willAutoRenew && renewal.nextProductID==pending && pending != receipt.productID && freshForRequest && knownProPlan
+            }
         }
-        if product["entitlement"] as? String=="pro",a["pendingProductId"] as? String==receipt.productID,transaction["revokedAt"]==nil,transaction["upgraded"] as? Bool != true,!["expired","revoked","billingRetry"].contains(transaction["renewalState"] as? String ?? ""),(transaction["expiresAt"] as? Double ?? 0)>Date().timeIntervalSince1970 {a.removeValue(forKey:"pendingProductId");a.removeValue(forKey:"pendingAt")}
+        let confirmsPending=(a["pendingProductId"] as? String==receipt.productID) || confirmedScheduledPending
+        if product["entitlement"] as? String=="pro",confirmsPending,transaction["revokedAt"]==nil,transaction["upgraded"] as? Bool != true,!["expired","revoked","billingRetry"].contains(transaction["renewalState"] as? String ?? ""),(transaction["expiresAt"] as? Double ?? 0)>Date().timeIntervalSince1970 {a.removeValue(forKey:"pendingProductId");a.removeValue(forKey:"pendingAt")}
         if !prior.isEmpty, NSDictionary(dictionary:prior).isEqual(to:transaction),!hadPending || a["pendingProductId"] != nil {return}
         wallets[receipt.environment]=wallet;a["wallets"]=wallets;a["ledger"]=ledger;putCommerceAccount(&next,ownerID,a)
         c=object(next["commerce"]);transactions[key]=transaction;c["transactions"]=transactions;next["commerce"]=c
@@ -161,6 +171,10 @@ extension LocalRepository {
             return (a["accessUntil"] as? Double ?? 0)>(b["accessUntil"] as? Double ?? 0)
         }
         return rows.first ?? ["status":"none","active":false]
+    }
+    func hasProAccess(_ state:JSONObject,owner:String,now:Date=Date())->Bool {
+        guard object(state["accounts"])[owner] != nil else{return false}
+        return subscriptionSnapshot(state,owner:owner,now:now)["active"] as? Bool==true
     }
     func pendingSubscription(_ productID:String,owner:String?=nil)throws {
         var next=snapshot!;let owner=try owner ?? contentOwner(next);var a=try commerceAccount(&next,owner)

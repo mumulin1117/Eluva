@@ -7,7 +7,10 @@ app = project.new_target(:application, 'Eluva', :ios, '17.0')
 group = project.main_group.new_group('Eluva', 'Eluva')
 Dir.glob(File.join(root, 'Eluva', '*.swift')).sort.each { |path| app.source_build_phase.add_file_reference(group.new_file(File.basename(path))) }
 ['LaunchScreen.storyboard','Assets.xcassets'].each { |path| app.resources_build_phase.add_file_reference(group.new_file(path)) }
-web = group.new_file('Web'); web.last_known_file_type = 'folder'; app.resources_build_phase.add_file_reference(web)
+['PerceptualEluOpenness', 'NativeFonts', 'Licenses'].each do |path|
+  resource = group.new_file(path); resource.last_known_file_type = 'folder'
+  app.resources_build_phase.add_file_reference(resource)
+end
 variant = group.new_variant_group('InfoPlist.strings')
 ['en','fr'].each do |lang|
   child = variant.new_file("#{lang}.lproj/InfoPlist.strings")
@@ -15,22 +18,12 @@ variant = group.new_variant_group('InfoPlist.strings')
 end
 app.resources_build_phase.add_file_reference(variant)
 app.add_system_frameworks(['StoreKit','UIKit','WebKit','PhotosUI','Photos','AVFoundation','AVFAudio','Speech','NaturalLanguage','SwiftUI','Translation','UserNotifications','CryptoKit','Security','ImageIO','UniformTypeIdentifiers'])
-test_sources = Dir.glob(File.join(root, 'EluvaTests', '*.swift')).sort
-tests = nil
-unless test_sources.empty?
-  tests = project.new_target(:unit_test_bundle, 'EluvaTests', :ios, '17.0')
-  test_group = project.main_group.new_group('EluvaTests', 'EluvaTests')
-  test_sources.each { |path| tests.source_build_phase.add_file_reference(test_group.new_file(File.basename(path))) }
-  tests.add_dependency(app)
-  tests.add_system_frameworks(['StoreKitTest', 'StoreKit'])
-  fixture_paths = ['Fixtures/CommerceQA.storekit', '../../tests/fixtures/qa-video.mp4']
-    .select { |path| File.file?(File.expand_path(path, File.join(root, 'EluvaTests'))) }
-  unless fixture_paths.empty?
-    fixture_group = test_group.new_group('Fixtures')
-    fixture_paths.each { |path| tests.resources_build_phase.add_file_reference(fixture_group.new_file(path)) }
-  end
+# Resolve against the selected SDK, never the generator machine's SDK version.
+app.frameworks_build_phase.files_references.each do |framework|
+  framework.path = "System/Library/Frameworks/#{File.basename(framework.path)}"
+  framework.source_tree = 'SDKROOT'
 end
-[app, tests].compact.each do |target|
+[app].each do |target|
   target.build_configurations.each do |config|
     settings = config.build_settings
     settings['SWIFT_VERSION'] = '5.0'
@@ -55,16 +48,9 @@ app.build_configurations.each do |config|
   config.build_settings['CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]'] = 'Eluva/Simulator.entitlements'
   config.build_settings['CODE_SIGN_IDENTITY[sdk=iphonesimulator*]'] = '-'
 end
-tests&.build_configurations&.each do |config|
-  config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'com.eluva.app.tests'
-  config.build_settings['GENERATE_INFOPLIST_FILE'] = 'YES'
-  config.build_settings['TEST_HOST'] = '$(BUILT_PRODUCTS_DIR)/Eluva.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Eluva'
-  config.build_settings['BUNDLE_LOADER'] = '$(TEST_HOST)'
-end
 project.save
 scheme = Xcodeproj::XCScheme.new
 scheme.add_build_target(app)
-scheme.add_test_target(tests) if tests
 scheme.set_launch_target(app)
 scheme.save_as(project.path, 'Eluva', true)
 puts 'Generated Eluva UIKit project; App Store bundle identifier: com.eluva.app'

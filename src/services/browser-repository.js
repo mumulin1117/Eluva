@@ -31,17 +31,17 @@ function equal(a, b) { let diff = a.length ^ b.length; for (let i = 0; i < Math.
 const publicUser = user => user ? { id: user.id, email: user.email, profile: user.profile, isTest: !!user.isTest, registrationVersion:user.onboarding?.version||null } : null
 const accountByEmail = (state, email) => Object.values(state.accounts).find(user => user.email === normalizeEmail(email))
 
-export function testFixtures() {
+function initialAccountFixtures() {
   return { friends: ['demo-friend-echo', 'demo-friend-notes'], requests: [{ id: 'demo-request-in', direction: 'received' }, { id: 'demo-request-out', direction: 'sent' }],
     threads: ['echo', 'notes'].map((name, i) => ({ id: 'demo-thread-' + name, participantId: 'demo-friend-' + name, title: { en: 'Local demo ' + (i + 1), fr: 'Démo locale ' + (i + 1) }, messages: [
       { id: name + '-text', kind: 'text', body: { en: 'A small hello from the local demo.', fr: 'Un petit bonjour de la démo locale.' }, sentByMe: false },
-    ] })), scenarios: { empty: true, failed: true, blockedUserId: 'demo-blocked-user' } }
+    ] })) }
 }
 
 // Development-browser adapter for the same RPC contract. iOS always uses the native repository.
 export class BrowserRepository {
-  constructor({ dbName = 'eluva-local-v1', indexedDB = globalThis.indexedDB, beforeWrite = () => {}, contentConfig = contentPolicy } = {}) {
-    this.contentPolicy = contentConfig; this.dbName = dbName; this.indexedDB = indexedDB; this.beforeWrite = beforeWrite
+  constructor() {
+    this.dbName = 'eluva-local-v1'; this.indexedDB = globalThis.indexedDB
     this.flows = new Map(); this.urls = new Map(); this.initializing = null
   }
   async open() {
@@ -78,7 +78,6 @@ export class BrowserRepository {
       const store = tx.objectStore('state')
       const state = await req(store.get('root'))
       invariant(!signal?.aborted, 'CANCELLED')
-      this.beforeWrite()
       const { state: next, result } = await operation(state, tx.objectStore('media'))
       invariant(!signal?.aborted, 'CANCELLED')
       await req(store.put(next, 'root'))
@@ -105,7 +104,7 @@ export class BrowserRepository {
         if (state) return { state, result: undefined }
         const next = { version: 1, installId: crypto.randomUUID(), preferences: { locale: matchLocale(globalThis.navigator?.languages || ['en'], globalThis.__ELUVA_LOCALE__), eulaConsent: false, eulaVersion: LEGAL_VERSION }, accounts: {}, commits: {}, session: null, fixtures: {} }
         next.accounts[TEST_USER_ID] = { id: TEST_USER_ID, email: TEST_EMAIL, credential: testCredential, isTest: true, profile: { displayName: 'Eluva Demo', birthday: '2000-01-01', photos: [], about: '', interestIds: [], goalIds: [], icebreakerIds: [] } }
-        next.fixtures[TEST_USER_ID] = testFixtures()
+        next.fixtures[TEST_USER_ID] = initialAccountFixtures()
         upgradePresentation(next)
         return { state: next, result: undefined }
       })
@@ -224,7 +223,7 @@ export class BrowserRepository {
       }
       case 'auth.logout': {
         const result = await this.write(async (s,media) => { const owner=s.session?.userId,used=referencedMedia(s);for(const f of await req(media.getAll()))if(!f.committed&&!used.has(f.id)&&(owner&&f.userId===owner||this.flows.has(f.flowId)))await req(media.delete(f.id));s.session = null; return { state: s, result: { loggedOut: true } } }, signal)
-        this.playback?.audio.pause();this.playback=null;this.callLeases?.clear();this.flows.clear(); this.contentDrafts?.clear();this.socialDrafts?.clear();this.profileMediaGrants?.clear();this.personalFailure=null;this.socialFailure=null; this.contentFailure=null; for (const url of this.urls.values()) URL.revokeObjectURL(url); this.urls.clear()
+        this.playback?.audio.pause();this.playback=null;this.callLeases?.clear();this.flows.clear(); this.contentDrafts?.clear();this.socialDrafts?.clear();this.profileMediaGrants?.clear();for (const url of this.urls.values()) URL.revokeObjectURL(url); this.urls.clear()
         return result
       }
       case 'auth.completeRegistration': {
@@ -304,5 +303,5 @@ export class BrowserRepository {
       default: throw new AppError('METHOD_NOT_FOUND')
     }
   }
-  close() { this.db?.close(); this.db = null; this.playback?.audio.pause();this.playback=null;this.callLeases?.clear();this.flows.clear(); this.contentDrafts?.clear();this.socialDrafts?.clear();this.profileMediaGrants?.clear();this.personalFailure=null;this.socialFailure=null; this.contentFailure=null; for (const url of this.urls.values()) URL.revokeObjectURL(url); this.urls.clear() }
+  close() { this.db?.close(); this.db = null; this.playback?.audio.pause();this.playback=null;this.callLeases?.clear();this.flows.clear(); this.contentDrafts?.clear();this.socialDrafts?.clear();this.profileMediaGrants?.clear();for (const url of this.urls.values()) URL.revokeObjectURL(url); this.urls.clear() }
 }

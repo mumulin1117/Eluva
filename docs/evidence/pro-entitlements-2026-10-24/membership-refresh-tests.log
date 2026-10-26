@@ -1,0 +1,19 @@
+✔ background subscription reads neither block controls nor erase errors; duplicate reads coalesce (4.007666ms)
+✔ account changes discard a background receipt snapshot and preserve account isolation (0.672292ms)
+✔ pending plan changes keep the old paid plan and only actual approval clears pending feedback (0.176417ms)
+✔ purchase reads an Apple quote only on confirmation; failure and rapid retry preserve the selection and paid state (0.538125ms)
+✔ missing selected product and restricted purchases never switch plans or call payment (0.293209ms)
+✔ the quote read and Apple purchase share one lock; restore cannot interleave (0.289958ms)
+✔ account change during quote lookup discards the quote and never opens payment (0.213ms)
+✔ unknown catalog IDs are rejected before looking up products (0.132458ms)
+✔ restore cancels an older background snapshot and rejected duplicates keep status (0.233917ms)
+✔ membership subscribers share one clock, avatars do not poll, and access expires without clearing the selected frame (4.614875ms)
+✔ own avatars read missing verified access once, including other-to-own changes and account switches (0.746875ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 197.752333

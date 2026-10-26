@@ -74,7 +74,7 @@
 
 ## 5 必要代码与数据依赖（已落实，见实施报告）
 
-`WelcomeView`、`AuthView`、`OnboardingView` 与认证专用对话容器负责连续呈现。复用真实输入、验证码输入、生日面板、按钮、弹层及现有视觉资源；认证会话不要写入好友聊天域。
+当前所有欢迎、认证及旧 Onboarding URL 由 `router.js` 统一接入 `AuthView` → `AuthConversation`。2026-10-24 清理了没有导入者、内容与 `AuthView` 相同的 `WelcomeView`、`OnboardingView` 包装文件；旧 URL 与会话恢复仍保留。复用真实输入、验证码输入、生日面板、按钮、弹层及现有视觉资源；认证会话不要写入好友聊天域。
 
 `router.js`、`state.js` 需要从旧九步守卫改为对话状态守卫。对话状态与最终账户资料分离，编辑／返回和恢复不会绕过邮箱验证或最终提交。
 

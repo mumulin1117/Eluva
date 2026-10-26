@@ -12,7 +12,7 @@ import ActionButton from '../components/ActionButton.vue'
 const route=useRoute(),d=computed(()=>feedbackDraft()),saved=ref(null)
 let alive=true
 onBeforeUnmount(()=>{alive=false})
-onMounted(async()=>{await loadPersonal();if(alive)await ensurePersonalDraft(d.value)})
+onMounted(async()=>{await loadPersonal({reuse:true});if(alive)await ensurePersonalDraft(d.value)})
 async function send(){const r=await personalAction('submitFeedback',{draftId:d.value.draftId,commitId:d.value.commitId,body:d.value.body,topic:d.value.topic,mediaIds:d.value.photos.map(x=>x.id)},{notice:'p5.feedbackSaved'});if(r){releasePersonalDraft(d.value);saved.value=personal.feedback.find(x=>x.id===r.resultId);personal.feedbackDraft=null}}
 function back(){router.push(['/settings','/settings/about'].includes(route.query.from)?'/settings':'/mine')}
 </script>

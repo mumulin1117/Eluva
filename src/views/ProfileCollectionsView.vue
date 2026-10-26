@@ -14,7 +14,9 @@ const route=useRoute(),ready=ref(false),failed=ref(false),help=ref(false),peer=c
 let generation=0
 onBeforeUnmount(()=>generation++)
 async function load(){const version=++generation;ready.value=false;failed.value=false;state.ui.notice='';const ok=await loadSocial()&&await socialAction('profile',{peerId:peer.value},{notice:'',critical:false})&&await loadContent({quiet:true});if(version!==generation)return;failed.value=!ok;ready.value=true}
-onMounted(load);watch(peer,()=>{help.value=false;load()})
+function restore(){const owner=state.user?.id;if(!owner||!social.presentedProfiles?.[peer.value]||!social.loaded||social.ownerId!==owner||!content.loaded||content.ownerId!==owner||!p.value||p.value.relationship?.blocked)return false;generation++;failed.value=false;ready.value=true;return true}
+restore()
+onMounted(()=>{if(!restore())load()});watch(peer,()=>{help.value=false;if(!restore())load()})
 function back(){router.push(allowedReturnPath(route.query.from,{fallback:'/profile/'+encodeURIComponent(peer.value),prefix:['/profile/']}))}
 function cover(item){return content.posts.find(x=>item.postIds.includes(x.id)&&x.media.some(m=>m.kind==='image'&&m.url))?.media.find(m=>m.kind==='image'&&m.url)?.url}
 function open(id){if(state.ui.busy)return;router.push({name:'collection',params:{id},query:{from:route.fullPath}})}

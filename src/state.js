@@ -46,7 +46,6 @@ export async function run(name, action, { critical = false, preserveError = fals
   if (active) return false
   const operation = { controller: new AbortController(), critical, done: false }
   active = operation; state.ui.busy = name
-  if((state.ui.notice==='p2.failureArmed'&&name!=='content-demo')||(state.ui.notice==='s.failureArmed'&&name!=='social-demo')||(state.ui.notice==='p5.failureArmed'&&name!=='personal-check'))state.ui.notice=''
   if (!preserveError) state.ui.error = null
   try { await action(operation.controller.signal, () => { operation.done = true }); return true }
   catch (error) { const normalized = asAppError(error); if (normalized.code !== 'CANCELLED') state.ui.error = normalized.code; return false }

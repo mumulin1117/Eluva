@@ -1,12 +1,24 @@
 import Foundation
 
 extension LocalRepository {
+    var avatarFrameIDs:Set<String>{Set((1...6).map{"frame-\($0)"})}
+    // Public appearance exposes only the badge and currently usable frame.
+    func proAppearance(_ state:JSONObject,_ id:String,now:Date=Date())->JSONObject {
+        let active=hasProAccess(state,owner:id,now:now),saved=object(object(object(state["accounts"])[id])["profile"])["avatarFrameId"] as? String ?? ""
+        return ["proActive":active,"avatarFrameId":active && avatarFrameIDs.contains(saved) ? saved:""]
+    }
+    func savedAvatarFrame(_ state:JSONObject,owner:String,raw:JSONObject,previous:JSONObject)throws->String {
+        guard let value=raw["avatarFrameId"] else{return previous["avatarFrameId"] as? String ?? ""}
+        guard let frame=value as? String,frame.isEmpty || avatarFrameIDs.contains(frame) else{throw EluvaError("INVALID_AVATAR_FRAME")}
+        try require(frame.isEmpty || frame==previous["avatarFrameId"] as? String || hasProAccess(state,owner:owner),"PRO_LOCKED")
+        return frame
+    }
     func ensurePersonal(_ state:inout JSONObject)throws {
         if state["personal"]==nil {state["personal"]=["version":1,"preferences":JSONObject(),"feedback":JSONObject(),"operations":JSONObject(),"deletedReceipts":JSONObject()]}
         guard let p=state["personal"] as? JSONObject,p["version"] as? Int==1,["preferences","feedback","operations","deletedReceipts"].allSatisfy({p[$0] is JSONObject})else{throw EluvaError("STORAGE_CORRUPT")}
     }
     var personalPolicy:JSONObject {
-        guard let url=Bundle.main.url(forResource:"personal-policy",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let p=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["feedbackLimit":2000,"feedbackImages":3]};return p
+        guard let url=EncryptedWebResources.shared.url(forResource:"personal-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let p=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["feedbackLimit":2000,"feedbackImages":3]};return p
     }
     func personalSnapshot(_ source:JSONObject)throws->JSONObject {
         var state=source;try ensurePersonal(&state);try ensureSocial(&state);let id=try contentOwner(state),a=object(object(state["accounts"])[id]),p=object(state["personal"])
@@ -57,8 +69,7 @@ extension LocalRepository {
         var next=snapshot!;try ensurePersonal(&next);try ensureSocial(&next);let string={(key:String) in params[key] as? String ?? ""}
         if method=="deleteAccount",object(object(next["personal"])["deletedReceipts"])[string("commitId")] != nil,currentUser(next)==nil{return ["deleted":true]}
         let viewer=try contentOwner(next)
-        if method=="simulateFailure"{try require(currentUser(next)?["isTest"] as? Bool==true&&["snapshot","saveProfile","savePreferences","saveCollection","collectionPosts","deleteCollection","deletePost","submitFeedback","deleteAccount"].contains(string("operation")),"INVALID_ARGUMENT");personalFailure=(viewer,string("operation"));return ["armed":true]}
-        if method=="snapshot"{if personalFailure?.owner==viewer&&personalFailure?.method==method{personalFailure=nil;throw EluvaError("STORAGE_FAILED")};return try personalSnapshot(next)}
+        if method=="snapshot"{return try personalSnapshot(next)}
         if method=="collection"{var out=try personalSnapshot(next);out["collection"]=try visiblePersonalCollection(next,string("id"),viewer);return out}
         try require(UUID(uuidString:string("commitId")) != nil,"INVALID_ARGUMENT");var personal=object(next["personal"]),ops=object(personal["operations"]),c=content(next);let op=viewer+":"+string("commitId"),payload=String(data:try JSONSerialization.data(withJSONObject:params,options:[.sortedKeys]),encoding:.utf8)!
         if let old=ops[op] as? JSONObject{try require(old["method"] as? String==method&&old["payload"] as? String==payload,"COMMIT_CONFLICT");var out=try personalSnapshot(next);out["resultId"]=old["resultId"] ?? NSNull();return out}
@@ -68,6 +79,7 @@ extension LocalRepository {
             switch method {
             case "saveProfile":
                 var accounts=object(next["accounts"]),a=object(accounts[viewer]);let old=object(a["profile"]),previous=Set(array(old["photos"]).compactMap{$0["id"] as? String});var profile=try validateProfile(object(params["profile"]),existing:old,sparse:object(a["onboarding"])["version"] as? String=="lanhu-conversation-v1");profile["communityVersion"]=old["communityVersion"]
+                profile["avatarFrameId"]=try savedAvatarFrame(next,owner:viewer,raw:object(params["profile"]),previous:old)
                 for photo in array(profile["photos"]){let id=photo["id"] as! String;if !previous.contains(id){try promote(id)}}
                 let current=Set(array(profile["photos"]).compactMap{$0["id"] as? String});garbage.append(contentsOf:previous.subtracting(current));a["profile"]=profile;accounts[viewer]=a;next["accounts"]=accounts
             case "savePreferences":try require(["purple","pink","orange","cyan"].contains(string("theme")),"INVALID_ARGUMENT");var prefs=object(personal["preferences"]),mine=object(prefs[viewer]);mine["theme"]=string("theme");prefs[viewer]=mine;personal["preferences"]=prefs
@@ -93,7 +105,6 @@ extension LocalRepository {
             default:throw EluvaError("METHOD_NOT_FOUND")
             }
             if !deleteAccount{next["content"]=c;next["personal"]=personal;let used=personalReferencedMedia(next);var files=object(c["files"]);for id in garbage where !used.contains(id){let f=object(files[id]);if f.isEmpty || f["ownerId"] as? String==viewer{let ext=f["extension"] as? String ?? "jpg";if let url=try? checkedMediaFile(root.appendingPathComponent("Media").appendingPathComponent(id+"."+ext),folder:"Media"){deleteURLs.append(url)};files.removeValue(forKey:id)}};c["files"]=files}
-            if personalFailure?.owner==viewer&&personalFailure?.method==method{personalFailure=nil;throw EluvaError("STORAGE_FAILED")}
             if !deleteAccount{ops[op]=["method":method,"payload":payload,"resultId":resultID as Any? ?? NSNull()];personal["operations"]=ops;next["content"]=c};next["personal"]=personal;try persist(next)
         }catch{copied.forEach{try? FileManager.default.removeItem(at:$0)};throw (error as? EluvaError) ?? EluvaError("STORAGE_FAILED")}
         if deleteAccount{clearPersonalRuntime();var pending=false;for url in Set(deleteURLs){do{if FileManager.default.fileExists(atPath:url.path){try FileManager.default.removeItem(at:url)}}catch{pending=true}};return ["deleted":true,"cleanupPending":pending]}

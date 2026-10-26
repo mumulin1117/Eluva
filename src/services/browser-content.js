@@ -1,6 +1,7 @@
 import { invariant } from '../domain/errors.js'
-import { contentState, contentPolicy, canReadPost, defaultFeedFilter, validatePost, characterCount,setAuthorBlock } from '../domain/content.js'
-import { consumePublicPost, commerceSnapshot, quotaDay } from '../domain/commerce.js'
+import { contentState, contentPolicy, canReadPost, discoveryEligible, defaultFeedFilter, validatePost, characterCount,setAuthorBlock } from '../domain/content.js'
+import { consumePublicPost, commerceSnapshot, quotaDay, hasProAccess } from '../domain/commerce.js'
+import { publicProAppearance } from '../domain/personal.js'
 import { ageOn } from '../domain/validation.js'
 import { choices } from '../data/choices.js'
 
@@ -10,24 +11,23 @@ const uuid = value => invariant(typeof value === 'string' && /^[0-9a-f-]{36}$/i.
 const available = (root, id, viewer) => { const post = contentState(root).posts[id]; invariant(canReadPost(root, post, viewer), 'POST_UNAVAILABLE'); return post }
 const safeAuthor = (root, post) => {
   const profile = root.accounts[post.authorId]?.profile||root.social?.profiles?.[post.authorId]
-  return profile ? { id: post.authorId, displayName: profile.displayName, age: profile.birthday?ageOn(profile.birthday):profile.age, about: profile.about || '', interestIds: profile.interestIds || [] } : { id: post.authorId, displayName: post.demoName || 'Eluva', about: '', interestIds: [] }
+  const author = profile ? { id: post.authorId, displayName: profile.displayName, age: profile.birthday?ageOn(profile.birthday):profile.age, about: profile.about || '', interestIds: profile.interestIds || [] } : { id: post.authorId, displayName: post.demoName || 'Eluva', about: '', interestIds: [] }
+  return { ...author, ...publicProAppearance(root, post.authorId) }
 }
 export function contentSnapshot(root, policy = contentPolicy) {
   const viewer = own(root), c = contentState(root), posts = Object.values(c.posts).filter(p => canReadPost(root, p, viewer))
   const blocked=id=>!!c.blocks[viewer+':'+id]||!!c.blocks[id+':'+viewer],comments=Object.values(c.comments).filter(x=>!blocked(x.authorId))
-  return { ownerId: viewer, posts: posts.map(p => ({ ...p, author: safeAuthor(root, p), lit: !!c.echoes[viewer + ':' + p.id], litAt:c.echoes[viewer+':'+p.id]?.createdAt||null, echoCount: Object.values(c.echoes).filter(e => e.postId === p.id).length, commentCount: comments.filter(e => e.postId === p.id).length })),
+  return { ownerId: viewer, posts: posts.map(p => ({ ...p, discoveryEligible: discoveryEligible(root, p, viewer), author: safeAuthor(root, p), lit: !!c.echoes[viewer + ':' + p.id], litAt:c.echoes[viewer+':'+p.id]?.createdAt||null, echoCount: Object.values(c.echoes).filter(e => e.postId === p.id).length, commentCount: comments.filter(e => e.postId === p.id).length })),
     comments: comments.filter(x => posts.some(p => p.id === x.postId)).map(x => ({ ...x, authorName: root.accounts[x.authorId]?.profile.displayName || 'Eluva' })),
     events: Object.values(c.events).filter(x => x.recipientId === viewer && !blocked(x.senderId) && posts.some(p => p.id === x.postId)),
     blockedAuthors:Object.keys(c.blocks).filter(key=>key.startsWith(viewer+':')).map(key=>{const id=key.slice(viewer.length+1);return{id,name:root.accounts[id]?.profile.displayName||root.social?.profiles?.[id]?.displayName||Object.values(c.posts).find(p=>p.authorId===id)?.demoName||'Eluva'}}),
     hiddenPosts:Object.values(c.posts).filter(p=>c.hidden[viewer+':'+p.id]&&canReadPost(root,p,viewer,{ignoreHidden:true})).map(p=>({id:p.id,authorId:p.authorId,body:p.body,demoKey:p.demoKey})),
     collections: Object.values(c.collections).filter(x => x.ownerId === viewer).map(x => ({ ...x, postIds: x.postIds.filter(id => posts.some(p => p.id === id)) })), preferences: c.preferences[viewer] || { guideDone: false, feedFilter: defaultFeedFilter() },
-    quota: { ...commerceSnapshot(root,viewer).quota, limit: policy.dailyPublicPosts, simulation: true }, policy: policy }
+    quota: { ...commerceSnapshot(root,viewer).quota, limit: policy.dailyPublicPosts, simulation: true }, policy: { ...policy, proAudienceEnabled: hasProAccess(root, viewer) } }
 }
 export async function browserContent(repo, method, params, signal) {
-  const root = await repo.read(), viewer = own(root), policy=repo.contentPolicy||contentPolicy
+  const root = await repo.read(), viewer = own(root), policy=contentPolicy
   repo.contentDrafts ||= new Map()
-  if(method==='simulateFailure'){invariant(root.accounts[viewer].isTest===true && ['publish','comment','snapshot'].includes(params.operation),'INVALID_ARGUMENT');repo.contentFailure=params.operation;return {armed:true}}
-  if(method==='snapshot'&&repo.contentFailure==='snapshot'){repo.contentFailure=null;invariant(false,'STORAGE_FAILED')}
   if (method === 'snapshot') return contentSnapshot(root,policy)
   if (method === 'post') { available(root, params.id, viewer); return contentSnapshot(root,policy) }
   if (method === 'beginDraft') { uuid(params.draftId); const prior = repo.contentDrafts.get(params.draftId); invariant(!prior || prior === viewer, 'DRAFT_EXPIRED'); repo.contentDrafts.set(params.draftId, viewer); return { draftId: params.draftId } }
@@ -49,7 +49,7 @@ export async function browserContent(repo, method, params, signal) {
     let resultId
     if (method==='publish') {
       invariant(repo.contentDrafts.get(params.draftId)===viewer,'DRAFT_EXPIRED')
-      const post=validatePost(params,policy), validTags=new Set(choices.interests.map(x=>x.id)); invariant(post.tagIds.every(id=>validTags.has(id)),'INVALID_FILTER')
+      const post=validatePost(params,{...policy,proAudienceEnabled:hasProAccess(s,viewer)}), validTags=new Set(choices.interests.map(x=>x.id)); invariant(post.tagIds.every(id=>validTags.has(id)),'INVALID_FILTER')
       for(const m of post.media){const file=await readMedia(m.id);invariant(file?.userId===viewer && file.draftId===params.draftId && file.kind===m.kind,'MEDIA_MISSING');file.committed=true;media.put(file)}
       if(params.collectionId)invariant(c.collections[params.collectionId]?.ownerId===viewer,'COLLECTION_UNAVAILABLE')
       resultId=crypto.randomUUID()
@@ -80,7 +80,6 @@ export async function browserContent(repo, method, params, signal) {
     }else if(method==='block'){
       invariant(params.authorId!==viewer&&typeof params.blocked==='boolean','INVALID_ARGUMENT');invariant(s.accounts[params.authorId]||Object.values(c.posts).some(p=>p.authorId===params.authorId),'ACCOUNT_NOT_FOUND');setAuthorBlock(s,c,viewer,params.authorId,params.blocked)
     }else invariant(false,'METHOD_NOT_FOUND')
-    if(repo.contentFailure===method){repo.contentFailure=null;invariant(false,'STORAGE_FAILED')}
     if(idempotent)c.operations[opKey]={method,target:params.postId||params.draftId||'',payload:stable(params),resultId}
     return {state:s,result:{...contentSnapshot(s,policy),...(resultId?{resultId}:{})}}
   },signal)

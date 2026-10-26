@@ -3,7 +3,7 @@ import { invariant } from '../domain/errors.js'
 import { validateProfile, normalizeEmail, textLength } from '../domain/validation.js'
 import { choices } from '../data/choices.js'
 import { contentState, canReadPost } from '../domain/content.js'
-import { personalState, ownerId, themeIds, feedbackTopics, personalPolicy, stablePayload, visibleCollection, removeAccountData, referencedMedia } from '../domain/personal.js'
+import { personalState, ownerId, themeIds, feedbackTopics, personalPolicy, stablePayload, visibleCollection, removeAccountData, referencedMedia, savedAvatarFrame } from '../domain/personal.js'
 import { contentSnapshot } from './browser-content.js'
 import { socialSnapshot } from './browser-social.js'
 const uuid=id=>invariant(typeof id==='string'&&/^[0-9a-f-]{36}$/i.test(id),'INVALID_ARGUMENT')
@@ -16,8 +16,7 @@ export async function browserPersonal(repo,method,p,signal){
   const root=await repo.read(),personal=personalState(root)
   if(method==='deleteAccount'&&personal.deletedReceipts[p.commitId]&&!root.session)return {deleted:true}
   const viewer=ownerId(root)
-  if(method==='simulateFailure'){invariant(root.accounts[viewer].isTest&&['snapshot','saveProfile','savePreferences','saveCollection','collectionPosts','deleteCollection','deletePost','submitFeedback','deleteAccount'].includes(p.operation),'INVALID_ARGUMENT');repo.personalFailure={ownerId:viewer,method:p.operation};return {armed:true}}
-  if(method==='snapshot'){if(repo.personalFailure?.ownerId===viewer&&repo.personalFailure.method===method){repo.personalFailure=null;invariant(false,'STORAGE_FAILED')}return snapshot(root)}
+  if(method==='snapshot')return snapshot(root)
   if(method==='collection')return {...snapshot(root),collection:visibleCollection(root,p.id,viewer)}
   uuid(p.commitId);const op=viewer+':'+p.commitId,payload=stablePayload(p),prior=personal.operations[op]
   if(prior){invariant(prior.method===method&&prior.payload===payload,'COMMIT_CONFLICT');return {...snapshot(root),resultId:prior.resultId}}
@@ -31,9 +30,10 @@ export async function browserPersonal(repo,method,p,signal){
       case 'saveProfile':{
         const previous=s.accounts[viewer].profile,raw={...p.profile,photos:(p.profile?.photos||[]).map(x=>({id:x.id}))},base={...previous,photos:previous.photos.map(x=>({id:x.id}))}
         const profile=validateProfile(raw,choices,new Date(),base,s.accounts[viewer].onboarding?.version===conversationVersion)
+        const avatarFrameId=savedAvatarFrame(s,viewer,p.profile||{},previous)
         for(const photo of profile.photos)if(!base.photos.some(x=>x.id===photo.id))await staged(photo.id)
         garbage.push(...base.photos.filter(x=>!profile.photos.some(p=>p.id===x.id)).map(x=>x.id))
-        s.accounts[viewer].profile={...profile,photos:profile.photos.map(x=>({id:x.id})),communityVersion:previous.communityVersion}
+        s.accounts[viewer].profile={...profile,photos:profile.photos.map(x=>({id:x.id})),communityVersion:previous.communityVersion,avatarFrameId}
         break
       }
       case 'savePreferences':invariant(themeIds.includes(p.theme),'INVALID_ARGUMENT');d.preferences[viewer]={...d.preferences[viewer],theme:p.theme};break
@@ -65,13 +65,11 @@ export async function browserPersonal(repo,method,p,signal){
         invariant(!s.accounts[viewer].isTest,'TEST_ACCOUNT_READ_ONLY');invariant(p.confirmed===true&&normalizeEmail(p.confirmEmail)===s.accounts[viewer].email,'DELETE_CONFIRMATION_REQUIRED')
         for(const f of await req(media.getAll()))if(f.userId===viewer)await req(media.delete(f.id))
         removeAccountData(s,viewer);personalState(s).deletedReceipts[p.commitId]={userId:viewer}
-        if(repo.personalFailure?.ownerId===viewer&&repo.personalFailure.method===method){repo.personalFailure=null;invariant(false,'STORAGE_FAILED')}
         return {state:s,result:{deleted:true}}
       }
       default:invariant(false,'METHOD_NOT_FOUND')
     }
     const used=referencedMedia(s);for(const id of garbage)if(!used.has(id)){const f=await req(media.get(id));if(f?.userId===viewer){await req(media.delete(id));removedFiles.push(id)}}
-    if(repo.personalFailure?.ownerId===viewer&&repo.personalFailure.method===method){repo.personalFailure=null;invariant(false,'STORAGE_FAILED')}
     d.operations[op]={method,payload,resultId};return {state:s,result:{...snapshot(s),...(resultId?{resultId}:{})}}
   },signal)
   for(const id of removedFiles){if(repo.urls.has(id))URL.revokeObjectURL(repo.urls.get(id));repo.urls.delete(id)}

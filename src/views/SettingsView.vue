@@ -15,9 +15,9 @@ import AppIcon from '../components/AppIcon.vue'
 const route=useRoute(),mode=computed(()=>route.name),status=ref('loading'),unblock=ref(null),deleting=ref(false),deletePrompt=ref(false),confirmEmail=ref(''),deleteCommit=ref(newId()),commit=ref(newId()),selectedTheme=ref(state.theme),selectedLocale=ref(state.locale),previewNotice=ref(false)
 const title=computed(()=>t('p5.'+({settings:'settings',settingsTheme:'theme',settingsLanguage:'language',blocked:'blocklist',deleteAccount:'deleteAccount'}[mode.value]||'settings')))
 const lifetime=new AbortController();let alive=true
-async function load(){await loadPersonal();if(!alive)return;try{const r=await bridge.call('notifications','status',{}, {signal:lifetime.signal});if(alive)status.value=r.status}catch(e){if(alive&&e.code!=='CANCELLED')status.value='unsupported'}}
-onMounted(load)
-watch(mode,()=>{deletePrompt.value=false;deleting.value=false;previewNotice.value=false;commit.value=newId();if(mode.value==='settingsTheme')selectedTheme.value=state.theme;if(mode.value==='settingsLanguage')selectedLocale.value=state.locale;load()})
+async function load({reuse=false}={}){await loadPersonal({reuse});if(!alive)return;try{const r=await bridge.call('notifications','status',{}, {signal:lifetime.signal});if(alive)status.value=r.status}catch(e){if(alive&&e.code!=='CANCELLED')status.value='unsupported'}}
+onMounted(()=>load({reuse:true}))
+watch(mode,()=>{deletePrompt.value=false;deleting.value=false;previewNotice.value=false;commit.value=newId();if(mode.value==='settingsTheme')selectedTheme.value=state.theme;if(mode.value==='settingsLanguage')selectedLocale.value=state.locale;load({reuse:true})})
 async function notifications(){if(status.value==='unsupported'){notify('p5.notification_unsupported');return}await run('settings-notifications',async signal=>{if(['denied','authorized','provisional','ephemeral'].includes(status.value)){await bridge.call('system','openSettings',{}, {signal});return}const r=await bridge.call('notifications','request',{}, {signal,timeout:120000});status.value=r.status})}
 function foreground(){if(!document.hidden)bridge.call('notifications','status',{}, {signal:lifetime.signal}).then(r=>{if(alive)status.value=r.status}).catch(()=>{})}
 document.addEventListener('visibilitychange',foreground)

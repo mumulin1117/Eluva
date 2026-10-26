@@ -23,7 +23,12 @@ export class NativeBridge {
         clearTimeout(timer); signal?.removeEventListener('abort', abort); this.pending.delete(requestId)
         if (error) reject(error); else resolve(value)
       }
-      const cancel = code => { operation.abort(); if (this.isNative) this.host.webkit.messageHandlers.eluva.postMessage({ v: 1, requestId: newId(), service: 'system', method: 'cancel', params: { requestId } }); finish(new AppError(code)) }
+      const cancel = code => {
+        operation.abort()
+        try { if (this.isNative) this.host.webkit.messageHandlers.eluva.postMessage({ v: 1, requestId: newId(), service: 'system', method: 'cancel', params: { requestId } }) }
+        catch { /* The host may already be gone; local cancellation still settles. */ }
+        finish(new AppError(code))
+      }
       const abort = () => cancel('CANCELLED')
       const timer = setTimeout(() => cancel('TIMEOUT'), timeout)
       this.pending.set(requestId, { finish, abort }); signal?.addEventListener('abort', abort, { once: true })

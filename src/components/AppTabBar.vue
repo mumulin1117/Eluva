@@ -1,7 +1,7 @@
 <script setup>
 import { social,loadSocial } from '../social-state.js'
 import { onMounted } from 'vue'
-onMounted(()=>loadSocial({quiet:true}))
+onMounted(()=>loadSocial({quiet:true,reuse:true}))
 import { useRoute } from 'vue-router'
 import { router } from '../router.js'
 import { state,t } from '../state.js'

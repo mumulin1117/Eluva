@@ -12,8 +12,8 @@ export function actionNotice(scope, method, params = {}) {
 }
 
 export function noticePresentation(key) {
-  const caution = ['p5.notification_unsupported', 'p4.incomingExpired', 'p4.callClosedSaveFailed', 'p5.cleanupPending']
-  const information = ['resent', 'p2.draftSaved', 'p4.controlsAfterConnected', 'p2.failureArmed', 's.failureArmed', 'p5.failureArmed']
+  const caution = ['p5.notification_unsupported', 'p4.callClosedSaveFailed', 'p5.cleanupPending']
+  const information = ['resent', 'p2.draftSaved', 'p4.controlsAfterConnected']
   return {tone: caution.includes(key) ? 'attention' : information.includes(key) ? 'info' : 'success',
     position: ['p5.accountDeleted', 'p5.cleanupPending'].includes(key) ? 'center' : 'top'}
 }

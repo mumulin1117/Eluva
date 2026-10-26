@@ -11,7 +11,7 @@ import PersonAvatar from '../components/PersonAvatar.vue'
 import ActionButton from '../components/ActionButton.vue'
 import AppModal from '../components/AppModal.vue'
 const route=useRoute(),isRequests=computed(()=>route.name==='friendRequests'),direction=ref(route.query.direction==='sent'?'sent':'received'),ignore=ref(null),commits={}
-onMounted(loadSocial)
+onMounted(()=>loadSocial({reuse:true}))
 const friends=computed(()=>social.profiles.filter(p=>p.relationship?.friends&&!p.relationship.blocked)),requests=computed(()=>social.requests.filter(r=>r.direction===direction.value).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)))
 const pending=computed(()=>social.requests.filter(r=>r.direction==='received'&&r.status==='pending'&&!r.blocked).length)
 const peer=r=>r.direction==='received'?r.senderId:r.recipientId

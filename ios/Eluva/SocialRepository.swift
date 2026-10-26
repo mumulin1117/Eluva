@@ -34,7 +34,7 @@ extension LocalRepository {
         if state["social"]==nil {
             var s:JSONObject=["version":1];for k in ["profiles","follows","requests","friendships","threads","messages","eventReads","preferences","operations","feedback","reports"]{s[k]=JSONObject()}
             var profiles:JSONObject=[:]
-            if let url=Bundle.main.url(forResource:"social-demo",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]{for var p in list {p["demo"]=true;profiles[p["id"] as! String]=p}}
+            if let url=EncryptedWebResources.shared.url(forResource:"social-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]{for var p in list {p["demo"]=true;profiles[p["id"] as! String]=p}}
             s["profiles"]=profiles;var friendships:JSONObject=[:],threads:JSONObject=[:],messages:JSONObject=[:],requests:JSONObject=[:];let stamp="2026-10-17T08:00:00.000Z"
             for (owner,raw) in object(state["fixtures"]) {let fixture=object(raw)
                 for peer in fixture["friends"] as? [String] ?? [] {let pair=socialPair(owner,peer);friendships[pair]=["id":pair,"users":[owner,peer],"createdAt":stamp]}
@@ -62,7 +62,9 @@ extension LocalRepository {
     func socialProfile(_ state:JSONObject,_ id:String,_ viewer:String)throws->JSONObject {
         let account=object(object(state["accounts"])[id]),p=account.isEmpty ? object(object(object(state["social"])["profiles"])[id]):object(account["profile"])
         try require(!p.isEmpty && (p["scope"]==nil || p["scope"] as? String==viewer),"PROFILE_UNAVAILABLE")
-        return ["id":id,"displayName":p["displayName"] ?? "Eluva","about":p["about"] ?? "","aboutTranslations":p["aboutTranslations"] ?? JSONObject(),"age":account.isEmpty ? p["age"] ?? NSNull() : Self.age(p["birthday"] as? String ?? "") as Any? ?? NSNull(),"photos":array(p["photos"]).compactMap{x->JSONObject? in guard let photoID=x["id"] as? String else{return nil};var photo:JSONObject=["id":photoID];if account.isEmpty && p["demo"] as? Bool==true,let asset=suppliedDemoPhotoAsset(id,photoID){photo["asset"]=asset};return photo},"interestIds":p["interestIds"] ?? [],"university":p["university"] ?? "","major":p["major"] ?? "","demo":p["demo"] as? Bool==true || account["isTest"] as? Bool==true]
+        var profile:JSONObject=["id":id,"displayName":p["displayName"] ?? "Eluva","about":p["about"] ?? "","aboutTranslations":p["aboutTranslations"] ?? JSONObject(),"age":account.isEmpty ? p["age"] ?? NSNull() : Self.age(p["birthday"] as? String ?? "") as Any? ?? NSNull(),"photos":array(p["photos"]).compactMap{x->JSONObject? in guard let photoID=x["id"] as? String else{return nil};var photo:JSONObject=["id":photoID];if account.isEmpty && p["demo"] as? Bool==true,let asset=suppliedDemoPhotoAsset(id,photoID){photo["asset"]=asset};return photo},"interestIds":p["interestIds"] ?? [],"university":p["university"] ?? "","major":p["major"] ?? "","demo":p["demo"] as? Bool==true || account["isTest"] as? Bool==true]
+        profile.merge(proAppearance(state,id)){_,derived in derived}
+        return profile
     }
     func socialRelation(_ state:JSONObject,_ viewer:String,_ peer:String)->JSONObject {
         let s=object(state["social"]),pair=socialPair(viewer,peer);var request:Any=NSNull()
@@ -116,8 +118,6 @@ extension LocalRepository {
     }
     func executeSocial(_ method:String,params:JSONObject)throws->JSONObject {
         var next=snapshot!;let viewer=try contentOwner(next);try ensureSocial(&next);let string={(key:String) in params[key] as? String ?? ""},peer=string("peerId")
-        if method=="simulateFailure" {try require(currentUser(next)?["isTest"] as? Bool==true && ["send","request","accept","ignore","snapshot","follow","help","replyPost","declineConnection"].contains(string("operation")),"INVALID_ARGUMENT");socialFailure=string("operation");return ["armed":true]}
-        if method=="snapshot" && socialFailure==method {socialFailure=nil;throw EluvaError("STORAGE_FAILED")}
         if method=="profile"{let p=try socialProfile(next,peer,viewer);if !socialBlocked(next,viewer,peer){profileMediaGrants[viewer,default:[]].formUnion(array(p["photos"]).compactMap{$0["id"] as? String})};return try socialSnapshot(next)}
         if ["thread","requireFriend"].contains(method){if method=="thread"{try requireSocialThread(next,viewer,peer)}else{try requireSocialPeer(next,viewer,peer,friend:true)};if method=="thread"{profileMediaGrants[viewer,default:[]].formUnion(array(try socialProfile(next,peer,viewer)["photos"]).compactMap{$0["id"] as? String})};return method=="requireFriend" ? ["allowed":true]:try socialSnapshot(next)}
         if method=="beginDraft"{try persist(next);let id=string("draftId");try require(UUID(uuidString:id) != nil,"INVALID_ARGUMENT");try requireSocialPeer(next,viewer,peer,friend:true);if let prior=socialDrafts[id]{try require(prior.owner==viewer&&prior.peer==peer,"DRAFT_EXPIRED")};socialDrafts[id]=(viewer,peer);return ["draftId":id]}
@@ -159,7 +159,7 @@ extension LocalRepository {
             case "help":let body=string("body").trimmingCharacters(in:.whitespacesAndNewlines);try require(!body.isEmpty&&body.count<=2000,"INVALID_MESSAGE");try require(["how","posting","privacy","feedback"].contains(string("topic")),"INVALID_ARGUMENT");let id=UUID().uuidString.lowercased();resultID=id;var feedback=object(s["feedback"]);feedback[id]=["id":id,"ownerId":viewer,"body":body,"topic":string("topic"),"createdAt":now,"simulation":true];s["feedback"]=feedback
             default:throw EluvaError("METHOD_NOT_FOUND")
             }
-            if socialFailure==method{socialFailure=nil;throw EluvaError("STORAGE_FAILED")};if idempotent{var ops=object(s["operations"]);ops[op]=["method":method,"payload":payload,"resultId":resultID ?? ""];s["operations"]=ops};next["social"]=s;try persist(next)
+            if idempotent{var ops=object(s["operations"]);ops[op]=["method":method,"payload":payload,"resultId":resultID ?? ""];s["operations"]=ops};next["social"]=s;try persist(next)
         }catch{copied.forEach{try? FileManager.default.removeItem(at:$0)};throw (error as? EluvaError) ?? EluvaError("STORAGE_FAILED")}
         if method=="send"&&["image","voice"].contains(string("kind")){let id=string("mediaId");if let staged=staging[id]{try? FileManager.default.removeItem(at:staged.url)};staging.removeValue(forKey:id);stagedKinds.removeValue(forKey:id)}
         var out=try socialSnapshot(next);if let resultID{out["resultId"]=resultID};return out

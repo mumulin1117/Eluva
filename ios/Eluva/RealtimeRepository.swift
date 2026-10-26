@@ -12,7 +12,7 @@ extension LocalRepository {
         guard let r=state["realtime"] as? JSONObject,r["version"] as? Int==1,r["calls"] is JSONObject,r["language"] is JSONObject else { throw EluvaError("STORAGE_CORRUPT") }
     }
     var realtimePolicy: JSONObject {
-        guard let url=Bundle.main.url(forResource:"realtime-policy",withExtension:"json",subdirectory:"Web/config"),let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject else { return [:] }
+        guard let url=EncryptedWebResources.shared.url(forResource:"realtime-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject else { return [:] }
         return value
     }
     func voiceDuration(_ url:URL) throws -> Double {
@@ -23,7 +23,7 @@ extension LocalRepository {
         let duration=Double(audio.length)/audio.processingFormat.sampleRate
         try require(duration>=min,"RECORDING_TOO_SHORT");try require(duration<=max+(url.pathExtension.lowercased()=="m4a" ? 0.1:0),"RECORDING_TOO_LONG");return Swift.min(duration,max)
     }
-    // Called only with a recorder-owned temporary file or an explicit test fixture, on repository.queue.
+    // Called with a recorder-owned temporary file, on repository.queue.
     func stageVoice(_ url:URL,draftID:String) throws -> JSONObject {
         try validateMediaFlow(draftID);guard let draft=socialDrafts[draftID] else {throw EluvaError("DRAFT_EXPIRED")}
         try requireSocialPeer(snapshot!,draft.owner,draft.peer,friend:true)
@@ -43,7 +43,7 @@ extension LocalRepository {
         let m=try readableMessage(state,id,viewer);try require(m["kind"] as? String=="voice","INVALID_ARGUMENT")
         if let media=m["mediaId"] as? String{return try mediaURL(media)}
         try require(m["demo"] as? Bool==true && m["asset"] as? String=="demo/local-voice.wav","MEDIA_MISSING")
-        guard let url=Bundle.main.url(forResource:"local-voice",withExtension:"wav",subdirectory:"Web/demo")else{throw EluvaError("MEDIA_MISSING")};return url
+        guard let url=EncryptedWebResources.shared.url(forResource:"local-voice",withExtension:"wav",subdirectory:"demo")else{throw EluvaError("MEDIA_MISSING")};return url
     }
     func languageKey(_ owner:String,_ type:String,_ id:String,_ kind:String,_ lang:String)->String {[owner,type,id,kind,lang].joined(separator:":")}
     func languageSubject(_ params:JSONObject,transcript:Bool=false) throws -> LanguageSubject {
@@ -102,13 +102,12 @@ extension LocalRepository {
         }
         if method=="call" {let c=try ownedCall(value("callId"));try require(value("peerId").isEmpty||c["peerId"] as? String==value("peerId"),"CALL_UNAVAILABLE");if c["state"] as? String != "ended" && !callLeases.contains(value("callId")){return try finishCall(value("callId"),reason:"interrupted")};return ["call":c]}
         if method=="endCall" {return try finishCall(value("callId"),reason:value("reason"))}
-        if method=="activateDemo" {return try updateCall(value("callId"),mode:"fixture")}
         guard method=="createCall" else {throw EluvaError("METHOD_NOT_FOUND")}
-        let id=value("callId"),peer=value("peerId"),direction=value("direction");try require(UUID(uuidString:id) != nil && ["incoming","outgoing"].contains(direction),"INVALID_ARGUMENT");try require(direction != "incoming" || currentUser(state)?["isTest"] as? Bool==true,"INVALID_ARGUMENT");try requireSocialPeer(state,viewer,peer,friend:true)
+        let id=value("callId"),peer=value("peerId"),direction=value("direction");try require(UUID(uuidString:id) != nil && direction=="outgoing","INVALID_ARGUMENT");try requireSocialPeer(state,viewer,peer,friend:true)
         var r=object(state["realtime"]),all=object(r["calls"])
         if let c=all[id] as? JSONObject{try require(c["ownerId"] as? String==viewer&&c["peerId"] as? String==peer&&c["direction"] as? String==direction,"COMMIT_CONFLICT");return ["call":c]}
         let now=ISO8601DateFormatter().string(from:Date())
         for (key,var old) in all.mapValues(object) where old["ownerId"] as? String==viewer && old["state"] as? String != "ended" {try require(!callLeases.contains(key),"CALL_BUSY");old["state"]="ended";old["reason"]="interrupted";old["endedAt"]=now;all[key]=old}
-        let c:JSONObject=["id":id,"ownerId":viewer,"peerId":peer,"direction":direction,"state":direction=="incoming" ? "incoming":"ready","localOnly":true,"createdAt":now];all[id]=c;r["calls"]=all;state["realtime"]=r;try persist(state);callLeases.insert(id);return ["call":c]
+        let c:JSONObject=["id":id,"ownerId":viewer,"peerId":peer,"direction":direction,"state":"ready","localOnly":true,"createdAt":now];all[id]=c;r["calls"]=all;state["realtime"]=r;try persist(state);callLeases.insert(id);return ["call":c]
     }
 }

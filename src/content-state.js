@@ -4,8 +4,8 @@ import { newId } from './domain/id.js'
 import { AppError } from './domain/errors.js'
 import { contentPolicy, defaultVisibility, defaultFeedFilter, feedPosts, discoveryBatch } from './domain/content.js'
 
-export const content = reactive({ ownerId: null, loaded: false, posts: [], comments: [], events: [], collections: [], blockedAuthors:[],hiddenPosts:[], preferences: {guideDone:false,feedFilter:defaultFeedFilter()}, quota: {used:0,limit:null,simulation:true}, policy:contentPolicy, draft:null,detailMediaIndices:{}, guideStep:null, lastPublishedId:null, lastHidden:null, lastBlocked:null, feedScroll:0, feedStartId:null,feedPresentation:null })
-export function resetContent() { Object.assign(content,{ownerId:null,loaded:false,posts:[],comments:[],events:[],collections:[],blockedAuthors:[],hiddenPosts:[],draft:null,detailMediaIndices:{},guideStep:null,lastPublishedId:null,lastHidden:null,lastBlocked:null,feedScroll:0,feedStartId:null,feedPresentation:null,preferences:{guideDone:false,feedFilter:defaultFeedFilter()},quota:{used:0,limit:null,simulation:true}}) }
+export const content = reactive({ ownerId: null, loaded: false, posts: [], comments: [], events: [], collections: [], blockedAuthors:[],hiddenPosts:[], preferences: {guideDone:false,feedFilter:defaultFeedFilter()}, quota: {used:0,limit:null,simulation:true}, policy:contentPolicy, draft:null,detailMediaIndices:{},presentedPosts:{}, guideStep:null, lastPublishedId:null, lastHidden:null, lastBlocked:null, feedScroll:0, feedStartId:null,feedPresentation:null })
+export function resetContent() { Object.assign(content,{ownerId:null,loaded:false,posts:[],comments:[],events:[],collections:[],blockedAuthors:[],hiddenPosts:[],draft:null,detailMediaIndices:{},presentedPosts:{},guideStep:null,lastPublishedId:null,lastHidden:null,lastBlocked:null,feedScroll:0,feedStartId:null,feedPresentation:null,preferences:{guideDone:false,feedFilter:defaultFeedFilter()},quota:{used:0,limit:null,simulation:true}}) }
 export async function applyContent(result,signal) {
   if(signal?.aborted)throw new AppError('CANCELLED')
   if(result.ownerId!==state.user?.id)return
@@ -22,8 +22,11 @@ export async function applyContent(result,signal) {
 }
 // Reads only hydrate business data. Home owns when its first-use guide can
 // appear, after the real batch and its presentation have settled.
-export async function loadContent(_options={}) {
+export async function loadContent({reuse=false}={}) {
   const owner=state.user?.id
+  // A return visit uses the same account's live snapshot, including a completed
+  // empty result. Explicit reads and refreshes still reach the repository.
+  if(reuse&&owner&&content.loaded&&content.ownerId===owner)return true
   if(state.ui.busy)await new Promise(resolve=>{const stop=watch(()=>state.ui.busy,value=>{if(!value){stop();resolve()}})})
   if(!owner||state.user?.id!==owner)return false
   if(content.ownerId && content.ownerId!==state.user?.id)resetContent()

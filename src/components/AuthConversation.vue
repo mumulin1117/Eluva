@@ -1,4 +1,5 @@
 <script setup>
+import { isInteractiveTarget } from '../services/touch-policy.js'
 import { computed,nextTick,onBeforeUnmount,onMounted,ref,watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { state,t,bridge,run,startDraft,fail,hydrateUser,profilePayload,saveConsent,notify } from '../state.js'
@@ -62,7 +63,7 @@ function bottom(force=false){nextTick(()=>{if(scroller.value&&(force||a.follow))
 function scrollMetrics(){const el=scroller.value;return el?[el.scrollHeight,el.clientHeight,el.clientWidth].join(':'):''}
 function onScroll(){if(!scroller.value||viewportAnchoring)return;const metrics=scrollMetrics();if(a.follow&&lastMetrics&&metrics!==lastMetrics){resizeConversation();return}lastMetrics=metrics;const el=scroller.value;a.follow=el.scrollHeight-el.scrollTop-el.clientHeight<72;scrollAway.value=!a.follow;a.scrollTop=el.scrollTop}
 function resizeConversation(){if(!alive||(!a.follow&&!viewportAnchoring))return;viewportAnchoring=true;cancelAnimationFrame(anchorFrame);cancelAnimationFrame(settleFrame);bottom(true);anchorFrame=requestAnimationFrame(()=>{bottom(true);settleFrame=requestAnimationFrame(()=>{if(alive){viewportAnchoring=false;lastMetrics=scrollMetrics();onScroll()}})})}
-function dismiss(e){if(!e.target.closest('input,textarea,select,button,a,[role="button"]'))document.activeElement?.blur?.()}
+function dismiss(e){if(!isInteractiveTarget(e.target))document.activeElement?.blur?.()}
 function choose(kind){if(locked.value||!state.consent)return;a.follow=true;if(kind==='register'){startDraft();d.value.theme||='purple';move('email','ac.emailPrompt','ac.first')}else move('loginEmail','ac.loginEmailPrompt','ac.returning')}
 function latest(fieldName){return a.messages.findLast(m=>m.role==='user'&&m.field===fieldName)}
 function canEdit(m){if(!m.field||latest(m.field)!==m)return false;if(m.field==='loginEmail')return phase.value==='loginPassword'||a.edit?.resumePhase==='loginPassword';if(m.field==='resetEmail')return phase.value.startsWith('reset');return !!d.value&&!['loginEmail','loginPassword','resetEmail','resetCode','resetPassword','accountExists'].includes(phase.value)}
@@ -183,7 +184,7 @@ onMounted(()=>{
 onBeforeUnmount(()=>{alive=false;clearInterval(timer);layoutObserver?.disconnect();cancelAnimationFrame(anchorFrame);cancelAnimationFrame(settleFrame);window.removeEventListener('eluva:launch-prepared',launchChanged);window.removeEventListener('eluva:launch-visible',launchChanged);motion.removeEventListener('change',syncWelcome);document.removeEventListener('visibilitychange',visibilityChanged);window.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('scroll',resizeConversation);if(scroller.value)a.scrollTop=scroller.value.scrollTop})
 </script>
 <template>
- <section class="auth-conversation page-shell" :data-auth-phase="phase" :data-ac-ready="ready" :data-welcome-relay="welcome.phase" :data-welcome-paused="welcome.paused" :data-preview="theme" :style="{backgroundImage:background}" @pointerdown="dismiss">
+ <section class="auth-conversation page-shell" :data-auth-phase="phase" :data-ac-ready="ready" :data-welcome-relay="welcome.phase" :data-welcome-paused="welcome.paused" :data-preview="theme" :style="{backgroundImage:background}" @click="dismiss">
   <header class="ac-header"><span class="ac-guide-portrait" aria-hidden="true"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false"/></span><div><strong>{{ t('ac.guideName') }}</strong><small>{{ t('ac.guideStatus') }}</small></div></header>
   <main ref="scroller" class="ac-transcript" :aria-label="t('ac.guideName')" @scroll.passive="onScroll"><div class="ac-log">
    <TransitionGroup name="ac-message" tag="div" class="ac-messages" role="log" aria-live="polite" aria-relevant="additions text">

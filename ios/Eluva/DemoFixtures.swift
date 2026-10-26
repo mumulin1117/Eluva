@@ -36,16 +36,89 @@ extension LocalRepository {
             threads[i]["messages"]=rows
         }
         if fixtures[Self.testID] != nil{fixture["threads"]=threads;fixtures[Self.testID]=fixture;state["fixtures"]=fixtures}
+        try upgradeDemoChatPeers(&state)
         state["presentationVersion"]=version
     }
+    // Move only shipped chat fixtures. Real conversations retain their participants.
+    private func upgradeDemoChatPeers(_ state:inout JSONObject)throws {
+        guard object(object(state["accounts"])[Self.testID])["isTest"] as? Bool==true else{return}
+        let config=try suppliedDemoConfiguration(),people=try suppliedDemoList("social-demo"),stamp="2026-10-17T08:00:00.000Z"
+        var fixtures=object(state["fixtures"]),fixture=object(fixtures[Self.testID]),social=object(state["social"])
+        var threads=object(social["threads"]),messages=object(social["messages"]),friendships=object(social["friendships"]),follows=object(social["follows"])
+        let connections=object(social["connections"]),requests=object(social["requests"]).values.map(object),calls=object(object(state["realtime"])["calls"]).values.map(object)
+        for item in array(config["conversations"]) {
+            guard let peer=item["peerId"] as? String,let oldPeer=item["legacyPeerId"] as? String,
+                  let threadID=item["threadId"] as? String,let oldThreadID=item["legacyThreadId"] as? String,
+                  let greetingID=item["greetingId"] as? String,let contextID=item["messageId"] as? String else{continue}
+            let oldPair=socialPair(Self.testID,oldPeer),newPair=socialPair(Self.testID,peer)
+            if fixtures[Self.testID] != nil {
+                var seen=Set<String>()
+                fixture["friends"]=(fixture["friends"] as? [String] ?? []).map{$0==oldPeer ? peer:$0}.filter{seen.insert($0).inserted}
+                var rows=array(fixture["threads"])
+                for i in rows.indices where rows[i]["id"] as? String==oldThreadID && rows[i]["participantId"] as? String==oldPeer {
+                    rows[i]["id"]=threadID;rows[i]["participantId"]=peer
+                    if let name=people.first(where:{$0["id"] as? String==peer})?["displayName"]{rows[i]["title"]=["en":name,"fr":name]}
+                }
+                fixture["threads"]=rows
+            }
+            let oldThread=object(threads[oldThreadID]),users=oldThread["users"] as? [String] ?? []
+            guard oldThread["createdAt"] as? String==stamp,users.count==2,users.contains(Self.testID),users.contains(oldPeer) else{continue}
+            let rows=messages.values.map(object).filter{$0["threadId"] as? String==oldThreadID}
+            let shipped=rows.filter { row in
+                guard row["demo"] as? Bool==true,row["kind"] as? String=="text",row["mediaId"]==nil,
+                      row["senderId"] as? String==oldPeer,row["recipientId"] as? String==Self.testID else{return false}
+                let greeting=object(object(config["presentation"])["greeting"])
+                let isGreeting=row["id"] as? String==Self.testID+":"+greetingID && row["createdAt"] as? String==stamp && row["body"] as? String==greeting["en"] as? String
+                let isContext=row["id"] as? String==Self.testID+":"+contextID && row["createdAt"] as? String==item["createdAt"] as? String && row["body"] as? String==item["legacyBody"] as? String
+                return isGreeting || isContext
+            }
+            let hasUserHistory=rows.count != shipped.count || connections[oldPair] != nil || requests.contains{$0["pair"] as? String==oldPair} || calls.contains{call in
+                let users=[call["ownerId"] as? String,call["peerId"] as? String]
+                return users.contains(Self.testID) && users.contains(oldPeer)
+            }
+            let existing=threads.values.map(object).first{$0["pair"] as? String==newPair}
+            let targetHasRelationship=existing != nil || friendships[newPair] != nil || follows[Self.testID+":"+peer] != nil || follows[peer+":"+Self.testID] != nil || connections[newPair] != nil || requests.contains{$0["pair"] as? String==newPair}
+            var target=existing ?? oldThread
+            if existing==nil{target["id"]=threadID;target["pair"]=newPair;target["users"]=[Self.testID,peer]}
+            guard let targetID=target["id"] as? String else{continue}
+            threads[targetID]=target
+            for var message in shipped {
+                guard let id=message["id"] as? String else{continue}
+                message["threadId"]=targetID;message["senderId"]=peer
+                if id==Self.testID+":"+contextID{let text=object(item["text"]);message["body"]=text["en"];message["translations"]=text}
+                messages[id]=message
+            }
+            if !hasUserHistory {
+                threads.removeValue(forKey:oldThreadID)
+                var friendship=object(friendships[oldPair])
+                if friendship["createdAt"] as? String==stamp {
+                    if !targetHasRelationship{friendship["id"]=newPair;friendship["users"]=[Self.testID,peer];friendships[newPair]=friendship}
+                    friendships.removeValue(forKey:oldPair)
+                }
+                for (a,b) in [(Self.testID,oldPeer),(oldPeer,Self.testID)] {
+                    let key=a+":"+b,sender=a==oldPeer ? peer:a,recipient=b==oldPeer ? peer:b
+                    var follow=object(follows[key])
+                    if follow["createdAt"] as? String==stamp {
+                        if !targetHasRelationship{follow["senderId"]=sender;follow["recipientId"]=recipient;follows[sender+":"+recipient]=follow}
+                        follows.removeValue(forKey:key)
+                    }
+                }
+            } else if !targetHasRelationship {
+                friendships[newPair]=["id":newPair,"users":[Self.testID,peer],"createdAt":stamp]
+                for (a,b) in [(Self.testID,peer),(peer,Self.testID)]{follows[a+":"+b]=["senderId":a,"recipientId":b,"createdAt":stamp]}
+            }
+        }
+        if fixtures[Self.testID] != nil{fixtures[Self.testID]=fixture;state["fixtures"]=fixtures}
+        if state["social"] != nil{social["threads"]=threads;social["messages"]=messages;social["friendships"]=friendships;social["follows"]=follows;state["social"]=social}
+    }
     func suppliedDemoList(_ name:String)throws->[JSONObject] {
-        guard let url=Bundle.main.url(forResource:name,withExtension:"json",subdirectory:"Web/config"),
+        guard let url=EncryptedWebResources.shared.url(forResource:name,withExtension:"json",subdirectory:"config"),
               let data=try? Data(contentsOf:url),let rows=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]
         else{throw EluvaError("RESOURCE_MISSING")}
         return rows
     }
     func suppliedDemoConfiguration()throws->JSONObject {
-        guard let url=Bundle.main.url(forResource:"demo-fixtures",withExtension:"json",subdirectory:"Web/config"),
+        guard let url=EncryptedWebResources.shared.url(forResource:"demo-fixtures",withExtension:"json",subdirectory:"config"),
               let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject,
               (value["version"] as? Int ?? 0)>0 else{throw EluvaError("RESOURCE_MISSING")}
         return value

@@ -1,12 +1,12 @@
 import { invariant } from './errors.js'
 
-// Approved on 2026-10-21: one auto-renewing Pro group. Payment quotes come from StoreKit.
+// Product IDs corrected on 2026-10-24: one auto-renewing Pro group. Payment quotes come from StoreKit.
 // The separately approved USD display catalog does not grant entitlements.
 // Posting quotas, coins and other commercial limits remain unchanged/unconfigured.
 export const commercePolicy = Object.freeze({ version: 1, confirmed: true, products: [
-  { id: 'eluva_monthly_promember', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'monthly', periodUnit: 'month', periodValue: 1 },
-  { id: 'eluva_quarterly_promember', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'quarterly', periodUnit: 'month', periodValue: 3 },
-  { id: 'eluva_annualy_promember', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'annual', periodUnit: 'year', periodValue: 1 }
+  { id: 'eluva_monthly_promembe', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'monthly', periodUnit: 'month', periodValue: 1 },
+  { id: 'eluva_quarterly_promembe', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'quarterly', periodUnit: 'month', periodValue: 3 },
+  { id: 'eluva_annualy_promembe', type: 'autoRenewable', entitlement: 'pro', coins: 0, plan: 'annual', periodUnit: 'year', periodValue: 1 }
 ], publicPostFree: null, publicPostCoinCost: null, resetTimeZone: null, spendEnvironment: null })
 export const storeEnvironments = ['production', 'sandbox', 'xcode']
 export function commerceState(root) {
@@ -55,7 +55,7 @@ export function commerceSnapshot(root, owner, policy = commercePolicy) {
   return { ownerId:owner, configured:policy.confirmed && policy.products.length > 0, policyConfirmed:policy.confirmed,
     quota:{ day, timeZone:policy.resetTimeZone, used:a.usage['publicPost:'+day] ?? root.content?.quota?.[owner+':'+day] ?? 0, limit:policy.confirmed ? policy.publicPostFree : null, rewards:a.rewards.publicPost || 0 },
     wallets:storeEnvironments.map(environment => ({ environment, balance:a.wallets[environment]?.balance || 0, reviewRequired:!!a.wallets[environment]?.reviewRequired })),
-    subscription:subscriptionSummary(root.commerce.transactions,owner), ledger:Object.values(a.ledger).sort((x,y)=>y.createdAt.localeCompare(x.createdAt)) }
+    subscription:subscriptionSummary(root.commerce.transactions,owner), pendingProductId:a.pendingProductId||null, ledger:Object.values(a.ledger).sort((x,y)=>y.createdAt.localeCompare(x.createdAt)) }
 }
 export function removeCommerceAccount(root, owner) {
   if (!root.commerce) return
@@ -82,3 +82,10 @@ export function currentMembership(saved, now = Date.now() / 1000) {
   if (saved.active && !(Number(saved.accessUntil) > now)) return { ...saved, active:false,status:saved.status === 'gracePeriod' ? 'billingRetry' : 'expired' }
   return saved
 }
+
+// Read the account-owned receipt projection; UI flags and product display data
+// never grant Pro features. This also leaves accounts without commerce data alone.
+export function proMembership(root, owner, now = Date.now() / 1000) {
+  return root.accounts?.[owner] ? subscriptionSummary(root.commerce?.transactions, owner, now) : { status:'none', active:false }
+}
+export const hasProAccess = (root, owner, now = Date.now() / 1000) => proMembership(root, owner, now).active

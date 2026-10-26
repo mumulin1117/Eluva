@@ -95,7 +95,7 @@
       "gaps": [
         "Development Team and signed physical installation remain deferred by user.",
         "App Store Connect sandbox catalog, visible native payment sheet / restore authentication / manage subscription sheet and cross-device acceptance are not verified.",
-        "Pro feature-specific limits and quotas were not newly defined or unlocked in this scope."
+        "Original subscription scope did not define limits. The 2026-10-24 entitlement revision enables only People filters, Avatar frames and Profile badge; other commercial quotas remain unchanged."
       ]
     },
     {
@@ -303,7 +303,7 @@
       ],
       "viewportMatrix": "evidence/p6/browser-matrix.json",
       "gaps": [
-        "Audience policy remains locked. Existing preview limits not promoted to business requirements."
+        "2026-10-24: Owned active Pro unlocks four discovery preferences. Publish revalidates receipts; visibility and commercial quotas remain independent."
       ]
     },
     {
@@ -350,7 +350,7 @@
       ],
       "viewportMatrix": "evidence/p6/browser-matrix.json",
       "gaps": [
-        "Frame rights remain unavailable pending mapping."
+        "2026-10-24: Owned active Pro unlocks six original frames. Explicit Save persists avatarFrameId; expiry hides appearance and retains the choice."
       ]
     }
   ],
@@ -381,5 +381,26 @@
     "oldBundleId": "com.eluva.local",
     "sandboxMigration": "No data deletion or automatic cross-bundle migration",
     "storeKitTest": "iOS17.5 simulator; not Apple sandbox or physical payment verification"
+  },
+  "proEntitlementRevision": {
+    "date": "2026-10-24",
+    "report": "pro-entitlements-report.md",
+    "available": [
+      "filters",
+      "frames",
+      "badge"
+    ],
+    "eligibility": "Owner-bound verified active subscription or unexpired billing grace period. Expired, revoked, superseded and billing-retry-only subscriptions cannot grant these features.",
+    "appearance": "Public proActive and avatarFrameId only; no billing details. Saved frames persist after expiry but stop displaying.",
+    "audience": "Discovery recommendations only; original post visibility, block and relationship checks continue.",
+    "unchanged": "Posting limits, collection limits, refresh count, chat permissions and other unconfirmed commercial quotas."
+  },
+  "subscriptionScheduleRevision": {
+    "date": "2026-10-24",
+    "report": "subscription-schedule-report.md",
+    "current": "Current paid plan and expiry remain independent of the user’s selected product. Initial selection follows the current paid plan; later refreshes preserve deliberate choices unless the actual current plan changes.",
+    "scheduled": "Verified nextProductId + active subscription + willAutoRenew=true. Exact future start uses expiresAt, never grace accessUntil or local duration addition. Unknown metadata gives no invented date or plan name.",
+    "approval": "pendingProductId is separate from renewal preference and does not grant access. A fresh verified matching active renewal may clear the pending request atomically without replacing the current product.",
+    "controls": "Current, scheduled and awaiting-approval tags remain visible independently of selection. Matching selected products cannot be purchased again through the page. Manage subscription remains available."
   }
 }
