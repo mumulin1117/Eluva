@@ -1,10 +1,10 @@
 import Foundation
 
 final class MetacognitiveInsight {
-    let request: String?, owner: String?, peer: String?, draft: String?
-    let cancellation = MindfulBreathing()
-    var completion: ((Result<JSONObject, Error>) -> Void)?
-    init(request: String?, owner: String?, peer: String?, draft: String?, completion: @escaping (Result<JSONObject, Error>) -> Void) {
-        self.request = request; self.owner = owner; self.peer = peer; self.draft = draft; self.completion = completion
+    let pictureAnthology: String?, canvasDimensions: String?, imageCuration: String?, exposureCompensation: String?
+    let apertureVariation = MindfulBreathing()
+    var bokehEnvelope: ((Result<arpeggioFlow, Error>) -> Void)?
+    init(pictureAnthology: String?, canvasDimensions: String?, imageCuration: String?, exposureCompensation: String?, bokehEnvelope: @escaping (Result<arpeggioFlow, Error>) -> Void) {
+        self.pictureAnthology = pictureAnthology; self.canvasDimensions = canvasDimensions; self.imageCuration = imageCuration; self.exposureCompensation = exposureCompensation; self.bokehEnvelope = bokehEnvelope
     }
 }

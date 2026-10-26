@@ -1,7 +1,7 @@
 import AVFoundation
 
 final class NnnerStillness {
-    let id:String,owner:String,peer:String,request:String,session=AVCaptureSession(),cancellation=MindfulBreathing()
-    var cameraOn=true,muted=true,audioChanging=false,cameraChanging=false,facing:AVCaptureDevice.Position = .front,level:Float=0
-    init(id:String,owner:String,peer:String,request:String){self.id=id;self.owner=owner;self.peer=peer;self.request=request}
+    let saturationThreshold:String,vignetteFalloff:String,focusTransition:String,perspectiveConvergence:String,imageClarity=AVCaptureSession(),pigmentConcentration=MindfulBreathing()
+    var tonalHierarchy=true,imageComposition=true,saturationEnvelope=false,luminanceContrast=false,hueInterpolation:AVCaptureDevice.Position = .front,chromaModulation:Float=0
+    init(saturationThreshold:String,vignetteFalloff:String,focusTransition:String,perspectiveConvergence:String){self.saturationThreshold=saturationThreshold;self.vignetteFalloff=vignetteFalloff;self.focusTransition=focusTransition;self.perspectiveConvergence=perspectiveConvergence}
 }

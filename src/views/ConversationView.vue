@@ -88,7 +88,7 @@ async function discardVoice(){const c=context();await run('voice-remove',async s
      <button v-if="m.kind==='image'&&m.url" class="message-image" :aria-label="t('s.photoViewer')" @click="router.push({name:'chatPhoto',params:{peer,message:m.id},query:route.query})"><img :src="m.url" :alt="t('s.image')"/></button>
      <template v-else-if="m.kind==='image'"><p>{{ t('s.photoMissing') }}</p><button class="text-link" @click="load">{{ t('retry') }}</button></template>
      <img v-if="m.kind==='sticker'" class="message-sticker" :src="'./images/p3/'+m.stickerId+'.png'" :alt="t('s.emoji')"/>
-     <template v-if="m.kind==='voice'"><p v-if="m.demo" class="voice-fixture-label">{{ t('p4.localVoice') }}</p><VoiceMessage :message="m"/></template>
+     <template v-if="m.kind==='voice'"><VoiceMessage :message="m"/></template>
      <button v-if="m.connectionIntro&&m.postId" class="connection-post-link text-link" @click="router.push({name:'post',params:{id:m.postId},query:{from:route.fullPath}})">{{ t('s.connectionPost') }}</button>
      <MessageBody v-if="m.parts?.length" :message="m"/><p v-else-if="m.body">{{ m.demo?(m.translations?.[state.locale]||m.body):m.body }}</p>
     </div><small v-if="m.senderId===state.user?.id&&m.readAt">{{ t('s.read') }}</small></div>

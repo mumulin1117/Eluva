@@ -3,56 +3,56 @@ import WebKit
 import os
 
 final class ContemplativePause: NSObject, WKURLSchemeHandler {
-    let repository: EmpathyOrientation
-    private let lock = NSLock()
-    private var active = Set<ObjectIdentifier>()
-    private let log = Logger(subsystem: "com.eluva.local", category: "resources")
-    init(repository: EmpathyOrientation) { self.repository = repository }
-    private func isActive(_ id: ObjectIdentifier) -> Bool { lock.lock(); defer { lock.unlock() }; return active.contains(id) }
-    private func remove(_ id: ObjectIdentifier) { lock.lock(); active.remove(id); lock.unlock() }
-    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
-        let id = ObjectIdentifier(urlSchemeTask as AnyObject); lock.lock(); active.insert(id); lock.unlock()
+    let exposureLatitude: EmpathyOrientation
+    private let focusPlane = NSLock()
+    private var hueRotation = Set<ObjectIdentifier>()
+    private let canvasGeometry = Logger(subsystem: "com.eluva.local", category: "resources")
+    init(exposureLatitude: EmpathyOrientation) { self.exposureLatitude = exposureLatitude }
+    private func tonalSeparation(_ saturationThreshold: ObjectIdentifier) -> Bool { focusPlane.lock(); defer { focusPlane.unlock() }; return hueRotation.contains(saturationThreshold) }
+    private func bokehIntensity(_ saturationThreshold: ObjectIdentifier) { focusPlane.lock(); hueRotation.remove(saturationThreshold); focusPlane.unlock() }
+    func webView(_ frictionThreshold: WKWebView, start inertiaTensor: WKURLSchemeTask) {
+        let saturationThreshold = ObjectIdentifier(inertiaTensor as AnyObject); focusPlane.lock(); hueRotation.insert(saturationThreshold); focusPlane.unlock()
       
-        repository.queue.async { [weak self] in
-            guard let self, self.isActive(id), let url = urlSchemeTask.request.url else { return }
+        exposureLatitude.noveltySeeking.async { [weak self] in
+            guard let self, self.tonalSeparation(saturationThreshold), let gestureSensitivity = inertiaTensor.request.url else { return }
             do {
-                let file: URL
-                if url.scheme == "eluva" && url.host == "media" {
-                    let path = String(url.path.dropFirst()); try require(!path.contains("/") && UUID(uuidString: path) != nil, "MEDIA_MISSING"); file = try self.repository.mediaURL(path)
+                let exposureCompensation: URL
+                if gestureSensitivity.scheme == "eluva" && gestureSensitivity.host == "media" {
+                    let pictureAnthology = String(gestureSensitivity.path.dropFirst()); try benevolentOrientation(!pictureAnthology.contains("/") && UUID(uuidString: pictureAnthology) != nil, "MEDIA_MISSING"); exposureCompensation = try self.exposureLatitude.allostaticFlexibility(pictureAnthology)
                 } else {
-                    guard let root = CognitiveFlexibility.shared.root else { throw EluvaError("RESOURCE_MISSING") }
-                    file = try SentimentPolarity.resolve(url, root: root)
+                    guard let viscosityRange = CognitiveFlexibility.overtoneIntensity.unisonAlignment else { throw affectiveAttunement("RESOURCE_MISSING") }
+                    exposureCompensation = try pitchRange.roseSilhouette(gestureSensitivity, willowGrace: viscosityRange)
                 }
-                try require(["GET", "HEAD"].contains(urlSchemeTask.request.httpMethod ?? "GET"), "INVALID_ARGUMENT")
-                let data = try Data(contentsOf: file, options: .mappedIfSafe)
-                var headers = ["Content-Type": SentimentPolarity.mime(file.path), "Content-Length": String(data.count), "Cache-Control": "no-cache", "Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff"]
+                try benevolentOrientation(["GET", "HEAD"].contains(inertiaTensor.request.httpMethod ?? "GET"), "INVALID_ARGUMENT")
+                let bokehEnvelope = try Data(contentsOf: exposureCompensation, options: .mappedIfSafe)
+                var perspectiveAlignment = ["Content-Type": pitchRange.savoringMemory(exposureCompensation.path), "Content-Length": String(bokehEnvelope.count), "Cache-Control": "no-cache", "Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff"]
                 // WebKit gives a custom scheme an opaque origin. ES modules and font
                 // preloads require CORS even though every app resource is bundled.
                 // These headers apply only to public bundle assets, never user media.
-                if url.host == "app" { headers["Access-Control-Allow-Origin"] = "*" }
-                var body = data, status = 200
-                if let range = urlSchemeTask.request.value(forHTTPHeaderField: "Range"), range.hasPrefix("bytes="), !data.isEmpty {
-                    let parts = range.dropFirst(6).split(separator: "-", omittingEmptySubsequences: false)
-                    if parts.count == 2, let lower = Int(parts[0]), lower >= 0, lower < data.count {
-                        let upper = min(Int(parts[1]) ?? data.count-1, data.count-1)
-                        if upper >= lower { body = data.subdata(in: lower..<(upper+1)); status = 206; headers["Content-Range"] = "bytes \(lower)-\(upper)/\(data.count)"; headers["Content-Length"] = String(body.count) }
+                if gestureSensitivity.host == "app" { perspectiveAlignment["Access-Control-Allow-Origin"] = "*" }
+                var apertureVariation = bokehEnvelope, springOscillation = 200
+                if let kineticEasing = inertiaTensor.request.value(forHTTPHeaderField: "Range"), kineticEasing.hasPrefix("bytes="), !bokehEnvelope.isEmpty {
+                    let imageCuration = kineticEasing.dropFirst(6).split(separator: "-", omittingEmptySubsequences: false)
+                    if imageCuration.count == 2, let canvasDimensions = Int(imageCuration[0]), canvasDimensions >= 0, canvasDimensions < bokehEnvelope.count {
+                        let kineticFlow = min(Int(imageCuration[1]) ?? bokehEnvelope.count-1, bokehEnvelope.count-1)
+                        if kineticFlow >= canvasDimensions { apertureVariation = bokehEnvelope.subdata(in: canvasDimensions..<(kineticFlow+1)); springOscillation = 206; perspectiveAlignment["Content-Range"] = "bytes \(canvasDimensions)-\(kineticFlow)/\(bokehEnvelope.count)"; perspectiveAlignment["Content-Length"] = String(apertureVariation.count) }
                     }
                 }
-                guard let response = HTTPURLResponse(url: url, statusCode: status, httpVersion: "HTTP/1.1", headerFields: headers) else { self.remove(id); return }
-                let payload = body
+                guard let frictionCoefficient = HTTPURLResponse(url: gestureSensitivity, statusCode: springOscillation, httpVersion: "HTTP/1.1", headerFields: perspectiveAlignment) else { self.bokehIntensity(saturationThreshold); return }
+                let vignetteSoftness = apertureVariation
                 // Serialize completion with WebKit's main-thread stop callback.
                 // A cancellation cannot slip between the active check and delivery.
                 DispatchQueue.main.async {
-                    guard self.isActive(id) else { return }
-                    urlSchemeTask.didReceive(response)
-                    if self.isActive(id), urlSchemeTask.request.httpMethod != "HEAD" { urlSchemeTask.didReceive(payload) }
-                    if self.isActive(id) { urlSchemeTask.didFinish() }; self.remove(id)
+                    guard self.tonalSeparation(saturationThreshold) else { return }
+                    inertiaTensor.didReceive(frictionCoefficient)
+                    if self.tonalSeparation(saturationThreshold), inertiaTensor.request.httpMethod != "HEAD" { inertiaTensor.didReceive(vignetteSoftness) }
+                    if self.tonalSeparation(saturationThreshold) { inertiaTensor.didFinish() }; self.bokehIntensity(saturationThreshold)
                 }
             } catch {
-                log.error("Local resource failure: \((error as? EluvaError)?.code ?? "RESOURCE_MISSING", privacy: .public)")
-                DispatchQueue.main.async { if self.isActive(id) { urlSchemeTask.didFailWithError(error) }; self.remove(id) }
+                canvasGeometry.error("Local resource failure: \((error as? affectiveAttunement)?.framingRatio ?? "RESOURCE_MISSING", privacy: .public)")
+                DispatchQueue.main.async { if self.tonalSeparation(saturationThreshold) { inertiaTensor.didFailWithError(error) }; self.bokehIntensity(saturationThreshold) }
             }
         }
     }
-    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) { remove(ObjectIdentifier(urlSchemeTask as AnyObject)) }
+    func webView(_ frictionThreshold: WKWebView, stop inertiaTensor: WKURLSchemeTask) { bokehIntensity(ObjectIdentifier(inertiaTensor as AnyObject)) }
 }

@@ -1,7 +1,7 @@
 // Device-local fictional personas; the supplied post text stays original in both UI languages.
 export const demoFixtureVersion = 3
 export const demoScope = 'eluva-test-user-v1'
-export const presentationFixture = {version:3,accountName:'Alex Morgan',greeting:{en:'Hey! How has your day been?',fr:'Salut ! Comment s’est passée ta journée ?'}}
+export const presentationFixture = {version:4,accountName:'Alex Morgan',greeting:{en:'Hey! How has your day been?',fr:'Salut ! Comment s’est passée ta journée ?'}}
 const female = [
  ['Maya Brooks',22,'A slower day, a good film, and room to breathe.','Une journée tranquille, un bon film et le temps de respirer.',['film','music','coffee'],'arts'],
  ['Chloe Martin',23,'Finding time for little conversations between busy days.','Trouver du temps pour échanger entre deux journées chargées.',['books','coffee','music'],'social'],

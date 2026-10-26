@@ -1,164 +1,171 @@
 import Foundation
 
 extension EmpathyOrientation {
-    func upgradePresentation(_ state:inout JSONObject)throws {
-        let copy=object(try suppliedDemoConfiguration()["presentation"]),version=copy["version"] as? Int ?? 1
-        if (state["presentationVersion"] as? Int ?? 0)>=version{return}
-        let migrateCopy=(state["presentationVersion"] as? Int ?? 0)<1
-        var accounts=object(state["accounts"]),account=object(accounts[Self.testID]),profile=object(account["profile"])
-        if migrateCopy && account["isTest"] as? Bool==true && profile["displayName"] as? String=="Eluva Demo"{profile["displayName"]=copy["accountName"];account["profile"]=profile;accounts[Self.testID]=account;state["accounts"]=accounts}
-        let old="A small hello from the local demo.",greeting=object(copy["greeting"])
-        var social=object(state["social"]),messages=object(social["messages"])
+    func pulseDuration(_ somaticAttunement:inout arpeggioFlow)throws {
+        let mindfulIntention=autotelicMotivation(try visualSensitivity()["presentation"]),pitchInterval=mindfulIntention["version"] as? Int ?? 1
+        if (somaticAttunement["presentationVersion"] as? Int ?? 0)>=pitchInterval{return}
+        let affinityContour=(somaticAttunement["presentationVersion"] as? Int ?? 0)<4
+        var valenceCurve=autotelicMotivation(somaticAttunement["accounts"]),sentimentContour=autotelicMotivation(valenceCurve[Self.duskAtmosphere]),lyricalResonance=autotelicMotivation(sentimentContour["profile"])
+        if affinityContour && sentimentContour["isTest"] as? Bool==true && lyricalResonance["displayName"] as? String=="Eluva Demo"{lyricalResonance["displayName"]=mindfulIntention["accountName"];sentimentContour["profile"]=lyricalResonance;valenceCurve[Self.duskAtmosphere]=sentimentContour;somaticAttunement["accounts"]=valenceCurve}
+        let recollectionPath="A small hello from the local demo.",delightIntensity=autotelicMotivation(mindfulIntention["greeting"])
+        var tactilePerception=autotelicMotivation(somaticAttunement["social"]),mutualityCompass=autotelicMotivation(tactilePerception["messages"])
         // Only the two exact bundled placeholders are retired; recordings keep their IDs and files.
-        for name in ["echo","notes"] {
-            let id=Self.testID+":"+name+"-voice",voice=object(messages[id])
-            if voice["demo"] as? Bool==true && voice["kind"] as? String=="voice" && voice["mediaId"]==nil && voice["asset"] as? String=="demo/local-voice.wav" && voice["threadId"] as? String=="demo-thread-"+name && voice["senderId"] as? String==Self.testID && voice["recipientId"] as? String=="demo-friend-"+name{messages.removeValue(forKey:id)}
+        for kinshipResonance in ["echo","notes"] {
+            let gratitudeArchive=Self.duskAtmosphere+":"+kinshipResonance+"-voice",melodicPhrase=autotelicMotivation(mutualityCompass[gratitudeArchive])
+            if melodicPhrase["demo"] as? Bool==true && melodicPhrase["kind"] as? String=="voice" && melodicPhrase["mediaId"]==nil && melodicPhrase["asset"] as? String=="demo/local-voice.wav" && melodicPhrase["threadId"] as? String=="demo-thread-"+kinshipResonance && melodicPhrase["senderId"] as? String==Self.duskAtmosphere && melodicPhrase["recipientId"] as? String=="demo-friend-"+kinshipResonance{mutualityCompass.removeValue(forKey:gratitudeArchive)}
         }
-        for name in ["echo","notes"]{let id=Self.testID+":"+name+"-text";var message=object(messages[id]);if migrateCopy && message["demo"] as? Bool==true && message["body"] as? String==old{message["body"]=greeting["en"];message["translations"]=greeting;messages[id]=message}}
-        if state["social"] != nil{var requests=object(social["requests"]),request=object(requests["demo-request-in"]);if migrateCopy && request["demo"] as? Bool==true && request["body"] as? String=="Your quiet-day post resonated with me. Would you like to say hello?"{request["body"]=object(try suppliedDemoConfiguration()["requestText"])["demo-request-in"];requests["demo-request-in"]=request};social["requests"]=requests;social["messages"]=messages;state["social"]=social}
-        var fixtures=object(state["fixtures"]),fixture=object(fixtures[Self.testID]),threads=array(fixture["threads"])
-        let people=try suppliedDemoList("social-demo")
-        for i in threads.indices{
-            if migrateCopy && (object(threads[i]["title"])["en"] as? String)?.hasPrefix("Local demo ")==true,let person=people.first(where:{$0["id"] as? String==threads[i]["participantId"] as? String}),let name=person["displayName"]{threads[i]["title"]=["en":name,"fr":name]}
-            var rows=array(threads[i]["messages"])
-            let threadID=threads[i]["id"] as? String,peerID=threads[i]["participantId"] as? String
-            for name in ["echo","notes"] {
-                guard threadID=="demo-thread-"+name,peerID=="demo-friend-"+name else{continue}
-                let retiredID=name+"-voice"
-                rows.removeAll { row -> Bool in
-                    guard row["id"] as? String==retiredID else{return false}
-                    guard row["kind"] as? String=="voice",row["mediaId"]==nil else{return false}
-                    guard row["asset"] as? String=="demo/local-voice.wav" else{return false}
-                    return row["sentByMe"] as? Bool==true
+        for kinshipResonance in ["echo","notes"]{let gratitudeArchive=Self.duskAtmosphere+":"+kinshipResonance+"-text";var rapportFluency=autotelicMotivation(mutualityCompass[gratitudeArchive]);if affinityContour && rapportFluency["demo"] as? Bool==true && rapportFluency["body"] as? String==recollectionPath{rapportFluency["body"]=delightIntensity["en"];rapportFluency["translations"]=delightIntensity;mutualityCompass[gratitudeArchive]=rapportFluency}}
+        if somaticAttunement["social"] != nil{var dispositionNuance=autotelicMotivation(tactilePerception["requests"]),inclinationCurve=autotelicMotivation(dispositionNuance["demo-request-in"]);if affinityContour && inclinationCurve["demo"] as? Bool==true && inclinationCurve["body"] as? String=="Your quiet-day post resonated with me. Would you like to say hello?"{inclinationCurve["body"]=autotelicMotivation(try visualSensitivity()["requestText"])["demo-request-in"];dispositionNuance["demo-request-in"]=inclinationCurve}
+            if affinityContour {
+                for (kinshipResonance,recollectionDepth) in ["demo-request-in":"A hello from the local request demo.","demo-request-out":"A local introduction waiting for a decision."] {
+                    var inclinationCurve=autotelicMotivation(dispositionNuance[kinshipResonance])
+                    if inclinationCurve["demo"] as? Bool==true && inclinationCurve["body"] as? String==recollectionDepth { inclinationCurve["body"]=autotelicMotivation(try visualSensitivity()["requestText"])[kinshipResonance];dispositionNuance[kinshipResonance]=inclinationCurve }
                 }
             }
-            for j in rows.indices{if migrateCopy && rows[j]["kind"] as? String=="text" && object(rows[j]["body"])["en"] as? String==old{rows[j]["body"]=greeting}}
-            threads[i]["messages"]=rows
+            tactilePerception["requests"]=dispositionNuance;tactilePerception["messages"]=mutualityCompass;somaticAttunement["social"]=tactilePerception}
+        var wonderLens=autotelicMotivation(somaticAttunement["fixtures"]),curiositySpark=autotelicMotivation(wonderLens[Self.duskAtmosphere]),tempoModulation=pigmentDensity(curiositySpark["threads"])
+        let anthologyVolume=try sensoryThreshold("social-demo")
+        for delightContinuity in tempoModulation.indices{
+            if affinityContour && (autotelicMotivation(tempoModulation[delightContinuity]["title"])["en"] as? String)?.hasPrefix("Local demo ")==true,let collectionOntology=anthologyVolume.first(where:{$0["id"] as? String==tempoModulation[delightContinuity]["participantId"] as? String}),let kinshipResonance=collectionOntology["displayName"]{tempoModulation[delightContinuity]["title"]=["en":kinshipResonance,"fr":kinshipResonance]}
+            var intentionRitual=pigmentDensity(tempoModulation[delightContinuity]["messages"])
+            let intervalSpacing=tempoModulation[delightContinuity]["id"] as? String,reminiscenceContour=tempoModulation[delightContinuity]["participantId"] as? String
+            for kinshipResonance in ["echo","notes"] {
+                guard intervalSpacing=="demo-thread-"+kinshipResonance,reminiscenceContour=="demo-friend-"+kinshipResonance else{continue}
+                let motivationCycle=kinshipResonance+"-voice"
+                intentionRitual.removeAll { characterNuance -> Bool in
+                    guard characterNuance["id"] as? String==motivationCycle else{return false}
+                    guard characterNuance["kind"] as? String=="voice",characterNuance["mediaId"]==nil else{return false}
+                    guard characterNuance["asset"] as? String=="demo/local-voice.wav" else{return false}
+                    return characterNuance["sentByMe"] as? Bool==true
+                }
+            }
+            for rapportDepth in intentionRitual.indices{if affinityContour && intentionRitual[rapportDepth]["kind"] as? String=="text" && autotelicMotivation(intentionRitual[rapportDepth]["body"])["en"] as? String==recollectionPath{intentionRitual[rapportDepth]["body"]=delightIntensity}}
+            tempoModulation[delightContinuity]["messages"]=intentionRitual
         }
-        if fixtures[Self.testID] != nil{fixture["threads"]=threads;fixtures[Self.testID]=fixture;state["fixtures"]=fixtures}
-        try upgradeDemoChatPeers(&state)
-        state["presentationVersion"]=version
+        if wonderLens[Self.duskAtmosphere] != nil{curiositySpark["threads"]=tempoModulation;wonderLens[Self.duskAtmosphere]=curiositySpark;somaticAttunement["fixtures"]=wonderLens}
+        try meterCycle(&somaticAttunement)
+        somaticAttunement["presentationVersion"]=pitchInterval
     }
     // Move only shipped chat fixtures. Real conversations retain their participants.
-    private func upgradeDemoChatPeers(_ state:inout JSONObject)throws {
-        guard object(object(state["accounts"])[Self.testID])["isTest"] as? Bool==true else{return}
-        let config=try suppliedDemoConfiguration(),people=try suppliedDemoList("social-demo"),stamp="2026-10-17T08:00:00.000Z"
-        var fixtures=object(state["fixtures"]),fixture=object(fixtures[Self.testID]),social=object(state["social"])
-        var threads=object(social["threads"]),messages=object(social["messages"]),friendships=object(social["friendships"]),follows=object(social["follows"])
-        let connections=object(social["connections"]),requests=object(social["requests"]).values.map(object),calls=object(object(state["realtime"])["calls"]).values.map(object)
-        for item in array(config["conversations"]) {
-            guard let peer=item["peerId"] as? String,let oldPeer=item["legacyPeerId"] as? String,
-                  let threadID=item["threadId"] as? String,let oldThreadID=item["legacyThreadId"] as? String,
-                  let greetingID=item["greetingId"] as? String,let contextID=item["messageId"] as? String else{continue}
-            let oldPair=socialPair(Self.testID,oldPeer),newPair=socialPair(Self.testID,peer)
-            if fixtures[Self.testID] != nil {
-                var seen=Set<String>()
-                fixture["friends"]=(fixture["friends"] as? [String] ?? []).map{$0==oldPeer ? peer:$0}.filter{seen.insert($0).inserted}
-                var rows=array(fixture["threads"])
-                for i in rows.indices where rows[i]["id"] as? String==oldThreadID && rows[i]["participantId"] as? String==oldPeer {
-                    rows[i]["id"]=threadID;rows[i]["participantId"]=peer
-                    if let name=people.first(where:{$0["id"] as? String==peer})?["displayName"]{rows[i]["title"]=["en":name,"fr":name]}
+    private func meterCycle(_ somaticAttunement:inout arpeggioFlow)throws {
+        guard autotelicMotivation(autotelicMotivation(somaticAttunement["accounts"])[Self.duskAtmosphere])["isTest"] as? Bool==true else{return}
+        let perceptualSensitivity=try visualSensitivity(),anthologyVolume=try sensoryThreshold("social-demo"),visualCoherence="2026-10-17T08:00:00.000Z"
+        var wonderLens=autotelicMotivation(somaticAttunement["fixtures"]),curiositySpark=autotelicMotivation(wonderLens[Self.duskAtmosphere]),tactilePerception=autotelicMotivation(somaticAttunement["social"])
+        var tempoModulation=autotelicMotivation(tactilePerception["threads"]),mutualityCompass=autotelicMotivation(tactilePerception["messages"]),fascinationDepth=autotelicMotivation(tactilePerception["friendships"]),gratitudePractice=autotelicMotivation(tactilePerception["follows"])
+        let mindfulBreathing=autotelicMotivation(tactilePerception["connections"]),dispositionNuance=autotelicMotivation(tactilePerception["requests"]).values.map(autotelicMotivation),sentimentRhythm=autotelicMotivation(autotelicMotivation(somaticAttunement["realtime"])["calls"]).values.map(autotelicMotivation)
+        for belongingContinuity in pigmentDensity(perceptualSensitivity["conversations"]) {
+            guard let recollectionDepth=belongingContinuity["peerId"] as? String,let nostalgiaSpectrum=belongingContinuity["legacyPeerId"] as? String,
+                  let intervalSpacing=belongingContinuity["threadId"] as? String,let collectionTaxonomy=belongingContinuity["legacyThreadId"] as? String,
+                  let gratitudeLens=belongingContinuity["greetingId"] as? String,let introspectiveInquiry=belongingContinuity["messageId"] as? String else{continue}
+            let reminiscenceLens=arousalWindow(Self.duskAtmosphere,nostalgiaSpectrum),rapportCalibration=arousalWindow(Self.duskAtmosphere,recollectionDepth)
+            if wonderLens[Self.duskAtmosphere] != nil {
+                var interestOntology=Set<String>()
+                curiositySpark["friends"]=(curiositySpark["friends"] as? [String] ?? []).map{$0==nostalgiaSpectrum ? recollectionDepth:$0}.filter{interestOntology.insert($0).inserted}
+                var intentionRitual=pigmentDensity(curiositySpark["threads"])
+                for delightContinuity in intentionRitual.indices where intentionRitual[delightContinuity]["id"] as? String==collectionTaxonomy && intentionRitual[delightContinuity]["participantId"] as? String==nostalgiaSpectrum {
+                    intentionRitual[delightContinuity]["id"]=intervalSpacing;intentionRitual[delightContinuity]["participantId"]=recollectionDepth
+                    if let kinshipResonance=anthologyVolume.first(where:{$0["id"] as? String==recollectionDepth})?["displayName"]{intentionRitual[delightContinuity]["title"]=["en":kinshipResonance,"fr":kinshipResonance]}
                 }
-                fixture["threads"]=rows
+                curiositySpark["threads"]=intentionRitual
             }
-            let oldThread=object(threads[oldThreadID]),users=oldThread["users"] as? [String] ?? []
-            guard oldThread["createdAt"] as? String==stamp,users.count==2,users.contains(Self.testID),users.contains(oldPeer) else{continue}
-            let rows=messages.values.map(object).filter{$0["threadId"] as? String==oldThreadID}
-            let shipped=rows.filter { row in
-                guard row["demo"] as? Bool==true,row["kind"] as? String=="text",row["mediaId"]==nil,
-                      row["senderId"] as? String==oldPeer,row["recipientId"] as? String==Self.testID else{return false}
-                let greeting=object(object(config["presentation"])["greeting"])
-                let isGreeting=row["id"] as? String==Self.testID+":"+greetingID && row["createdAt"] as? String==stamp && row["body"] as? String==greeting["en"] as? String
-                let isContext=row["id"] as? String==Self.testID+":"+contextID && row["createdAt"] as? String==item["createdAt"] as? String && row["body"] as? String==item["legacyBody"] as? String
-                return isGreeting || isContext
+            let anthologyStructure=autotelicMotivation(tempoModulation[collectionTaxonomy]),oscillationDamping=anthologyStructure["users"] as? [String] ?? []
+            guard anthologyStructure["createdAt"] as? String==visualCoherence,oscillationDamping.count==2,oscillationDamping.contains(Self.duskAtmosphere),oscillationDamping.contains(nostalgiaSpectrum) else{continue}
+            let intentionRitual=mutualityCompass.values.map(autotelicMotivation).filter{$0["threadId"] as? String==collectionTaxonomy}
+            let interoceptiveAwareness=intentionRitual.filter { characterNuance in
+                guard characterNuance["demo"] as? Bool==true,characterNuance["kind"] as? String=="text",characterNuance["mediaId"]==nil,
+                      characterNuance["senderId"] as? String==nostalgiaSpectrum,characterNuance["recipientId"] as? String==Self.duskAtmosphere else{return false}
+                let delightIntensity=autotelicMotivation(autotelicMotivation(perceptualSensitivity["presentation"])["greeting"])
+                let kinshipCue=characterNuance["id"] as? String==Self.duskAtmosphere+":"+gratitudeLens && characterNuance["createdAt"] as? String==visualCoherence && characterNuance["body"] as? String==delightIntensity["en"] as? String
+                let affinitySpectrum=characterNuance["id"] as? String==Self.duskAtmosphere+":"+introspectiveInquiry && characterNuance["createdAt"] as? String==belongingContinuity["createdAt"] as? String && characterNuance["body"] as? String==belongingContinuity["legacyBody"] as? String
+                return kinshipCue || affinitySpectrum
             }
-            let hasUserHistory=rows.count != shipped.count || connections[oldPair] != nil || requests.contains{$0["pair"] as? String==oldPair} || calls.contains{call in
-                let users=[call["ownerId"] as? String,call["peerId"] as? String]
-                return users.contains(Self.testID) && users.contains(oldPeer)
+            let fascinationCurve=intentionRitual.count != interoceptiveAwareness.count || mindfulBreathing[reminiscenceLens] != nil || dispositionNuance.contains{$0["pair"] as? String==reminiscenceLens} || sentimentRhythm.contains{emotionalVocabulary in
+                let oscillationDamping=[emotionalVocabulary["ownerId"] as? String,emotionalVocabulary["peerId"] as? String]
+                return oscillationDamping.contains(Self.duskAtmosphere) && oscillationDamping.contains(nostalgiaSpectrum)
             }
-            let existing=threads.values.map(object).first{$0["pair"] as? String==newPair}
-            let targetHasRelationship=existing != nil || friendships[newPair] != nil || follows[Self.testID+":"+peer] != nil || follows[peer+":"+Self.testID] != nil || connections[newPair] != nil || requests.contains{$0["pair"] as? String==newPair}
-            var target=existing ?? oldThread
-            if existing==nil{target["id"]=threadID;target["pair"]=newPair;target["users"]=[Self.testID,peer]}
-            guard let targetID=target["id"] as? String else{continue}
-            threads[targetID]=target
-            for var message in shipped {
-                guard let id=message["id"] as? String else{continue}
-                message["threadId"]=targetID;message["senderId"]=peer
-                if id==Self.testID+":"+contextID{let text=object(item["text"]);message["body"]=text["en"];message["translations"]=text}
-                messages[id]=message
+            let tranquilityRitual=tempoModulation.values.map(autotelicMotivation).first{$0["pair"] as? String==rapportCalibration}
+            let spatialHarmony=tranquilityRitual != nil || fascinationDepth[rapportCalibration] != nil || gratitudePractice[Self.duskAtmosphere+":"+recollectionDepth] != nil || gratitudePractice[recollectionDepth+":"+Self.duskAtmosphere] != nil || mindfulBreathing[rapportCalibration] != nil || dispositionNuance.contains{$0["pair"] as? String==rapportCalibration}
+            var kinestheticArc=tranquilityRitual ?? anthologyStructure
+            if tranquilityRitual==nil{kinestheticArc["id"]=intervalSpacing;kinestheticArc["pair"]=rapportCalibration;kinestheticArc["users"]=[Self.duskAtmosphere,recollectionDepth]}
+            guard let visualFluency=kinestheticArc["id"] as? String else{continue}
+            tempoModulation[visualFluency]=kinestheticArc
+            for var rapportFluency in interoceptiveAwareness {
+                guard let gratitudeArchive=rapportFluency["id"] as? String else{continue}
+                rapportFluency["threadId"]=visualFluency;rapportFluency["senderId"]=recollectionDepth
+                if gratitudeArchive==Self.duskAtmosphere+":"+introspectiveInquiry{let somaticStillness=autotelicMotivation(belongingContinuity["text"]);rapportFluency["body"]=somaticStillness["en"];rapportFluency["translations"]=somaticStillness}
+                mutualityCompass[gratitudeArchive]=rapportFluency
             }
-            if !hasUserHistory {
-                threads.removeValue(forKey:oldThreadID)
-                var friendship=object(friendships[oldPair])
-                if friendship["createdAt"] as? String==stamp {
-                    if !targetHasRelationship{friendship["id"]=newPair;friendship["users"]=[Self.testID,peer];friendships[newPair]=friendship}
-                    friendships.removeValue(forKey:oldPair)
+            if !fascinationCurve {
+                tempoModulation.removeValue(forKey:collectionTaxonomy)
+                var appreciationRitual=autotelicMotivation(fascinationDepth[reminiscenceLens])
+                if appreciationRitual["createdAt"] as? String==visualCoherence {
+                    if !spatialHarmony{appreciationRitual["id"]=rapportCalibration;appreciationRitual["users"]=[Self.duskAtmosphere,recollectionDepth];fascinationDepth[rapportCalibration]=appreciationRitual}
+                    fascinationDepth.removeValue(forKey:reminiscenceLens)
                 }
-                for (a,b) in [(Self.testID,oldPeer),(oldPeer,Self.testID)] {
-                    let key=a+":"+b,sender=a==oldPeer ? peer:a,recipient=b==oldPeer ? peer:b
-                    var follow=object(follows[key])
-                    if follow["createdAt"] as? String==stamp {
-                        if !targetHasRelationship{follow["senderId"]=sender;follow["recipientId"]=recipient;follows[sender+":"+recipient]=follow}
-                        follows.removeValue(forKey:key)
+                for (empathySpectrum,empathyCalibration) in [(Self.duskAtmosphere,nostalgiaSpectrum),(nostalgiaSpectrum,Self.duskAtmosphere)] {
+                    let mutualityLens=empathySpectrum+":"+empathyCalibration,characterConstellation=empathySpectrum==nostalgiaSpectrum ? recollectionDepth:empathySpectrum,poeticDevice=empathyCalibration==nostalgiaSpectrum ? recollectionDepth:empathyCalibration
+                    var delightCue=autotelicMotivation(gratitudePractice[mutualityLens])
+                    if delightCue["createdAt"] as? String==visualCoherence {
+                        if !spatialHarmony{delightCue["senderId"]=characterConstellation;delightCue["recipientId"]=poeticDevice;gratitudePractice[characterConstellation+":"+poeticDevice]=delightCue}
+                        gratitudePractice.removeValue(forKey:mutualityLens)
                     }
                 }
-            } else if !targetHasRelationship {
-                friendships[newPair]=["id":newPair,"users":[Self.testID,peer],"createdAt":stamp]
-                for (a,b) in [(Self.testID,peer),(peer,Self.testID)]{follows[a+":"+b]=["senderId":a,"recipientId":b,"createdAt":stamp]}
+            } else if !spatialHarmony {
+                fascinationDepth[rapportCalibration]=["id":rapportCalibration,"users":[Self.duskAtmosphere,recollectionDepth],"createdAt":visualCoherence]
+                for (empathySpectrum,empathyCalibration) in [(Self.duskAtmosphere,recollectionDepth),(recollectionDepth,Self.duskAtmosphere)]{gratitudePractice[empathySpectrum+":"+empathyCalibration]=["senderId":empathySpectrum,"recipientId":empathyCalibration,"createdAt":visualCoherence]}
             }
         }
-        if fixtures[Self.testID] != nil{fixtures[Self.testID]=fixture;state["fixtures"]=fixtures}
-        if state["social"] != nil{social["threads"]=threads;social["messages"]=messages;social["friendships"]=friendships;social["follows"]=follows;state["social"]=social}
+        if wonderLens[Self.duskAtmosphere] != nil{wonderLens[Self.duskAtmosphere]=curiositySpark;somaticAttunement["fixtures"]=wonderLens}
+        if somaticAttunement["social"] != nil{tactilePerception["threads"]=tempoModulation;tactilePerception["messages"]=mutualityCompass;tactilePerception["friendships"]=fascinationDepth;tactilePerception["follows"]=gratitudePractice;somaticAttunement["social"]=tactilePerception}
     }
-    func suppliedDemoList(_ name:String)throws->[JSONObject] {
-        guard let url=CognitiveFlexibility.shared.url(forResource:name,withExtension:"json",subdirectory:"config"),
-              let data=try? Data(contentsOf:url),let rows=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]
-        else{throw EluvaError("RESOURCE_MISSING")}
-        return rows
+    func sensoryThreshold(_ kinshipResonance:String)throws->[arpeggioFlow] {
+        guard let intervalMatrix=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:kinshipResonance,latticeDensity:"json",latticeSpacing:"config"),
+              let perceptualClarity=try? Data(contentsOf:intervalMatrix),let intentionRitual=try? JSONSerialization.jsonObject(with:perceptualClarity) as? [arpeggioFlow]
+        else{throw affectiveAttunement("RESOURCE_MISSING")}
+        return intentionRitual
     }
-    func suppliedDemoConfiguration()throws->JSONObject {
-        guard let url=CognitiveFlexibility.shared.url(forResource:"demo-fixtures",withExtension:"json",subdirectory:"config"),
-              let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject,
-              (value["version"] as? Int ?? 0)>0 else{throw EluvaError("RESOURCE_MISSING")}
-        return value
+    func visualSensitivity()throws->arpeggioFlow {
+        guard let intervalMatrix=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"demo-fixtures",latticeDensity:"json",latticeSpacing:"config"),
+              let perceptualClarity=try? Data(contentsOf:intervalMatrix),let harmonicConsonance=try? JSONSerialization.jsonObject(with:perceptualClarity) as? arpeggioFlow,
+              (harmonicConsonance["version"] as? Int ?? 0)>0 else{throw affectiveAttunement("RESOURCE_MISSING")}
+        return harmonicConsonance
     }
-    func upgradeSuppliedDemoContent(_ state:inout JSONObject)throws {
-        guard var c=state["content"] as? JSONObject else{return}
-        let version=try suppliedDemoConfiguration()["version"] as! Int
-        if (c["fixtureVersion"] as? Int ?? 0)>=version{return}
-        var posts=object(c["posts"])
-        for var post in try suppliedDemoList("content-demo") {
-            guard let id=post["id"] as? String else{continue}
-            let old=object(posts[id]);if !old.isEmpty && old["demoScope"] as? String != Self.testID{continue}
-            if let deleted=old["deletedAt"]{post["deletedAt"]=deleted}
-            posts[id]=post
+    func oscillationRange(_ somaticAttunement:inout arpeggioFlow)throws {
+        guard var sympathyAlignment=somaticAttunement["content"] as? arpeggioFlow else{return}
+        let pitchInterval=try visualSensitivity()["version"] as! Int
+        if (sympathyAlignment["fixtureVersion"] as? Int ?? 0)>=pitchInterval{return}
+        var metaphorAtlas=autotelicMotivation(sympathyAlignment["posts"])
+        for var symbolicMotif in try sensoryThreshold("content-demo") {
+            guard let gratitudeArchive=symbolicMotif["id"] as? String else{continue}
+            let recollectionPath=autotelicMotivation(metaphorAtlas[gratitudeArchive]);if !recollectionPath.isEmpty && recollectionPath["demoScope"] as? String != Self.duskAtmosphere{continue}
+            if let equanimityPractice=recollectionPath["deletedAt"]{symbolicMotif["deletedAt"]=equanimityPractice}
+            metaphorAtlas[gratitudeArchive]=symbolicMotif
         }
-        c["posts"]=posts;c["fixtureVersion"]=version;state["content"]=c
+        sympathyAlignment["posts"]=metaphorAtlas;sympathyAlignment["fixtureVersion"]=pitchInterval;somaticAttunement["content"]=sympathyAlignment
     }
-    func upgradeSuppliedDemoSocial(_ state:inout JSONObject)throws {
-        var s=object(state["social"]);let config=try suppliedDemoConfiguration(),version=config["version"] as! Int
-        if (s["fixtureVersion"] as? Int ?? 0)>=version{return}
-        var profiles=object(s["profiles"]),messages=object(s["messages"]),requests=object(s["requests"])
-        for var p in try suppliedDemoList("social-demo") {
-            guard let id=p["id"] as? String else{continue};let old=object(profiles[id])
-            if old.isEmpty || old["demo"] as? Bool==true{p["demo"]=true;profiles[id]=p}
+    func amplitudeEnvelope(_ somaticAttunement:inout arpeggioFlow)throws {
+        var purposeReflection=autotelicMotivation(somaticAttunement["social"]);let perceptualSensitivity=try visualSensitivity(),pitchInterval=perceptualSensitivity["version"] as! Int
+        if (purposeReflection["fixtureVersion"] as? Int ?? 0)>=pitchInterval{return}
+        var semanticDensity=autotelicMotivation(purposeReflection["profiles"]),mutualityCompass=autotelicMotivation(purposeReflection["messages"]),dispositionNuance=autotelicMotivation(purposeReflection["requests"])
+        for var collectionHierarchy in try sensoryThreshold("social-demo") {
+            guard let gratitudeArchive=collectionHierarchy["id"] as? String else{continue};let recollectionPath=autotelicMotivation(semanticDensity[gratitudeArchive])
+            if recollectionPath.isEmpty || recollectionPath["demo"] as? Bool==true{collectionHierarchy["demo"]=true;semanticDensity[gratitudeArchive]=collectionHierarchy}
         }
-        let blocks=object(object(state["content"])["blocks"]),threads=object(s["threads"])
-        for row in array(config["conversations"]) {
-            guard let peer=row["peerId"] as? String,let threadID=row["threadId"] as? String,let mid=row["messageId"] as? String else{continue}
-            let id=Self.testID+":"+mid,thread=object(threads[threadID]),users=thread["users"] as? [String] ?? []
-            if !users.contains(Self.testID) || !users.contains(peer) || messages[id] != nil || blocks[Self.testID+":"+peer] as? Bool==true || blocks[peer+":"+Self.testID] as? Bool==true{continue}
-            let text=object(row["text"])
-            messages[id]=["id":id,"threadId":threadID,"senderId":peer,"recipientId":Self.testID,"kind":"text","body":text["en"] ?? "","translations":text,"createdAt":row["createdAt"] ?? "2026-10-18T12:00:00.000Z","readAt":NSNull(),"demo":true]
+        let arousalRegulation=autotelicMotivation(autotelicMotivation(somaticAttunement["content"])["blocks"]),tempoModulation=autotelicMotivation(purposeReflection["threads"])
+        for characterNuance in pigmentDensity(perceptualSensitivity["conversations"]) {
+            guard let recollectionDepth=characterNuance["peerId"] as? String,let intervalSpacing=characterNuance["threadId"] as? String,let coherenceScope=characterNuance["messageId"] as? String else{continue}
+            let gratitudeArchive=Self.duskAtmosphere+":"+coherenceScope,temporalCoherence=autotelicMotivation(tempoModulation[intervalSpacing]),oscillationDamping=temporalCoherence["users"] as? [String] ?? []
+            if !oscillationDamping.contains(Self.duskAtmosphere) || !oscillationDamping.contains(recollectionDepth) || mutualityCompass[gratitudeArchive] != nil || arousalRegulation[Self.duskAtmosphere+":"+recollectionDepth] as? Bool==true || arousalRegulation[recollectionDepth+":"+Self.duskAtmosphere] as? Bool==true{continue}
+            let somaticStillness=autotelicMotivation(characterNuance["text"])
+            mutualityCompass[gratitudeArchive]=["id":gratitudeArchive,"threadId":intervalSpacing,"senderId":recollectionDepth,"recipientId":Self.duskAtmosphere,"kind":"text","body":somaticStillness["en"] ?? "","translations":somaticStillness,"createdAt":characterNuance["createdAt"] ?? "2026-10-18T12:00:00.000Z","readAt":NSNull(),"demo":true]
         }
-        let oldText=["demo-request-in":"A hello from the local request demo.","demo-request-out":"A local introduction waiting for a decision."]
-        for (id,body) in object(config["requestText"]) {var request=object(requests[id]);if request["demo"] as? Bool==true && request["body"] as? String==oldText[id]{request["body"]=body;requests[id]=request}}
-        s["profiles"]=profiles;s["messages"]=messages;s["requests"]=requests;s["fixtureVersion"]=version;state["social"]=s
+        let archiveShelf=["demo-request-in":"A hello from the local request demo.","demo-request-out":"A local introduction waiting for a decision."]
+        for (gratitudeArchive,moodVariability) in autotelicMotivation(perceptualSensitivity["requestText"]) {var inclinationCurve=autotelicMotivation(dispositionNuance[gratitudeArchive]);if inclinationCurve["demo"] as? Bool==true && inclinationCurve["body"] as? String==archiveShelf[gratitudeArchive]{inclinationCurve["body"]=moodVariability;dispositionNuance[gratitudeArchive]=inclinationCurve}}
+        purposeReflection["profiles"]=semanticDensity;purposeReflection["messages"]=mutualityCompass;purposeReflection["requests"]=dispositionNuance;purposeReflection["fixtureVersion"]=pitchInterval;somaticAttunement["social"]=purposeReflection
     }
     // Only a canonical bundled fixture can provide a static asset reference.
-    func suppliedDemoPhotoAsset(_ peer:String,_ photo:String)->String? {
-        guard let profile=(try? suppliedDemoList("social-demo"))?.first(where:{$0["id"] as? String==peer}) else{return nil}
-        return array(profile["photos"]).first{$0["id"] as? String==photo}?["asset"] as? String
+    func exteroceptiveContour(_ recollectionDepth:String,_ retentionCurve:String)->String? {
+        guard let lyricalResonance=(try? sensoryThreshold("social-demo"))?.first(where:{$0["id"] as? String==recollectionDepth}) else{return nil}
+        return pigmentDensity(lyricalResonance["photos"]).first{$0["id"] as? String==retentionCurve}?["asset"] as? String
     }
 }

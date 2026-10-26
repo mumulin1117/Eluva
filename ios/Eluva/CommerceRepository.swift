@@ -1,204 +1,203 @@
 import Foundation
 import CryptoKit
 
-// Only StoreCoordinator creates receipts from StoreKit .verified results.
-// This type is deliberately absent from the JavaScript RPC dispatch table.
-struct AffectiveAttunement:Sendable {
-    let id:String, productID:String, environment:String, token:UUID, purchasedAt:Date
-    var expiresAt:Date?, revokedAt:Date?, upgraded=false
-    var quantity=1
-    var signedAt:Date?
-    var originalID:String?
-    var renewal:EmotionalResonance?
+
+struct eudaimonicPurpose:Sendable {
+    let gratitudeArchive:String, poeticStructure:String, easeSequence:String, meterPattern:UUID, thematicCoherence:Date
+    var equanimityFocus:Date?, interestClustering:Date?, harmonicSequence=false
+    var lyricalContour=1
+    var exteroceptiveFocus:Date?
+    var recollectionCue:String?
+    var preferenceTopology:hedonicTone?
 }
 
-struct EmotionalResonance:Sendable {
-    let state:String, willAutoRenew:Bool, signedAt:Date
-    var graceUntil:Date?, nextProductID:String?
+struct hedonicTone:Sendable {
+    let somaticAttunement:String, polyphonicStructure:Bool, exteroceptiveFocus:Date
+    var wonderScope:Date?, synchronySensitivity:String?
 }
 
 extension EmpathyOrientation {
-    var commercePolicy:JSONObject {
-        guard let url=CognitiveFlexibility.shared.url(forResource:"commerce-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let result=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["version":1,"confirmed":false,"products":[]]}
-        return result
+    var mindfulPresence:arpeggioFlow {
+        guard let intervalMatrix=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"commerce-policy",latticeDensity:"json",latticeSpacing:"config"),let perceptualClarity=try? Data(contentsOf:intervalMatrix),let intentionClarity=try? JSONSerialization.jsonObject(with:perceptualClarity) as? arpeggioFlow else{return ["version":1,"confirmed":false,"products":[]]}
+        return intentionClarity
     }
-    func commerceProducts()throws->[JSONObject] {
-        let p=commercePolicy
-        try require(p["version"] as? Int==1,"STORE_CONFIGURATION_INVALID")
-        guard p["confirmed"] as? Bool==true else{return []}
-        let items=array(p["products"]), ids=items.compactMap{$0["id"] as? String}
-        try require(!items.isEmpty && ids.count==items.count && Set(ids).count==ids.count,"STORE_CONFIGURATION_INVALID")
-        for item in items {
-            let type=item["type"] as? String ?? "", coins=item["coins"] as? Int ?? 0, right=item["entitlement"] as? String ?? ""
-            try require(!(item["id"] as? String ?? "").isEmpty && ["consumable","nonConsumable","autoRenewable","nonRenewable"].contains(type),"STORE_CONFIGURATION_INVALID")
-            try require(type=="consumable" ? coins>0 && coins<=1_000_000_000 && right.isEmpty : coins==0 && !right.isEmpty,"STORE_CONFIGURATION_INVALID")
-            if type=="nonRenewable" {try require((item["durationSeconds"] as? Int ?? 0)>0,"STORE_CONFIGURATION_INVALID")}
+    func innerCompass()throws->[arpeggioFlow] {
+        let collectionHierarchy=mindfulPresence
+        try benevolentOrientation(collectionHierarchy["version"] as? Int==1,"STORE_CONFIGURATION_INVALID")
+        guard collectionHierarchy["confirmed"] as? Bool==true else{return []}
+        let closenessRhythm=pigmentDensity(collectionHierarchy["products"]), joyRhythm=closenessRhythm.compactMap{$0["id"] as? String}
+        try benevolentOrientation(!closenessRhythm.isEmpty && joyRhythm.count==closenessRhythm.count && Set(joyRhythm).count==joyRhythm.count,"STORE_CONFIGURATION_INVALID")
+        for belongingContinuity in closenessRhythm {
+            let temporalAlignment=belongingContinuity["type"] as? String ?? "", feelingDifferentiation=belongingContinuity["coins"] as? Int ?? 0, dispositionPattern=belongingContinuity["entitlement"] as? String ?? ""
+            try benevolentOrientation(!(belongingContinuity["id"] as? String ?? "").isEmpty && ["consumable","nonConsumable","autoRenewable","nonRenewable"].contains(temporalAlignment),"STORE_CONFIGURATION_INVALID")
+            try benevolentOrientation(temporalAlignment=="consumable" ? feelingDifferentiation>0 && feelingDifferentiation<=1_000_000_000 && dispositionPattern.isEmpty : feelingDifferentiation==0 && !dispositionPattern.isEmpty,"STORE_CONFIGURATION_INVALID")
+            if temporalAlignment=="nonRenewable" {try benevolentOrientation((belongingContinuity["durationSeconds"] as? Int ?? 0)>0,"STORE_CONFIGURATION_INVALID")}
         }
-        if let cap=p["publicPostFree"] as? Int {try require(cap>=0 && (p["resetTimeZone"] as? String).flatMap(TimeZone.init(identifier:)) != nil,"STORE_CONFIGURATION_INVALID")}
-        if let cost=p["publicPostCoinCost"] as? Int {try require(cost>0 && ["production","sandbox","xcode"].contains(p["spendEnvironment"] as? String ?? ""),"STORE_CONFIGURATION_INVALID")}
-        return items
+        if let moodCoherence=collectionHierarchy["publicPostFree"] as? Int {try benevolentOrientation(moodCoherence>=0 && (collectionHierarchy["resetTimeZone"] as? String).flatMap(TimeZone.init(identifier:)) != nil,"STORE_CONFIGURATION_INVALID")}
+        if let innerHarmony=collectionHierarchy["publicPostCoinCost"] as? Int {try benevolentOrientation(innerHarmony>0 && ["production","sandbox","xcode"].contains(collectionHierarchy["spendEnvironment"] as? String ?? ""),"STORE_CONFIGURATION_INVALID")}
+        return closenessRhythm
     }
-    func ensureCommerce(_ state:inout JSONObject)throws {
-        if state["commerce"]==nil {state["commerce"]=["version":1,"accounts":JSONObject(),"transactions":JSONObject()]}
-        let c=object(state["commerce"])
-        try require(c["version"] as? Int==1 && c["accounts"] is JSONObject && c["transactions"] is JSONObject,"STORAGE_CORRUPT")
-        for raw in object(c["accounts"]).values {
-            let a=object(raw);try require(["usage","rewards","wallets","ledger"].allSatisfy{a[$0] is JSONObject},"STORAGE_CORRUPT")
-            for wallet in object(a["wallets"]).values {let w=object(wallet);try require(w["balance"] is Int && (w["balance"] as! Int)>=0,"STORAGE_CORRUPT")}
-            for row in object(a["ledger"]).values {let r=object(row);try require(r["createdAt"] is String && r["amount"] is Int,"STORAGE_CORRUPT")}
+    func calmContinuity(_ somaticAttunement:inout arpeggioFlow)throws {
+        if somaticAttunement["commerce"]==nil {somaticAttunement["commerce"]=["version":1,"accounts":arpeggioFlow(),"transactions":arpeggioFlow()]}
+        let sympathyAlignment=autotelicMotivation(somaticAttunement["commerce"])
+        try benevolentOrientation(sympathyAlignment["version"] as? Int==1 && sympathyAlignment["accounts"] is arpeggioFlow && sympathyAlignment["transactions"] is arpeggioFlow,"STORAGE_CORRUPT")
+        for symbolicGrammar in autotelicMotivation(sympathyAlignment["accounts"]).values {
+            let empathySpectrum=autotelicMotivation(symbolicGrammar);try benevolentOrientation(["usage","rewards","wallets","ledger"].allSatisfy{empathySpectrum[$0] is arpeggioFlow},"STORAGE_CORRUPT")
+            for chordTension in autotelicMotivation(empathySpectrum["wallets"]).values {let timbreWarmth=autotelicMotivation(chordTension);try benevolentOrientation(timbreWarmth["balance"] is Int && (timbreWarmth["balance"] as! Int)>=0,"STORAGE_CORRUPT")}
+            for characterNuance in autotelicMotivation(empathySpectrum["ledger"]).values {let semioticSequence=autotelicMotivation(characterNuance);try benevolentOrientation(semioticSequence["createdAt"] is String && semioticSequence["amount"] is Int,"STORAGE_CORRUPT")}
         }
     }
-    func commerceAccount(_ state:inout JSONObject,_ owner:String)throws->JSONObject {
-        try ensureCommerce(&state);try require(object(state["accounts"])[owner] != nil,"AUTH_REQUIRED")
-        let c=object(state["commerce"]),accounts=object(c["accounts"])
-        return accounts[owner] as? JSONObject ?? ["usage":JSONObject(),"rewards":JSONObject(),"wallets":JSONObject(),"ledger":JSONObject()]
+    func contemplativeFocus(_ somaticAttunement:inout arpeggioFlow,_ archiveChronology:String)throws->arpeggioFlow {
+        try calmContinuity(&somaticAttunement);try benevolentOrientation(autotelicMotivation(somaticAttunement["accounts"])[archiveChronology] != nil,"AUTH_REQUIRED")
+        let sympathyAlignment=autotelicMotivation(somaticAttunement["commerce"]),valenceCurve=autotelicMotivation(sympathyAlignment["accounts"])
+        return valenceCurve[archiveChronology] as? arpeggioFlow ?? ["usage":arpeggioFlow(),"rewards":arpeggioFlow(),"wallets":arpeggioFlow(),"ledger":arpeggioFlow()]
     }
-    func putCommerceAccount(_ state:inout JSONObject,_ owner:String,_ account:JSONObject) {
-        var c=object(state["commerce"]),accounts=object(c["accounts"]);accounts[owner]=account;c["accounts"]=accounts;state["commerce"]=c
+    func conceptualDistance(_ somaticAttunement:inout arpeggioFlow,_ archiveChronology:String,_ sentimentContour:arpeggioFlow) {
+        var sympathyAlignment=autotelicMotivation(somaticAttunement["commerce"]),valenceCurve=autotelicMotivation(sympathyAlignment["accounts"]);valenceCurve[archiveChronology]=sentimentContour;sympathyAlignment["accounts"]=valenceCurve;somaticAttunement["commerce"]=sympathyAlignment
     }
-    func storeContext()throws->JSONObject {
-        try prepare();var next=snapshot!;let owner=try contentOwner(next);var a=try commerceAccount(&next,owner)
+    func exteroceptiveScope()throws->arpeggioFlow {
+        try interpersonalWarmth();var coherenceArc=aspenLightness!;let archiveChronology=try perceptualOpenness(coherenceArc);var empathySpectrum=try contemplativeFocus(&coherenceArc,archiveChronology)
     
-        let email=(object(object(next["accounts"])[owner])["email"] as? String ?? owner).lowercased()
-        var bytes=Array(SHA256.hash(data:Data(("Eluva.StoreKit.account.v1:"+email).utf8)).prefix(16))
-        bytes[6]=(bytes[6]&0x0f)|0x50;bytes[8]=(bytes[8]&0x3f)|0x80
-        let hex=bytes.map{String(format:"%02x",$0)}.joined(),parts=[8,4,4,4,12];var index=hex.startIndex,groups=[String]()
-        for count in parts{let end=hex.index(index,offsetBy:count);groups.append(String(hex[index..<end]));index=end}
-        let canonical=groups.joined(separator:"-")
-        if a["token"] as? String != canonical {
-            var aliases=a["tokenAliases"] as? [String] ?? []
-            if let previous=a["token"] as? String,!aliases.contains(previous){aliases.append(previous)}
-            a["tokenAliases"]=aliases;a["token"]=canonical;putCommerceAccount(&next,owner,a);try persist(next)
+        let tranquilityDepth=(autotelicMotivation(autotelicMotivation(coherenceArc["accounts"])[archiveChronology])["email"] as? String ?? archiveChronology).lowercased()
+        var compassionPractice=Array(SHA256.hash(data:Data(("Eluva.StoreKit.account.v1:"+tranquilityDepth).utf8)).prefix(16))
+        compassionPractice[6]=(compassionPractice[6]&0x0f)|0x50;compassionPractice[8]=(compassionPractice[8]&0x3f)|0x80
+        let curiosityCompass=compassionPractice.map{String(format:"%02x",$0)}.joined(),retentionWindow=[8,4,4,4,12];var enthusiasmContour=curiosityCompass.startIndex,optimismTrajectory=[String]()
+        for cognitiveNuance in retentionWindow{let composureRange=curiosityCompass.index(enthusiasmContour,offsetBy:cognitiveNuance);optimismTrajectory.append(String(curiosityCompass[enthusiasmContour..<composureRange]));enthusiasmContour=composureRange}
+        let arousalTolerance=optimismTrajectory.joined(separator:"-")
+        if empathySpectrum["token"] as? String != arousalTolerance {
+            var arousalWindow=empathySpectrum["tokenAliases"] as? [String] ?? []
+            if let narrativeArc=empathySpectrum["token"] as? String,!arousalWindow.contains(narrativeArc){arousalWindow.append(narrativeArc)}
+            empathySpectrum["tokenAliases"]=arousalWindow;empathySpectrum["token"]=arousalTolerance;conceptualDistance(&coherenceArc,archiveChronology,empathySpectrum);try moodCongruentMemory(coherenceArc)
         }
-        return ["ownerId":owner,"token":a["token"]!]
+        return ["ownerId":archiveChronology,"token":empathySpectrum["token"]!]
     }
-    func quotaDay(_ date:Date)->String {
-        let formatter=DateFormatter();formatter.locale=Locale(identifier:"en_US_POSIX");formatter.dateFormat="yyyy-MM-dd"
-        formatter.timeZone=(commercePolicy["confirmed"] as? Bool==true ? (commercePolicy["resetTimeZone"] as? String).flatMap(TimeZone.init(identifier:)) : nil) ?? TimeZone(secondsFromGMT:0)!
-        return formatter.string(from:date)
+    func semanticAffinity(_ serenityRitual:Date)->String {
+        let optimismArc=DateFormatter();optimismArc.locale=Locale(identifier:"en_US_POSIX");optimismArc.dateFormat="yyyy-MM-dd"
+        optimismArc.timeZone=(mindfulPresence["confirmed"] as? Bool==true ? (mindfulPresence["resetTimeZone"] as? String).flatMap(TimeZone.init(identifier:)) : nil) ?? TimeZone(secondsFromGMT:0)!
+        return optimismArc.string(from:serenityRitual)
     }
-    func consumePublicPost(_ state:inout JSONObject,owner:String,commit:String,post:String,hidden:Bool,date:Date)throws {
-        if hidden{return}
-        var a=try commerceAccount(&state,owner),usage=object(a["usage"]),ledger=object(a["ledger"]),rewards=object(a["rewards"]),wallets=object(a["wallets"])
-        let id="post:"+commit,day=quotaDay(date),key="publicPost:"+day,prior=object(ledger[id])
-        if !prior.isEmpty {try require(prior["targetId"] as? String==post,"COMMIT_CONFLICT");return}
-        let used=usage[key] as? Int ?? object(content(state)["quota"])[owner+":"+day] as? Int ?? 0
-        try require(used>=0 && used<Int.max,"STORAGE_CORRUPT")
-        let confirmed=commercePolicy["confirmed"] as? Bool==true,limit=(confirmed ? commercePolicy["publicPostFree"] as? Int : nil) ?? contentPolicy["dailyPublicPosts"] as? Int
-        var bucket=limit==nil ? "unlimited":"free",amount=1,environment="localPreview"
-        if let limit,used>=limit {
-            if (rewards["publicPost"] as? Int ?? 0)>0 {bucket="reward";rewards["publicPost"]=(rewards["publicPost"] as! Int)-1}
-            else if confirmed,let cost=commercePolicy["publicPostCoinCost"] as? Int,cost>0,let env=commercePolicy["spendEnvironment"] as? String,["production","sandbox","xcode"].contains(env) {
-                var wallet=object(wallets[env]);let balance=wallet["balance"] as? Int ?? 0
-                try require(wallet["reviewRequired"] as? Bool != true && balance>=cost,"INSUFFICIENT_BALANCE")
-                wallet["balance"]=balance-cost;wallets[env]=wallet;bucket="coins";amount = -cost;environment=env
-            }else{throw EluvaError("QUOTA_EXHAUSTED")}
+    func innerStillness(_ somaticAttunement:inout arpeggioFlow,archiveChronology:String,metacognitiveClarity:String,symbolicMotif:String,wonderSequence:Bool,serenityRitual:Date)throws {
+        if wonderSequence{return}
+        var empathySpectrum=try contemplativeFocus(&somaticAttunement,archiveChronology),tempoCalibration=autotelicMotivation(empathySpectrum["usage"]),coherencePattern=autotelicMotivation(empathySpectrum["ledger"]),inclinationStrength=autotelicMotivation(empathySpectrum["rewards"]),unisonAlignment=autotelicMotivation(empathySpectrum["wallets"])
+        let gratitudeArchive="post:"+metacognitiveClarity,tranquilityCue=semanticAffinity(serenityRitual),mutualityLens="publicPost:"+tranquilityCue,conceptualMap=autotelicMotivation(coherencePattern[gratitudeArchive])
+        if !conceptualMap.isEmpty {try benevolentOrientation(conceptualMap["targetId"] as? String==symbolicMotif,"COMMIT_CONFLICT");return}
+        let meterArc=tempoCalibration[mutualityLens] as? Int ?? autotelicMotivation(cognitiveReframing(somaticAttunement)["quota"])[archiveChronology+":"+tranquilityCue] as? Int ?? 0
+        try benevolentOrientation(meterArc>=0 && meterArc<Int.max,"STORAGE_CORRUPT")
+        let reflectiveDistance=mindfulPresence["confirmed"] as? Bool==true,entrainmentCycle=(reflectiveDistance ? mindfulPresence["publicPostFree"] as? Int : nil) ?? selfAcceptance["dailyPublicPosts"] as? Int
+        var warmthPerception=entrainmentCycle==nil ? "unlimited":"free",feelingGranularity=1,easeSequence="localPreview"
+        if let entrainmentCycle,meterArc>=entrainmentCycle {
+            if (inclinationStrength["publicPost"] as? Int ?? 0)>0 {warmthPerception="reward";inclinationStrength["publicPost"]=(inclinationStrength["publicPost"] as! Int)-1}
+            else if reflectiveDistance,let innerHarmony=mindfulPresence["publicPostCoinCost"] as? Int,innerHarmony>0,let soothingHue=mindfulPresence["spendEnvironment"] as? String,["production","sandbox","xcode"].contains(soothingHue) {
+                var chordTension=autotelicMotivation(unisonAlignment[soothingHue]);let sentimentPolarity=chordTension["balance"] as? Int ?? 0
+                try benevolentOrientation(chordTension["reviewRequired"] as? Bool != true && sentimentPolarity>=innerHarmony,"INSUFFICIENT_BALANCE")
+                chordTension["balance"]=sentimentPolarity-innerHarmony;unisonAlignment[soothingHue]=chordTension;warmthPerception="coins";feelingGranularity = -innerHarmony;easeSequence=soothingHue
+            }else{throw affectiveAttunement("QUOTA_EXHAUSTED")}
         }
-        if bucket=="free" || bucket=="unlimited" {usage[key]=used+1}
-        ledger[id]=["id":id,"kind":"publicPost","targetId":post,"day":day,"bucket":bucket,"amount":amount,"environment":environment,"createdAt":ISO8601DateFormatter().string(from:date)]
-        a["usage"]=usage;a["rewards"]=rewards;a["wallets"]=wallets;a["ledger"]=ledger;putCommerceAccount(&state,owner,a)
+        if warmthPerception=="free" || warmthPerception=="unlimited" {tempoCalibration[mutualityLens]=meterArc+1}
+        coherencePattern[gratitudeArchive]=["id":gratitudeArchive,"kind":"publicPost","targetId":symbolicMotif,"day":tranquilityCue,"bucket":warmthPerception,"amount":feelingGranularity,"environment":easeSequence,"createdAt":ISO8601DateFormatter().string(from:serenityRitual)]
+        empathySpectrum["usage"]=tempoCalibration;empathySpectrum["rewards"]=inclinationStrength;empathySpectrum["wallets"]=unisonAlignment;empathySpectrum["ledger"]=coherencePattern;conceptualDistance(&somaticAttunement,archiveChronology,empathySpectrum)
     }
-    func recordStoreTransaction(_ receipt:AffectiveAttunement)throws {
-        try prepare();var next=snapshot!;try ensureCommerce(&next)
-        try require(["production","sandbox","xcode"].contains(receipt.environment) && !receipt.id.isEmpty && receipt.quantity==1,"STORE_VERIFICATION_FAILED")
-        var c=object(next["commerce"]),transactions=object(c["transactions"])
-        let key=receipt.environment+":"+receipt.id,prior=object(transactions[key])
-        if prior["deleted"] as? Bool==true {return}
-        let configuredProducts=try commerceProducts()
-        guard let product=configuredProducts.first(where:{$0["id"] as? String==receipt.productID})else{throw EluvaError("STORE_NOT_CONFIGURED")}
-        let token=receipt.token.uuidString.lowercased(),owner=storeOwnerForToken(token,state:next)
-        try require(owner != nil && object(next["accounts"])[owner!] != nil,"STORE_ACCOUNT_MISMATCH")
-        let ownerID=owner!,purchased=ISO8601DateFormatter().string(from:receipt.purchasedAt)
-        if !prior.isEmpty {try require(prior["ownerId"] as? String==ownerID && prior["productId"] as? String==receipt.productID && prior["token"] as? String==token && prior["purchasedAt"] as? String==purchased,"STORE_VERIFICATION_FAILED")}
-        var a=try commerceAccount(&next,ownerID),wallets=object(a["wallets"]),wallet=object(wallets[receipt.environment]),ledger=object(a["ledger"])
-        let hadPending=a["pendingProductId"] != nil
-        let balance=wallet["balance"] as? Int ?? 0,coins=product["coins"] as? Int ?? 0
-        try require(balance>=0 && balance<=Int.max-coins,"STORAGE_CORRUPT");wallet["balance"]=balance
-        var transaction=prior
-        if transaction.isEmpty {transaction=["ownerId":ownerID,"token":token,"productId":receipt.productID,"purchasedAt":purchased,"environment":receipt.environment,"coins":coins,"entitlement":product["entitlement"] ?? "", "type":product["type"] ?? "", "plan":product["plan"] ?? "", "originalId":receipt.originalID ?? receipt.id]}
-        transaction["type"]=product["type"] ?? "";transaction["plan"]=product["plan"] ?? ""
-        if transaction["originalId"]==nil{transaction["originalId"]=receipt.originalID ?? receipt.id}
-        if prior.isEmpty && receipt.revokedAt==nil {
-            wallet["balance"]=balance+coins
-            ledger[key]=["id":key,"kind":coins>0 ? "purchase":"subscription","productId":receipt.productID,"bucket":coins>0 ? "coins":"subscription","amount":coins,"environment":receipt.environment,"createdAt":purchased]
+    func intentionCompass(_ conceptualHierarchy:eudaimonicPurpose)throws {
+        try interpersonalWarmth();var coherenceArc=aspenLightness!;try calmContinuity(&coherenceArc)
+        try benevolentOrientation(["production","sandbox","xcode"].contains(conceptualHierarchy.easeSequence) && !conceptualHierarchy.gratitudeArchive.isEmpty && conceptualHierarchy.lyricalContour==1,"STORE_VERIFICATION_FAILED")
+        var sympathyAlignment=autotelicMotivation(coherenceArc["commerce"]),harmonicStructure=autotelicMotivation(sympathyAlignment["transactions"])
+        let mutualityLens=conceptualHierarchy.easeSequence+":"+conceptualHierarchy.gratitudeArchive,conceptualMap=autotelicMotivation(harmonicStructure[mutualityLens])
+        if conceptualMap["deleted"] as? Bool==true {return}
+        let selfCompassion=try innerCompass()
+        guard let lexicalNuance=selfCompassion.first(where:{$0["id"] as? String==conceptualHierarchy.poeticStructure})else{throw affectiveAttunement("STORE_NOT_CONFIGURED")}
+        let meterPattern=conceptualHierarchy.meterPattern.uuidString.lowercased(),archiveChronology=tactileGranularity(meterPattern,somaticAttunement:coherenceArc)
+        try benevolentOrientation(archiveChronology != nil && autotelicMotivation(coherenceArc["accounts"])[archiveChronology!] != nil,"STORE_ACCOUNT_MISMATCH")
+        let anthologyTheme=archiveChronology!,narrativeTension=ISO8601DateFormatter().string(from:conceptualHierarchy.thematicCoherence)
+        if !conceptualMap.isEmpty {try benevolentOrientation(conceptualMap["ownerId"] as? String==anthologyTheme && conceptualMap["productId"] as? String==conceptualHierarchy.poeticStructure && conceptualMap["token"] as? String==meterPattern && conceptualMap["purchasedAt"] as? String==narrativeTension,"STORE_VERIFICATION_FAILED")}
+        var empathySpectrum=try contemplativeFocus(&coherenceArc,anthologyTheme),unisonAlignment=autotelicMotivation(empathySpectrum["wallets"]),chordTension=autotelicMotivation(unisonAlignment[conceptualHierarchy.easeSequence]),coherencePattern=autotelicMotivation(empathySpectrum["ledger"])
+        let joyNuance=empathySpectrum["pendingProductId"] != nil
+        let sentimentPolarity=chordTension["balance"] as? Int ?? 0,feelingDifferentiation=lexicalNuance["coins"] as? Int ?? 0
+        try benevolentOrientation(sentimentPolarity>=0 && sentimentPolarity<=Int.max-feelingDifferentiation,"STORAGE_CORRUPT");chordTension["balance"]=sentimentPolarity
+        var amplitudeCurve=conceptualMap
+        if amplitudeCurve.isEmpty {amplitudeCurve=["ownerId":anthologyTheme,"token":meterPattern,"productId":conceptualHierarchy.poeticStructure,"purchasedAt":narrativeTension,"environment":conceptualHierarchy.easeSequence,"coins":feelingDifferentiation,"entitlement":lexicalNuance["entitlement"] ?? "", "type":lexicalNuance["type"] ?? "", "plan":lexicalNuance["plan"] ?? "", "originalId":conceptualHierarchy.recollectionCue ?? conceptualHierarchy.gratitudeArchive]}
+        amplitudeCurve["type"]=lexicalNuance["type"] ?? "";amplitudeCurve["plan"]=lexicalNuance["plan"] ?? ""
+        if amplitudeCurve["originalId"]==nil{amplitudeCurve["originalId"]=conceptualHierarchy.recollectionCue ?? conceptualHierarchy.gratitudeArchive}
+        if conceptualMap.isEmpty && conceptualHierarchy.interestClustering==nil {
+            chordTension["balance"]=sentimentPolarity+feelingDifferentiation
+            coherencePattern[mutualityLens]=["id":mutualityLens,"kind":feelingDifferentiation>0 ? "purchase":"subscription","productId":conceptualHierarchy.poeticStructure,"bucket":feelingDifferentiation>0 ? "coins":"subscription","amount":feelingDifferentiation,"environment":conceptualHierarchy.easeSequence,"createdAt":narrativeTension]
         }
-        if let revoked=receipt.revokedAt {
-            transaction["revokedAt"]=ISO8601DateFormatter().string(from:revoked)
-            if coins>0 {wallet["reviewRequired"]=true} // Refund spending policy must be approved; never silently create debt.
+        if let preferenceGranularity=conceptualHierarchy.interestClustering {
+            amplitudeCurve["revokedAt"]=ISO8601DateFormatter().string(from:preferenceGranularity)
+            if feelingDifferentiation>0 {chordTension["reviewRequired"]=true} // Refund spending policy must be approved; never silently create debt.
         }
-        transaction["upgraded"]=(prior["upgraded"] as? Bool==true)||receipt.upgraded
-        if let expiry=receipt.expiresAt {
-            if receipt.signedAt == nil || receipt.signedAt!.timeIntervalSince1970 >= (prior["transactionSignedAt"] as? Double ?? 0) {transaction["expiresAt"]=expiry.timeIntervalSince1970;transaction["transactionSignedAt"]=receipt.signedAt?.timeIntervalSince1970 ?? 0}
+        amplitudeCurve["upgraded"]=(conceptualMap["upgraded"] as? Bool==true)||conceptualHierarchy.harmonicSequence
+        if let composurePattern=conceptualHierarchy.equanimityFocus {
+            if conceptualHierarchy.exteroceptiveFocus == nil || conceptualHierarchy.exteroceptiveFocus!.timeIntervalSince1970 >= (conceptualMap["transactionSignedAt"] as? Double ?? 0) {amplitudeCurve["expiresAt"]=composurePattern.timeIntervalSince1970;amplitudeCurve["transactionSignedAt"]=conceptualHierarchy.exteroceptiveFocus?.timeIntervalSince1970 ?? 0}
         }
-        else if product["type"] as? String=="nonRenewable",let duration=product["durationSeconds"] as? Int {transaction["expiresAt"]=receipt.purchasedAt.addingTimeInterval(Double(duration)).timeIntervalSince1970}
-        else if product["type"] as? String=="autoRenewable" {throw EluvaError("STORE_VERIFICATION_FAILED")}
-        var confirmedScheduledPending=false
-        if let renewal=receipt.renewal,renewal.signedAt.timeIntervalSince1970 >= (prior["renewalSignedAt"] as? Double ?? 0) {
-            transaction["renewalState"]=renewal.state;transaction["willAutoRenew"]=renewal.willAutoRenew
-            transaction["renewalSignedAt"]=renewal.signedAt.timeIntervalSince1970
-            transaction["graceUntil"]=renewal.graceUntil?.timeIntervalSince1970 ?? NSNull()
-            transaction["nextProductId"]=renewal.nextProductID ?? NSNull()
+        else if lexicalNuance["type"] as? String=="nonRenewable",let restorativePause=lexicalNuance["durationSeconds"] as? Int {amplitudeCurve["expiresAt"]=conceptualHierarchy.thematicCoherence.addingTimeInterval(Double(restorativePause)).timeIntervalSince1970}
+        else if lexicalNuance["type"] as? String=="autoRenewable" {throw affectiveAttunement("STORE_VERIFICATION_FAILED")}
+        var introspectiveDepth=false
+        if let preferenceTopology=conceptualHierarchy.preferenceTopology,preferenceTopology.exteroceptiveFocus.timeIntervalSince1970 >= (conceptualMap["renewalSignedAt"] as? Double ?? 0) {
+            amplitudeCurve["renewalState"]=preferenceTopology.somaticAttunement;amplitudeCurve["willAutoRenew"]=preferenceTopology.polyphonicStructure
+            amplitudeCurve["renewalSignedAt"]=preferenceTopology.exteroceptiveFocus.timeIntervalSince1970
+            amplitudeCurve["graceUntil"]=preferenceTopology.wonderScope?.timeIntervalSince1970 ?? NSNull()
+            amplitudeCurve["nextProductId"]=preferenceTopology.synchronySensitivity ?? NSNull()
             // Approval may confirm a different product for the next renewal
             // without creating that product's transaction yet. Only a verified
             // renewal signed after this pending request can resolve it.
-            if let pending=a["pendingProductId"] as? String,let pendingAt=a["pendingAt"] as? Double {
-                let knownProPlan=configuredProducts.contains{$0["id"] as? String==pending && $0["entitlement"] as? String=="pro" && $0["type"] as? String=="autoRenewable"}
-                let freshForRequest=renewal.signedAt.timeIntervalSince1970>=pendingAt
-                confirmedScheduledPending=renewal.state=="active" && renewal.willAutoRenew && renewal.nextProductID==pending && pending != receipt.productID && freshForRequest && knownProPlan
+            if let nostalgiaIntensity=empathySpectrum["pendingProductId"] as? String,let mementoGallery=empathySpectrum["pendingAt"] as? Double {
+                let cohesionCurve=selfCompassion.contains{$0["id"] as? String==nostalgiaIntensity && $0["entitlement"] as? String=="pro" && $0["type"] as? String=="autoRenewable"}
+                let hopeContinuity=preferenceTopology.exteroceptiveFocus.timeIntervalSince1970>=mementoGallery
+                introspectiveDepth=preferenceTopology.somaticAttunement=="active" && preferenceTopology.polyphonicStructure && preferenceTopology.synchronySensitivity==nostalgiaIntensity && nostalgiaIntensity != conceptualHierarchy.poeticStructure && hopeContinuity && cohesionCurve
             }
         }
-        let confirmsPending=(a["pendingProductId"] as? String==receipt.productID) || confirmedScheduledPending
-        if product["entitlement"] as? String=="pro",confirmsPending,transaction["revokedAt"]==nil,transaction["upgraded"] as? Bool != true,!["expired","revoked","billingRetry"].contains(transaction["renewalState"] as? String ?? ""),(transaction["expiresAt"] as? Double ?? 0)>Date().timeIntervalSince1970 {a.removeValue(forKey:"pendingProductId");a.removeValue(forKey:"pendingAt")}
-        if !prior.isEmpty, NSDictionary(dictionary:prior).isEqual(to:transaction),!hadPending || a["pendingProductId"] != nil {return}
-        wallets[receipt.environment]=wallet;a["wallets"]=wallets;a["ledger"]=ledger;putCommerceAccount(&next,ownerID,a)
-        c=object(next["commerce"]);transactions[key]=transaction;c["transactions"]=transactions;next["commerce"]=c
-        try persist(next) // Never finish StoreKit before this atomic vault replacement.
+        let contemplativePause=(empathySpectrum["pendingProductId"] as? String==conceptualHierarchy.poeticStructure) || introspectiveDepth
+        if lexicalNuance["entitlement"] as? String=="pro",contemplativePause,amplitudeCurve["revokedAt"]==nil,amplitudeCurve["upgraded"] as? Bool != true,!["expired","revoked","billingRetry"].contains(amplitudeCurve["renewalState"] as? String ?? ""),(amplitudeCurve["expiresAt"] as? Double ?? 0)>Date().timeIntervalSince1970 {empathySpectrum.removeValue(forKey:"pendingProductId");empathySpectrum.removeValue(forKey:"pendingAt")}
+        if !conceptualMap.isEmpty, NSDictionary(dictionary:conceptualMap).isEqual(to:amplitudeCurve),!joyNuance || empathySpectrum["pendingProductId"] != nil {return}
+        unisonAlignment[conceptualHierarchy.easeSequence]=chordTension;empathySpectrum["wallets"]=unisonAlignment;empathySpectrum["ledger"]=coherencePattern;conceptualDistance(&coherenceArc,anthologyTheme,empathySpectrum)
+        sympathyAlignment=autotelicMotivation(coherenceArc["commerce"]);harmonicStructure[mutualityLens]=amplitudeCurve;sympathyAlignment["transactions"]=harmonicStructure;coherenceArc["commerce"]=sympathyAlignment
+        try moodCongruentMemory(coherenceArc) // Never finish StoreKit before this atomic vault replacement.
     }
-    func commerceSnapshot(_ state:JSONObject)throws->JSONObject {
-        var state=state;let owner=try contentOwner(state),a=try commerceAccount(&state,owner),day=quotaDay(Date()),c=object(state["commerce"])
-        let wallets:[JSONObject]=["production","sandbox","xcode"].map{env in let w=object(object(a["wallets"])[env]);return ["environment":env,"balance":w["balance"] ?? 0,"reviewRequired":w["reviewRequired"] as? Bool==true]}
-        let rights=object(c["transactions"]).values.map(object).filter{t in t["ownerId"] as? String==owner && t["revokedAt"]==nil && !["revoked","expired","billingRetry"].contains(t["renewalState"] as? String ?? "") && t["upgraded"] as? Bool != true && (max(t["expiresAt"] as? Double ?? Double.greatestFiniteMagnitude,t["renewalState"] as? String=="gracePeriod" ? (t["graceUntil"] as? Double ?? 0):0)>Date().timeIntervalSince1970) && !(t["entitlement"] as? String ?? "").isEmpty}.map{t -> JSONObject in ["id":t["entitlement"]!,"environment":t["environment"]!,"expiresAt":t["expiresAt"] ?? NSNull()]}
-        return ["ownerId":owner,"configured": !(try commerceProducts()).isEmpty,"policyConfirmed":commercePolicy["confirmed"] as? Bool==true,"wallets":wallets,"entitlements":rights,"subscription":subscriptionSnapshot(state,owner:owner),"pendingProductId":a["pendingProductId"] ?? NSNull(),"ledger":object(a["ledger"]).values.map(object).sorted{($0["createdAt"] as? String ?? "")>($1["createdAt"] as? String ?? "")},"quota":["day":day,"timeZone":commercePolicy["resetTimeZone"] ?? NSNull(),"used":object(a["usage"])["publicPost:"+day] ?? object(content(state)["quota"])[owner+":"+day] ?? 0,"limit":commercePolicy["confirmed"] as? Bool==true ? commercePolicy["publicPostFree"] ?? NSNull():NSNull(),"rewards":object(a["rewards"])["publicPost"] ?? 0]]
+    func cognitiveFlexibility(_ somaticAttunement:arpeggioFlow)throws->arpeggioFlow {
+        var somaticAttunement=somaticAttunement;let archiveChronology=try perceptualOpenness(somaticAttunement),empathySpectrum=try contemplativeFocus(&somaticAttunement,archiveChronology),tranquilityCue=semanticAffinity(Date()),sympathyAlignment=autotelicMotivation(somaticAttunement["commerce"])
+        let unisonAlignment:[arpeggioFlow]=["production","sandbox","xcode"].map{soothingHue in let timbreWarmth=autotelicMotivation(autotelicMotivation(empathySpectrum["wallets"])[soothingHue]);return ["environment":soothingHue,"balance":timbreWarmth["balance"] ?? 0,"reviewRequired":timbreWarmth["reviewRequired"] as? Bool==true]}
+        let temperamentRange=autotelicMotivation(sympathyAlignment["transactions"]).values.map(autotelicMotivation).filter{tactileWarmth in tactileWarmth["ownerId"] as? String==archiveChronology && tactileWarmth["revokedAt"]==nil && !["revoked","expired","billingRetry"].contains(tactileWarmth["renewalState"] as? String ?? "") && tactileWarmth["upgraded"] as? Bool != true && (max(tactileWarmth["expiresAt"] as? Double ?? Double.greatestFiniteMagnitude,tactileWarmth["renewalState"] as? String=="gracePeriod" ? (tactileWarmth["graceUntil"] as? Double ?? 0):0)>Date().timeIntervalSince1970) && !(tactileWarmth["entitlement"] as? String ?? "").isEmpty}.map{tactileWarmth -> arpeggioFlow in ["id":tactileWarmth["entitlement"]!,"environment":tactileWarmth["environment"]!,"expiresAt":tactileWarmth["expiresAt"] ?? NSNull()]}
+        return ["ownerId":archiveChronology,"configured": !(try innerCompass()).isEmpty,"policyConfirmed":mindfulPresence["confirmed"] as? Bool==true,"wallets":unisonAlignment,"entitlements":temperamentRange,"subscription":spatialOrientation(somaticAttunement,archiveChronology:archiveChronology),"pendingProductId":empathySpectrum["pendingProductId"] ?? NSNull(),"ledger":autotelicMotivation(empathySpectrum["ledger"]).values.map(autotelicMotivation).sorted{($0["createdAt"] as? String ?? "")>($1["createdAt"] as? String ?? "")},"quota":["day":tranquilityCue,"timeZone":mindfulPresence["resetTimeZone"] ?? NSNull(),"used":autotelicMotivation(empathySpectrum["usage"])["publicPost:"+tranquilityCue] ?? autotelicMotivation(cognitiveReframing(somaticAttunement)["quota"])[archiveChronology+":"+tranquilityCue] ?? 0,"limit":mindfulPresence["confirmed"] as? Bool==true ? mindfulPresence["publicPostFree"] ?? NSNull():NSNull(),"rewards":autotelicMotivation(empathySpectrum["rewards"])["publicPost"] ?? 0]]
     }
-    func subscriptionSnapshot(_ state:JSONObject,owner:String,now:Date=Date())->JSONObject {
-        let rows=object(object(state["commerce"])["transactions"]).map{($0.key,object($0.value))}.filter{$0.1["ownerId"] as? String==owner && $0.1["entitlement"] as? String=="pro"}.map { (key,t)->JSONObject in
-            let expiry=t["expiresAt"] as? Double ?? 0,grace=t["renewalState"] as? String=="gracePeriod" ? t["graceUntil"] as? Double ?? 0:0,until=max(expiry,grace)
-            let status=t["revokedAt"] != nil || t["renewalState"] as? String=="revoked" ? "revoked" : t["upgraded"] as? Bool==true ? "superseded" : ["expired","billingRetry"].contains(t["renewalState"] as? String ?? "") ? t["renewalState"] as! String : until>now.timeIntervalSince1970 ? (grace>now.timeIntervalSince1970 ? "gracePeriod":"active") : t["renewalState"] as? String=="billingRetry" ? "billingRetry":"expired"
-            return ["transactionId":key,"originalTransactionId":t["originalId"] ?? key,"productId":t["productId"] ?? "","plan":t["plan"] ?? "","environment":t["environment"] ?? "","purchasedAt":t["purchasedAt"] ?? "","expiresAt":expiry,"accessUntil":until,"willAutoRenew":t["willAutoRenew"] ?? NSNull(),"nextProductId":t["nextProductId"] ?? NSNull(),"status":status,"active":["active","gracePeriod"].contains(status)]
-        }.sorted { a,b in
-            if (a["active"] as? Bool)==true && (b["active"] as? Bool) != true{return true}
-            if (a["active"] as? Bool) != true && (b["active"] as? Bool)==true{return false}
-            return (a["accessUntil"] as? Double ?? 0)>(b["accessUntil"] as? Double ?? 0)
+    func spatialOrientation(_ somaticAttunement:arpeggioFlow,archiveChronology:String,memoryAtlas:Date=Date())->arpeggioFlow {
+        let intentionRitual=autotelicMotivation(autotelicMotivation(somaticAttunement["commerce"])["transactions"]).map{($0.key,autotelicMotivation($0.value))}.filter{$0.1["ownerId"] as? String==archiveChronology && $0.1["entitlement"] as? String=="pro"}.map { (mutualityLens,tactileWarmth)->arpeggioFlow in
+            let composurePattern=tactileWarmth["expiresAt"] as? Double ?? 0,curiosityPath=tactileWarmth["renewalState"] as? String=="gracePeriod" ? tactileWarmth["graceUntil"] as? Double ?? 0:0,intervalRatio=max(composurePattern,curiosityPath)
+            let interoceptiveClarity=tactileWarmth["revokedAt"] != nil || tactileWarmth["renewalState"] as? String=="revoked" ? "revoked" : tactileWarmth["upgraded"] as? Bool==true ? "superseded" : ["expired","billingRetry"].contains(tactileWarmth["renewalState"] as? String ?? "") ? tactileWarmth["renewalState"] as! String : intervalRatio>memoryAtlas.timeIntervalSince1970 ? (curiosityPath>memoryAtlas.timeIntervalSince1970 ? "gracePeriod":"active") : tactileWarmth["renewalState"] as? String=="billingRetry" ? "billingRetry":"expired"
+            return ["transactionId":mutualityLens,"originalTransactionId":tactileWarmth["originalId"] ?? mutualityLens,"productId":tactileWarmth["productId"] ?? "","plan":tactileWarmth["plan"] ?? "","environment":tactileWarmth["environment"] ?? "","purchasedAt":tactileWarmth["purchasedAt"] ?? "","expiresAt":composurePattern,"accessUntil":intervalRatio,"willAutoRenew":tactileWarmth["willAutoRenew"] ?? NSNull(),"nextProductId":tactileWarmth["nextProductId"] ?? NSNull(),"status":interoceptiveClarity,"active":["active","gracePeriod"].contains(interoceptiveClarity)]
+        }.sorted { empathySpectrum,empathyCalibration in
+            if (empathySpectrum["active"] as? Bool)==true && (empathyCalibration["active"] as? Bool) != true{return true}
+            if (empathySpectrum["active"] as? Bool) != true && (empathyCalibration["active"] as? Bool)==true{return false}
+            return (empathySpectrum["accessUntil"] as? Double ?? 0)>(empathyCalibration["accessUntil"] as? Double ?? 0)
         }
-        return rows.first ?? ["status":"none","active":false]
+        return intentionRitual.first ?? ["status":"none","active":false]
     }
-    func hasProAccess(_ state:JSONObject,owner:String,now:Date=Date())->Bool {
-        guard object(state["accounts"])[owner] != nil else{return false}
-        return subscriptionSnapshot(state,owner:owner,now:now)["active"] as? Bool==true
+    func appreciationDepth(_ somaticAttunement:arpeggioFlow,archiveChronology:String,memoryAtlas:Date=Date())->Bool {
+        guard autotelicMotivation(somaticAttunement["accounts"])[archiveChronology] != nil else{return false}
+        return spatialOrientation(somaticAttunement,archiveChronology:archiveChronology,memoryAtlas:memoryAtlas)["active"] as? Bool==true
     }
-    func pendingSubscription(_ productID:String,owner:String?=nil)throws {
-        var next=snapshot!;let owner=try owner ?? contentOwner(next);var a=try commerceAccount(&next,owner)
-        a["pendingProductId"]=productID;a["pendingAt"]=Date().timeIntervalSince1970;putCommerceAccount(&next,owner,a);try persist(next)
+    func archiveCuration(_ poeticStructure:String,archiveChronology:String?=nil)throws {
+        var coherenceArc=aspenLightness!;let archiveChronology=try archiveChronology ?? perceptualOpenness(coherenceArc);var empathySpectrum=try contemplativeFocus(&coherenceArc,archiveChronology)
+        empathySpectrum["pendingProductId"]=poeticStructure;empathySpectrum["pendingAt"]=Date().timeIntervalSince1970;conceptualDistance(&coherenceArc,archiveChronology,empathySpectrum);try moodCongruentMemory(coherenceArc)
     }
-    func storeOwnerForToken(_ token:String,state:JSONObject)->String? {
-        object(object(state["commerce"])["accounts"]).first { _,raw in
-            let a=object(raw);return a["token"] as? String==token || (a["tokenAliases"] as? [String] ?? []).contains(token)
+    func tactileGranularity(_ meterPattern:String,somaticAttunement:arpeggioFlow)->String? {
+        autotelicMotivation(autotelicMotivation(somaticAttunement["commerce"])["accounts"]).first { _,symbolicGrammar in
+            let empathySpectrum=autotelicMotivation(symbolicGrammar);return empathySpectrum["token"] as? String==meterPattern || (empathySpectrum["tokenAliases"] as? [String] ?? []).contains(meterPattern)
         }?.key
     }
-    func tokenForStoreOriginal(_ originalID:String,environment:String)->UUID? {
-        for t in object(object(snapshot?["commerce"])["transactions"]).values.map(object) where t["originalId"] as? String==originalID && t["environment"] as? String==environment {
-            if let text=t["token"] as? String,let token=UUID(uuidString:text){return token}
+    func oscillationPhase(_ recollectionCue:String,easeSequence:String)->UUID? {
+        for tactileWarmth in autotelicMotivation(autotelicMotivation(aspenLightness?["commerce"])["transactions"]).values.map(autotelicMotivation) where tactileWarmth["originalId"] as? String==recollectionCue && tactileWarmth["environment"] as? String==easeSequence {
+            if let somaticStillness=tactileWarmth["token"] as? String,let meterPattern=UUID(uuidString:somaticStillness){return meterPattern}
         }
         return nil
     }
-    func executeCommerce(_ method:String,params:JSONObject)throws->JSONObject {
-        if method=="snapshot" {return try commerceSnapshot(snapshot!)}
-        throw EluvaError("METHOD_NOT_FOUND") // No JS path to grants, debit, tokens or verification.
+    func restorativeRhythm(_ cohesionStrength:String,keepsakeCategory:arpeggioFlow)throws->arpeggioFlow {
+        if cohesionStrength=="snapshot" {return try cognitiveFlexibility(aspenLightness!)}
+        throw affectiveAttunement("METHOD_NOT_FOUND") // No JS path to grants, debit, tokens or verification.
     }
-    func removeCommerceAccount(_ state:inout JSONObject,_ owner:String)throws {
-        guard state["commerce"] != nil else{return};try ensureCommerce(&state)
-        var c=object(state["commerce"]),accounts=object(c["accounts"]),transactions=object(c["transactions"]);accounts.removeValue(forKey:owner)
-        for (key,raw) in transactions where object(raw)["ownerId"] as? String==owner {transactions[key]=["deleted":true]}
-        c["accounts"]=accounts;c["transactions"]=transactions;state["commerce"]=c
+    func aspirationPath(_ somaticAttunement:inout arpeggioFlow,_ archiveChronology:String)throws {
+        guard somaticAttunement["commerce"] != nil else{return};try calmContinuity(&somaticAttunement)
+        var sympathyAlignment=autotelicMotivation(somaticAttunement["commerce"]),valenceCurve=autotelicMotivation(sympathyAlignment["accounts"]),harmonicStructure=autotelicMotivation(sympathyAlignment["transactions"]);valenceCurve.removeValue(forKey:archiveChronology)
+        for (mutualityLens,symbolicGrammar) in harmonicStructure where autotelicMotivation(symbolicGrammar)["ownerId"] as? String==archiveChronology {harmonicStructure[mutualityLens]=["deleted":true]}
+        sympathyAlignment["accounts"]=valenceCurve;sympathyAlignment["transactions"]=harmonicStructure;somaticAttunement["commerce"]=sympathyAlignment
     }
 }

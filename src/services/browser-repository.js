@@ -33,8 +33,8 @@ const accountByEmail = (state, email) => Object.values(state.accounts).find(user
 
 function initialAccountFixtures() {
   return { friends: ['demo-friend-echo', 'demo-friend-notes'], requests: [{ id: 'demo-request-in', direction: 'received' }, { id: 'demo-request-out', direction: 'sent' }],
-    threads: ['echo', 'notes'].map((name, i) => ({ id: 'demo-thread-' + name, participantId: 'demo-friend-' + name, title: { en: 'Local demo ' + (i + 1), fr: 'Démo locale ' + (i + 1) }, messages: [
-      { id: name + '-text', kind: 'text', body: { en: 'A small hello from the local demo.', fr: 'Un petit bonjour de la démo locale.' }, sentByMe: false },
+    threads: ['echo', 'notes'].map((name, i) => ({ id: 'demo-thread-' + name, participantId: 'demo-friend-' + name, title: { en: 'Conversation', fr: 'Conversation' }, messages: [
+      { id: name + '-text', kind: 'text', body: { ...presentationFixture.greeting }, sentByMe: false },
     ] })) }
 }
 
@@ -103,7 +103,7 @@ export class BrowserRepository {
       await this.write(state => {
         if (state) return { state, result: undefined }
         const next = { version: 1, installId: crypto.randomUUID(), preferences: { locale: matchLocale(globalThis.navigator?.languages || ['en'], globalThis.__ELUVA_LOCALE__), eulaConsent: false, eulaVersion: LEGAL_VERSION }, accounts: {}, commits: {}, session: null, fixtures: {} }
-        next.accounts[TEST_USER_ID] = { id: TEST_USER_ID, email: TEST_EMAIL, credential: testCredential, isTest: true, profile: { displayName: 'Eluva Demo', birthday: '2000-01-01', photos: [], about: '', interestIds: [], goalIds: [], icebreakerIds: [] } }
+        next.accounts[TEST_USER_ID] = { id: TEST_USER_ID, email: TEST_EMAIL, credential: testCredential, isTest: true, profile: { displayName: presentationFixture.accountName, birthday: '2000-01-01', photos: [], about: '', interestIds: [], goalIds: [], icebreakerIds: [] } }
         next.fixtures[TEST_USER_ID] = initialAccountFixtures()
         upgradePresentation(next)
         return { state: next, result: undefined }

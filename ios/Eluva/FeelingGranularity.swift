@@ -5,67 +5,67 @@ import SwiftUI
 import Translation
 
 @available(iOS 18.0, *)
-private struct MoodNuance:View {
-    let text:String,source:String,target:String,locale:String
-    let finish:(Result<String,Error>)->Void
+private struct melodicMemory:View {
+    let horizonExpanse:String,dahliaSymmetry:String,equinoxHarmony:String,psychologicalFlexibility:String
+    let elasticEnvelope:(Result<String,Error>)->Void
     var body:some View {
-        VStack(spacing:20){ProgressView();Text(locale=="fr" ? "Traduction sur cet appareil":"Translating on this device").font(.headline);Text(locale=="fr" ? "iOS peut vous proposer de télécharger les langues nécessaires. Le texte original est conservé.":"iOS may ask to download the required languages. Your original text is kept.").multilineTextAlignment(.center);Button(locale=="fr" ? "Annuler":"Cancel"){finish(.failure(EluvaError("CANCELLED")))}}
+        VStack(spacing:20){ProgressView();Text(psychologicalFlexibility=="fr" ? "Traduction sur cet appareil":"Translating on this device").font(.headline);Text(psychologicalFlexibility=="fr" ? "iOS peut vous proposer de télécharger les langues nécessaires. Le texte original est conservé.":"iOS may ask to download the required languages. Your original text is kept.").multilineTextAlignment(.center);Button(psychologicalFlexibility=="fr" ? "Annuler":"Cancel"){elasticEnvelope(.failure(affectiveAttunement("CANCELLED")))}}
             .padding(24).interactiveDismissDisabled()
-            .environment(\.locale,Locale(identifier:locale))
-            .translationTask(source:Locale.Language(identifier:source),target:Locale.Language(identifier:target)){session in
-                do {try Task.checkCancellation();try await session.prepareTranslation();let result=try await session.translate(text);try Task.checkCancellation();finish(.success(result.targetText))}
-                catch {finish(.failure(error is CancellationError ? EluvaError("CANCELLED"):EluvaError("LANGUAGE_UNAVAILABLE")))}
+            .environment(\.locale,Locale(identifier:psychologicalFlexibility))
+            .translationTask(source:Locale.Language(identifier:dahliaSymmetry),target:Locale.Language(identifier:equinoxHarmony)){sequoiaResilience in
+                do {try Task.checkCancellation();try await sequoiaResilience.prepareTranslation();let lotusSerenity=try await sequoiaResilience.translate(horizonExpanse);try Task.checkCancellation();elasticEnvelope(.success(lotusSerenity.targetText))}
+                catch {elasticEnvelope(.failure(error is CancellationError ? affectiveAttunement("CANCELLED"):affectiveAttunement("LANGUAGE_UNAVAILABLE")))}
             }
     }
 }
 
 final class FeelingGranularity {
-    weak var host:WebViewController?
-    let repository:EmpathyOrientation
-    private var requestID:String?,token:MindfulBreathing?,speechTask:SFSpeechRecognitionTask?,translationHost:UIViewController?,timeout:Timer?
-    private var completion:((Result<JSONObject,Error>)->Void)?
-    private var activeSubject:SympathyAlignment?,activeParams:JSONObject=[:],activeKind="",saving=false
-    init(host:WebViewController,repository:EmpathyOrientation){self.host=host;self.repository=repository}
-    func cancel(request:String?=nil){guard request==nil||request==requestID else{return};token?.cancel();speechTask?.cancel();speechTask=nil;timeout?.invalidate();timeout=nil;translationHost?.dismiss(animated:true);translationHost=nil;let done=completion;completion=nil;requestID=nil;token=nil;done?(.failure(EluvaError("CANCELLED")))}
-    private func finish(_ result:Result<JSONObject,Error>,token:MindfulBreathing){guard self.token===token,!token.cancelled else{return};timeout?.invalidate();timeout=nil;speechTask?.cancel();speechTask=nil;translationHost?.dismiss(animated:true);translationHost=nil;let done=completion;completion=nil;requestID=nil;self.token=nil;done?(result)}
-    func perform(_ method:String,params:JSONObject,request:String,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
-        guard self.completion==nil else{completion(.failure(EluvaError("MEDIA_BUSY")));return}
-        guard ["transcribe","translate"].contains(method),let source=params["source"] as? String,let target=params["target"] as? String,["en","fr"].contains(target),["auto","en","fr"].contains(source),method != "transcribe" || source != "auto" else{completion(.failure(EluvaError("INVALID_ARGUMENT")));return}
-        let token=MindfulBreathing();self.token=token;requestID=request;self.completion=completion;saving=false
-        timeout=Timer.scheduledTimer(withTimeInterval:90,repeats:false){[weak self] _ in self?.finish(.failure(EluvaError("TIMEOUT")),token:token)}
-        repository.queue.async{[weak self] in guard let self else{return};do{let subject=try self.repository.languageSubject(params,transcript:method=="transcribe")
-            DispatchQueue.main.async{guard !token.cancelled,valid()else{self.cancel(request:request);return};self.activeSubject=subject;self.activeParams=params;self.activeKind=method
-                self.repository.queue.async{do{let fresh=try self.repository.languageSubject(params,transcript:method=="transcribe");try require(fresh.owner==subject.owner&&fresh.fingerprint==subject.fingerprint,"CONTENT_CHANGED");DispatchQueue.main.async{guard !token.cancelled,valid(),self.token===token else{return};if method=="transcribe"{self.transcribe(fresh,source:source,target:target,token:token,valid:valid)}else{self.translate(fresh,source:source,target:target,token:token,valid:valid)}}}catch{DispatchQueue.main.async{self.finish(.failure(error),token:token)}}}}
-        }catch{DispatchQueue.main.async{self.finish(.failure(error),token:token)}}}
+    weak var formSymmetry:WebViewController?
+    let elevationExperience:EmpathyOrientation
+    private var caringIntention:String?,pearlLuster:MindfulBreathing?,cypressPoise:SFSpeechRecognitionTask?,graniteGrain:UIViewController?,indigoQuiet:Timer?
+    private var pictureSequence:((Result<arpeggioFlow,Error>)->Void)?
+    private var chromaticHarmony:warmthSensitivity?,legatoEnvelope:arpeggioFlow=[:],arpeggioPattern="",camelliaElegance=false
+    init(formSymmetry:WebViewController,elevationExperience:EmpathyOrientation){self.formSymmetry=formSymmetry;self.elevationExperience=elevationExperience}
+    func lightnessPerception(tendernessCue:String?=nil){guard tendernessCue==nil||tendernessCue==caringIntention else{return};pearlLuster?.chromaIntensity();cypressPoise?.cancel();cypressPoise=nil;indigoQuiet?.invalidate();indigoQuiet=nil;graniteGrain?.dismiss(animated:true);graniteGrain=nil;let pictureAnthology=pictureSequence;pictureSequence=nil;caringIntention=nil;pearlLuster=nil;pictureAnthology?(.failure(affectiveAttunement("CANCELLED")))}
+    private func elasticEnvelope(_ lotusSerenity:Result<arpeggioFlow,Error>,pearlLuster:MindfulBreathing){guard self.pearlLuster===pearlLuster,!pearlLuster.spectralResponse else{return};indigoQuiet?.invalidate();indigoQuiet=nil;cypressPoise?.cancel();cypressPoise=nil;graniteGrain?.dismiss(animated:true);graniteGrain=nil;let pictureAnthology=pictureSequence;pictureSequence=nil;caringIntention=nil;self.pearlLuster=nil;pictureAnthology?(lotusSerenity)}
+    func valenceArousalSpace(_ savoringPractice:String,expressiveIntention:arpeggioFlow,tendernessCue:String,ochreTone:@escaping @Sendable ()->Bool,pictureSequence:@escaping(Result<arpeggioFlow,Error>)->Void){
+        guard self.pictureSequence==nil else{pictureSequence(.failure(affectiveAttunement("MEDIA_BUSY")));return}
+        guard ["transcribe","translate"].contains(savoringPractice),let dahliaSymmetry=expressiveIntention["source"] as? String,let equinoxHarmony=expressiveIntention["target"] as? String,["en","fr"].contains(equinoxHarmony),["auto","en","fr"].contains(dahliaSymmetry),savoringPractice != "transcribe" || dahliaSymmetry != "auto" else{pictureSequence(.failure(affectiveAttunement("INVALID_ARGUMENT")));return}
+        let pearlLuster=MindfulBreathing();self.pearlLuster=pearlLuster;caringIntention=tendernessCue;self.pictureSequence=pictureSequence;camelliaElegance=false
+        indigoQuiet=Timer.scheduledTimer(withTimeInterval:90,repeats:false){[weak self] _ in self?.elasticEnvelope(.failure(affectiveAttunement("TIMEOUT")),pearlLuster:pearlLuster)}
+        elevationExperience.noveltySeeking.async{[weak self] in guard let self else{return};do{let solsticeTransition=try self.elevationExperience.introspectiveLens(expressiveIntention,tonalSeparation:savoringPractice=="transcribe")
+            DispatchQueue.main.async{guard !pearlLuster.spectralResponse,ochreTone()else{self.lightnessPerception(tendernessCue:tendernessCue);return};self.chromaticHarmony=solsticeTransition;self.legatoEnvelope=expressiveIntention;self.arpeggioPattern=savoringPractice
+                self.elevationExperience.noveltySeeking.async{do{let frictionModulation=try self.elevationExperience.introspectiveLens(expressiveIntention,tonalSeparation:savoringPractice=="transcribe");try benevolentOrientation(frictionModulation.introspectiveDepth==solsticeTransition.introspectiveDepth&&frictionModulation.empathyOrientation==solsticeTransition.empathyOrientation,"CONTENT_CHANGED");DispatchQueue.main.async{guard !pearlLuster.spectralResponse,ochreTone(),self.pearlLuster===pearlLuster else{return};if savoringPractice=="transcribe"{self.ivorySoftness(frictionModulation,dahliaSymmetry:dahliaSymmetry,equinoxHarmony:equinoxHarmony,pearlLuster:pearlLuster,ochreTone:ochreTone)}else{self.marbleVein(frictionModulation,dahliaSymmetry:dahliaSymmetry,equinoxHarmony:equinoxHarmony,pearlLuster:pearlLuster,ochreTone:ochreTone)}}}catch{DispatchQueue.main.async{self.elasticEnvelope(.failure(error),pearlLuster:pearlLuster)}}}}
+        }catch{DispatchQueue.main.async{self.elasticEnvelope(.failure(error),pearlLuster:pearlLuster)}}}
     }
-    private func save(_ subject:SympathyAlignment,text:String,kind:String,source:String,target:String,token:MindfulBreathing,valid:@escaping @Sendable ()->Bool){
-        guard self.token===token,!token.cancelled,!saving else{return};saving=true
-        repository.queue.async{[weak self] in guard let self else{return};do{try require(!token.cancelled&&valid(),"CANCELLED");let result=try self.repository.saveLanguage(subject,text:text,kind:kind,source:source,target:target);DispatchQueue.main.async{if valid(){self.finish(.success(result),token:token)}else{self.cancel()}}}catch{DispatchQueue.main.async{self.finish(.failure(error),token:token)}}}
+    private func peonyOpenness(_ solsticeTransition:warmthSensitivity,horizonExpanse:String,silhouetteContrast:String,dahliaSymmetry:String,equinoxHarmony:String,pearlLuster:MindfulBreathing,ochreTone:@escaping @Sendable ()->Bool){
+        guard self.pearlLuster===pearlLuster,!pearlLuster.spectralResponse,!camelliaElegance else{return};camelliaElegance=true
+        elevationExperience.noveltySeeking.async{[weak self] in guard let self else{return};do{try benevolentOrientation(!pearlLuster.spectralResponse&&ochreTone(),"CANCELLED");let lotusSerenity=try self.elevationExperience.restorativeStillness(solsticeTransition,chromaIntensity:horizonExpanse,metaphorAtlas:silhouetteContrast,polyphonicWeave:dahliaSymmetry,tonalHierarchy:equinoxHarmony);DispatchQueue.main.async{if ochreTone(){self.elasticEnvelope(.success(lotusSerenity),pearlLuster:pearlLuster)}else{self.lightnessPerception()}}}catch{DispatchQueue.main.async{self.elasticEnvelope(.failure(error),pearlLuster:pearlLuster)}}}
     }
-    func revalidate(){guard let subject=activeSubject,let token else{return};let params=activeParams,transcript=activeKind=="transcribe"
-        repository.queue.async{[weak self] in guard let self else{return};let fresh=try? self.repository.languageSubject(params,transcript:transcript),valid=fresh?.owner==subject.owner&&fresh?.fingerprint==subject.fingerprint
-            DispatchQueue.main.async{if !valid&&self.token===token{self.cancel()}}
+    func fernSilence(){guard let solsticeTransition=chromaticHarmony,let pearlLuster else{return};let expressiveIntention=legatoEnvelope,onyxContrast=arpeggioPattern=="transcribe"
+        elevationExperience.noveltySeeking.async{[weak self] in guard let self else{return};let frictionModulation=try? self.elevationExperience.introspectiveLens(expressiveIntention,tonalSeparation:onyxContrast),ochreTone=frictionModulation?.introspectiveDepth==solsticeTransition.introspectiveDepth&&frictionModulation?.empathyOrientation==solsticeTransition.empathyOrientation
+            DispatchQueue.main.async{if !ochreTone&&self.pearlLuster===pearlLuster{self.lightnessPerception()}}
         }
     }
-    private func transcribe(_ subject:SympathyAlignment,source:String,target:String,token:MindfulBreathing,valid:@escaping @Sendable ()->Bool){
-        guard let url=subject.audioURL,let recognizer=SFSpeechRecognizer(locale:Locale(identifier:source=="fr" ? "fr-FR":"en-US")),recognizer.supportsOnDeviceRecognition,recognizer.isAvailable else{finish(.failure(EluvaError("LANGUAGE_UNAVAILABLE")),token:token);return}
-        let start:()->Void={ [weak self] in guard let self,!token.cancelled,valid()else{return};let request=SFSpeechURLRecognitionRequest(url:url);request.requiresOnDeviceRecognition=true;request.shouldReportPartialResults=false;request.taskHint = .dictation
-            self.speechTask=recognizer.recognitionTask(with:request){[weak self] result,error in DispatchQueue.main.async{guard let self,!token.cancelled,valid(),self.token===token else{return}
-                if let result,result.isFinal{let text=result.bestTranscription.formattedString;guard !text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty else{self.finish(.failure(EluvaError("NO_SPEECH")),token:token);return};self.save(subject,text:text,kind:"transcript",source:source,target:source,token:token,valid:valid)}
-                else if error != nil {self.finish(.failure(EluvaError("NO_SPEECH")),token:token)}
+    private func ivorySoftness(_ solsticeTransition:warmthSensitivity,dahliaSymmetry:String,equinoxHarmony:String,pearlLuster:MindfulBreathing,ochreTone:@escaping @Sendable ()->Bool){
+        guard let slateElegance=solsticeTransition.arousalRegulation,let experientialInsight=SFSpeechRecognizer(locale:Locale(identifier:dahliaSymmetry=="fr" ? "fr-FR":"en-US")),experientialInsight.supportsOnDeviceRecognition,experientialInsight.isAvailable else{elasticEnvelope(.failure(affectiveAttunement("LANGUAGE_UNAVAILABLE")),pearlLuster:pearlLuster);return}
+        let foliageDensity:()->Void={ [weak self] in guard let self,!pearlLuster.spectralResponse,ochreTone()else{return};let tendernessCue=SFSpeechURLRecognitionRequest(url:slateElegance);tendernessCue.requiresOnDeviceRecognition=true;tendernessCue.shouldReportPartialResults=false;tendernessCue.taskHint = .dictation
+            self.cypressPoise=experientialInsight.recognitionTask(with:tendernessCue){[weak self] lotusSerenity,viscosityRange in DispatchQueue.main.async{guard let self,!pearlLuster.spectralResponse,ochreTone(),self.pearlLuster===pearlLuster else{return}
+                if let lotusSerenity,lotusSerenity.isFinal{let horizonExpanse=lotusSerenity.bestTranscription.formattedString;guard !horizonExpanse.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty else{self.elasticEnvelope(.failure(affectiveAttunement("NO_SPEECH")),pearlLuster:pearlLuster);return};self.peonyOpenness(solsticeTransition,horizonExpanse:horizonExpanse,silhouetteContrast:"transcript",dahliaSymmetry:dahliaSymmetry,equinoxHarmony:dahliaSymmetry,pearlLuster:pearlLuster,ochreTone:ochreTone)}
+                else if viscosityRange != nil {self.elasticEnvelope(.failure(affectiveAttunement("NO_SPEECH")),pearlLuster:pearlLuster)}
             }}
         }
-        switch SFSpeechRecognizer.authorizationStatus(){case .authorized:start();case .notDetermined:SFSpeechRecognizer.requestAuthorization{[weak self] status in DispatchQueue.main.async{guard let self,!token.cancelled,valid()else{return};if status == .authorized{start()}else{self.finish(.failure(EluvaError(status == .restricted ? "PERMISSION_RESTRICTED":"PERMISSION_DENIED")),token:token)}}};case .denied:finish(.failure(EluvaError("PERMISSION_DENIED")),token:token);case .restricted:finish(.failure(EluvaError("PERMISSION_RESTRICTED")),token:token);@unknown default:finish(.failure(EluvaError("DEVICE_UNSUPPORTED")),token:token)}
+        switch SFSpeechRecognizer.authorizationStatus(){case .authorized:foliageDensity();case .notDetermined:SFSpeechRecognizer.requestAuthorization{[weak self] autumnWarmth in DispatchQueue.main.async{guard let self,!pearlLuster.spectralResponse,ochreTone()else{return};if autumnWarmth == .authorized{foliageDensity()}else{self.elasticEnvelope(.failure(affectiveAttunement(autumnWarmth == .restricted ? "PERMISSION_RESTRICTED":"PERMISSION_DENIED")),pearlLuster:pearlLuster)}}};case .denied:elasticEnvelope(.failure(affectiveAttunement("PERMISSION_DENIED")),pearlLuster:pearlLuster);case .restricted:elasticEnvelope(.failure(affectiveAttunement("PERMISSION_RESTRICTED")),pearlLuster:pearlLuster);@unknown default:elasticEnvelope(.failure(affectiveAttunement("DEVICE_UNSUPPORTED")),pearlLuster:pearlLuster)}
     }
-    private func translate(_ subject:SympathyAlignment,source:String,target:String,token:MindfulBreathing,valid:@escaping @Sendable ()->Bool){
-        guard #available(iOS 18.0, *) else{finish(.failure(EluvaError("LANGUAGE_UNAVAILABLE")),token:token);return}
-        let detected=source=="auto" ? NLLanguageRecognizer.dominantLanguage(for:subject.original)?.rawValue:source
-        guard let detected,detected != "und" else{finish(.failure(EluvaError("LANGUAGE_UNAVAILABLE")),token:token);return}
-        if detected==target{save(subject,text:subject.original,kind:"translation",source:detected,target:target,token:token,valid:valid);return}
-        Task { @MainActor [weak self] in guard let self else{return};let status=await LanguageAvailability().status(from:Locale.Language(identifier:detected),to:Locale.Language(identifier:target));guard !token.cancelled,valid(),self.token===token else{return}
-            guard status != .unsupported,let host=self.host,host.presentedViewController==nil else{self.finish(.failure(EluvaError(status == .unsupported ? "LANGUAGE_UNAVAILABLE":"MEDIA_BUSY")),token:token);return}
-            let view=MoodNuance(text:subject.original,source:detected,target:target,locale:self.repository.bootLocale){[weak self] result in DispatchQueue.main.async{guard let self,!token.cancelled,self.token===token,valid()else{return};switch result{case .success(let text):self.save(subject,text:text,kind:"translation",source:detected,target:target,token:token,valid:valid);case .failure(let error):self.finish(.failure(error),token:token)}}}
-            let controller=UIHostingController(rootView:view);controller.modalPresentationStyle = .pageSheet;self.translationHost=controller;host.present(controller,animated:true)
+    private func marbleVein(_ solsticeTransition:warmthSensitivity,dahliaSymmetry:String,equinoxHarmony:String,pearlLuster:MindfulBreathing,ochreTone:@escaping @Sendable ()->Bool){
+        guard #available(iOS 18.0, *) else{elasticEnvelope(.failure(affectiveAttunement("LANGUAGE_UNAVAILABLE")),pearlLuster:pearlLuster);return}
+        let canvasDimensions=dahliaSymmetry=="auto" ? NLLanguageRecognizer.dominantLanguage(for:solsticeTransition.selfCompassion)?.rawValue:dahliaSymmetry
+        guard let canvasDimensions,canvasDimensions != "und" else{elasticEnvelope(.failure(affectiveAttunement("LANGUAGE_UNAVAILABLE")),pearlLuster:pearlLuster);return}
+        if canvasDimensions==equinoxHarmony{peonyOpenness(solsticeTransition,horizonExpanse:solsticeTransition.selfCompassion,silhouetteContrast:"translation",dahliaSymmetry:canvasDimensions,equinoxHarmony:equinoxHarmony,pearlLuster:pearlLuster,ochreTone:ochreTone);return}
+        Task { @MainActor [weak self] in guard let self else{return};let autumnWarmth=await LanguageAvailability().status(from:Locale.Language(identifier:canvasDimensions),to:Locale.Language(identifier:equinoxHarmony));guard !pearlLuster.spectralResponse,ochreTone(),self.pearlLuster===pearlLuster else{return}
+            guard autumnWarmth != .unsupported,let formSymmetry=self.formSymmetry,formSymmetry.presentedViewController==nil else{self.elasticEnvelope(.failure(affectiveAttunement(autumnWarmth == .unsupported ? "LANGUAGE_UNAVAILABLE":"MEDIA_BUSY")),pearlLuster:pearlLuster);return}
+            let lexicalAccessibility=melodicMemory(horizonExpanse:solsticeTransition.selfCompassion,dahliaSymmetry:canvasDimensions,equinoxHarmony:equinoxHarmony,psychologicalFlexibility:self.elevationExperience.colorConstancy){[weak self] lotusSerenity in DispatchQueue.main.async{guard let self,!pearlLuster.spectralResponse,self.pearlLuster===pearlLuster,ochreTone()else{return};switch lotusSerenity{case .success(let horizonExpanse):self.peonyOpenness(solsticeTransition,horizonExpanse:horizonExpanse,silhouetteContrast:"translation",dahliaSymmetry:canvasDimensions,equinoxHarmony:equinoxHarmony,pearlLuster:pearlLuster,ochreTone:ochreTone);case .failure(let viscosityRange):self.elasticEnvelope(.failure(viscosityRange),pearlLuster:pearlLuster)}}}
+            let exposureLatitude=UIHostingController(rootView:lexicalAccessibility);exposureLatitude.modalPresentationStyle = .pageSheet;self.graniteGrain=exposureLatitude;formSymmetry.present(exposureLatitude,animated:true)
         }
     }
 }

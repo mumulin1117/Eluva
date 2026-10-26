@@ -16,7 +16,7 @@ export const legal = {
       ],
       [
         "Your content and choices",
-        "Share only content you own or have permission to use. Choose who can see each post. Private posts are visible only to you; friends-only posts require an established friendship."
+        "Share only content you own or have permission to use. Choose who can see each post. Private posts are visible only to you; other visibility choices apply to the audience you select."
       ],
       [
         "Managing your account",
@@ -42,7 +42,7 @@ export const legal = {
       ],
       [
         "Messages and safety",
-        "An introduction does not create a friendship. Ongoing private messaging requires accepted friendship. Blocking stops new interactions. Reports and feedback record the details you provide; do not include passwords or unnecessary sensitive information."
+        "An introduction alone does not enable ongoing messages. You can keep talking after mutual following or an actual reply to an introduction. Blocking stops new interactions. When making a report or giving feedback, include relevant details and keep passwords and unnecessary sensitive information private."
       ],
       [
         "Your controls",
@@ -50,7 +50,7 @@ export const legal = {
       ],
       [
         "Help",
-        "Use Help Buddy for feature guidance or to record feedback about your experience."
+        "Use Help Buddy for feature guidance and to organize feedback about your experience."
       ]
     ],
     "community": [
@@ -68,7 +68,7 @@ export const legal = {
       ],
       [
         "Safety controls",
-        "Record a report with a clear reason when content or conduct concerns you. Block a person immediately and manage your blocklist in Settings. Respect a declined or unanswered introduction."
+        "Submit a report with a clear reason when content or conduct concerns you. You can block a person immediately and manage your blocklist in Settings. Respect a declined or unanswered introduction."
       ]
     ],
     "eula": [
@@ -102,7 +102,7 @@ export const legal = {
       ],
       [
         "Vos contenus et vos choix",
-        "Partagez uniquement des contenus qui vous appartiennent ou que vous êtes autorisé à utiliser. Choisissez qui peut voir chaque publication. Les publications privées ne sont visibles que par vous ; celles réservées aux amis exigent une amitié établie."
+        "Partagez uniquement des contenus qui vous appartiennent ou que vous êtes autorisé à utiliser. Choisissez qui peut voir chaque publication. Les publications privées ne sont visibles que par vous ; les autres choix s’appliquent au public sélectionné."
       ],
       [
         "Gestion du compte",
@@ -128,7 +128,7 @@ export const legal = {
       ],
       [
         "Messages et sécurité",
-        "Une présentation ne crée pas une amitié. Les échanges privés continus nécessitent une amitié acceptée. Le blocage empêche de nouvelles interactions. Les signalements et commentaires enregistrent les détails fournis ; n’indiquez aucun mot de passe ni information sensible inutile."
+        "Une présentation seule ne permet pas de poursuivre les échanges. Vous pouvez continuer après un suivi mutuel ou une réponse effective à une présentation. Le blocage empêche de nouvelles interactions. Pour un signalement ou un commentaire, fournissez les détails utiles sans mot de passe ni information sensible inutile."
       ],
       [
         "Vos contrôles",
@@ -136,7 +136,7 @@ export const legal = {
       ],
       [
         "Aide",
-        "Consultez Help Buddy pour comprendre les fonctions ou enregistrer vos commentaires sur votre expérience."
+        "Consultez Help Buddy pour comprendre les fonctions et organiser vos commentaires sur votre expérience."
       ]
     ],
     "community": [
@@ -154,7 +154,7 @@ export const legal = {
       ],
       [
         "Contrôles de sécurité",
-        "Enregistrez un signalement avec un motif clair lorsqu’un contenu ou un comportement vous préoccupe. Bloquez une personne et gérez votre liste dans les paramètres. Respectez une présentation refusée ou restée sans réponse."
+        "Envoyez un signalement avec un motif clair lorsqu’un contenu ou un comportement vous préoccupe. Vous pouvez bloquer une personne immédiatement et gérer votre liste dans les paramètres. Respectez une présentation refusée ou restée sans réponse."
       ]
     ],
     "eula": [

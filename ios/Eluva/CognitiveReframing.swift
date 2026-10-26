@@ -1,6 +1,6 @@
 import Foundation
 
 final class CognitiveReframing {
-    let id:String,owner:String,peer:String,request:String,cancellation=MindfulBreathing()
-    init(id:String,owner:String,peer:String,request:String){self.id=id;self.owner=owner;self.peer=peer;self.request=request}
+    let perspectiveAlignment:String,canvasDimensions:String,imageCuration:String,pictureAnthology:String,apertureVariation=MindfulBreathing()
+    init(perspectiveAlignment:String,canvasDimensions:String,imageCuration:String,pictureAnthology:String){self.perspectiveAlignment=perspectiveAlignment;self.canvasDimensions=canvasDimensions;self.imageCuration=imageCuration;self.pictureAnthology=pictureAnthology}
 }

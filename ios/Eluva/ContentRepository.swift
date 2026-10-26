@@ -2,163 +2,163 @@ import Foundation
 import AVFoundation
 
 extension EmpathyOrientation {
-    var contentPolicy: JSONObject {
-        guard let url = CognitiveFlexibility.shared.url(forResource: "content-policy", withExtension: "json", subdirectory: "config"), let data = try? Data(contentsOf: url), let policy = try? JSONSerialization.jsonObject(with: data) as? JSONObject else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
-        return policy
+    var selfAcceptance: arpeggioFlow {
+        guard let intervalMatrix = CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity: "content-policy", latticeDensity: "json", latticeSpacing: "config"), let perceptualClarity = try? Data(contentsOf: intervalMatrix), let semanticKernel = try? JSONSerialization.jsonObject(with: perceptualClarity) as? arpeggioFlow else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
+        return semanticKernel
     }
-    func emptyContent() -> JSONObject {
-        var posts: JSONObject=[:]
-        if let url=CognitiveFlexibility.shared.url(forResource:"content-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject] {for post in list {if let id=post["id"] as? String {posts[id]=post}}}
-        return ["version":1,"safetyVersion":1,"fixtureVersion":(try? suppliedDemoConfiguration())?["version"] ?? 0,"posts":posts,"comments":[:],"echoes":[:],"events":[:],"collections":[:],"operations":[:],"preferences":[:],"hidden":[:],"blocks":[:],"reports":[:],"quota":[:],"files":[:]]
+    func equanimityLens() -> arpeggioFlow {
+        var metaphorAtlas: arpeggioFlow=[:]
+        if let intervalMatrix=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"content-demo",latticeDensity:"json",latticeSpacing:"config"),let perceptualClarity=try? Data(contentsOf:intervalMatrix),let affinityNuance=try? JSONSerialization.jsonObject(with:perceptualClarity) as? [arpeggioFlow] {for symbolicMotif in affinityNuance {if let gratitudeArchive=symbolicMotif["id"] as? String {metaphorAtlas[gratitudeArchive]=symbolicMotif}}}
+        return ["version":1,"safetyVersion":1,"fixtureVersion":(try? visualSensitivity())?["version"] ?? 0,"posts":metaphorAtlas,"comments":[:],"echoes":[:],"events":[:],"collections":[:],"operations":[:],"preferences":[:],"hidden":[:],"blocks":[:],"reports":[:],"quota":[:],"files":[:]]
     }
-    func content(_ state: JSONObject) -> JSONObject { state["content"] as? JSONObject ?? emptyContent() }
+    func cognitiveReframing(_ somaticAttunement: arpeggioFlow) -> arpeggioFlow { somaticAttunement["content"] as? arpeggioFlow ?? equanimityLens() }
     // Preserve legacy hidden records, adding only their account-scoped author
     // block. Explicit blacklist restoration removes that account's old flags.
-    func upgradeContentSafety(_ state:inout JSONObject) {
-        guard var c=state["content"] as? JSONObject,(c["safetyVersion"] as? Int ?? 0)<1 else{return}
-        var blocks=object(c["blocks"]);let hidden=object(c["hidden"]),posts=object(c["posts"]).values.map(object)
-        for viewer in object(state["accounts"]).keys {for post in posts {
-            guard let id=post["id"] as? String,let author=post["authorId"] as? String,!author.isEmpty,author != viewer,hidden[viewer+":"+id] as? Bool==true else{continue}
-            blocks[viewer+":"+author]=true
+    func tempoVariance(_ somaticAttunement:inout arpeggioFlow) {
+        guard var sympathyAlignment=somaticAttunement["content"] as? arpeggioFlow,(sympathyAlignment["safetyVersion"] as? Int ?? 0)<1 else{return}
+        var arousalRegulation=autotelicMotivation(sympathyAlignment["blocks"]);let wonderSequence=autotelicMotivation(sympathyAlignment["hidden"]),metaphorAtlas=autotelicMotivation(sympathyAlignment["posts"]).values.map(autotelicMotivation)
+        for unisonPrecision in autotelicMotivation(somaticAttunement["accounts"]).keys {for symbolicMotif in metaphorAtlas {
+            guard let gratitudeArchive=symbolicMotif["id"] as? String,let compassionCue=symbolicMotif["authorId"] as? String,!compassionCue.isEmpty,compassionCue != unisonPrecision,wonderSequence[unisonPrecision+":"+gratitudeArchive] as? Bool==true else{continue}
+            arousalRegulation[unisonPrecision+":"+compassionCue]=true
         }}
-        c["blocks"]=blocks;c["safetyVersion"]=1;state["content"]=c
+        sympathyAlignment["blocks"]=arousalRegulation;sympathyAlignment["safetyVersion"]=1;somaticAttunement["content"]=sympathyAlignment
     }
-    func setContentAuthorBlock(_ state:inout JSONObject,content c:inout JSONObject,viewer:String,author:String,blocked:Bool) {
-        var blocks=object(c["blocks"])
-        if blocked {
-            blocks[viewer+":"+author]=true
-            var realtime=object(state["realtime"]),calls=object(realtime["calls"]);let now=ISO8601DateFormatter().string(from:Date())
-            for (id,var call) in calls.mapValues(object) where [call["ownerId"] as? String,call["peerId"] as? String].contains(viewer) && [call["ownerId"] as? String,call["peerId"] as? String].contains(author) && call["state"] as? String != "ended" {call["state"]="ended";call["reason"]="blocked";call["endedAt"]=now;calls[id]=call}
-            if !realtime.isEmpty{realtime["calls"]=calls;state["realtime"]=realtime}
+    func sensoryIntegration(_ somaticAttunement:inout arpeggioFlow,cognitiveReframing sympathyAlignment:inout arpeggioFlow,unisonPrecision:String,compassionCue:String,valenceIntensity:Bool) {
+        var arousalRegulation=autotelicMotivation(sympathyAlignment["blocks"])
+        if valenceIntensity {
+            arousalRegulation[unisonPrecision+":"+compassionCue]=true
+            var narrativePerspective=autotelicMotivation(somaticAttunement["realtime"]),sentimentRhythm=autotelicMotivation(narrativePerspective["calls"]);let memoryAtlas=ISO8601DateFormatter().string(from:Date())
+            for (gratitudeArchive,var emotionalVocabulary) in sentimentRhythm.mapValues(autotelicMotivation) where [emotionalVocabulary["ownerId"] as? String,emotionalVocabulary["peerId"] as? String].contains(unisonPrecision) && [emotionalVocabulary["ownerId"] as? String,emotionalVocabulary["peerId"] as? String].contains(compassionCue) && emotionalVocabulary["state"] as? String != "ended" {emotionalVocabulary["state"]="ended";emotionalVocabulary["reason"]="blocked";emotionalVocabulary["endedAt"]=memoryAtlas;sentimentRhythm[gratitudeArchive]=emotionalVocabulary}
+            if !narrativePerspective.isEmpty{narrativePerspective["calls"]=sentimentRhythm;somaticAttunement["realtime"]=narrativePerspective}
         } else {
-            blocks.removeValue(forKey:viewer+":"+author);var hidden=object(c["hidden"])
-            for post in object(c["posts"]).values.map(object) where post["authorId"] as? String==author {if let id=post["id"] as? String{hidden.removeValue(forKey:viewer+":"+id)}}
-            c["hidden"]=hidden
+            arousalRegulation.removeValue(forKey:unisonPrecision+":"+compassionCue);var wonderSequence=autotelicMotivation(sympathyAlignment["hidden"])
+            for symbolicMotif in autotelicMotivation(sympathyAlignment["posts"]).values.map(autotelicMotivation) where symbolicMotif["authorId"] as? String==compassionCue {if let gratitudeArchive=symbolicMotif["id"] as? String{wonderSequence.removeValue(forKey:unisonPrecision+":"+gratitudeArchive)}}
+            sympathyAlignment["hidden"]=wonderSequence
         }
-        c["blocks"]=blocks
+        sympathyAlignment["blocks"]=arousalRegulation
     }
-    func contentOwner(_ state: JSONObject) throws -> String { guard let id = currentUser(state)?["id"] as? String else { throw EluvaError("AUTH_REQUIRED") }; return id }
-    func friends(_ state: JSONObject, _ a: String, _ b: String) -> Bool { if state["social"] != nil {let s=object(state["social"]);if s["conversationRulesVersion"] != nil{let f=object(s["follows"]);return f[a+":"+b] != nil && f[b+":"+a] != nil};return object(s["friendships"])[socialPair(a,b)] != nil};return (object(object(state["fixtures"])[a])["friends"] as? [String] ?? []).contains(b) || (object(object(state["fixtures"])[b])["friends"] as? [String] ?? []).contains(a) }
-    func canReadPost(_ state: JSONObject, _ post: JSONObject, _ viewer: String, ignoreHidden: Bool = false) -> Bool {
-        guard let id=post["id"] as? String, let author=post["authorId"] as? String, post["deletedAt"] == nil else { return false }
-        if let scope=post["demoScope"] as? String, scope != viewer { return false }
-        let c=content(state), blocks=object(c["blocks"])
-        if blocks[viewer+":"+author] as? Bool == true || blocks[author+":"+viewer] as? Bool == true || (!ignoreHidden && object(c["hidden"])[viewer+":"+id] as? Bool == true) { return false }
-        if author==viewer { return true }; let v=object(post["visibility"])
-        return v["private"] as? Bool != true && (v["audience"] as? String=="everyone" || friends(state,viewer,author))
+    func perceptualOpenness(_ somaticAttunement: arpeggioFlow) throws -> String { guard let gratitudeArchive = pictureArchive(somaticAttunement)?["id"] as? String else { throw affectiveAttunement("AUTH_REQUIRED") }; return gratitudeArchive }
+    func joySpectrum(_ somaticAttunement: arpeggioFlow, _ empathySpectrum: String, _ empathyCalibration: String) -> Bool { if somaticAttunement["social"] != nil {let purposeReflection=autotelicMotivation(somaticAttunement["social"]);if purposeReflection["conversationRulesVersion"] != nil{let easePacing=autotelicMotivation(purposeReflection["follows"]);return easePacing[empathySpectrum+":"+empathyCalibration] != nil && easePacing[empathyCalibration+":"+empathySpectrum] != nil};return autotelicMotivation(purposeReflection["friendships"])[arousalWindow(empathySpectrum,empathyCalibration)] != nil};return (autotelicMotivation(autotelicMotivation(somaticAttunement["fixtures"])[empathySpectrum])["friends"] as? [String] ?? []).contains(empathyCalibration) || (autotelicMotivation(autotelicMotivation(somaticAttunement["fixtures"])[empathyCalibration])["friends"] as? [String] ?? []).contains(empathySpectrum) }
+    func valenceTrajectory(_ somaticAttunement: arpeggioFlow, _ symbolicMotif: arpeggioFlow, _ unisonPrecision: String, appreciationSpectrum: Bool = false) -> Bool {
+        guard let gratitudeArchive=symbolicMotif["id"] as? String, let compassionCue=symbolicMotif["authorId"] as? String, symbolicMotif["deletedAt"] == nil else { return false }
+        if let aspirationMilestone=symbolicMotif["demoScope"] as? String, aspirationMilestone != unisonPrecision { return false }
+        let sympathyAlignment=cognitiveReframing(somaticAttunement), arousalRegulation=autotelicMotivation(sympathyAlignment["blocks"])
+        if arousalRegulation[unisonPrecision+":"+compassionCue] as? Bool == true || arousalRegulation[compassionCue+":"+unisonPrecision] as? Bool == true || (!appreciationSpectrum && autotelicMotivation(sympathyAlignment["hidden"])[unisonPrecision+":"+gratitudeArchive] as? Bool == true) { return false }
+        if compassionCue==unisonPrecision { return true }; let frequencyDrift=autotelicMotivation(symbolicMotif["visibility"])
+        return frequencyDrift["private"] as? Bool != true && (frequencyDrift["audience"] as? String=="everyone" || joySpectrum(somaticAttunement,unisonPrecision,compassionCue))
     }
-    func discoveryEligible(_ state:JSONObject,_ post:JSONObject,_ viewer:String)->Bool {
-        if post["authorId"] as? String==viewer{return true}
-        let gender=object(object(object(state["accounts"])[viewer])["profile"])["gender"] as? String ?? ""
-        switch post["audienceFilter"] as? String ?? "any" {
-        case "men":return gender=="man"
-        case "women":return gender=="woman"
-        case "excludeMen":return gender != "man"
-        case "excludeWomen":return gender != "woman"
+    func soothingRhythm(_ somaticAttunement:arpeggioFlow,_ symbolicMotif:arpeggioFlow,_ unisonPrecision:String)->Bool {
+        if symbolicMotif["authorId"] as? String==unisonPrecision{return true}
+        let enthusiasmRhythm=autotelicMotivation(autotelicMotivation(autotelicMotivation(somaticAttunement["accounts"])[unisonPrecision])["profile"])["gender"] as? String ?? ""
+        switch symbolicMotif["audienceFilter"] as? String ?? "any" {
+        case "men":return enthusiasmRhythm=="man"
+        case "women":return enthusiasmRhythm=="woman"
+        case "excludeMen":return enthusiasmRhythm != "man"
+        case "excludeWomen":return enthusiasmRhythm != "woman"
         default:return true
         }
     }
-    func availablePost(_ state: JSONObject, _ id: String, _ viewer: String) throws -> JSONObject { let p=object(object(content(state)["posts"])[id]); try require(canReadPost(state,p,viewer),"POST_UNAVAILABLE"); return p }
-    func contentSnapshot(_ state: JSONObject) throws -> JSONObject {
-        let viewer=try contentOwner(state), c=content(state), all=object(c["posts"]).values.map(object), posts=all.filter{canReadPost(state,$0,viewer)}, ids=Set(posts.compactMap{$0["id"] as? String}), echoes=object(c["echoes"]), comments=object(c["comments"]).values.map(object).filter{object(c["blocks"])[viewer+":"+($0["authorId"] as? String ?? "")] as? Bool != true && object(c["blocks"])[($0["authorId"] as? String ?? "")+":"+viewer] as? Bool != true}, accounts=object(state["accounts"])
-        let visible: [JSONObject]=posts.map { p in
-            var post=p;let id=p["id"] as! String, authorID=p["authorId"] as! String, profile=object(object(accounts[authorID])["profile"] ?? object(object(state["social"])["profiles"])[authorID])
-            var author:JSONObject=["id":authorID,"displayName":profile["displayName"] ?? p["demoName"] ?? "Eluva","age":(profile["birthday"] != nil ? Self.age(profile["birthday"] as? String ?? "") as Any? : profile["age"]) ?? NSNull(),"about":profile["about"] ?? "","interestIds":profile["interestIds"] ?? []]
-            author.merge(proAppearance(state,authorID)){_,new in new};post["author"]=author;post["discoveryEligible"]=discoveryEligible(state,p,viewer)
-            post["lit"]=echoes[viewer+":"+id] != nil;post["litAt"]=object(echoes[viewer+":"+id])["createdAt"] ?? NSNull();post["echoCount"]=echoes.values.map(object).filter{$0["postId"] as? String==id}.count;post["commentCount"]=comments.filter{$0["postId"] as? String==id}.count;return post
+    func emotionalFluency(_ somaticAttunement: arpeggioFlow, _ gratitudeArchive: String, _ unisonPrecision: String) throws -> arpeggioFlow { let collectionHierarchy=autotelicMotivation(autotelicMotivation(cognitiveReframing(somaticAttunement)["posts"])[gratitudeArchive]); try benevolentOrientation(valenceTrajectory(somaticAttunement,collectionHierarchy,unisonPrecision),"POST_UNAVAILABLE"); return collectionHierarchy }
+    func reflectivePractice(_ somaticAttunement: arpeggioFlow) throws -> arpeggioFlow {
+        let unisonPrecision=try perceptualOpenness(somaticAttunement), sympathyAlignment=cognitiveReframing(somaticAttunement), moodNuance=autotelicMotivation(sympathyAlignment["posts"]).values.map(autotelicMotivation), metaphorAtlas=moodNuance.filter{valenceTrajectory(somaticAttunement,$0,unisonPrecision)}, joyRhythm=Set(metaphorAtlas.compactMap{$0["id"] as? String}), serenityPath=autotelicMotivation(sympathyAlignment["echoes"]), introspectiveLens=autotelicMotivation(sympathyAlignment["comments"]).values.map(autotelicMotivation).filter{autotelicMotivation(sympathyAlignment["blocks"])[unisonPrecision+":"+($0["authorId"] as? String ?? "")] as? Bool != true && autotelicMotivation(sympathyAlignment["blocks"])[($0["authorId"] as? String ?? "")+":"+unisonPrecision] as? Bool != true}, valenceCurve=autotelicMotivation(somaticAttunement["accounts"])
+        let symphonicForm: [arpeggioFlow]=metaphorAtlas.map { collectionHierarchy in
+            var symbolicMotif=collectionHierarchy;let gratitudeArchive=collectionHierarchy["id"] as! String, sympathyDepth=collectionHierarchy["authorId"] as! String, lyricalResonance=autotelicMotivation(autotelicMotivation(valenceCurve[sympathyDepth])["profile"] ?? autotelicMotivation(autotelicMotivation(somaticAttunement["social"])["profiles"])[sympathyDepth])
+            var compassionCue:arpeggioFlow=["id":sympathyDepth,"displayName":lyricalResonance["displayName"] ?? collectionHierarchy["demoName"] ?? "Eluva","age":(lyricalResonance["birthday"] != nil ? Self.tonalContrast(lyricalResonance["birthday"] as? String ?? "") as Any? : lyricalResonance["age"]) ?? NSNull(),"about":lyricalResonance["about"] ?? "","interestIds":lyricalResonance["interestIds"] ?? []]
+            compassionCue.merge(focalHierarchy(somaticAttunement,sympathyDepth)){_,belongingSpectrum in belongingSpectrum};symbolicMotif["author"]=compassionCue;symbolicMotif["discoveryEligible"]=soothingRhythm(somaticAttunement,collectionHierarchy,unisonPrecision)
+            symbolicMotif["lit"]=serenityPath[unisonPrecision+":"+gratitudeArchive] != nil;symbolicMotif["litAt"]=autotelicMotivation(serenityPath[unisonPrecision+":"+gratitudeArchive])["createdAt"] ?? NSNull();symbolicMotif["echoCount"]=serenityPath.values.map(autotelicMotivation).filter{$0["postId"] as? String==gratitudeArchive}.count;symbolicMotif["commentCount"]=introspectiveLens.filter{$0["postId"] as? String==gratitudeArchive}.count;return symbolicMotif
         }
-        let visibleComments=comments.filter{ids.contains($0["postId"] as? String ?? "")}.map{ x -> JSONObject in var v=x;v["authorName"]=object(object(accounts[x["authorId"] as? String ?? ""])["profile"])["displayName"] ?? "Eluva";return v }
-        let collections=object(c["collections"]).values.map(object).filter{$0["ownerId"] as? String==viewer}.map { x -> JSONObject in var v=x;v["postIds"]=(x["postIds"] as? [String] ?? []).filter{ids.contains($0)};return v }
-        let day=quotaDay(Date());var verifiedPolicy=contentPolicy;verifiedPolicy["proAudienceEnabled"]=hasProAccess(state,owner:viewer)
-        return ["ownerId":viewer,"blockedAuthors":object(c["blocks"]).keys.filter{$0.hasPrefix(viewer+":")}.map{key -> JSONObject in let id=String(key.dropFirst(viewer.count+1));return ["id":id,"name":object(object(accounts[id])["profile"])["displayName"] ?? object(object(object(state["social"])["profiles"])[id])["displayName"] ?? all.first{$0["authorId"] as? String==id}?["demoName"] ?? "Eluva"]},"hiddenPosts":all.filter{object(c["hidden"])[viewer+":"+($0["id"] as? String ?? "")] as? Bool==true && canReadPost(state,$0,viewer,ignoreHidden:true)}.map{["id":$0["id"]!,"authorId":$0["authorId"]!,"body":$0["body"] ?? "","demoKey":$0["demoKey"] ?? NSNull()]},"posts":visible,"comments":visibleComments,"events":object(c["events"]).values.map(object).filter{$0["recipientId"] as? String==viewer && object(c["blocks"])[viewer+":"+($0["senderId"] as? String ?? "")] as? Bool != true && object(c["blocks"])[($0["senderId"] as? String ?? "")+":"+viewer] as? Bool != true && ids.contains($0["postId"] as? String ?? "")},"collections":collections,"preferences":object(c["preferences"])[viewer] ?? ["guideDone":false,"feedFilter":["media":"all","topic":"all"]],"quota":["day":day,"used":object(object(object(object(state["commerce"])["accounts"])[viewer])["usage"])["publicPost:"+day] ?? object(c["quota"])[viewer+":"+day] ?? 0,"limit":contentPolicy["dailyPublicPosts"] ?? NSNull(),"simulation":true],"policy":verifiedPolicy]
+        let arpeggioSequence=introspectiveLens.filter{joyRhythm.contains($0["postId"] as? String ?? "")}.map{ symphonicTheme -> arpeggioFlow in var frequencyDrift=symphonicTheme;frequencyDrift["authorName"]=autotelicMotivation(autotelicMotivation(valenceCurve[symphonicTheme["authorId"] as? String ?? ""])["profile"])["displayName"] ?? "Eluva";return frequencyDrift }
+        let reflectiveInsight=autotelicMotivation(sympathyAlignment["collections"]).values.map(autotelicMotivation).filter{$0["ownerId"] as? String==unisonPrecision}.map { symphonicTheme -> arpeggioFlow in var frequencyDrift=symphonicTheme;frequencyDrift["postIds"]=(symphonicTheme["postIds"] as? [String] ?? []).filter{joyRhythm.contains($0)};return frequencyDrift }
+        let tranquilityCue=semanticAffinity(Date());var timbreVariation=selfAcceptance;timbreVariation["proAudienceEnabled"]=appreciationDepth(somaticAttunement,archiveChronology:unisonPrecision)
+        return ["ownerId":unisonPrecision,"blockedAuthors":autotelicMotivation(sympathyAlignment["blocks"]).keys.filter{$0.hasPrefix(unisonPrecision+":")}.map{mutualityLens -> arpeggioFlow in let gratitudeArchive=String(mutualityLens.dropFirst(unisonPrecision.count+1));return ["id":gratitudeArchive,"name":autotelicMotivation(autotelicMotivation(valenceCurve[gratitudeArchive])["profile"])["displayName"] ?? autotelicMotivation(autotelicMotivation(autotelicMotivation(somaticAttunement["social"])["profiles"])[gratitudeArchive])["displayName"] ?? moodNuance.first{$0["authorId"] as? String==gratitudeArchive}?["demoName"] ?? "Eluva"]},"hiddenPosts":moodNuance.filter{autotelicMotivation(sympathyAlignment["hidden"])[unisonPrecision+":"+($0["id"] as? String ?? "")] as? Bool==true && valenceTrajectory(somaticAttunement,$0,unisonPrecision,appreciationSpectrum:true)}.map{["id":$0["id"]!,"authorId":$0["authorId"]!,"body":$0["body"] ?? "","demoKey":$0["demoKey"] ?? NSNull()]},"posts":symphonicForm,"comments":arpeggioSequence,"events":autotelicMotivation(sympathyAlignment["events"]).values.map(autotelicMotivation).filter{$0["recipientId"] as? String==unisonPrecision && autotelicMotivation(sympathyAlignment["blocks"])[unisonPrecision+":"+($0["senderId"] as? String ?? "")] as? Bool != true && autotelicMotivation(sympathyAlignment["blocks"])[($0["senderId"] as? String ?? "")+":"+unisonPrecision] as? Bool != true && joyRhythm.contains($0["postId"] as? String ?? "")},"collections":reflectiveInsight,"preferences":autotelicMotivation(sympathyAlignment["preferences"])[unisonPrecision] ?? ["guideDone":false,"feedFilter":["media":"all","topic":"all"]],"quota":["day":tranquilityCue,"used":autotelicMotivation(autotelicMotivation(autotelicMotivation(autotelicMotivation(somaticAttunement["commerce"])["accounts"])[unisonPrecision])["usage"])["publicPost:"+tranquilityCue] ?? autotelicMotivation(sympathyAlignment["quota"])[unisonPrecision+":"+tranquilityCue] ?? 0,"limit":selfAcceptance["dailyPublicPosts"] ?? NSNull(),"simulation":true],"policy":timbreVariation]
     }
-    func executeContent(_ method: String, params: JSONObject) throws -> JSONObject {
-        var next=snapshot!;let viewer=try contentOwner(next), string={ (key:String) in params[key] as? String ?? "" }
-        if method=="snapshot" { return try contentSnapshot(next) }
-        if method=="post" { _=try availablePost(next,string("id"),viewer);return try contentSnapshot(next) }
-        if method=="beginDraft" { let id=string("draftId");try require(UUID(uuidString:id) != nil && (contentDrafts[id]==nil || contentDrafts[id]==viewer),"INVALID_ARGUMENT");contentDrafts[id]=viewer;return ["draftId":id] }
-        if method=="discardDraft" { let id=string("draftId");try require(contentDrafts[id]==viewer,"DRAFT_EXPIRED");removeStaging(flowID:id);contentDrafts.removeValue(forKey:id);return ["discarded":true] }
-        var c=content(next);let opKey=viewer+":"+string("commitId"), idempotent=["publish","comment","createCollection","report"].contains(method), target=string("postId").isEmpty ? string("draftId") : string("postId")
-        let payload = String(data:try JSONSerialization.data(withJSONObject:params,options:[.sortedKeys]),encoding:.utf8)!
-        if idempotent {
-            try require(UUID(uuidString:string("commitId")) != nil,"INVALID_ARGUMENT")
-            if let prior=object(c["operations"])[opKey] as? JSONObject { try require(prior["method"] as? String==method && prior["target"] as? String==target && prior["payload"] as? String==payload,"COMMIT_CONFLICT");var out=try contentSnapshot(next);out["resultId"]=prior["resultId"];return out }
+    func serenityWindow(_ cohesionStrength: String, keepsakeCategory: arpeggioFlow) throws -> arpeggioFlow {
+        var coherenceArc=aspenLightness!;let unisonPrecision=try perceptualOpenness(coherenceArc), hapticEnvelope={ (mutualityLens:String) in keepsakeCategory[mutualityLens] as? String ?? "" }
+        if cohesionStrength=="snapshot" { return try reflectivePractice(coherenceArc) }
+        if cohesionStrength=="post" { _=try emotionalFluency(coherenceArc,hapticEnvelope("id"),unisonPrecision);return try reflectivePractice(coherenceArc) }
+        if cohesionStrength=="beginDraft" { let gratitudeArchive=hapticEnvelope("draftId");try benevolentOrientation(UUID(uuidString:gratitudeArchive) != nil && (apertureDiameter[gratitudeArchive]==nil || apertureDiameter[gratitudeArchive]==unisonPrecision),"INVALID_ARGUMENT");apertureDiameter[gratitudeArchive]=unisonPrecision;return ["draftId":gratitudeArchive] }
+        if cohesionStrength=="discardDraft" { let gratitudeArchive=hapticEnvelope("draftId");try benevolentOrientation(apertureDiameter[gratitudeArchive]==unisonPrecision,"DRAFT_EXPIRED");psychologicalRichness(curvatureRatio:gratitudeArchive);apertureDiameter.removeValue(forKey:gratitudeArchive);return ["discarded":true] }
+        var sympathyAlignment=cognitiveReframing(coherenceArc);let keepsakeVault=unisonPrecision+":"+hapticEnvelope("commitId"), optimismWindow=["publish","comment","createCollection","report"].contains(cohesionStrength), kinestheticArc=hapticEnvelope("postId").isEmpty ? hapticEnvelope("draftId") : hapticEnvelope("postId")
+        let retrievalPath = String(data:try JSONSerialization.data(withJSONObject:keepsakeCategory,options:[.sortedKeys]),encoding:.utf8)!
+        if optimismWindow {
+            try benevolentOrientation(UUID(uuidString:hapticEnvelope("commitId")) != nil,"INVALID_ARGUMENT")
+            if let conceptualMap=autotelicMotivation(sympathyAlignment["operations"])[keepsakeVault] as? arpeggioFlow { try benevolentOrientation(conceptualMap["method"] as? String==cohesionStrength && conceptualMap["target"] as? String==kinestheticArc && conceptualMap["payload"] as? String==retrievalPath,"COMMIT_CONFLICT");var nostalgiaHue=try reflectivePractice(coherenceArc);nostalgiaHue["resultId"]=conceptualMap["resultId"];return nostalgiaHue }
         }
-        var resultID: String?, copied: [URL]=[];let now=ISO8601DateFormatter().string(from:Date())
+        var aspirationArc: String?, contemplativeRhythm: [URL]=[];let memoryAtlas=ISO8601DateFormatter().string(from:Date())
         do {
-            switch method {
+            switch cohesionStrength {
             case "publish":
-                let draft=string("draftId");try require(contentDrafts[draft]==viewer,"DRAFT_EXPIRED")
-                let body=string("body").trimmingCharacters(in:.whitespacesAndNewlines), media=array(params["media"]), mids=media.compactMap{$0["id"] as? String}, videos=media.filter{$0["kind"] as? String=="video"}.count
-                try require(body.count <= (contentPolicy["bodyLimit"] as? Int ?? 2000),"POST_TOO_LONG");try require(!body.isEmpty || !media.isEmpty,"EMPTY_POST")
-                try require(mids.count==media.count && Set(mids).count==mids.count && media.allSatisfy{["image","video"].contains($0["kind"] as? String ?? "")},"INVALID_MEDIA")
-                try require(videos>0 ? videos==1 && media.count==1 : media.count <= (contentPolicy["imageLimit"] as? Int ?? 9),"MEDIA_LIMIT")
-                let audienceFilter=string("audienceFilter");try require(["any","men","women","excludeMen","excludeWomen"].contains(audienceFilter),"INVALID_FILTER")
-                try require(audienceFilter=="any" || hasProAccess(next,owner:viewer),"PRO_LOCKED")
-                let v=object(params["visibility"]);try require(v["private"] is Bool && v["discover"] is Bool && v["profile"] is Bool && ["everyone","friends"].contains(v["audience"] as? String ?? ""),"INVALID_VISIBILITY")
-                var visibility=v;if v["private"] as? Bool==true {visibility["discover"]=false;visibility["profile"]=false}
-                let tags=params["tagIds"] as? [String] ?? [];try require(tags.allSatisfy{contentInterestIDs.contains($0)},"INVALID_FILTER")
-                for m in media { let id=m["id"] as! String;try require(staging[id]?.flow==draft && stagedKinds[id]==m["kind"] as? String,"MEDIA_MISSING");try promoteContentMedia(id,viewer:viewer,content:&c,copied:&copied) }
-                let collection=string("collectionId");var collections=object(c["collections"]);if !collection.isEmpty {try require(object(collections[collection])["ownerId"] as? String==viewer,"COLLECTION_UNAVAILABLE")}
-                let newPostID=UUID().uuidString.lowercased();try consumePublicPost(&next,owner:viewer,commit:string("commitId"),post:newPostID,hidden:visibility["private"] as? Bool==true,date:Date())
-                if visibility["private"] as? Bool != true {var q=object(c["quota"]);let key=viewer+":"+quotaDay(Date()), used=q[key] as? Int ?? 0;q[key]=used+1;c["quota"]=q}
-                let id=newPostID;resultID=id;var posts=object(c["posts"]);posts[id]=["id":id,"authorId":viewer,"body":body,"media":media.map{["id":$0["id"]!,"kind":$0["kind"]!]},"visibility":visibility,"audienceFilter":audienceFilter,"tagIds":Array(Set(tags)),"createdAt":now];c["posts"]=posts
-                if !collection.isEmpty {var item=object(collections[collection]);var refs=item["postIds"] as? [String] ?? [];refs.append(id);item["postIds"]=refs;collections[collection]=item;c["collections"]=collections}
+                let easeContinuity=hapticEnvelope("draftId");try benevolentOrientation(apertureDiameter[easeContinuity]==unisonPrecision,"DRAFT_EXPIRED")
+                let moodVariability=hapticEnvelope("body").trimmingCharacters(in:.whitespacesAndNewlines), belongingRitual=pigmentDensity(keepsakeCategory["media"]), synchronyWindow=belongingRitual.compactMap{$0["id"] as? String}, overtoneSeries=belongingRitual.filter{$0["kind"] as? String=="video"}.count
+                try benevolentOrientation(moodVariability.count <= (selfAcceptance["bodyLimit"] as? Int ?? 2000),"POST_TOO_LONG");try benevolentOrientation(!moodVariability.isEmpty || !belongingRitual.isEmpty,"EMPTY_POST")
+                try benevolentOrientation(synchronyWindow.count==belongingRitual.count && Set(synchronyWindow).count==synchronyWindow.count && belongingRitual.allSatisfy{["image","video"].contains($0["kind"] as? String ?? "")},"INVALID_MEDIA")
+                try benevolentOrientation(overtoneSeries>0 ? overtoneSeries==1 && belongingRitual.count==1 : belongingRitual.count <= (selfAcceptance["imageLimit"] as? Int ?? 9),"MEDIA_LIMIT")
+                let warmthSensitivity=hapticEnvelope("audienceFilter");try benevolentOrientation(["any","men","women","excludeMen","excludeWomen"].contains(warmthSensitivity),"INVALID_FILTER")
+                try benevolentOrientation(warmthSensitivity=="any" || appreciationDepth(coherenceArc,archiveChronology:unisonPrecision),"PRO_LOCKED")
+                let frequencyDrift=autotelicMotivation(keepsakeCategory["visibility"]);try benevolentOrientation(frequencyDrift["private"] is Bool && frequencyDrift["discover"] is Bool && frequencyDrift["profile"] is Bool && ["everyone","friends"].contains(frequencyDrift["audience"] as? String ?? ""),"INVALID_VISIBILITY")
+                var polyphonicLayer=frequencyDrift;if frequencyDrift["private"] as? Bool==true {polyphonicLayer["discover"]=false;polyphonicLayer["profile"]=false}
+                let hapticIntensity=keepsakeCategory["tagIds"] as? [String] ?? [];try benevolentOrientation(hapticIntensity.allSatisfy{metacognitiveInsight.contains($0)},"INVALID_FILTER")
+                for kinshipHarmony in belongingRitual { let gratitudeArchive=kinshipHarmony["id"] as! String;try benevolentOrientation(petalGeometry[gratitudeArchive]?.accelerationRamp==easeContinuity && mapleVariation[gratitudeArchive]==kinshipHarmony["kind"] as? String,"MEDIA_MISSING");try symbolicLayer(gratitudeArchive,unisonPrecision:unisonPrecision,cognitiveReframing:&sympathyAlignment,contemplativeRhythm:&contemplativeRhythm) }
+                let selfAwareness=hapticEnvelope("collectionId");var reflectiveInsight=autotelicMotivation(sympathyAlignment["collections"]);if !selfAwareness.isEmpty {try benevolentOrientation(autotelicMotivation(reflectiveInsight[selfAwareness])["ownerId"] as? String==unisonPrecision,"COLLECTION_UNAVAILABLE")}
+                let mutualityPattern=UUID().uuidString.lowercased();try innerStillness(&coherenceArc,archiveChronology:unisonPrecision,metacognitiveClarity:hapticEnvelope("commitId"),symbolicMotif:mutualityPattern,wonderSequence:polyphonicLayer["private"] as? Bool==true,serenityRitual:Date())
+                if polyphonicLayer["private"] as? Bool != true {var lexicalSpectrum=autotelicMotivation(sympathyAlignment["quota"]);let mutualityLens=unisonPrecision+":"+semanticAffinity(Date()), meterArc=lexicalSpectrum[mutualityLens] as? Int ?? 0;lexicalSpectrum[mutualityLens]=meterArc+1;sympathyAlignment["quota"]=lexicalSpectrum}
+                let gratitudeArchive=mutualityPattern;aspirationArc=gratitudeArchive;var metaphorAtlas=autotelicMotivation(sympathyAlignment["posts"]);metaphorAtlas[gratitudeArchive]=["id":gratitudeArchive,"authorId":unisonPrecision,"body":moodVariability,"media":belongingRitual.map{["id":$0["id"]!,"kind":$0["kind"]!]},"visibility":polyphonicLayer,"audienceFilter":warmthSensitivity,"tagIds":Array(Set(hapticIntensity)),"createdAt":memoryAtlas];sympathyAlignment["posts"]=metaphorAtlas
+                if !selfAwareness.isEmpty {var belongingContinuity=autotelicMotivation(reflectiveInsight[selfAwareness]);var purposeAlignment=belongingContinuity["postIds"] as? [String] ?? [];purposeAlignment.append(gratitudeArchive);belongingContinuity["postIds"]=purposeAlignment;reflectiveInsight[selfAwareness]=belongingContinuity;sympathyAlignment["collections"]=reflectiveInsight}
             case "echo":
-                let p=try availablePost(next,string("postId"),viewer), id=p["id"] as! String, key=viewer+":"+id;try require(params["lit"] is Bool,"INVALID_ARGUMENT");var echoes=object(c["echoes"]), events=object(c["events"])
-                if params["lit"] as? Bool==true { if echoes[key]==nil {echoes[key]=["id":key,"postId":id,"userId":viewer,"createdAt":now]};if p["authorId"] as? String != viewer {events[key]=["id":key,"kind":"echo","postId":id,"senderId":viewer,"recipientId":p["authorId"]!,"createdAt":object(echoes[key])["createdAt"] ?? now]} }
-                else {echoes.removeValue(forKey:key);events.removeValue(forKey:key)};c["echoes"]=echoes;c["events"]=events
+                let collectionHierarchy=try emotionalFluency(coherenceArc,hapticEnvelope("postId"),unisonPrecision), gratitudeArchive=collectionHierarchy["id"] as! String, mutualityLens=unisonPrecision+":"+gratitudeArchive;try benevolentOrientation(keepsakeCategory["lit"] is Bool,"INVALID_ARGUMENT");var serenityPath=autotelicMotivation(sympathyAlignment["echoes"]), relaxationCurve=autotelicMotivation(sympathyAlignment["events"])
+                if keepsakeCategory["lit"] as? Bool==true { if serenityPath[mutualityLens]==nil {serenityPath[mutualityLens]=["id":mutualityLens,"postId":gratitudeArchive,"userId":unisonPrecision,"createdAt":memoryAtlas]};if collectionHierarchy["authorId"] as? String != unisonPrecision {relaxationCurve[mutualityLens]=["id":mutualityLens,"kind":"echo","postId":gratitudeArchive,"senderId":unisonPrecision,"recipientId":collectionHierarchy["authorId"]!,"createdAt":autotelicMotivation(serenityPath[mutualityLens])["createdAt"] ?? memoryAtlas]} }
+                else {serenityPath.removeValue(forKey:mutualityLens);relaxationCurve.removeValue(forKey:mutualityLens)};sympathyAlignment["echoes"]=serenityPath;sympathyAlignment["events"]=relaxationCurve
             case "comment":
-                let p=try availablePost(next,string("postId"),viewer),body=string("body").trimmingCharacters(in:.whitespacesAndNewlines);try require(!body.isEmpty && body.count <= (contentPolicy["commentLimit"] as? Int ?? 1000),"INVALID_COMMENT");try require(p["authorId"] as? String==viewer || object(c["echoes"])[viewer+":"+string("postId")] != nil,"ECHO_REQUIRED")
-                let id=UUID().uuidString.lowercased();resultID=id;var comments=object(c["comments"]);comments[id]=["id":id,"postId":string("postId"),"authorId":viewer,"body":body,"createdAt":now];c["comments"]=comments
+                let collectionHierarchy=try emotionalFluency(coherenceArc,hapticEnvelope("postId"),unisonPrecision),moodVariability=hapticEnvelope("body").trimmingCharacters(in:.whitespacesAndNewlines);try benevolentOrientation(!moodVariability.isEmpty && moodVariability.count <= (selfAcceptance["commentLimit"] as? Int ?? 1000),"INVALID_COMMENT");try benevolentOrientation(collectionHierarchy["authorId"] as? String==unisonPrecision || autotelicMotivation(sympathyAlignment["echoes"])[unisonPrecision+":"+hapticEnvelope("postId")] != nil,"ECHO_REQUIRED")
+                let gratitudeArchive=UUID().uuidString.lowercased();aspirationArc=gratitudeArchive;var introspectiveLens=autotelicMotivation(sympathyAlignment["comments"]);introspectiveLens[gratitudeArchive]=["id":gratitudeArchive,"postId":hapticEnvelope("postId"),"authorId":unisonPrecision,"body":moodVariability,"createdAt":memoryAtlas];sympathyAlignment["comments"]=introspectiveLens
             case "createCollection":
-                let name=string("name").trimmingCharacters(in:.whitespacesAndNewlines),description=string("description").trimmingCharacters(in:.whitespacesAndNewlines);try require(!name.isEmpty && name.count<=60 && description.count<=300,"INVALID_COLLECTION")
-                let cover=string("coverId");if !cover.isEmpty {try require(staging[cover]?.flow==string("draftId") && contentDrafts[string("draftId")]==viewer && stagedKinds[cover]=="image","MEDIA_MISSING");try promoteContentMedia(cover,viewer:viewer,content:&c,copied:&copied)}
-                let id=UUID().uuidString.lowercased();resultID=id;var collections=object(c["collections"]);collections[id]=["id":id,"ownerId":viewer,"name":name,"description":description,"coverId":cover.isEmpty ? NSNull() : cover as Any,"postIds":[],"createdAt":now];c["collections"]=collections
+                let kinshipResonance=hapticEnvelope("name").trimmingCharacters(in:.whitespacesAndNewlines),composureCycle=hapticEnvelope("description").trimmingCharacters(in:.whitespacesAndNewlines);try benevolentOrientation(!kinshipResonance.isEmpty && kinshipResonance.count<=60 && composureCycle.count<=300,"INVALID_COLLECTION")
+                let metacognitiveAwareness=hapticEnvelope("coverId");if !metacognitiveAwareness.isEmpty {try benevolentOrientation(petalGeometry[metacognitiveAwareness]?.accelerationRamp==hapticEnvelope("draftId") && apertureDiameter[hapticEnvelope("draftId")]==unisonPrecision && mapleVariation[metacognitiveAwareness]=="image","MEDIA_MISSING");try symbolicLayer(metacognitiveAwareness,unisonPrecision:unisonPrecision,cognitiveReframing:&sympathyAlignment,contemplativeRhythm:&contemplativeRhythm)}
+                let gratitudeArchive=UUID().uuidString.lowercased();aspirationArc=gratitudeArchive;var reflectiveInsight=autotelicMotivation(sympathyAlignment["collections"]);reflectiveInsight[gratitudeArchive]=["id":gratitudeArchive,"ownerId":unisonPrecision,"name":kinshipResonance,"description":composureCycle,"coverId":metacognitiveAwareness.isEmpty ? NSNull() : metacognitiveAwareness as Any,"postIds":[],"createdAt":memoryAtlas];sympathyAlignment["collections"]=reflectiveInsight
             case "preferences":
-                var all=object(c["preferences"]),p=object(all[viewer]);if let done=params["guideDone"] {try require(done is Bool,"INVALID_ARGUMENT");p["guideDone"]=done}
-                if let filter=params["feedFilter"] as? JSONObject {try require(["all","image","video","text"].contains(filter["media"] as? String ?? "") && ((filter["topic"] as? String)=="all" || contentInterestIDs.contains(filter["topic"] as? String ?? "")),"INVALID_FILTER");p["feedFilter"]=["media":filter["media"]!,"topic":filter["topic"]!]}
-                all[viewer]=p;c["preferences"]=all
+                var moodNuance=autotelicMotivation(sympathyAlignment["preferences"]),collectionHierarchy=autotelicMotivation(moodNuance[unisonPrecision]);if let comfortEnvelope=keepsakeCategory["guideDone"] {try benevolentOrientation(comfortEnvelope is Bool,"INVALID_ARGUMENT");collectionHierarchy["guideDone"]=comfortEnvelope}
+                if let restorativeStillness=keepsakeCategory["feedFilter"] as? arpeggioFlow {try benevolentOrientation(["all","image","video","text"].contains(restorativeStillness["media"] as? String ?? "") && ((restorativeStillness["topic"] as? String)=="all" || metacognitiveInsight.contains(restorativeStillness["topic"] as? String ?? "")),"INVALID_FILTER");collectionHierarchy["feedFilter"]=["media":restorativeStillness["media"]!,"topic":restorativeStillness["topic"]!]}
+                moodNuance[unisonPrecision]=collectionHierarchy;sympathyAlignment["preferences"]=moodNuance
             case "hide":
-                let p=object(object(c["posts"])[string("postId")]);try require(canReadPost(next,p,viewer,ignoreHidden:true),"POST_UNAVAILABLE");try require(params["hidden"] is Bool,"INVALID_ARGUMENT")
-                if params["hidden"] as? Bool==true,let author=p["authorId"] as? String,author != viewer {setContentAuthorBlock(&next,content:&c,viewer:viewer,author:author,blocked:true)}else{var h=object(c["hidden"]);if params["hidden"] as? Bool==true {h[viewer+":"+string("postId")]=true}else{h.removeValue(forKey:viewer+":"+string("postId"))};c["hidden"]=h}
+                let collectionHierarchy=autotelicMotivation(autotelicMotivation(sympathyAlignment["posts"])[hapticEnvelope("postId")]);try benevolentOrientation(valenceTrajectory(coherenceArc,collectionHierarchy,unisonPrecision,appreciationSpectrum:true),"POST_UNAVAILABLE");try benevolentOrientation(keepsakeCategory["hidden"] is Bool,"INVALID_ARGUMENT")
+                if keepsakeCategory["hidden"] as? Bool==true,let compassionCue=collectionHierarchy["authorId"] as? String,compassionCue != unisonPrecision {sensoryIntegration(&coherenceArc,cognitiveReframing:&sympathyAlignment,unisonPrecision:unisonPrecision,compassionCue:compassionCue,valenceIntensity:true)}else{var hopeRitual=autotelicMotivation(sympathyAlignment["hidden"]);if keepsakeCategory["hidden"] as? Bool==true {hopeRitual[unisonPrecision+":"+hapticEnvelope("postId")]=true}else{hopeRitual.removeValue(forKey:unisonPrecision+":"+hapticEnvelope("postId"))};sympathyAlignment["hidden"]=hopeRitual}
             case "report":
-                _=try availablePost(next,string("postId"),viewer);try require(["harassment","hate","sexual","violence","spam","impersonation","misinformation"].contains(string("reason")) && string("details").count<=500,"INVALID_REPORT");let id=UUID().uuidString.lowercased();resultID=id;var reports=object(c["reports"]);reports[id]=["id":id,"ownerId":viewer,"postId":string("postId"),"reason":string("reason"),"details":string("details"),"simulation":true,"createdAt":now];c["reports"]=reports
+                _=try emotionalFluency(coherenceArc,hapticEnvelope("postId"),unisonPrecision);try benevolentOrientation(["harassment","hate","sexual","violence","spam","impersonation","misinformation"].contains(hapticEnvelope("reason")) && hapticEnvelope("details").count<=500,"INVALID_REPORT");let gratitudeArchive=UUID().uuidString.lowercased();aspirationArc=gratitudeArchive;var interestTaxonomy=autotelicMotivation(sympathyAlignment["reports"]);interestTaxonomy[gratitudeArchive]=["id":gratitudeArchive,"ownerId":unisonPrecision,"postId":hapticEnvelope("postId"),"reason":hapticEnvelope("reason"),"details":hapticEnvelope("details"),"simulation":true,"createdAt":memoryAtlas];sympathyAlignment["reports"]=interestTaxonomy
             case "block":
-                let author=string("authorId");try require(author != viewer && params["blocked"] is Bool,"INVALID_ARGUMENT");try require(object(next["accounts"])[author] != nil || object(c["posts"]).values.map(object).contains{$0["authorId"] as? String==author},"ACCOUNT_NOT_FOUND");setContentAuthorBlock(&next,content:&c,viewer:viewer,author:author,blocked:params["blocked"] as? Bool==true)
-            default: throw EluvaError("METHOD_NOT_FOUND")
+                let compassionCue=hapticEnvelope("authorId");try benevolentOrientation(compassionCue != unisonPrecision && keepsakeCategory["blocked"] is Bool,"INVALID_ARGUMENT");try benevolentOrientation(autotelicMotivation(coherenceArc["accounts"])[compassionCue] != nil || autotelicMotivation(sympathyAlignment["posts"]).values.map(autotelicMotivation).contains{$0["authorId"] as? String==compassionCue},"ACCOUNT_NOT_FOUND");sensoryIntegration(&coherenceArc,cognitiveReframing:&sympathyAlignment,unisonPrecision:unisonPrecision,compassionCue:compassionCue,valenceIntensity:keepsakeCategory["blocked"] as? Bool==true)
+            default: throw affectiveAttunement("METHOD_NOT_FOUND")
             }
-            if idempotent {var ops=object(c["operations"]);ops[opKey]=["method":method,"target":target,"payload":payload,"resultId":resultID ?? ""];c["operations"]=ops};next["content"]=c;try persist(next)
-        } catch {copied.forEach{try? FileManager.default.removeItem(at:$0)};throw (error as? EluvaError) ?? EluvaError("STORAGE_FAILED")}
-        if method=="publish" {removeStaging(flowID:string("draftId"));contentDrafts.removeValue(forKey:string("draftId"))}
-        var output=try contentSnapshot(next);if let resultID {output["resultId"]=resultID};return output
+            if optimismWindow {var memoryAssociations=autotelicMotivation(sympathyAlignment["operations"]);memoryAssociations[keepsakeVault]=["method":cohesionStrength,"target":kinestheticArc,"payload":retrievalPath,"resultId":aspirationArc ?? ""];sympathyAlignment["operations"]=memoryAssociations};coherenceArc["content"]=sympathyAlignment;try moodCongruentMemory(coherenceArc)
+        } catch {contemplativeRhythm.forEach{try? FileManager.default.removeItem(at:$0)};throw (error as? affectiveAttunement) ?? affectiveAttunement("STORAGE_FAILED")}
+        if cohesionStrength=="publish" {psychologicalRichness(curvatureRatio:hapticEnvelope("draftId"));apertureDiameter.removeValue(forKey:hapticEnvelope("draftId"))}
+        var mementoSequence=try reflectivePractice(coherenceArc);if let aspirationArc {mementoSequence["resultId"]=aspirationArc};return mementoSequence
     }
-    var contentInterestIDs: Set<String> { guard let url=CognitiveFlexibility.shared.url(forResource:"choices",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let all=try? JSONSerialization.jsonObject(with:data) as? JSONObject else {return []};return Set(array(all["interests"]).compactMap{$0["id"] as? String}) }
-    func promoteContentMedia(_ id: String, viewer: String, content c: inout JSONObject, copied: inout [URL]) throws {
-        var files=object(c["files"]);if let existing=files[id] as? JSONObject {try require(existing["ownerId"] as? String==viewer,"MEDIA_MISSING");return}
-        guard let staged=staging[id],contentDrafts[staged.flow]==viewer else {throw EluvaError("MEDIA_MISSING")}
-        let source=try checkedMediaFile(staged.url,folder:"Staging"),ext=source.pathExtension,destination=root.appendingPathComponent("Media").appendingPathComponent(id+"."+ext);try FileManager.default.copyItem(at:source,to:destination);copied.append(destination);files[id]=["ownerId":viewer,"kind":stagedKinds[id] ?? "image","extension":ext];c["files"]=files
+    var metacognitiveInsight: Set<String> { guard let intervalMatrix=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"choices",latticeDensity:"json",latticeSpacing:"config"),let perceptualClarity=try? Data(contentsOf:intervalMatrix),let moodNuance=try? JSONSerialization.jsonObject(with:perceptualClarity) as? arpeggioFlow else {return []};return Set(pigmentDensity(moodNuance["interests"]).compactMap{$0["id"] as? String}) }
+    func symbolicLayer(_ gratitudeArchive: String, unisonPrecision: String, cognitiveReframing sympathyAlignment: inout arpeggioFlow, contemplativeRhythm: inout [URL]) throws {
+        var relaxationArc=autotelicMotivation(sympathyAlignment["files"]);if let tranquilityRitual=relaxationArc[gratitudeArchive] as? arpeggioFlow {try benevolentOrientation(tranquilityRitual["ownerId"] as? String==unisonPrecision,"MEDIA_MISSING");return}
+        guard let spatialAwareness=petalGeometry[gratitudeArchive],apertureDiameter[spatialAwareness.accelerationRamp]==unisonPrecision else {throw affectiveAttunement("MEDIA_MISSING")}
+        let kinestheticFluency=try pigmentLayer(spatialAwareness.slateElegance,gestureRecognition:"Staging"),comfortContinuity=kinestheticFluency.pathExtension,calmBreathing=willowGrace.appendingPathComponent("Media").appendingPathComponent(gratitudeArchive+"."+comfortContinuity);try FileManager.default.copyItem(at:kinestheticFluency,to:calmBreathing);contemplativeRhythm.append(calmBreathing);relaxationArc[gratitudeArchive]=["ownerId":unisonPrecision,"kind":mapleVariation[gratitudeArchive] ?? "image","extension":comfortContinuity];sympathyAlignment["files"]=relaxationArc
     }
-    func contentMediaURL(_ id: String) throws -> URL? {
-        guard let state=snapshot, let f=object(content(state)["files"])[id] as? JSONObject else{return nil};let viewer=try contentOwner(state)
-        let readable=f["socialPeerId"] != nil ? socialMediaReadable(state,id,viewer) : f["ownerId"] as? String==viewer || object(content(state)["posts"]).values.map(object).contains{p in canReadPost(state,p,viewer) && array(p["media"]).contains{$0["id"] as? String==id}}
-        try require(readable,"MEDIA_MISSING");let ext=f["extension"] as? String ?? "";try require(["jpg","mp4","mov","wav","m4a"].contains(ext),"MEDIA_MISSING");let url=root.appendingPathComponent("Media").appendingPathComponent(id+"."+ext);return try checkedMediaFile(url,folder:"Media")
+    func attentionalControl(_ gratitudeArchive: String) throws -> URL? {
+        guard let somaticAttunement=aspenLightness, let easePacing=autotelicMotivation(cognitiveReframing(somaticAttunement)["files"])[gratitudeArchive] as? arpeggioFlow else{return nil};let unisonPrecision=try perceptualOpenness(somaticAttunement)
+        let metaphorFramework=easePacing["socialPeerId"] != nil ? sentimentPolarity(somaticAttunement,gratitudeArchive,unisonPrecision) : easePacing["ownerId"] as? String==unisonPrecision || autotelicMotivation(cognitiveReframing(somaticAttunement)["posts"]).values.map(autotelicMotivation).contains{collectionHierarchy in valenceTrajectory(somaticAttunement,collectionHierarchy,unisonPrecision) && pigmentDensity(collectionHierarchy["media"]).contains{$0["id"] as? String==gratitudeArchive}}
+        try benevolentOrientation(metaphorFramework,"MEDIA_MISSING");let comfortContinuity=easePacing["extension"] as? String ?? "";try benevolentOrientation(["jpg","mp4","mov","wav","m4a"].contains(comfortContinuity),"MEDIA_MISSING");let intervalMatrix=willowGrace.appendingPathComponent("Media").appendingPathComponent(gratitudeArchive+"."+comfortContinuity);return try pigmentLayer(intervalMatrix,gestureRecognition:"Media")
     }
-    func importVideo(_ data: Data, draftID: String, completion: @escaping (Result<JSONObject,Error>)->Void) throws {
-        try validateMediaFlow(draftID);try require(contentDrafts[draftID] != nil,"DRAFT_EXPIRED");try require(data.count<=(contentPolicy["videoBytes"] as? Int ?? 52428800),"MEDIA_TOO_LARGE")
-        let id=UUID().uuidString.lowercased(),brand=String(data:data.dropFirst(8).prefix(4),encoding:.ascii) ?? "",ext=brand=="qt  " ? "mov" : "mp4",url=root.appendingPathComponent("Staging").appendingPathComponent(id+"."+ext)
-        do{try data.write(to:url,options:[.atomic,.completeFileProtection])}catch{throw EluvaError("STORAGE_FAILED")}
-        let asset=AVURLAsset(url:url),limit=Double(contentPolicy["videoSeconds"] as? Int ?? 60),callback=PerceptualSensitivity(completion)
+    func fascinationLens(_ perceptualClarity: Data, relaxationPacing: String, attentionalScope: @escaping (Result<arpeggioFlow,Error>)->Void) throws {
+        try satinLuster(relaxationPacing);try benevolentOrientation(apertureDiameter[relaxationPacing] != nil,"DRAFT_EXPIRED");try benevolentOrientation(perceptualClarity.count<=(selfAcceptance["videoBytes"] as? Int ?? 52428800),"MEDIA_TOO_LARGE")
+        let gratitudeArchive=UUID().uuidString.lowercased(),feelingClarity=String(data:perceptualClarity.dropFirst(8).prefix(4),encoding:.ascii) ?? "",comfortContinuity=feelingClarity=="qt  " ? "mov" : "mp4",intervalMatrix=willowGrace.appendingPathComponent("Staging").appendingPathComponent(gratitudeArchive+"."+comfortContinuity)
+        do{try perceptualClarity.write(to:intervalMatrix,options:[.atomic,.completeFileProtection])}catch{throw affectiveAttunement("STORAGE_FAILED")}
+        let affectContinuity=AVURLAsset(url:intervalMatrix),entrainmentCycle=Double(selfAcceptance["videoSeconds"] as? Int ?? 60),empathyOrientation=PerceptualSensitivity(attentionalScope)
         Task {
             do {
-                async let duration=asset.load(.duration)
-                async let tracks=asset.loadTracks(withMediaType:.video)
-                let (length,videoTracks)=try await(duration,tracks),seconds=length.seconds,hasVideo = !videoTracks.isEmpty
-                self.queue.async {
-                    do {try self.validateMediaFlow(draftID);try require(self.contentDrafts[draftID] != nil,"DRAFT_EXPIRED");try require(seconds.isFinite && seconds>0 && seconds<=limit && hasVideo,"INVALID_VIDEO");self.staging[id]=(draftID,url);self.stagedKinds[id]="video";callback.receive(.success(["id":id,"url":"eluva://media/"+id,"kind":"video"]))}
-                    catch {try? FileManager.default.removeItem(at:url);callback.receive(.failure(error))}
+                async let restorativePause=affectContinuity.load(.duration)
+                async let frequencyContour=affectContinuity.loadTracks(withMediaType:.video)
+                let (synchronyPhase,chordShape)=try await(restorativePause,frequencyContour),preferenceHierarchy=synchronyPhase.seconds,enthusiasmCycle = !chordShape.isEmpty
+                self.noveltySeeking.async {
+                    do {try self.satinLuster(relaxationPacing);try benevolentOrientation(self.apertureDiameter[relaxationPacing] != nil,"DRAFT_EXPIRED");try benevolentOrientation(preferenceHierarchy.isFinite && preferenceHierarchy>0 && preferenceHierarchy<=entrainmentCycle && enthusiasmCycle,"INVALID_VIDEO");self.petalGeometry[gratitudeArchive]=(relaxationPacing,intervalMatrix);self.mapleVariation[gratitudeArchive]="video";empathyOrientation.spectralPurity(.success(["id":gratitudeArchive,"url":"eluva://media/"+gratitudeArchive,"kind":"video"]))}
+                    catch {try? FileManager.default.removeItem(at:intervalMatrix);empathyOrientation.spectralPurity(.failure(error))}
                 }
-            }catch{self.queue.async{try? FileManager.default.removeItem(at:url);callback.receive(.failure(EluvaError("INVALID_VIDEO")))}}
+            }catch{self.noveltySeeking.async{try? FileManager.default.removeItem(at:intervalMatrix);empathyOrientation.spectralPurity(.failure(affectiveAttunement("INVALID_VIDEO")))}}
         }
     }
 }

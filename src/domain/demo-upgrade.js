@@ -3,7 +3,7 @@ import { demoFixtureVersion,demoScope,demoPeople,demoPosts,demoConversations,dem
 // Migrate only exact shipped copy, never arbitrary text containing a keyword.
 export function upgradePresentation(root) {
   if((root.presentationVersion||0)>=presentationFixture.version)return
-  const migrateCopy=(root.presentationVersion||0)<1
+  const migrateCopy=(root.presentationVersion||0)<4
   const account=root.accounts?.[demoScope]
   if(migrateCopy&&account?.isTest&&account.profile?.displayName==='Eluva Demo')account.profile.displayName=presentationFixture.accountName
   const old='A small hello from the local demo.'
@@ -16,6 +16,10 @@ export function upgradePresentation(root) {
   }
   const request=root.social?.requests?.['demo-request-in']
   if(migrateCopy&&request?.demo&&request.body==='Your quiet-day post resonated with me. Would you like to say hello?')request.body=demoRequestText['demo-request-in']
+  if(migrateCopy)for(const [id,body]of Object.entries({'demo-request-in':'A hello from the local request demo.','demo-request-out':'A local introduction waiting for a decision.'})){
+    const item=root.social?.requests?.[id]
+    if(item?.demo===true&&item.body===body)item.body=demoRequestText[id]
+  }
   for(const thread of root.fixtures?.[demoScope]?.threads||[]){
     const name=['echo','notes'].find(name=>thread.id==='demo-thread-'+name&&thread.participantId==='demo-friend-'+name)
     if(name)thread.messages=(thread.messages||[]).filter(m=>!(m.id===name+'-voice'&&m.kind==='voice'&&!m.mediaId&&m.asset==='demo/local-voice.wav'&&m.sentByMe===true))

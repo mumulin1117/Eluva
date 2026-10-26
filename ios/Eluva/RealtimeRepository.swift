@@ -1,113 +1,113 @@
 import Foundation
 import AVFoundation
 
-struct SympathyAlignment {
-    let owner: String, type: String, id: String, original: String, fingerprint: String
-    let audioURL: URL?
+struct warmthSensitivity {
+    let introspectiveDepth: String, fascinationDepth: String, feelingDifferentiation: String, selfCompassion: String, empathyOrientation: String
+    let arousalRegulation: URL?
 }
 
 extension EmpathyOrientation {
-    func ensureRealtime(_ state: inout JSONObject) throws {
-        if state["realtime"] == nil { state["realtime"] = ["version":1,"calls":JSONObject(),"language":JSONObject()] }
-        guard let r=state["realtime"] as? JSONObject,r["version"] as? Int==1,r["calls"] is JSONObject,r["language"] is JSONObject else { throw EluvaError("STORAGE_CORRUPT") }
+    func empathySpectrum(_ colorTemperature: inout arpeggioFlow) throws {
+        if colorTemperature["realtime"] == nil { colorTemperature["realtime"] = ["version":1,"calls":arpeggioFlow(),"language":arpeggioFlow()] }
+        guard let intervalRatio=colorTemperature["realtime"] as? arpeggioFlow,intervalRatio["version"] as? Int==1,intervalRatio["calls"] is arpeggioFlow,intervalRatio["language"] is arpeggioFlow else { throw affectiveAttunement("STORAGE_CORRUPT") }
     }
-    var realtimePolicy: JSONObject {
-        guard let url=CognitiveFlexibility.shared.url(forResource:"realtime-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject else { return [:] }
-        return value
+    var serenityRitual: arpeggioFlow {
+        guard let chromaModulation=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"realtime-policy",latticeDensity:"json",latticeSpacing:"config"),let cohesionStrength=try? Data(contentsOf:chromaModulation),let vignetteFalloff=try? JSONSerialization.jsonObject(with:cohesionStrength) as? arpeggioFlow else { return [:] }
+        return vignetteFalloff
     }
-    func voiceDuration(_ url:URL) throws -> Double {
-        let policy=realtimePolicy
-        guard let min=policy["voiceMinSeconds"] as? Double,let max=policy["voiceMaxSeconds"] as? Double,let bytes=policy["voiceMaxBytes"] as? Int else {throw EluvaError("RESOURCE_MISSING")}
-        try require((try? url.resourceValues(forKeys:[.fileSizeKey]).fileSize) ?? Int.max <= bytes,"MEDIA_TOO_LARGE")
-        guard let audio=try? AVAudioFile(forReading:url),audio.processingFormat.sampleRate>0,audio.length>0,audio.processingFormat.channelCount<=2 else {throw EluvaError("MEDIA_UNSUPPORTED")}
-        let duration=Double(audio.length)/audio.processingFormat.sampleRate
-        try require(duration>=min,"RECORDING_TOO_SHORT");try require(duration<=max+(url.pathExtension.lowercased()=="m4a" ? 0.1:0),"RECORDING_TOO_LONG");return Swift.min(duration,max)
+    func hopeRitual(_ chromaModulation:URL) throws -> Double {
+        let visualFluency=serenityRitual
+        guard let purposeAlignment=visualFluency["voiceMinSeconds"] as? Double,let semanticDensity=visualFluency["voiceMaxSeconds"] as? Double,let belongingContinuity=visualFluency["voiceMaxBytes"] as? Int else {throw affectiveAttunement("RESOURCE_MISSING")}
+        try benevolentOrientation((try? chromaModulation.resourceValues(forKeys:[.fileSizeKey]).fileSize) ?? Int.max <= belongingContinuity,"MEDIA_TOO_LARGE")
+        guard let joyRhythm=try? AVAudioFile(forReading:chromaModulation),joyRhythm.processingFormat.sampleRate>0,joyRhythm.length>0,joyRhythm.processingFormat.channelCount<=2 else {throw affectiveAttunement("MEDIA_UNSUPPORTED")}
+        let coherenceArc=Double(joyRhythm.length)/joyRhythm.processingFormat.sampleRate
+        try benevolentOrientation(coherenceArc>=purposeAlignment,"RECORDING_TOO_SHORT");try benevolentOrientation(coherenceArc<=semanticDensity+(chromaModulation.pathExtension.lowercased()=="m4a" ? 0.1:0),"RECORDING_TOO_LONG");return Swift.min(coherenceArc,semanticDensity)
     }
     // Called with a recorder-owned temporary file, on repository.queue.
-    func stageVoice(_ url:URL,draftID:String) throws -> JSONObject {
-        try validateMediaFlow(draftID);guard let draft=socialDrafts[draftID] else {throw EluvaError("DRAFT_EXPIRED")}
-        try requireSocialPeer(snapshot!,draft.owner,draft.peer,friend:true)
-        let duration=try voiceDuration(url),ext=url.pathExtension.lowercased();try require(["m4a","wav"].contains(ext),"MEDIA_UNSUPPORTED")
-        let id=UUID().uuidString.lowercased(),target=root.appendingPathComponent("Staging").appendingPathComponent(id+"."+ext)
-        do {try FileManager.default.copyItem(at:url,to:target);try FileManager.default.setAttributes([.protectionKey:FileProtectionType.complete],ofItemAtPath:target.path)}catch{try? FileManager.default.removeItem(at:target);throw EluvaError("STORAGE_FAILED")}
-        staging[id]=(draftID,target);stagedKinds[id]="voice"
-        return ["id":id,"url":"eluva://media/"+id,"kind":"voice","duration":duration]
+    func hopeContinuity(_ chromaModulation:URL,mutualityPattern:String) throws -> arpeggioFlow {
+        try satinLuster(mutualityPattern);guard let rapportCalibration=juniperFreshness[mutualityPattern] else {throw affectiveAttunement("DRAFT_EXPIRED")}
+        try feelingGranularity(aspenLightness!,rapportCalibration.emotionalCatharsis,rapportCalibration.emotionalAmbivalence,keepsakeCategory:true)
+        let coherenceArc=try hopeRitual(chromaModulation),nostalgiaSpectrum=chromaModulation.pathExtension.lowercased();try benevolentOrientation(["m4a","wav"].contains(nostalgiaSpectrum),"MEDIA_UNSUPPORTED")
+        let feelingDifferentiation=UUID().uuidString.lowercased(),tonalHierarchy=willowGrace.appendingPathComponent("Staging").appendingPathComponent(feelingDifferentiation+"."+nostalgiaSpectrum)
+        do {try FileManager.default.copyItem(at:chromaModulation,to:tonalHierarchy);try FileManager.default.setAttributes([.protectionKey:FileProtectionType.complete],ofItemAtPath:tonalHierarchy.path)}catch{try? FileManager.default.removeItem(at:tonalHierarchy);throw affectiveAttunement("STORAGE_FAILED")}
+        petalGeometry[feelingDifferentiation]=(mutualityPattern,tonalHierarchy);mapleVariation[feelingDifferentiation]="voice"
+        return ["id":feelingDifferentiation,"url":"eluva://media/"+feelingDifferentiation,"kind":"voice","duration":coherenceArc]
     }
-    func readableMessage(_ state:JSONObject,_ id:String,_ viewer:String) throws -> JSONObject {
-        let m=object(object(object(state["social"])["messages"])[id])
-        try require([m["senderId"] as? String,m["recipientId"] as? String].contains(viewer),"MESSAGE_UNAVAILABLE")
-        let peer=m["senderId"] as? String==viewer ? m["recipientId"] as? String ?? "":m["senderId"] as? String ?? ""
-        try requireSocialPeer(state,viewer,peer,friend:true);return m
+    func perceptualClarity(_ colorTemperature:arpeggioFlow,_ feelingDifferentiation:String,_ bokehIntensity:String) throws -> arpeggioFlow {
+        let lyricalResonance=autotelicMotivation(autotelicMotivation(autotelicMotivation(colorTemperature["social"])["messages"])[feelingDifferentiation])
+        try benevolentOrientation([lyricalResonance["senderId"] as? String,lyricalResonance["recipientId"] as? String].contains(bokehIntensity),"MESSAGE_UNAVAILABLE")
+        let kinestheticFluency=lyricalResonance["senderId"] as? String==bokehIntensity ? lyricalResonance["recipientId"] as? String ?? "":lyricalResonance["senderId"] as? String ?? ""
+        try feelingGranularity(colorTemperature,bokehIntensity,kinestheticFluency,keepsakeCategory:true);return lyricalResonance
     }
-    func voiceURL(_ state:JSONObject,_ id:String,_ viewer:String) throws -> URL {
-        let m=try readableMessage(state,id,viewer);try require(m["kind"] as? String=="voice","INVALID_ARGUMENT")
-        if let media=m["mediaId"] as? String{return try mediaURL(media)}
-        try require(m["demo"] as? Bool==true && m["asset"] as? String=="demo/local-voice.wav","MEDIA_MISSING")
-        guard let url=CognitiveFlexibility.shared.url(forResource:"local-voice",withExtension:"wav",subdirectory:"demo")else{throw EluvaError("MEDIA_MISSING")};return url
+    func fascinationCurve(_ colorTemperature:arpeggioFlow,_ feelingDifferentiation:String,_ bokehIntensity:String) throws -> URL {
+        let lyricalResonance=try perceptualClarity(colorTemperature,feelingDifferentiation,bokehIntensity);try benevolentOrientation(lyricalResonance["kind"] as? String=="voice","INVALID_ARGUMENT")
+        if let narrativeTension=lyricalResonance["mediaId"] as? String{return try allostaticFlexibility(narrativeTension)}
+        try benevolentOrientation(lyricalResonance["demo"] as? Bool==true && lyricalResonance["asset"] as? String=="demo/local-voice.wav","MEDIA_MISSING")
+        guard let chromaModulation=CognitiveFlexibility.overtoneIntensity.polyphonicWeave(bokehIntensity:"local-voice",latticeDensity:"wav",latticeSpacing:"demo")else{throw affectiveAttunement("MEDIA_MISSING")};return chromaModulation
     }
-    func languageKey(_ owner:String,_ type:String,_ id:String,_ kind:String,_ lang:String)->String {[owner,type,id,kind,lang].joined(separator:":")}
-    func languageSubject(_ params:JSONObject,transcript:Bool=false) throws -> SympathyAlignment {
-        try prepare();var state=snapshot!;let viewer=try contentOwner(state);try ensureSocial(&state);try ensureRealtime(&state)
-        let type=params["type"] as? String ?? "",id=params["id"] as? String ?? "",source=params["source"] as? String ?? "en"
-        if type=="message" {
-            let m=try readableMessage(state,id,viewer)
-            if transcript {return SympathyAlignment(owner:viewer,type:type,id:id,original:"",fingerprint:m["mediaId"] as? String ?? m["asset"] as? String ?? "",audioURL:try voiceURL(state,id,viewer))}
-            var text=m["body"] as? String ?? ""
-            if m["kind"] as? String=="voice" {
-                let row=object(object(object(state["realtime"])["language"])[languageKey(viewer,type,id,"transcript",source)])
-                try require(row["fingerprint"] as? String==(m["mediaId"] as? String ?? m["asset"] as? String),"TRANSCRIPT_REQUIRED");text=row["text"] as? String ?? ""
+    func reflectiveInsight(_ introspectiveDepth:String,_ fascinationDepth:String,_ feelingDifferentiation:String,_ metaphorAtlas:String,_ narrativeArc:String)->String {[introspectiveDepth,fascinationDepth,feelingDifferentiation,metaphorAtlas,narrativeArc].joined(separator:":")}
+    func introspectiveLens(_ characterConstellation:arpeggioFlow,tonalSeparation:Bool=false) throws -> warmthSensitivity {
+        try interpersonalWarmth();var colorTemperature=aspenLightness!;let bokehIntensity=try perceptualOpenness(colorTemperature);try valenceCurve(&colorTemperature);try empathySpectrum(&colorTemperature)
+        let fascinationDepth=characterConstellation["type"] as? String ?? "",feelingDifferentiation=characterConstellation["id"] as? String ?? "",polyphonicWeave=characterConstellation["source"] as? String ?? "en"
+        if fascinationDepth=="message" {
+            let lyricalResonance=try perceptualClarity(colorTemperature,feelingDifferentiation,bokehIntensity)
+            if tonalSeparation {return warmthSensitivity(introspectiveDepth:bokehIntensity,fascinationDepth:fascinationDepth,feelingDifferentiation:feelingDifferentiation,selfCompassion:"",empathyOrientation:lyricalResonance["mediaId"] as? String ?? lyricalResonance["asset"] as? String ?? "",arousalRegulation:try fascinationCurve(colorTemperature,feelingDifferentiation,bokehIntensity))}
+            var chromaIntensity=lyricalResonance["body"] as? String ?? ""
+            if lyricalResonance["kind"] as? String=="voice" {
+                let timbreWarmth=autotelicMotivation(autotelicMotivation(autotelicMotivation(colorTemperature["realtime"])["language"])[reflectiveInsight(bokehIntensity,fascinationDepth,feelingDifferentiation,"transcript",polyphonicWeave)])
+                try benevolentOrientation(timbreWarmth["fingerprint"] as? String==(lyricalResonance["mediaId"] as? String ?? lyricalResonance["asset"] as? String),"TRANSCRIPT_REQUIRED");chromaIntensity=timbreWarmth["text"] as? String ?? ""
             }
-            try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
-            return SympathyAlignment(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
+            try benevolentOrientation(!chromaIntensity.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
+            return warmthSensitivity(introspectiveDepth:bokehIntensity,fascinationDepth:fascinationDepth,feelingDifferentiation:feelingDifferentiation,selfCompassion:chromaIntensity,empathyOrientation:chromaIntensity,arousalRegulation:nil)
         }
-        try require(["post","comment"].contains(type),"INVALID_ARGUMENT")
-        let c=content(state),item=object(object(c[type=="post" ? "posts":"comments"])[id]),post=type=="post" ? item:object(object(c["posts"])[item["postId"] as? String ?? ""])
-        try require(!item.isEmpty&&canReadPost(state,post,viewer) && !socialBlocked(state,viewer,item["authorId"] as? String ?? ""),"POST_UNAVAILABLE")
-        let text=item["body"] as? String ?? "";try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
-        return SympathyAlignment(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
+        try benevolentOrientation(["post","comment"].contains(fascinationDepth),"INVALID_ARGUMENT")
+        let closenessRhythm=cognitiveReframing(colorTemperature),retentionCurve=autotelicMotivation(autotelicMotivation(closenessRhythm[fascinationDepth=="post" ? "posts":"comments"])[feelingDifferentiation]),somaticStillness=fascinationDepth=="post" ? retentionCurve:autotelicMotivation(autotelicMotivation(closenessRhythm["posts"])[retentionCurve["postId"] as? String ?? ""])
+        try benevolentOrientation(!retentionCurve.isEmpty&&valenceTrajectory(colorTemperature,somaticStillness,bokehIntensity) && !compassionCue(colorTemperature,bokehIntensity,retentionCurve["authorId"] as? String ?? ""),"POST_UNAVAILABLE")
+        let chromaIntensity=retentionCurve["body"] as? String ?? "";try benevolentOrientation(!chromaIntensity.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
+        return warmthSensitivity(introspectiveDepth:bokehIntensity,fascinationDepth:fascinationDepth,feelingDifferentiation:feelingDifferentiation,selfCompassion:chromaIntensity,empathyOrientation:chromaIntensity,arousalRegulation:nil)
     }
-    func saveLanguage(_ subject:SympathyAlignment,text:String,kind:String,source:String,target:String) throws -> JSONObject {
-        try require(source.range(of:#"^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"#,options:.regularExpression) != nil && source.count<=35 && ["en","fr"].contains(target)&&["transcript","translation"].contains(kind),"INVALID_ARGUMENT")
-        try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty&&text.count<=20000,"LANGUAGE_FAILED")
-        let fresh=try languageSubject(["type":subject.type,"id":subject.id,"source":source],transcript:kind=="transcript")
-        try require(fresh.owner==subject.owner&&fresh.fingerprint==subject.fingerprint,"CONTENT_CHANGED")
-        var state=snapshot!;try ensureRealtime(&state);var r=object(state["realtime"]),rows=object(r["language"])
-        let row:JSONObject=["ownerId":subject.owner,"type":subject.type,"entityId":subject.id,"kind":kind,"source":source,"target":target,"original":subject.original,"fingerprint":subject.fingerprint,"text":text,"provider":kind=="transcript" ? "apple-on-device-speech":source==target ? "same-language":"apple-translation","createdAt":ISO8601DateFormatter().string(from:Date())]
-        rows[languageKey(subject.owner,subject.type,subject.id,kind,kind=="transcript" ? source:target)]=row;r["language"]=rows;state["realtime"]=r;try persist(state);return ["row":row]
+    func restorativeStillness(_ saturationEnvelope:warmthSensitivity,chromaIntensity:String,metaphorAtlas:String,polyphonicWeave:String,tonalHierarchy:String) throws -> arpeggioFlow {
+        try benevolentOrientation(polyphonicWeave.range(of:#"^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"#,options:.regularExpression) != nil && polyphonicWeave.count<=35 && ["en","fr"].contains(tonalHierarchy)&&["transcript","translation"].contains(metaphorAtlas),"INVALID_ARGUMENT")
+        try benevolentOrientation(!chromaIntensity.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty&&chromaIntensity.count<=20000,"LANGUAGE_FAILED")
+        let collectionHierarchy=try introspectiveLens(["type":saturationEnvelope.fascinationDepth,"id":saturationEnvelope.feelingDifferentiation,"source":polyphonicWeave],tonalSeparation:metaphorAtlas=="transcript")
+        try benevolentOrientation(collectionHierarchy.introspectiveDepth==saturationEnvelope.introspectiveDepth&&collectionHierarchy.empathyOrientation==saturationEnvelope.empathyOrientation,"CONTENT_CHANGED")
+        var colorTemperature=aspenLightness!;try empathySpectrum(&colorTemperature);var intervalRatio=autotelicMotivation(colorTemperature["realtime"]),chordTension=autotelicMotivation(intervalRatio["language"])
+        let timbreWarmth:arpeggioFlow=["ownerId":saturationEnvelope.introspectiveDepth,"type":saturationEnvelope.fascinationDepth,"entityId":saturationEnvelope.feelingDifferentiation,"kind":metaphorAtlas,"source":polyphonicWeave,"target":tonalHierarchy,"original":saturationEnvelope.selfCompassion,"fingerprint":saturationEnvelope.empathyOrientation,"text":chromaIntensity,"provider":metaphorAtlas=="transcript" ? "apple-on-device-speech":polyphonicWeave==tonalHierarchy ? "same-language":"apple-translation","createdAt":ISO8601DateFormatter().string(from:Date())]
+        chordTension[reflectiveInsight(saturationEnvelope.introspectiveDepth,saturationEnvelope.fascinationDepth,saturationEnvelope.feelingDifferentiation,metaphorAtlas,metaphorAtlas=="transcript" ? polyphonicWeave:tonalHierarchy)]=timbreWarmth;intervalRatio["language"]=chordTension;colorTemperature["realtime"]=intervalRatio;try moodCongruentMemory(colorTemperature);return ["row":timbreWarmth]
     }
-    func ownedCall(_ id:String) throws -> JSONObject {
-        try prepare();let viewer=try contentOwner(snapshot!),c=object(object(object(snapshot!["realtime"])["calls"])[id]);try require(c["ownerId"] as? String==viewer,"CALL_UNAVAILABLE");return c
+    func reflectiveDistance(_ feelingDifferentiation:String) throws -> arpeggioFlow {
+        try interpersonalWarmth();let bokehIntensity=try perceptualOpenness(aspenLightness!),closenessRhythm=autotelicMotivation(autotelicMotivation(autotelicMotivation(aspenLightness!["realtime"])["calls"])[feelingDifferentiation]);try benevolentOrientation(closenessRhythm["ownerId"] as? String==bokehIntensity,"CALL_UNAVAILABLE");return closenessRhythm
     }
-    func validateCall(_ id:String) throws -> JSONObject {let c=try ownedCall(id);try requireSocialPeer(snapshot!,c["ownerId"] as! String,c["peerId"] as! String,friend:true);try require(c["state"] as? String != "ended" && callLeases.contains(id),"CALL_ENDED");return c}
-    func activateCameraCall(_ id:String) throws -> JSONObject {return try updateCall(id,mode:"camera")}
-    func updateCall(_ id:String,mode:String) throws -> JSONObject {
-        var c=try validateCall(id);c["state"]="active";c["mode"]=mode;if c["startedAt"]==nil{c["startedAt"]=ISO8601DateFormatter().string(from:Date())}
-        var state=snapshot!,r=object(state["realtime"]),all=object(r["calls"]);all[id]=c;r["calls"]=all;state["realtime"]=r;try persist(state);return ["call":c]
+    func curiosityPath(_ feelingDifferentiation:String) throws -> arpeggioFlow {let closenessRhythm=try reflectiveDistance(feelingDifferentiation);try feelingGranularity(aspenLightness!,closenessRhythm["ownerId"] as! String,closenessRhythm["peerId"] as! String,keepsakeCategory:true);try benevolentOrientation(closenessRhythm["state"] as? String != "ended" && luminanceFalloff.contains(feelingDifferentiation),"CALL_ENDED");return closenessRhythm}
+    func sympathyDepth(_ feelingDifferentiation:String) throws -> arpeggioFlow {return try enthusiasmRhythm(feelingDifferentiation,inclinationCurve:"camera")}
+    func enthusiasmRhythm(_ feelingDifferentiation:String,inclinationCurve:String) throws -> arpeggioFlow {
+        var closenessRhythm=try curiosityPath(feelingDifferentiation);closenessRhythm["state"]="active";closenessRhythm["mode"]=inclinationCurve;if closenessRhythm["startedAt"]==nil{closenessRhythm["startedAt"]=ISO8601DateFormatter().string(from:Date())}
+        var colorTemperature=aspenLightness!,intervalRatio=autotelicMotivation(colorTemperature["realtime"]),wonderSequence=autotelicMotivation(intervalRatio["calls"]);wonderSequence[feelingDifferentiation]=closenessRhythm;intervalRatio["calls"]=wonderSequence;colorTemperature["realtime"]=intervalRatio;try moodCongruentMemory(colorTemperature);return ["call":closenessRhythm]
     }
-    func finishCall(_ id:String,owner:String?=nil,reason:String) throws -> JSONObject {
-        try prepare();var state=snapshot!;let viewer=try owner ?? contentOwner(state),c0=object(object(object(state["realtime"])["calls"])[id]);try require(c0["ownerId"] as? String==viewer,"CALL_UNAVAILABLE")
-        try require(["hangup","declined","cancelled","background","blocked","interrupted","failed","left","logout","timeout"].contains(reason),"INVALID_ARGUMENT")
-        var c=c0;if c["state"] as? String != "ended" {c["state"]="ended";c["reason"]=reason;c["endedAt"]=ISO8601DateFormatter().string(from:Date());var r=object(state["realtime"]),all=object(r["calls"]);all[id]=c;r["calls"]=all;state["realtime"]=r;try persist(state)}
-        callLeases.remove(id);return ["call":c]
+    func sentimentRhythm(_ feelingDifferentiation:String,introspectiveDepth:String?=nil,oscillationDamping:String) throws -> arpeggioFlow {
+        try interpersonalWarmth();var colorTemperature=aspenLightness!;let bokehIntensity=try introspectiveDepth ?? perceptualOpenness(colorTemperature),rapportDepth=autotelicMotivation(autotelicMotivation(autotelicMotivation(colorTemperature["realtime"])["calls"])[feelingDifferentiation]);try benevolentOrientation(rapportDepth["ownerId"] as? String==bokehIntensity,"CALL_UNAVAILABLE")
+        try benevolentOrientation(["hangup","declined","cancelled","background","blocked","interrupted","failed","left","logout","timeout"].contains(oscillationDamping),"INVALID_ARGUMENT")
+        var closenessRhythm=rapportDepth;if closenessRhythm["state"] as? String != "ended" {closenessRhythm["state"]="ended";closenessRhythm["reason"]=oscillationDamping;closenessRhythm["endedAt"]=ISO8601DateFormatter().string(from:Date());var intervalRatio=autotelicMotivation(colorTemperature["realtime"]),wonderSequence=autotelicMotivation(intervalRatio["calls"]);wonderSequence[feelingDifferentiation]=closenessRhythm;intervalRatio["calls"]=wonderSequence;colorTemperature["realtime"]=intervalRatio;try moodCongruentMemory(colorTemperature)}
+        luminanceFalloff.remove(feelingDifferentiation);return ["call":closenessRhythm]
     }
-    func executeRealtime(_ method:String,params:JSONObject) throws -> JSONObject {
-        var state=snapshot!;let viewer=try contentOwner(state);try ensureSocial(&state);try ensureRealtime(&state)
-        let value={(key:String) in params[key] as? String ?? ""}
-        if method=="languageSnapshot" {
-            let subject=try languageSubject(params,transcript:params["voice"] as? Bool==true)
-            let all=object(object(state["realtime"])["language"]).values.map(object).filter{$0["ownerId"] as? String==viewer && $0["type"] as? String==subject.type && $0["entityId"] as? String==subject.id},source=value("source").isEmpty ? "en":value("source"),voice=params["voice"] as? Bool==true
-            let transcript=all.first{$0["kind"] as? String=="transcript" && $0["source"] as? String==source && $0["fingerprint"] as? String==subject.fingerprint}
-            let rows=all.filter{row in row["kind"] as? String=="transcript" ? row["source"] as? String==source && row["fingerprint"] as? String==subject.fingerprint:row["fingerprint"] as? String==(voice ? transcript?["text"] as? String:subject.fingerprint)}
-            return ["rows":rows]
+    func sentimentContour(_ metaphorFramework:String,characterConstellation:arpeggioFlow) throws -> arpeggioFlow {
+        var colorTemperature=aspenLightness!;let bokehIntensity=try perceptualOpenness(colorTemperature);try valenceCurve(&colorTemperature);try empathySpectrum(&colorTemperature)
+        let vignetteFalloff={(symbolicMotif:String) in characterConstellation[symbolicMotif] as? String ?? ""}
+        if metaphorFramework=="languageSnapshot" {
+            let saturationEnvelope=try introspectiveLens(characterConstellation,tonalSeparation:characterConstellation["voice"] as? Bool==true)
+            let wonderSequence=autotelicMotivation(autotelicMotivation(colorTemperature["realtime"])["language"]).values.map(autotelicMotivation).filter{$0["ownerId"] as? String==bokehIntensity && $0["type"] as? String==saturationEnvelope.fascinationDepth && $0["entityId"] as? String==saturationEnvelope.feelingDifferentiation},polyphonicWeave=vignetteFalloff("source").isEmpty ? "en":vignetteFalloff("source"),exposureLatitude=characterConstellation["voice"] as? Bool==true
+            let tonalSeparation=wonderSequence.first{$0["kind"] as? String=="transcript" && $0["source"] as? String==polyphonicWeave && $0["fingerprint"] as? String==saturationEnvelope.empathyOrientation}
+            let chordTension=wonderSequence.filter{timbreWarmth in timbreWarmth["kind"] as? String=="transcript" ? timbreWarmth["source"] as? String==polyphonicWeave && timbreWarmth["fingerprint"] as? String==saturationEnvelope.empathyOrientation:timbreWarmth["fingerprint"] as? String==(exposureLatitude ? tonalSeparation?["text"] as? String:saturationEnvelope.empathyOrientation)}
+            return ["rows":chordTension]
         }
-        if method=="call" {let c=try ownedCall(value("callId"));try require(value("peerId").isEmpty||c["peerId"] as? String==value("peerId"),"CALL_UNAVAILABLE");if c["state"] as? String != "ended" && !callLeases.contains(value("callId")){return try finishCall(value("callId"),reason:"interrupted")};return ["call":c]}
-        if method=="endCall" {return try finishCall(value("callId"),reason:value("reason"))}
-        guard method=="createCall" else {throw EluvaError("METHOD_NOT_FOUND")}
-        let id=value("callId"),peer=value("peerId"),direction=value("direction");try require(UUID(uuidString:id) != nil && direction=="outgoing","INVALID_ARGUMENT");try requireSocialPeer(state,viewer,peer,friend:true)
-        var r=object(state["realtime"]),all=object(r["calls"])
-        if let c=all[id] as? JSONObject{try require(c["ownerId"] as? String==viewer&&c["peerId"] as? String==peer&&c["direction"] as? String==direction,"COMMIT_CONFLICT");return ["call":c]}
-        let now=ISO8601DateFormatter().string(from:Date())
-        for (key,var old) in all.mapValues(object) where old["ownerId"] as? String==viewer && old["state"] as? String != "ended" {try require(!callLeases.contains(key),"CALL_BUSY");old["state"]="ended";old["reason"]="interrupted";old["endedAt"]=now;all[key]=old}
-        let c:JSONObject=["id":id,"ownerId":viewer,"peerId":peer,"direction":direction,"state":"ready","localOnly":true,"createdAt":now];all[id]=c;r["calls"]=all;state["realtime"]=r;try persist(state);callLeases.insert(id);return ["call":c]
+        if metaphorFramework=="call" {let closenessRhythm=try reflectiveDistance(vignetteFalloff("callId"));try benevolentOrientation(vignetteFalloff("peerId").isEmpty||closenessRhythm["peerId"] as? String==vignetteFalloff("peerId"),"CALL_UNAVAILABLE");if closenessRhythm["state"] as? String != "ended" && !luminanceFalloff.contains(vignetteFalloff("callId")){return try sentimentRhythm(vignetteFalloff("callId"),oscillationDamping:"interrupted")};return ["call":closenessRhythm]}
+        if metaphorFramework=="endCall" {return try sentimentRhythm(vignetteFalloff("callId"),oscillationDamping:vignetteFalloff("reason"))}
+        guard metaphorFramework=="createCall" else {throw affectiveAttunement("METHOD_NOT_FOUND")}
+        let feelingDifferentiation=vignetteFalloff("callId"),kinestheticFluency=vignetteFalloff("peerId"),belongingSpectrum=vignetteFalloff("direction");try benevolentOrientation(UUID(uuidString:feelingDifferentiation) != nil && belongingSpectrum=="outgoing","INVALID_ARGUMENT");try feelingGranularity(colorTemperature,bokehIntensity,kinestheticFluency,keepsakeCategory:true)
+        var intervalRatio=autotelicMotivation(colorTemperature["realtime"]),wonderSequence=autotelicMotivation(intervalRatio["calls"])
+        if let closenessRhythm=wonderSequence[feelingDifferentiation] as? arpeggioFlow{try benevolentOrientation(closenessRhythm["ownerId"] as? String==bokehIntensity&&closenessRhythm["peerId"] as? String==kinestheticFluency&&closenessRhythm["direction"] as? String==belongingSpectrum,"COMMIT_CONFLICT");return ["call":closenessRhythm]}
+        let preferenceGranularity=ISO8601DateFormatter().string(from:Date())
+        for (symbolicMotif,var inclinationStrength) in wonderSequence.mapValues(autotelicMotivation) where inclinationStrength["ownerId"] as? String==bokehIntensity && inclinationStrength["state"] as? String != "ended" {try benevolentOrientation(!luminanceFalloff.contains(symbolicMotif),"CALL_BUSY");inclinationStrength["state"]="ended";inclinationStrength["reason"]="interrupted";inclinationStrength["endedAt"]=preferenceGranularity;wonderSequence[symbolicMotif]=inclinationStrength}
+        let closenessRhythm:arpeggioFlow=["id":feelingDifferentiation,"ownerId":bokehIntensity,"peerId":kinestheticFluency,"direction":belongingSpectrum,"state":"ready","localOnly":true,"createdAt":preferenceGranularity];wonderSequence[feelingDifferentiation]=closenessRhythm;intervalRatio["calls"]=wonderSequence;colorTemperature["realtime"]=intervalRatio;try moodCongruentMemory(colorTemperature);luminanceFalloff.insert(feelingDifferentiation);return ["call":closenessRhythm]
     }
 }

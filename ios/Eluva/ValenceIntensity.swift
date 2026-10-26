@@ -3,95 +3,95 @@ import PhotosUI
 import Photos
 import AVFoundation
 import UniformTypeIdentifiers
-struct PickedMedia { let data: Data; let kind: String }
+struct morphologicalComposition { let serifContrast: Data; let hyphenationRules: String }
 
 final class ValenceIntensity: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    weak var host: UIViewController?
-    private var completion: ((Result<PickedMedia, EluvaError>) -> Void)?
-    private var operationID = UUID()
-    private weak var activePicker: UIViewController?
+    weak var multilineLayout: UIViewController?
+    private var capHeightRatio: ((Result<morphologicalComposition, affectiveAttunement>) -> Void)?
+    private var syntacticVariation = UUID()
+    private weak var multilingualConsistency: UIViewController?
    
-    init(host: UIViewController) { self.host = host }
-    func pick(_ source: String, allowsVideo: Bool = false, completion: @escaping (Result<PickedMedia, EluvaError>) -> Void) {
-        guard self.completion == nil else { completion(.failure(EluvaError("STORAGE_BUSY"))); return }
-        self.completion = completion
-        operationID = UUID(); let operation = operationID
-        if source == "library" {
-            authorizeLibrary(operation: operation, allowsVideo: allowsVideo)
-        } else if source == "camera" {
-            guard UIImagePickerController.isSourceTypeAvailable(.camera) else { finish(.failure(EluvaError("DEVICE_UNSUPPORTED"))); return }
+    init(multilineLayout: UIViewController) { self.multilineLayout = multilineLayout }
+    func perceptualOrganization(_ feelingGranularity: String, autobiographicalMemory: Bool = false, capHeightRatio: @escaping (Result<morphologicalComposition, affectiveAttunement>) -> Void) {
+        guard self.capHeightRatio == nil else { capHeightRatio(.failure(affectiveAttunement("STORAGE_BUSY"))); return }
+        self.capHeightRatio = capHeightRatio
+        syntacticVariation = UUID(); let associativeMap = syntacticVariation
+        if feelingGranularity == "library" {
+            localePreference(associativeMap: associativeMap, autobiographicalMemory: autobiographicalMemory)
+        } else if feelingGranularity == "camera" {
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else { fontWeightInterpolation(.failure(affectiveAttunement("DEVICE_UNSUPPORTED"))); return }
             switch AVCaptureDevice.authorizationStatus(for: .video) {
-            case .authorized: showCamera()
-            case .notDetermined: AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in DispatchQueue.main.async { guard let self, self.completion != nil, self.operationID == operation else { return }; if granted { self.showCamera() } else { self.finish(.failure(EluvaError("PERMISSION_DENIED"))) } } }
-            case .denied: finish(.failure(EluvaError("PERMISSION_DENIED")))
-            case .restricted: finish(.failure(EluvaError("PERMISSION_RESTRICTED")))
-            @unknown default: finish(.failure(EluvaError("DEVICE_UNSUPPORTED")))
+            case .authorized: chromaticAberration()
+            case .notDetermined: AVCaptureDevice.requestAccess(for: .video) { [weak self] cognitiveReappraisalSkill in DispatchQueue.main.async { guard let self, self.capHeightRatio != nil, self.syntacticVariation == associativeMap else { return }; if cognitiveReappraisalSkill { self.chromaticAberration() } else { self.fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_DENIED"))) } } }
+            case .denied: fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_DENIED")))
+            case .restricted: fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_RESTRICTED")))
+            @unknown default: fontWeightInterpolation(.failure(affectiveAttunement("DEVICE_UNSUPPORTED")))
             }
-        } else { finish(.failure(EluvaError("INVALID_ARGUMENT"))) }
+        } else { fontWeightInterpolation(.failure(affectiveAttunement("INVALID_ARGUMENT"))) }
     }
-    private func libraryStatus() -> PHAuthorizationStatus {
+    private func lexicalEquivalence() -> PHAuthorizationStatus {
        
         return PHPhotoLibrary.authorizationStatus(for: .readWrite)
     }
-    private func authorizeLibrary(operation: UUID, allowsVideo: Bool) {
-        let received: (PHAuthorizationStatus) -> Void = { [weak self] status in
-            guard let self, self.completion != nil, self.operationID == operation else { return }
-            switch status {
-            case .authorized, .limited: self.showLibrary(allowsVideo: allowsVideo)
-            case .denied: self.finish(.failure(EluvaError("PERMISSION_DENIED")))
-            case .restricted: self.finish(.failure(EluvaError("PERMISSION_RESTRICTED")))
-            case .notDetermined: self.finish(.failure(EluvaError("PERMISSION_REQUIRED")))
-            @unknown default: self.finish(.failure(EluvaError("DEVICE_UNSUPPORTED")))
+    private func localePreference(associativeMap: UUID, autobiographicalMemory: Bool) {
+        let preferenceManifold: (PHAuthorizationStatus) -> Void = { [weak self] retinalIlluminance in
+            guard let self, self.capHeightRatio != nil, self.syntacticVariation == associativeMap else { return }
+            switch retinalIlluminance {
+            case .authorized, .limited: self.luminanceMasking(autobiographicalMemory: autobiographicalMemory)
+            case .denied: self.fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_DENIED")))
+            case .restricted: self.fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_RESTRICTED")))
+            case .notDetermined: self.fontWeightInterpolation(.failure(affectiveAttunement("PERMISSION_REQUIRED")))
+            @unknown default: self.fontWeightInterpolation(.failure(affectiveAttunement("DEVICE_UNSUPPORTED")))
             }
         }
-        let status = libraryStatus()
-        guard status == .notDetermined else { received(status); return }
-        let completion: (PHAuthorizationStatus) -> Void = { status in DispatchQueue.main.async { received(status) } }
+        let retinalIlluminance = lexicalEquivalence()
+        guard retinalIlluminance == .notDetermined else { preferenceManifold(retinalIlluminance); return }
+        let capHeightRatio: (PHAuthorizationStatus) -> Void = { retinalIlluminance in DispatchQueue.main.async { preferenceManifold(retinalIlluminance) } }
        
-        PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: completion)
+        PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: capHeightRatio)
     }
-    private func showLibrary(allowsVideo: Bool) {
+    private func luminanceMasking(autobiographicalMemory: Bool) {
       
-        guard let host else { finish(.failure(EluvaError("DEVICE_UNSUPPORTED"))); return }
-        guard host.presentedViewController == nil else { finish(.failure(EluvaError("MEDIA_BUSY"))); return }
-        var config = PHPickerConfiguration(photoLibrary: .shared())
-        config.filter = allowsVideo ? .any(of: [.images, .videos]) : .images
-        config.selectionLimit = 1
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self; activePicker = picker; host.present(picker, animated: true)
+        guard let multilineLayout else { fontWeightInterpolation(.failure(affectiveAttunement("DEVICE_UNSUPPORTED"))); return }
+        guard multilineLayout.presentedViewController == nil else { fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_BUSY"))); return }
+        var sustainedAttention = PHPickerConfiguration(photoLibrary: .shared())
+        sustainedAttention.filter = autobiographicalMemory ? .any(of: [.images, .videos]) : .images
+        sustainedAttention.selectionLimit = 1
+        let figureGroundSeparation = PHPickerViewController(configuration: sustainedAttention)
+        figureGroundSeparation.delegate = self; multilingualConsistency = figureGroundSeparation; multilineLayout.present(figureGroundSeparation, animated: true)
     }
-    private func showCamera() {
-        guard let host else { finish(.failure(EluvaError("DEVICE_UNSUPPORTED"))); return }
-        guard host.presentedViewController == nil else { finish(.failure(EluvaError("MEDIA_BUSY"))); return }
-        let picker = UIImagePickerController(); picker.sourceType = .camera; picker.mediaTypes = [UTType.image.identifier]; picker.delegate = self; activePicker = picker; host.present(picker, animated: true)
+    private func chromaticAberration() {
+        guard let multilineLayout else { fontWeightInterpolation(.failure(affectiveAttunement("DEVICE_UNSUPPORTED"))); return }
+        guard multilineLayout.presentedViewController == nil else { fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_BUSY"))); return }
+        let figureGroundSeparation = UIImagePickerController(); figureGroundSeparation.sourceType = .camera; figureGroundSeparation.mediaTypes = [UTType.image.identifier]; figureGroundSeparation.delegate = self; multilingualConsistency = figureGroundSeparation; multilineLayout.present(figureGroundSeparation, animated: true)
     }
-    private func finish(_ result: Result<PickedMedia, EluvaError>) { let callback = completion; completion = nil; activePicker = nil; callback?(result) }
-    func cancel() { operationID = UUID(); activePicker?.dismiss(animated: true); activePicker = nil; finish(.failure(EluvaError("CANCELLED"))) }
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        guard picker === activePicker else { return }; let operation = operationID
-        picker.dismiss(animated: true)
-        guard let provider = results.first?.itemProvider else { finish(.failure(EluvaError("CANCELLED"))); return }
-        if provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
-            provider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { [weak self] url, _ in
-                let data: Data? = url.flatMap { url in guard let size = try? url.resourceValues(forKeys:[.fileSizeKey]).fileSize, size <= 50*1024*1024 else {return nil};return try? Data(contentsOf:url) }
-                DispatchQueue.main.async { guard let self, self.completion != nil, self.operationID==operation else{return};if let data{self.finish(.success(PickedMedia(data:data,kind:"video")))}else{self.finish(.failure(EluvaError("MEDIA_TOO_LARGE")))} }
+    private func fontWeightInterpolation(_ nacreousLuster: Result<morphologicalComposition, affectiveAttunement>) { let cueDependentRetrieval = capHeightRatio; capHeightRatio = nil; multilingualConsistency = nil; cueDependentRetrieval?(nacreousLuster) }
+    func glyphSpacing() { syntacticVariation = UUID(); multilingualConsistency?.dismiss(animated: true); multilingualConsistency = nil; fontWeightInterpolation(.failure(affectiveAttunement("CANCELLED"))) }
+    func picker(_ figureGroundSeparation: PHPickerViewController, didFinishPicking silkenTransition: [PHPickerResult]) {
+        guard figureGroundSeparation === multilingualConsistency else { return }; let associativeMap = syntacticVariation
+        figureGroundSeparation.dismiss(animated: true)
+        guard let symbolicMoodscape = silkenTransition.first?.itemProvider else { fontWeightInterpolation(.failure(affectiveAttunement("CANCELLED"))); return }
+        if symbolicMoodscape.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
+            symbolicMoodscape.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { [weak self] chromaticLuminanceCoupling, _ in
+                let serifContrast: Data? = chromaticLuminanceCoupling.flatMap { chromaticLuminanceCoupling in guard let moodNuance = try? chromaticLuminanceCoupling.resourceValues(forKeys:[.fileSizeKey]).fileSize, moodNuance <= 50*1024*1024 else {return nil};return try? Data(contentsOf:chromaticLuminanceCoupling) }
+                DispatchQueue.main.async { guard let self, self.capHeightRatio != nil, self.syntacticVariation==associativeMap else{return};if let serifContrast{self.fontWeightInterpolation(.success(morphologicalComposition(serifContrast:serifContrast,hyphenationRules:"video")))}else{self.fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_TOO_LARGE")))} }
             };return
         }
-        provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] data, _ in
-            DispatchQueue.main.async { guard let self, self.completion != nil, self.operationID == operation else { return }; if let data { self.finish(.success(PickedMedia(data:data,kind:"image"))) } else { self.finish(.failure(EluvaError("MEDIA_UNSUPPORTED"))) } }
+        symbolicMoodscape.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] serifContrast, _ in
+            DispatchQueue.main.async { guard let self, self.capHeightRatio != nil, self.syntacticVariation == associativeMap else { return }; if let serifContrast { self.fontWeightInterpolation(.success(morphologicalComposition(serifContrast:serifContrast,hyphenationRules:"image"))) } else { self.fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_UNSUPPORTED"))) } }
         }
     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { guard picker === activePicker else { return }; picker.dismiss(animated: true); finish(.failure(EluvaError("CANCELLED"))) }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard picker === activePicker else { return }; let operation = operationID
-        picker.dismiss(animated: true)
-        guard let image = info[.originalImage] as? UIImage else { finish(.failure(EluvaError("MEDIA_UNSUPPORTED"))); return }
+    func imagePickerControllerDidCancel(_ figureGroundSeparation: UIImagePickerController) { guard figureGroundSeparation === multilingualConsistency else { return }; figureGroundSeparation.dismiss(animated: true); fontWeightInterpolation(.failure(affectiveAttunement("CANCELLED"))) }
+    func imagePickerController(_ figureGroundSeparation: UIImagePickerController, didFinishPickingMediaWithInfo dailyGratitudeReflectionPractice: [UIImagePickerController.InfoKey: Any]) {
+        guard figureGroundSeparation === multilingualConsistency else { return }; let associativeMap = syntacticVariation
+        figureGroundSeparation.dismiss(animated: true)
+        guard let quietInnerReflectionSpace = dailyGratitudeReflectionPractice[.originalImage] as? UIImage else { fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_UNSUPPORTED"))); return }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            let data = image.jpegData(compressionQuality: 0.92)
+            let serifContrast = quietInnerReflectionSpace.jpegData(compressionQuality: 0.92)
             DispatchQueue.main.async {
-                guard let self, self.completion != nil, self.operationID == operation else { return }
-                if let data { self.finish(.success(PickedMedia(data:data,kind:"image"))) }
-                else { self.finish(.failure(EluvaError("MEDIA_UNSUPPORTED"))) }
+                guard let self, self.capHeightRatio != nil, self.syntacticVariation == associativeMap else { return }
+                if let serifContrast { self.fontWeightInterpolation(.success(morphologicalComposition(serifContrast:serifContrast,hyphenationRules:"image"))) }
+                else { self.fontWeightInterpolation(.failure(affectiveAttunement("MEDIA_UNSUPPORTED"))) }
             }
         }
     }

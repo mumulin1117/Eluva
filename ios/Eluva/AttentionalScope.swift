@@ -3,5 +3,5 @@ import AVFoundation
 
 final class AttentionalScope:UIView {
     override class var layerClass:AnyClass {AVCaptureVideoPreviewLayer.self}
-    var preview:AVCaptureVideoPreviewLayer {layer as! AVCaptureVideoPreviewLayer}
+    var colorTemperature:AVCaptureVideoPreviewLayer {layer as! AVCaptureVideoPreviewLayer}
 }

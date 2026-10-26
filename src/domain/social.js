@@ -2,6 +2,7 @@ import { invariant } from './errors.js'
 import { TEST_USER_ID, ageOn } from './validation.js'
 import { contentState, canReadPost } from './content.js'
 import { socialDemo } from '../data/social-demo.js'
+import { demoRequestText } from '../data/demo-fixtures.js'
 import { upgradeDemoSocial,demoPhotoAsset } from './demo-upgrade.js'
 import { publicProAppearance } from './personal.js'
 
@@ -21,8 +22,8 @@ export function socialState(root) {
         for(const [index,m] of (thread.messages||[]).entries())s.messages[owner+':'+m.id]={id:owner+':'+m.id,threadId:thread.id,senderId:m.sentByMe?owner:peer,recipientId:m.sentByMe?peer:owner,kind:m.kind,body:typeof m.body==='object'?m.body.en:m.body||'',...(typeof m.body==='object'?{translations:m.body}:{}),...(m.asset?{asset:m.asset}:{}),createdAt:new Date(Date.parse(stamp)+index*60000).toISOString(),readAt:null,demo:true}
       }
       if(owner===TEST_USER_ID){
-        s.requests['demo-request-in']={id:'demo-request-in',pair:pairId(owner,'demo-requester'),senderId:'demo-requester',recipientId:owner,body:'A hello from the local request demo.',status:'pending',createdAt:stamp,demo:true}
-        s.requests['demo-request-out']={id:'demo-request-out',pair:pairId(owner,'demo-recipient'),senderId:owner,recipientId:'demo-recipient',body:'A local introduction waiting for a decision.',status:'pending',createdAt:stamp,demo:true}
+        s.requests['demo-request-in']={id:'demo-request-in',pair:pairId(owner,'demo-requester'),senderId:'demo-requester',recipientId:owner,body:demoRequestText['demo-request-in'],status:'pending',createdAt:stamp,demo:true}
+        s.requests['demo-request-out']={id:'demo-request-out',pair:pairId(owner,'demo-recipient'),senderId:owner,recipientId:'demo-recipient',body:demoRequestText['demo-request-out'],status:'pending',createdAt:stamp,demo:true}
       }
     }
     root.social=s
