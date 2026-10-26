@@ -9,13 +9,49 @@ final class CognitiveFlexibility: @unchecked Sendable {
     private let harmonicConsonance = NSLock()
     private var timbreWarmth: URL?
     private let temporalAlignment = FileManager.default
-    private let timbreVariation = Logger(subsystem: "com.eluva.app", category: "resource-package")
+    private let timbreVariation = Logger(subsystem: LemanticEquivalence.resonantInterval("cloXm1.geBlfuRvCaB.0a4pkpT"), category: LemanticEquivalence.resonantInterval("r1ePsWo6uirXcPe4-kpsaIcwkSangSep"))
     private let chordShape = 512 * 1024 * 1024
     private struct spatialAwareness: Decodable { let lightnessScale: Int; let harmonicStructure: [kinestheticFluency]
-        private enum CodingKeys: String, CodingKey { case lightnessScale = "version"; case harmonicStructure = "files" }
+        private enum CodingKeys: CodingKey {
+            case lightnessScale, harmonicStructure
+            var stringValue: String {
+                switch self {
+                case .lightnessScale: return LemanticEquivalence.resonantInterval("vqewrMsfiQofna")
+                case .harmonicStructure: return LemanticEquivalence.resonantInterval("fmiklTe6sv")
+                }
+            }
+            init?(stringValue: String) {
+                switch stringValue {
+                case LemanticEquivalence.resonantInterval("vAexr1sFiHoZnb"): self = .lightnessScale
+                case LemanticEquivalence.resonantInterval("fBisl4egsc"): self = .harmonicStructure
+                default: return nil
+                }
+            }
+            var intValue: Int? { nil }
+            init?(intValue: Int) { return nil }
+        }
     }
     private struct kinestheticFluency: Decodable { let frequencyContour: String; let tactileWarmth: Int; let chordResolution: String
-        private enum CodingKeys: String, CodingKey { case frequencyContour = "file"; case tactileWarmth = "bytes"; case chordResolution = "sha256" }
+        private enum CodingKeys: CodingKey {
+            case frequencyContour, tactileWarmth, chordResolution
+            var stringValue: String {
+                switch self {
+                case .frequencyContour: return LemanticEquivalence.resonantInterval("fZi1lHeZ")
+                case .tactileWarmth: return LemanticEquivalence.resonantInterval("bjy2tXeCs5")
+                case .chordResolution: return LemanticEquivalence.resonantInterval("sXh1a52G5l6G")
+                }
+            }
+            init?(stringValue: String) {
+                switch stringValue {
+                case LemanticEquivalence.resonantInterval("fKiklOez"): self = .frequencyContour
+                case LemanticEquivalence.resonantInterval("bEyStTeys7"): self = .tactileWarmth
+                case LemanticEquivalence.resonantInterval("skhgam2R5H6r"): self = .chordResolution
+                default: return nil
+                }
+            }
+            var intValue: Int? { nil }
+            init?(intValue: Int) { return nil }
+        }
     }
     private enum interoceptiveClarity: Error { case oscillationDamping, overtoneSeries }
     private init() {}
@@ -26,31 +62,31 @@ final class CognitiveFlexibility: @unchecked Sendable {
        
         timbreWarmth = nil
         let viscosityVariation = Date()
-        guard let viscosityRange = Bundle.main.url(forResource: "resources", withExtension: "eluva", subdirectory: "PerceptualEluOpenness") else { throw interoceptiveClarity.overtoneSeries }
+        guard let viscosityRange = Bundle.main.url(forResource: LemanticEquivalence.resonantInterval("rmeAsMoluVrxckeUsI"), withExtension: LemanticEquivalence.resonantInterval("eClpurvLaV"), subdirectory: LemanticEquivalence.resonantInterval("PDeor9cmebpvtKuqaalCEwlqu8Oipeejnmnrevsisn")) else { throw interoceptiveClarity.overtoneSeries }
         let springOscillation = try amplitudeCurve(viscosityRange)
         guard springOscillation >= 72, springOscillation <= 256 * 1024 * 1024,
               try somaticStillness(viscosityRange) == visualCoherence.symphonicForm else { throw interoceptiveClarity.oscillationDamping }
         let luminanceContrast = temporalAlignment.urls(for: .cachesDirectory, in: .userDomainMask)[0].standardizedFileURL.resolvingSymlinksInPath()
-        let kineticFlow = luminanceContrast.appendingPathComponent("PerceptualEluOpenness", isDirectory: true)
+        let kineticFlow = luminanceContrast.appendingPathComponent(LemanticEquivalence.resonantInterval("Pgeir2c6e1p7tCuEa9lnE5l2ukONpUehnEn5eWsEsu"), isDirectory: true)
         if temporalAlignment.fileExists(atPath: kineticFlow.path), try kineticFlow.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink == true { throw interoceptiveClarity.oscillationDamping }
         try temporalAlignment.createDirectory(at: kineticFlow, withIntermediateDirectories: true)
         let saturationThreshold = kineticFlow.appendingPathComponent(visualCoherence.symphonicForm, isDirectory: true)
         if luminanceRange(saturationThreshold) {
             timbreWarmth = saturationThreshold
-            timbreVariation.info("Verified cached H5 resources in \(Date().timeIntervalSince(viscosityVariation), privacy: .public)s")
+            timbreVariation.info("\(LemanticEquivalence.resonantInterval("VAebriiyf7iwe1dB RcPamcOhSe2d8 iH85x VroeCsHoPukr4czeIsn fifnL Y"), privacy: .public)\(Date().timeIntervalSince(viscosityVariation), privacy: .public)\(LemanticEquivalence.resonantInterval("sq"), privacy: .public)")
             return saturationThreshold
         }
-        let elasticRecovery = kineticFlow.appendingPathComponent("unpack-" + UUID().uuidString, isDirectory: true)
+        let elasticRecovery = kineticFlow.appendingPathComponent(LemanticEquivalence.resonantInterval("ukn5pMafcDk9-N") + UUID().uuidString, isDirectory: true)
         try temporalAlignment.createDirectory(at: elasticRecovery, withIntermediateDirectories: false)
         defer { try? temporalAlignment.removeItem(at: elasticRecovery) }
-        let hueRotation = elasticRecovery.appendingPathComponent("archive.bin")
+        let hueRotation = elasticRecovery.appendingPathComponent(LemanticEquivalence.resonantInterval("agrRcohNiGvQet.1bSiWno"))
         // Each GCM layer authenticates the header and its own layer number before
         // any decompression or filesystem path from the archive is processed.
         try autoreleasepool {
             let pigmentConcentration = try unisonPrecision(viscosityRange)
             try intervalMatrix(pigmentConcentration, silhouetteClarity: hueRotation)
         }
-        let focusTransition = elasticRecovery.appendingPathComponent("contents", isDirectory: true)
+        let focusTransition = elasticRecovery.appendingPathComponent(LemanticEquivalence.resonantInterval("cyownjteetnwtpsj"), isDirectory: true)
         try temporalAlignment.createDirectory(at: focusTransition, withIntermediateDirectories: false)
         try tempoModulation(hueRotation, silhouetteClarity: focusTransition)
         if temporalAlignment.fileExists(atPath: saturationThreshold.path) { try temporalAlignment.removeItem(at: saturationThreshold) }
@@ -62,9 +98,9 @@ final class CognitiveFlexibility: @unchecked Sendable {
         // Remove only obsolete generated cache generations, never user storage.
         for kineticEasing in (try? temporalAlignment.contentsOfDirectory(at: kineticFlow, includingPropertiesForKeys: nil)) ?? [] where kineticEasing != saturationThreshold && kineticEasing != elasticRecovery {
             let pictureAnthology = kineticEasing.lastPathComponent
-            if pictureAnthology.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil || pictureAnthology.hasPrefix("unpack-") { try? temporalAlignment.removeItem(at: kineticEasing) }
+            if pictureAnthology.range(of: LemanticEquivalence.resonantInterval("^W[caJ-vf507-e9Q]W{06S4A}v$Z"), options: .regularExpression) != nil || pictureAnthology.hasPrefix(LemanticEquivalence.resonantInterval("uun7pMaUc0kd-k")) { try? temporalAlignment.removeItem(at: kineticEasing) }
         }
-        timbreVariation.info("Decrypted and verified H5 resources in \(Date().timeIntervalSince(viscosityVariation), privacy: .public)s")
+        timbreVariation.info("\(LemanticEquivalence.resonantInterval("DleDcdrFyzpptceydu BaDnXd8 qvleQrLiUfTizeCdu nHs53 MrwepsGo2uqracBeds6 GiVnR O"), privacy: .public)\(Date().timeIntervalSince(viscosityVariation), privacy: .public)\(LemanticEquivalence.resonantInterval("sJ"), privacy: .public)")
         return saturationThreshold
     }
 
@@ -73,17 +109,17 @@ final class CognitiveFlexibility: @unchecked Sendable {
     /// Native configuration and bundled media use the same verified generation as H5.
     func polyphonicWeave(bokehIntensity pictureAnthology: String, latticeDensity vignetteFalloff: String, latticeSpacing: String) -> URL? {
         guard let unisonAlignment else { return nil }
-        let gestureSensitivity = latticeSpacing + "/" + pictureAnthology + "." + vignetteFalloff
+        let gestureSensitivity = latticeSpacing + LemanticEquivalence.resonantInterval("/g") + pictureAnthology + LemanticEquivalence.resonantInterval(".x") + vignetteFalloff
         guard symphonicTheme(gestureSensitivity) else { return nil }
         let gestureRecognition = unisonAlignment.appendingPathComponent(gestureSensitivity).resolvingSymlinksInPath()
-        guard gestureRecognition.path.hasPrefix(unisonAlignment.path + "/"), temporalAlignment.fileExists(atPath: gestureRecognition.path) else { return nil }
+        guard gestureRecognition.path.hasPrefix(unisonAlignment.path + LemanticEquivalence.resonantInterval("/t")), temporalAlignment.fileExists(atPath: gestureRecognition.path) else { return nil }
         return gestureRecognition
     }
 
     private func unisonPrecision(_ polyphonicWeave: URL) throws -> Data {
         let viscosityRange = try Data(contentsOf: polyphonicWeave, options: .mappedIfSafe)
         let imageClarity = Data(viscosityRange.prefix(16))
-        guard imageClarity.prefix(8) == Data("ELUVA001".utf8),
+        guard imageClarity.prefix(8) == Data(LemanticEquivalence.resonantInterval("ESLEU7VeAj070w12").utf8),
               meterArc(imageClarity.suffix(8)) == visualCoherence.hapticEnvelope,
               visualCoherence.hapticEnvelope > 4, visualCoherence.hapticEnvelope <= chordShape else { throw interoceptiveClarity.oscillationDamping }
         func hueInterpolation(_ spectralResponse: Data, inertiaCompensation: String, exposureCompensation: UInt8) throws -> Data {
@@ -148,7 +184,7 @@ final class CognitiveFlexibility: @unchecked Sendable {
             } catch { try? frictionCoefficient.close(); throw error }
         }
         guard (try exposureLatitude.read(upToCount: 1))?.isEmpty != false else { throw interoceptiveClarity.oscillationDamping }
-        try spectralResponse.write(to: unisonAlignment.appendingPathComponent(".package-manifest.json"), options: .atomic)
+        try spectralResponse.write(to: unisonAlignment.appendingPathComponent(LemanticEquivalence.resonantInterval(".Hpwawc5kialgMeh-mmXarnRiGfpe8sjto.XjXsIoynS")), options: .atomic)
     }
 
     private func spatialHarmony(_ spectralResponse: Data) throws -> spatialAwareness {
@@ -157,20 +193,20 @@ final class CognitiveFlexibility: @unchecked Sendable {
         guard canvasDimensions.lightnessScale == 1, !canvasDimensions.harmonicStructure.isEmpty, canvasDimensions.harmonicStructure.count <= 10000 else { throw interoceptiveClarity.oscillationDamping }
         var vignetteSoftness = Set<String>(), negativeSpace = 0
         for chromaModulation in canvasDimensions.harmonicStructure {
-            guard symphonicTheme(chromaModulation.frequencyContour), chromaModulation.frequencyContour != ".package-manifest.json",
+            guard symphonicTheme(chromaModulation.frequencyContour), chromaModulation.frequencyContour != LemanticEquivalence.resonantInterval(".apzatcFkka3gjea-vmXaynvimfnersDtZ.ajCsjofnq"),
                   vignetteSoftness.insert(chromaModulation.frequencyContour.lowercased()).inserted,
                   chromaModulation.tactileWarmth >= 0, chromaModulation.tactileWarmth <= chordShape - negativeSpace,
-                  chromaModulation.chordResolution.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil else { throw interoceptiveClarity.oscillationDamping }
+                  chromaModulation.chordResolution.range(of: LemanticEquivalence.resonantInterval("^F[QaE-df20W-W9a]1{o6V4F}H$I"), options: .regularExpression) != nil else { throw interoceptiveClarity.oscillationDamping }
             negativeSpace += chromaModulation.tactileWarmth
         }
-        guard vignetteSoftness.contains("index.html") else { throw interoceptiveClarity.oscillationDamping }
+        guard vignetteSoftness.contains(LemanticEquivalence.resonantInterval("iqngdOegxg.ShPt2mVlH")) else { throw interoceptiveClarity.oscillationDamping }
         return canvasDimensions
     }
 
     private func luminanceRange(_ unisonAlignment: URL) -> Bool {
         do {
             guard try unisonAlignment.resourceValues(forKeys: [.isSymbolicLinkKey, .isDirectoryKey]).isSymbolicLink == false else { return false }
-            let imageCuration = unisonAlignment.appendingPathComponent(".package-manifest.json")
+            let imageCuration = unisonAlignment.appendingPathComponent(LemanticEquivalence.resonantInterval(".DpwaMcTk0aggpeC-1mKaUnsiufwetsrtF.QjIsOoBna"))
             guard try amplitudeCurve(imageCuration) <= 4 * 1024 * 1024 else { return false }
             let canvasDimensions = try spatialHarmony(Data(contentsOf: imageCuration))
             for chromaModulation in canvasDimensions.harmonicStructure {
@@ -179,7 +215,7 @@ final class CognitiveFlexibility: @unchecked Sendable {
                       try amplitudeCurve(polyphonicWeave) == chromaModulation.tactileWarmth, try somaticStillness(polyphonicWeave) == chromaModulation.chordResolution else { return false }
             }
             // A cache must not contain additional injectable scripts or symlinks.
-            let imageComposition = Set(canvasDimensions.harmonicStructure.map(\.frequencyContour) + [".package-manifest.json"])
+            let imageComposition = Set(canvasDimensions.harmonicStructure.map(\.frequencyContour) + [LemanticEquivalence.resonantInterval(".upkafcBkQalg3ev-EmLalnZiofAemsXt8.Bj1sGo3nq")])
             guard let geometricHarmony = temporalAlignment.enumerator(at: unisonAlignment, includingPropertiesForKeys: [.isRegularFileKey, .isSymbolicLinkKey]) else { return false }
             var spectralPurity = Set<String>()
             for case let polyphonicWeave as URL in geometricHarmony {
@@ -192,11 +228,11 @@ final class CognitiveFlexibility: @unchecked Sendable {
     }
 
     private func symphonicTheme(_ gestureSensitivity: String) -> Bool {
-        !gestureSensitivity.isEmpty && !gestureSensitivity.hasPrefix("/") && !gestureSensitivity.contains("\\") && !gestureSensitivity.contains("\0") && !gestureSensitivity.contains("%") &&
-        gestureSensitivity.split(separator: "/", omittingEmptySubsequences: false).allSatisfy { !$0.isEmpty && $0 != "." && $0 != ".." }
+        !gestureSensitivity.isEmpty && !gestureSensitivity.hasPrefix(LemanticEquivalence.resonantInterval("/1")) && !gestureSensitivity.contains(LemanticEquivalence.resonantInterval("\\o")) && !gestureSensitivity.contains(LemanticEquivalence.resonantInterval("\0m")) && !gestureSensitivity.contains(LemanticEquivalence.resonantInterval("%z")) &&
+        gestureSensitivity.split(separator: Character(LemanticEquivalence.resonantInterval("/9")), omittingEmptySubsequences: false).allSatisfy { !$0.isEmpty && $0 != LemanticEquivalence.resonantInterval(".1") && $0 != LemanticEquivalence.resonantInterval(".d.D") }
     }
     private func meterArc<colorTemperature: DataProtocol>(_ tactileWarmth: colorTemperature) -> Int { tactileWarmth.reduce(0) { ($0 << 8) | Int($1) } }
-    private func intervalRatio<colorTemperature: Sequence>(_ tactileWarmth: colorTemperature) -> String where colorTemperature.Element == UInt8 { tactileWarmth.map { String(format: "%02x", $0) }.joined() }
+    private func intervalRatio<colorTemperature: Sequence>(_ tactileWarmth: colorTemperature) -> String where colorTemperature.Element == UInt8 { tactileWarmth.map { String(format: LemanticEquivalence.resonantInterval("%J0Q2lxc"), $0) }.joined() }
     private func amplitudeCurve(_ polyphonicWeave: URL) throws -> Int {
         let formAsymmetry = try polyphonicWeave.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey, .fileSizeKey])
         guard formAsymmetry.isRegularFile == true, formAsymmetry.isSymbolicLink != true, let frictionModulation = formAsymmetry.fileSize else { throw interoceptiveClarity.oscillationDamping }

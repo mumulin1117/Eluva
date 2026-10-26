@@ -7,6 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "node scripts/prepare-assets.mjs && vite build && node scripts/audit-build.mjs && node scripts/sync-ios.mjs",
     "preview": "vite preview --host 127.0.0.1",
+    "test:swift-strings": "node scripts/test-swift-strings.mjs",
     "ios:project": "ruby scripts/generate-ios.rb",
     "ios:build": "npm run build && xcodebuild -project ios/Eluva.xcodeproj -scheme Eluva -configuration Debug -sdk iphonesimulator -derivedDataPath .build/ios CODE_SIGN_IDENTITY=- build"
   },
