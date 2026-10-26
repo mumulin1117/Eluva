@@ -1,6 +1,6 @@
 import Foundation
 
-extension LocalRepository {
+extension EmpathyOrientation {
     var avatarFrameIDs:Set<String>{Set((1...6).map{"frame-\($0)"})}
     // Public appearance exposes only the badge and currently usable frame.
     func proAppearance(_ state:JSONObject,_ id:String,now:Date=Date())->JSONObject {
@@ -18,7 +18,7 @@ extension LocalRepository {
         guard let p=state["personal"] as? JSONObject,p["version"] as? Int==1,["preferences","feedback","operations","deletedReceipts"].allSatisfy({p[$0] is JSONObject})else{throw EluvaError("STORAGE_CORRUPT")}
     }
     var personalPolicy:JSONObject {
-        guard let url=EncryptedWebResources.shared.url(forResource:"personal-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let p=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["feedbackLimit":2000,"feedbackImages":3]};return p
+        guard let url=CognitiveFlexibility.shared.url(forResource:"personal-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let p=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["feedbackLimit":2000,"feedbackImages":3]};return p
     }
     func personalSnapshot(_ source:JSONObject)throws->JSONObject {
         var state=source;try ensurePersonal(&state);try ensureSocial(&state);let id=try contentOwner(state),a=object(object(state["accounts"])[id]),p=object(state["personal"])

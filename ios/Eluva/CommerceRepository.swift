@@ -3,23 +3,23 @@ import CryptoKit
 
 // Only StoreCoordinator creates receipts from StoreKit .verified results.
 // This type is deliberately absent from the JavaScript RPC dispatch table.
-struct VerifiedStoreReceipt:Sendable {
+struct AffectiveAttunement:Sendable {
     let id:String, productID:String, environment:String, token:UUID, purchasedAt:Date
     var expiresAt:Date?, revokedAt:Date?, upgraded=false
     var quantity=1
     var signedAt:Date?
     var originalID:String?
-    var renewal:VerifiedSubscriptionRenewal?
+    var renewal:EmotionalResonance?
 }
 
-struct VerifiedSubscriptionRenewal:Sendable {
+struct EmotionalResonance:Sendable {
     let state:String, willAutoRenew:Bool, signedAt:Date
     var graceUntil:Date?, nextProductID:String?
 }
 
-extension LocalRepository {
+extension EmpathyOrientation {
     var commercePolicy:JSONObject {
-        guard let url=EncryptedWebResources.shared.url(forResource:"commerce-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let result=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["version":1,"confirmed":false,"products":[]]}
+        guard let url=CognitiveFlexibility.shared.url(forResource:"commerce-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let result=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{return ["version":1,"confirmed":false,"products":[]]}
         return result
     }
     func commerceProducts()throws->[JSONObject] {
@@ -98,7 +98,7 @@ extension LocalRepository {
         ledger[id]=["id":id,"kind":"publicPost","targetId":post,"day":day,"bucket":bucket,"amount":amount,"environment":environment,"createdAt":ISO8601DateFormatter().string(from:date)]
         a["usage"]=usage;a["rewards"]=rewards;a["wallets"]=wallets;a["ledger"]=ledger;putCommerceAccount(&state,owner,a)
     }
-    func recordStoreTransaction(_ receipt:VerifiedStoreReceipt)throws {
+    func recordStoreTransaction(_ receipt:AffectiveAttunement)throws {
         try prepare();var next=snapshot!;try ensureCommerce(&next)
         try require(["production","sandbox","xcode"].contains(receipt.environment) && !receipt.id.isEmpty && receipt.quantity==1,"STORE_VERIFICATION_FAILED")
         var c=object(next["commerce"]),transactions=object(c["transactions"])

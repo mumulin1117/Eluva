@@ -1,6 +1,6 @@
 import Foundation
 
-extension LocalRepository {
+extension EmpathyOrientation {
     // Inline artwork stays structured data: only bundled sticker IDs and plain text.
     // The body is the text-only preview; it cannot diverge from the rendered parts.
     func normalizedSocialTextParts(_ raw: Any, body: String) throws -> [JSONObject] {
@@ -34,7 +34,7 @@ extension LocalRepository {
         if state["social"]==nil {
             var s:JSONObject=["version":1];for k in ["profiles","follows","requests","friendships","threads","messages","eventReads","preferences","operations","feedback","reports"]{s[k]=JSONObject()}
             var profiles:JSONObject=[:]
-            if let url=EncryptedWebResources.shared.url(forResource:"social-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]{for var p in list {p["demo"]=true;profiles[p["id"] as! String]=p}}
+            if let url=CognitiveFlexibility.shared.url(forResource:"social-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]{for var p in list {p["demo"]=true;profiles[p["id"] as! String]=p}}
             s["profiles"]=profiles;var friendships:JSONObject=[:],threads:JSONObject=[:],messages:JSONObject=[:],requests:JSONObject=[:];let stamp="2026-10-17T08:00:00.000Z"
             for (owner,raw) in object(state["fixtures"]) {let fixture=object(raw)
                 for peer in fixture["friends"] as? [String] ?? [] {let pair=socialPair(owner,peer);friendships[pair]=["id":pair,"users":[owner,peer],"createdAt":stamp]}

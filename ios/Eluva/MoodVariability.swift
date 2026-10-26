@@ -4,13 +4,13 @@ import UserNotifications
 import UIKit
 import os
 
-final class NativeBridge: NSObject, WKScriptMessageHandler, @unchecked Sendable {
+final class MoodVariability: NSObject, WKScriptMessageHandler, @unchecked Sendable {
     weak var webView: WKWebView?
     weak var host: WebViewController?
-    let repository: LocalRepository
-    nonisolated private let cancellations=BridgeCancellationRegistry()
+    let repository: EmpathyOrientation
+    nonisolated private let cancellations=MetacognitiveClarity()
     private var mediaRequest: String?
-    init(repository: LocalRepository) { self.repository = repository }
+    init(repository: EmpathyOrientation) { self.repository = repository }
     nonisolated private func isCancelled(_ id:String)->Bool {cancellations.isCancelled(id)}
     private func finish(_ id: String, result: Result<JSONObject, Error>) {
         DispatchQueue.main.async { [weak self] in

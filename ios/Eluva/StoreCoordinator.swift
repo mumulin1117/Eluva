@@ -5,13 +5,13 @@ import os
 
 // StoreKit owns the payment sheet. Leaving a page cancels only RPC delivery:
 // verified transactions still commit and are replayed after a persistence failure.
-@MainActor final class StoreCoordinator {
-    private let repository:LocalRepository
+@MainActor final class SentimentRhythm {
+    private let repository:EmpathyOrientation
     private var listener:Task<Void,Never>?, launchReplay:Task<Void,Never>?, statusListener:Task<Void,Never>?, refreshTask:Task<Void,Never>?
     private var lastReconciled=Date.distantPast, reconciledOwner:String?
     private var products:[String:Product]=[:], busy=false
     private let log=Logger(subsystem:"com.eluva.local",category:"storekit")
-    init(repository:LocalRepository){self.repository=repository}
+    init(repository:EmpathyOrientation){self.repository=repository}
     func start(){
         guard listener==nil else{return}
         listener=Task{[weak self] in
@@ -29,7 +29,7 @@ import os
         launchReplay=Task{[weak self] in try? await self?.reconcile()}
     }
     deinit{listener?.cancel();launchReplay?.cancel();statusListener?.cancel();refreshTask?.cancel()}
-    private func onRepository<T>(_ operation:@Sendable @escaping (LocalRepository)throws->T)async throws->T {
+    private func onRepository<T>(_ operation:@Sendable @escaping (EmpathyOrientation)throws->T)async throws->T {
         try await withCheckedThrowingContinuation{ continuation in
             repository.queue.async{[repository] in do{try repository.prepare();continuation.resume(returning:try operation(repository))}catch{continuation.resume(throwing:error)}}
         }
@@ -37,15 +37,15 @@ import os
     private func type(_ product:Product.ProductType)->String {
         switch product {case .consumable:return "consumable";case .nonConsumable:return "nonConsumable";case .autoRenewable:return "autoRenewable";case .nonRenewable:return "nonRenewable";default:return "unsupported"}
     }
-    private func deliver(_ value:VerificationResult<Transaction>,renewal:VerifiedSubscriptionRenewal?=nil)async throws {
+    private func deliver(_ value:VerificationResult<Transaction>,renewal:EmotionalResonance?=nil)async throws {
         guard case .verified(let transaction)=value else{throw EluvaError("STORE_VERIFICATION_FAILED")}
         let environment:String
         switch transaction.environment {case .production:environment="production";case .sandbox:environment="sandbox";case .xcode:environment="xcode";default:throw EluvaError("STORE_VERIFICATION_FAILED")}
         let savedToken=try await onRepository{r in r.tokenForStoreOriginal(String(transaction.originalID),environment:environment)}
         guard let token=transaction.appAccountToken ?? savedToken else{throw EluvaError("STORE_ACCOUNT_MISMATCH")}
         let actualType=type(transaction.productType)
-        let receipt:VerifiedStoreReceipt = {
-            var receipt=VerifiedStoreReceipt(id:String(transaction.id),productID:transaction.productID,environment:environment,token:token,purchasedAt:transaction.purchaseDate,expiresAt:transaction.expirationDate,revokedAt:transaction.revocationDate,upgraded:transaction.isUpgraded,quantity:transaction.purchasedQuantity)
+        let receipt:AffectiveAttunement = {
+            var receipt=AffectiveAttunement(id:String(transaction.id),productID:transaction.productID,environment:environment,token:token,purchasedAt:transaction.purchaseDate,expiresAt:transaction.expirationDate,revokedAt:transaction.revocationDate,upgraded:transaction.isUpgraded,quantity:transaction.purchasedQuantity)
             receipt.originalID=String(transaction.originalID);receipt.renewal=renewal;receipt.signedAt=transaction.signedDate
             return receipt
         }()
@@ -66,7 +66,7 @@ import os
               info.originalTransactionID==transaction.originalID else{throw EluvaError("STORE_VERIFICATION_FAILED")}
         let state:String
         switch status.state {case .subscribed:state="active";case .inGracePeriod:state="gracePeriod";case .inBillingRetryPeriod:state="billingRetry";case .revoked:state="revoked";default:state="expired"}
-        let renewal=VerifiedSubscriptionRenewal(state:state,willAutoRenew:info.willAutoRenew,signedAt:info.signedDate,graceUntil:info.gracePeriodExpirationDate,nextProductID:info.autoRenewPreference)
+        let renewal=EmotionalResonance(state:state,willAutoRenew:info.willAutoRenew,signedAt:info.signedDate,graceUntil:info.gracePeriodExpirationDate,nextProductID:info.autoRenewPreference)
         try await deliver(status.transaction,renewal:renewal)
     }
     private func reconcile(strict:Bool=false)async throws {

@@ -5,7 +5,7 @@ import AVFoundation
 import UniformTypeIdentifiers
 struct PickedMedia { let data: Data; let kind: String }
 
-final class MediaCoordinator: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class ValenceIntensity: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     weak var host: UIViewController?
     private var completion: ((Result<PickedMedia, EluvaError>) -> Void)?
     private var operationID = UUID()

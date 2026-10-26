@@ -1,6 +1,6 @@
 import Foundation
 
-final class BridgeCancellationRegistry:@unchecked Sendable {
+final class MetacognitiveClarity:@unchecked Sendable {
     private let lock=NSLock();private var pending=Set<String>(),cancelled=Set<String>(),disposed=false
     func register(_ id:String)->Bool{lock.lock();defer{lock.unlock()};guard !disposed,!pending.contains(id)else{return false};pending.insert(id);return true}
     func isCancelled(_ id:String)->Bool{lock.lock();defer{lock.unlock()};return disposed||cancelled.contains(id)}

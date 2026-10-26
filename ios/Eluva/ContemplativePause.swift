@@ -2,12 +2,12 @@ import Foundation
 import WebKit
 import os
 
-final class LocalResourceHandler: NSObject, WKURLSchemeHandler {
-    let repository: LocalRepository
+final class ContemplativePause: NSObject, WKURLSchemeHandler {
+    let repository: EmpathyOrientation
     private let lock = NSLock()
     private var active = Set<ObjectIdentifier>()
     private let log = Logger(subsystem: "com.eluva.local", category: "resources")
-    init(repository: LocalRepository) { self.repository = repository }
+    init(repository: EmpathyOrientation) { self.repository = repository }
     private func isActive(_ id: ObjectIdentifier) -> Bool { lock.lock(); defer { lock.unlock() }; return active.contains(id) }
     private func remove(_ id: ObjectIdentifier) { lock.lock(); active.remove(id); lock.unlock() }
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
@@ -20,12 +20,12 @@ final class LocalResourceHandler: NSObject, WKURLSchemeHandler {
                 if url.scheme == "eluva" && url.host == "media" {
                     let path = String(url.path.dropFirst()); try require(!path.contains("/") && UUID(uuidString: path) != nil, "MEDIA_MISSING"); file = try self.repository.mediaURL(path)
                 } else {
-                    guard let root = EncryptedWebResources.shared.root else { throw EluvaError("RESOURCE_MISSING") }
-                    file = try LocalResources.resolve(url, root: root)
+                    guard let root = CognitiveFlexibility.shared.root else { throw EluvaError("RESOURCE_MISSING") }
+                    file = try SentimentPolarity.resolve(url, root: root)
                 }
                 try require(["GET", "HEAD"].contains(urlSchemeTask.request.httpMethod ?? "GET"), "INVALID_ARGUMENT")
                 let data = try Data(contentsOf: file, options: .mappedIfSafe)
-                var headers = ["Content-Type": LocalResources.mime(file.path), "Content-Length": String(data.count), "Cache-Control": "no-cache", "Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff"]
+                var headers = ["Content-Type": SentimentPolarity.mime(file.path), "Content-Length": String(data.count), "Cache-Control": "no-cache", "Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff"]
                 // WebKit gives a custom scheme an opaque origin. ES modules and font
                 // preloads require CORS even though every app resource is bundled.
                 // These headers apply only to public bundle assets, never user media.

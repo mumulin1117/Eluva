@@ -1,18 +1,18 @@
 import Foundation
 import AVFoundation
 
-struct LanguageSubject {
+struct SympathyAlignment {
     let owner: String, type: String, id: String, original: String, fingerprint: String
     let audioURL: URL?
 }
 
-extension LocalRepository {
+extension EmpathyOrientation {
     func ensureRealtime(_ state: inout JSONObject) throws {
         if state["realtime"] == nil { state["realtime"] = ["version":1,"calls":JSONObject(),"language":JSONObject()] }
         guard let r=state["realtime"] as? JSONObject,r["version"] as? Int==1,r["calls"] is JSONObject,r["language"] is JSONObject else { throw EluvaError("STORAGE_CORRUPT") }
     }
     var realtimePolicy: JSONObject {
-        guard let url=EncryptedWebResources.shared.url(forResource:"realtime-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject else { return [:] }
+        guard let url=CognitiveFlexibility.shared.url(forResource:"realtime-policy",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject else { return [:] }
         return value
     }
     func voiceDuration(_ url:URL) throws -> Double {
@@ -43,30 +43,30 @@ extension LocalRepository {
         let m=try readableMessage(state,id,viewer);try require(m["kind"] as? String=="voice","INVALID_ARGUMENT")
         if let media=m["mediaId"] as? String{return try mediaURL(media)}
         try require(m["demo"] as? Bool==true && m["asset"] as? String=="demo/local-voice.wav","MEDIA_MISSING")
-        guard let url=EncryptedWebResources.shared.url(forResource:"local-voice",withExtension:"wav",subdirectory:"demo")else{throw EluvaError("MEDIA_MISSING")};return url
+        guard let url=CognitiveFlexibility.shared.url(forResource:"local-voice",withExtension:"wav",subdirectory:"demo")else{throw EluvaError("MEDIA_MISSING")};return url
     }
     func languageKey(_ owner:String,_ type:String,_ id:String,_ kind:String,_ lang:String)->String {[owner,type,id,kind,lang].joined(separator:":")}
-    func languageSubject(_ params:JSONObject,transcript:Bool=false) throws -> LanguageSubject {
+    func languageSubject(_ params:JSONObject,transcript:Bool=false) throws -> SympathyAlignment {
         try prepare();var state=snapshot!;let viewer=try contentOwner(state);try ensureSocial(&state);try ensureRealtime(&state)
         let type=params["type"] as? String ?? "",id=params["id"] as? String ?? "",source=params["source"] as? String ?? "en"
         if type=="message" {
             let m=try readableMessage(state,id,viewer)
-            if transcript {return LanguageSubject(owner:viewer,type:type,id:id,original:"",fingerprint:m["mediaId"] as? String ?? m["asset"] as? String ?? "",audioURL:try voiceURL(state,id,viewer))}
+            if transcript {return SympathyAlignment(owner:viewer,type:type,id:id,original:"",fingerprint:m["mediaId"] as? String ?? m["asset"] as? String ?? "",audioURL:try voiceURL(state,id,viewer))}
             var text=m["body"] as? String ?? ""
             if m["kind"] as? String=="voice" {
                 let row=object(object(object(state["realtime"])["language"])[languageKey(viewer,type,id,"transcript",source)])
                 try require(row["fingerprint"] as? String==(m["mediaId"] as? String ?? m["asset"] as? String),"TRANSCRIPT_REQUIRED");text=row["text"] as? String ?? ""
             }
             try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
-            return LanguageSubject(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
+            return SympathyAlignment(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
         }
         try require(["post","comment"].contains(type),"INVALID_ARGUMENT")
         let c=content(state),item=object(object(c[type=="post" ? "posts":"comments"])[id]),post=type=="post" ? item:object(object(c["posts"])[item["postId"] as? String ?? ""])
         try require(!item.isEmpty&&canReadPost(state,post,viewer) && !socialBlocked(state,viewer,item["authorId"] as? String ?? ""),"POST_UNAVAILABLE")
         let text=item["body"] as? String ?? "";try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,"NO_TEXT")
-        return LanguageSubject(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
+        return SympathyAlignment(owner:viewer,type:type,id:id,original:text,fingerprint:text,audioURL:nil)
     }
-    func saveLanguage(_ subject:LanguageSubject,text:String,kind:String,source:String,target:String) throws -> JSONObject {
+    func saveLanguage(_ subject:SympathyAlignment,text:String,kind:String,source:String,target:String) throws -> JSONObject {
         try require(source.range(of:#"^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"#,options:.regularExpression) != nil && source.count<=35 && ["en","fr"].contains(target)&&["transcript","translation"].contains(kind),"INVALID_ARGUMENT")
         try require(!text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty&&text.count<=20000,"LANGUAGE_FAILED")
         let fresh=try languageSubject(["type":subject.type,"id":subject.id,"source":source],transcript:kind=="transcript")

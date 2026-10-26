@@ -2,7 +2,7 @@ import Foundation
 import WebKit
 import os
 
-enum LocalResources {
+enum SentimentPolarity {
     static func resolve(_ url: URL, root: URL) throws -> URL {
         guard url.scheme == "eluva", url.host == "app", let decoded = URLComponents(url: url, resolvingAgainstBaseURL: false)?.percentEncodedPath.removingPercentEncoding,
               !decoded.contains("%"), !decoded.contains("\\"), !decoded.split(separator: "/", omittingEmptySubsequences: false).contains(".."), !decoded.contains("\0") else { throw EluvaError("RESOURCE_MISSING") }

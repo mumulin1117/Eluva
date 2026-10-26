@@ -1,22 +1,22 @@
 import UIKit
 import AVFoundation
 
-final class RealtimeMediaCoordinator:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDelegate {
+final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDelegate {
     weak var host:WebViewController?
-    let repository:LocalRepository
+    let repository:EmpathyOrientation
     var recorder:AVAudioRecorder?, recordingID:String?, recordingRequest:String?,recordingOwner:String?,recordingDraft:String?,recordingPeer:String?,recordingURL:URL?,recordingBegan:TimeInterval=0
-    var recordingCancellation:MediaCancellation?
+    var recordingCancellation:MindfulBreathing?
     var player:AVAudioPlayer?,playbackID:String?,playbackMessage:String?,playbackOwner:String?,playbackRequest:String?
-    var video:VideoCaptureLease?
-    var videoPermission:VideoPermissionLease?
-    var voicePermission: VoicePermissionLease?
+    var video:NnnerStillness?
+    var videoPermission:CognitiveReframing?
+    var voicePermission: MetacognitiveInsight?
   
     let videoQueue=DispatchQueue(label:"com.eluva.video",qos:.userInitiated)
     var audioEngine:AVAudioEngine?
     var lastReason="cancelled",recordingMax:Double=60
     var recordStopPending=false
     var interruptedObserver:NSObjectProtocol?
-    init(host:WebViewController,repository:LocalRepository){self.host=host;self.repository=repository;super.init();interruptedObserver=NotificationCenter.default.addObserver(forName:AVAudioSession.interruptionNotification,object:nil,queue:.main){[weak self] note in if let n=note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,n==AVAudioSession.InterruptionType.began.rawValue{self?.cancelAll(reason:"interrupted")}}}
+    init(host:WebViewController,repository:EmpathyOrientation){self.host=host;self.repository=repository;super.init();interruptedObserver=NotificationCenter.default.addObserver(forName:AVAudioSession.interruptionNotification,object:nil,queue:.main){[weak self] note in if let n=note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,n==AVAudioSession.InterruptionType.began.rawValue{self?.cancelAll(reason:"interrupted")}}}
     func microphoneStatus()->String {
       
         switch AVAudioApplication.shared.recordPermission{case .granted:return "authorized";case .denied:return "denied";case .undetermined:return "notDetermined";@unknown default:return "unsupported"}
@@ -33,7 +33,7 @@ final class RealtimeMediaCoordinator:NSObject,AVAudioPlayerDelegate,AVAudioRecor
         case "notDetermined": break
         default: completion(.failure(EluvaError("DEVICE_UNSUPPORTED"))); return
         }
-        let lease = VoicePermissionLease(request: request, owner: owner, peer: peer, draft: draft, completion: completion)
+        let lease = MetacognitiveInsight(request: request, owner: owner, peer: peer, draft: draft, completion: completion)
         voicePermission = lease
         let received: (Bool) -> Void = { [weak self] granted in DispatchQueue.main.async {
             guard let self else { return }
@@ -63,7 +63,7 @@ final class RealtimeMediaCoordinator:NSObject,AVAudioPlayerDelegate,AVAudioRecor
       
         AVAudioApplication.requestRecordPermission(completionHandler: received)
     }
-    private func finishVoicePermission(_ lease: VoicePermissionLease, result: Result<JSONObject, Error>) {
+    private func finishVoicePermission(_ lease: MetacognitiveInsight, result: Result<JSONObject, Error>) {
         if voicePermission===lease { voicePermission=nil }
         let completion=lease.completion;lease.completion=nil;completion?(result)
     }
@@ -77,7 +77,7 @@ final class RealtimeMediaCoordinator:NSObject,AVAudioPlayerDelegate,AVAudioRecor
         let microphone = microphoneStatus()
         guard microphone=="authorized" else{completion(.failure(EluvaError(["denied":"PERMISSION_DENIED","restricted":"PERMISSION_RESTRICTED","notDetermined":"PERMISSION_REQUIRED"][microphone] ?? "DEVICE_UNSUPPORTED")));return}
         guard let id=p["recordingId"] as? String,UUID(uuidString:id) != nil,let draft=p["draftId"] as? String,let peer=p["peerId"] as? String else{completion(.failure(EluvaError("INVALID_ARGUMENT")));return}
-        let token=MediaCancellation();recordingCancellation=token;recordingID=id;recordingRequest=request;recordingOwner=owner;recordingDraft=draft;recordingPeer=peer
+        let token=MindfulBreathing();recordingCancellation=token;recordingID=id;recordingRequest=request;recordingOwner=owner;recordingDraft=draft;recordingPeer=peer
         repository.queue.async{[weak self] in guard let self else{return};do{try self.repository.validateMediaFlow(draft);guard let context=self.repository.socialDrafts[draft],context.peer==peer&&context.owner==owner else{throw EluvaError("DRAFT_EXPIRED")};guard let max=self.repository.realtimePolicy["voiceMaxSeconds"] as? Double else{throw EluvaError("RESOURCE_MISSING")}
             DispatchQueue.main.async{[weak self] in guard let self else{completion(.failure(EluvaError("CANCELLED")));return};guard !token.cancelled,valid(),self.recordingCancellation===token,UIApplication.shared.applicationState == .active else{if self.recordingCancellation===token{self.cancelRecording(reason:"cancelled")};completion(.failure(EluvaError("CANCELLED")));return}
                 do{self.stopPlayback();let session=AVAudioSession.sharedInstance();try session.setCategory(.playAndRecord,mode:.default,options:[.defaultToSpeaker,.allowBluetoothHFP]);try session.setActive(true)

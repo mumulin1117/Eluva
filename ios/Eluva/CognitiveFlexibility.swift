@@ -4,8 +4,8 @@ import Compression
 import os
 
 
-final class EncryptedWebResources: @unchecked Sendable {
-    static let shared = EncryptedWebResources()
+final class CognitiveFlexibility: @unchecked Sendable {
+    static let shared = CognitiveFlexibility()
     private let lock = NSLock()
     private var readyRoot: URL?
     private let fm = FileManager.default
@@ -25,12 +25,12 @@ final class EncryptedWebResources: @unchecked Sendable {
         guard let package = Bundle.main.url(forResource: "resources", withExtension: "eluva", subdirectory: "PerceptualEluOpenness") else { throw PackageError.missing }
         let packageBytes = try fileSize(package)
         guard packageBytes >= 72, packageBytes <= 256 * 1024 * 1024,
-              try digest(package) == ResourcePackageKey.packageSHA256 else { throw PackageError.invalid }
+              try digest(package) == MoodAwarenessCoherence.packageSHA256 else { throw PackageError.invalid }
         let caches = fm.urls(for: .cachesDirectory, in: .userDomainMask)[0].standardizedFileURL.resolvingSymlinksInPath()
         let parent = caches.appendingPathComponent("PerceptualEluOpenness", isDirectory: true)
         if fm.fileExists(atPath: parent.path), try parent.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink == true { throw PackageError.invalid }
         try fm.createDirectory(at: parent, withIntermediateDirectories: true)
-        let destination = parent.appendingPathComponent(ResourcePackageKey.packageSHA256, isDirectory: true)
+        let destination = parent.appendingPathComponent(MoodAwarenessCoherence.packageSHA256, isDirectory: true)
         if validCache(destination) {
             readyRoot = destination
             log.info("Verified cached H5 resources in \(Date().timeIntervalSince(started), privacy: .public)s")
@@ -80,15 +80,15 @@ final class EncryptedWebResources: @unchecked Sendable {
         let package = try Data(contentsOf: url, options: .mappedIfSafe)
         let header = Data(package.prefix(16))
         guard header.prefix(8) == Data("ELUVA001".utf8),
-              integer(header.suffix(8)) == ResourcePackageKey.archiveBytes,
-              ResourcePackageKey.archiveBytes > 4, ResourcePackageKey.archiveBytes <= maxArchiveBytes else { throw PackageError.invalid }
+              integer(header.suffix(8)) == MoodAwarenessCoherence.archiveBytes,
+              MoodAwarenessCoherence.archiveBytes > 4, MoodAwarenessCoherence.archiveBytes <= maxArchiveBytes else { throw PackageError.invalid }
         func decrypt(_ data: Data, secret: String, layer: UInt8) throws -> Data {
             let key = SymmetricKey(data: SHA256.hash(data: Data(secret.utf8)))
             let box = try AES.GCM.SealedBox(combined: data)
             return try AES.GCM.open(box, using: key, authenticating: header + Data([layer]))
         }
-        let inner = try decrypt(Data(package.dropFirst(16)), secret: ResourcePackageKey.outer, layer: 2)
-        return try decrypt(inner, secret: ResourcePackageKey.inner, layer: 1)
+        let inner = try decrypt(Data(package.dropFirst(16)), secret: MoodAwarenessCoherence.outer, layer: 2)
+        return try decrypt(inner, secret: MoodAwarenessCoherence.inner, layer: 1)
     }
 
     private func inflate(_ compressed: Data, to url: URL) throws {
@@ -109,10 +109,10 @@ final class EncryptedWebResources: @unchecked Sendable {
                 let remaining = stream.src_size
                 let status = compression_stream_process(&stream, Int32(COMPRESSION_STREAM_FINALIZE.rawValue))
                 let produced = capacity - stream.dst_size
-                guard produced <= ResourcePackageKey.archiveBytes - total else { throw PackageError.invalid }
+                guard produced <= MoodAwarenessCoherence.archiveBytes - total else { throw PackageError.invalid }
                 if produced > 0 { try file.write(contentsOf: Data(bytes: output, count: produced)); total += produced }
                 if status == COMPRESSION_STATUS_END {
-                    guard total == ResourcePackageKey.archiveBytes, stream.src_size == 0 else { throw PackageError.invalid }
+                    guard total == MoodAwarenessCoherence.archiveBytes, stream.src_size == 0 else { throw PackageError.invalid }
                     break
                 }
                 guard status == COMPRESSION_STATUS_OK, produced > 0 || stream.src_size < remaining else { throw PackageError.invalid }
@@ -127,7 +127,7 @@ final class EncryptedWebResources: @unchecked Sendable {
         guard length > 0, length <= 4 * 1024 * 1024,
               let data = try handle.read(upToCount: length), data.count == length else { throw PackageError.invalid }
         let manifest = try checkedManifest(data)
-        guard 4 + length + manifest.files.reduce(0, { $0 + $1.bytes }) == ResourcePackageKey.archiveBytes else { throw PackageError.invalid }
+        guard 4 + length + manifest.files.reduce(0, { $0 + $1.bytes }) == MoodAwarenessCoherence.archiveBytes else { throw PackageError.invalid }
         for entry in manifest.files {
             let target = root.appendingPathComponent(entry.file)
             try fm.createDirectory(at: target.deletingLastPathComponent(), withIntermediateDirectories: true)
@@ -148,7 +148,7 @@ final class EncryptedWebResources: @unchecked Sendable {
     }
 
     private func checkedManifest(_ data: Data) throws -> Manifest {
-        guard data.count <= 4 * 1024 * 1024, hex(SHA256.hash(data: data)) == ResourcePackageKey.manifestSHA256 else { throw PackageError.invalid }
+        guard data.count <= 4 * 1024 * 1024, hex(SHA256.hash(data: data)) == MoodAwarenessCoherence.manifestSHA256 else { throw PackageError.invalid }
         let manifest = try JSONDecoder().decode(Manifest.self, from: data)
         guard manifest.version == 1, !manifest.files.isEmpty, manifest.files.count <= 10000 else { throw PackageError.invalid }
         var names = Set<String>(), total = 0

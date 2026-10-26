@@ -1,6 +1,6 @@
 import Foundation
 
-extension LocalRepository {
+extension EmpathyOrientation {
     func upgradePresentation(_ state:inout JSONObject)throws {
         let copy=object(try suppliedDemoConfiguration()["presentation"]),version=copy["version"] as? Int ?? 1
         if (state["presentationVersion"] as? Int ?? 0)>=version{return}
@@ -112,13 +112,13 @@ extension LocalRepository {
         if state["social"] != nil{social["threads"]=threads;social["messages"]=messages;social["friendships"]=friendships;social["follows"]=follows;state["social"]=social}
     }
     func suppliedDemoList(_ name:String)throws->[JSONObject] {
-        guard let url=EncryptedWebResources.shared.url(forResource:name,withExtension:"json",subdirectory:"config"),
+        guard let url=CognitiveFlexibility.shared.url(forResource:name,withExtension:"json",subdirectory:"config"),
               let data=try? Data(contentsOf:url),let rows=try? JSONSerialization.jsonObject(with:data) as? [JSONObject]
         else{throw EluvaError("RESOURCE_MISSING")}
         return rows
     }
     func suppliedDemoConfiguration()throws->JSONObject {
-        guard let url=EncryptedWebResources.shared.url(forResource:"demo-fixtures",withExtension:"json",subdirectory:"config"),
+        guard let url=CognitiveFlexibility.shared.url(forResource:"demo-fixtures",withExtension:"json",subdirectory:"config"),
               let data=try? Data(contentsOf:url),let value=try? JSONSerialization.jsonObject(with:data) as? JSONObject,
               (value["version"] as? Int ?? 0)>0 else{throw EluvaError("RESOURCE_MISSING")}
         return value

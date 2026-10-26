@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-extension RealtimeMediaCoordinator {
+extension ValenceTrajectory {
     // Authorization only: connecting UI uses avatars and never starts capture or marks a call active.
     func prepareCallPermissions(_ params:JSONObject,request:String,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
         guard let id=params["callId"] as? String else{completion(.failure(EluvaError("INVALID_ARGUMENT")));return}
@@ -9,7 +9,7 @@ extension RealtimeMediaCoordinator {
             guard let self else{return}
             do{
                 let call=try self.repository.validateCall(id)
-                let lease=VideoPermissionLease(id:id,owner:call["ownerId"] as! String,peer:call["peerId"] as! String,request:request)
+                let lease=CognitiveReframing(id:id,owner:call["ownerId"] as! String,peer:call["peerId"] as! String,request:request)
                 DispatchQueue.main.async{
                     guard valid(),UIApplication.shared.applicationState != .background else{completion(.failure(EluvaError("CANCELLED")));return}
                     guard self.videoPermission==nil,self.video==nil,self.recorder==nil,self.recordingCancellation==nil else{completion(.failure(EluvaError("MEDIA_BUSY")));return}
@@ -54,19 +54,19 @@ extension RealtimeMediaCoordinator {
     func startCamera(_ p:JSONObject,request:String,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
         guard recorder==nil&&recordingCancellation==nil&&video==nil&&videoPermission==nil else{completion(.failure(EluvaError("MEDIA_BUSY")));return}
         guard let id=p["callId"] as? String else{completion(.failure(EluvaError("INVALID_ARGUMENT")));return}
-        repository.queue.async{[weak self] in guard let self else{return};do{let call=try self.repository.validateCall(id),lease=VideoCaptureLease(id:id,owner:call["ownerId"] as! String,peer:call["peerId"] as! String,request:request)
+        repository.queue.async{[weak self] in guard let self else{return};do{let call=try self.repository.validateCall(id),lease=NnnerStillness(id:id,owner:call["ownerId"] as! String,peer:call["peerId"] as! String,request:request)
             DispatchQueue.main.async{guard valid(),UIApplication.shared.applicationState == .active else{completion(.failure(EluvaError("CANCELLED")));return};guard self.video==nil&&self.recordingCancellation==nil else{completion(.failure(EluvaError("MEDIA_BUSY")));return};self.stopPlayback();self.video=lease
                 let allowed:(Bool)->Void={granted in DispatchQueue.main.async{guard self.video===lease,!lease.cancellation.cancelled,valid()else{completion(.failure(EluvaError("CANCELLED")));return};guard granted else{self.stopVideo(reason:"failed");completion(.failure(EluvaError(AVCaptureDevice.authorizationStatus(for:.video) == .restricted ? "PERMISSION_RESTRICTED":"PERMISSION_DENIED")));return};self.configureCamera(lease,valid:valid,completion:completion)}}
                 switch AVCaptureDevice.authorizationStatus(for:.video){case .authorized:allowed(true);case .notDetermined:AVCaptureDevice.requestAccess(for:.video,completionHandler:allowed);case .denied,.restricted:allowed(false);@unknown default:self.stopVideo(reason:"failed");completion(.failure(EluvaError("DEVICE_UNSUPPORTED")))}
             }
         }catch{completion(.failure(error))}}
     }
-    private func configureCamera(_ lease:VideoCaptureLease,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
+    private func configureCamera(_ lease:NnnerStillness,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
         // The lease is already registered on main. Recheck the repository after registration,
         // closing the gap where a block/logout could precede camera configuration.
         repository.queue.async{[weak self] in guard let self else{return};do{_=try self.repository.validateCall(lease.id);try require(!lease.cancellation.cancelled&&valid(),"CANCELLED");self.configureGrantedCamera(lease,valid:valid,completion:completion)}catch{DispatchQueue.main.async{if self.video===lease{self.stopVideo(reason:"failed")};completion(.failure(error))}}}
     }
-    private func configureGrantedCamera(_ lease:VideoCaptureLease,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
+    private func configureGrantedCamera(_ lease:NnnerStillness,valid:@escaping @Sendable ()->Bool,completion:@escaping(Result<JSONObject,Error>)->Void){
         videoQueue.async{[weak self] in guard let self else{return};do{
             try require(!lease.cancellation.cancelled&&valid(),"CANCELLED")
             guard let device=AVCaptureDevice.default(.builtInWideAngleCamera,for:.video,position:.front) ?? AVCaptureDevice.default(for:.video) else{throw EluvaError("DEVICE_UNSUPPORTED")}
@@ -106,7 +106,7 @@ extension RealtimeMediaCoordinator {
             DispatchQueue.main.async{guard self.video===lease,!lease.cancellation.cancelled,valid()else{completion(.failure(EluvaError("CANCELLED")));return};lease.cameraOn=on;lease.facing=facing;lease.cameraChanging=false;self.host?.updateCameraOrientation(front:facing == .front);completion(.success(self.cameraState(lease)))}
         }catch{DispatchQueue.main.async{lease.cameraChanging=false;completion(.failure((error as? EluvaError) ?? EluvaError("CAMERA_FAILED")))}}}
     }
-    func cameraState(_ lease:VideoCaptureLease)->JSONObject {["cameraOn":lease.cameraOn,"muted":lease.muted,"level":lease.level,"facing":lease.facing == .front ? "front":"back"]}
+    func cameraState(_ lease:NnnerStillness)->JSONObject {["cameraOn":lease.cameraOn,"muted":lease.muted,"level":lease.level,"facing":lease.facing == .front ? "front":"back"]}
     func stopMicrophone(){if let engine=audioEngine{engine.stop();engine.inputNode.removeTap(onBus:0)};audioEngine=nil;deactivateAudio()}
     func stopVideo(reason:String){guard let lease=video else{return};video=nil;lease.cancellation.cancel();stopMicrophone();host?.hideCamera()
         videoQueue.async{lease.session.stopRunning();lease.session.beginConfiguration();lease.session.inputs.forEach{lease.session.removeInput($0)};lease.session.outputs.forEach{lease.session.removeOutput($0)};lease.session.commitConfiguration()}

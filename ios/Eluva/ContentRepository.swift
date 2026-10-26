@@ -1,14 +1,14 @@
 import Foundation
 import AVFoundation
 
-extension LocalRepository {
+extension EmpathyOrientation {
     var contentPolicy: JSONObject {
-        guard let url = EncryptedWebResources.shared.url(forResource: "content-policy", withExtension: "json", subdirectory: "config"), let data = try? Data(contentsOf: url), let policy = try? JSONSerialization.jsonObject(with: data) as? JSONObject else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
+        guard let url = CognitiveFlexibility.shared.url(forResource: "content-policy", withExtension: "json", subdirectory: "config"), let data = try? Data(contentsOf: url), let policy = try? JSONSerialization.jsonObject(with: data) as? JSONObject else { return ["bodyLimit":2000,"commentLimit":1000,"imageLimit":9,"videoLimit":1,"videoBytes":52428800,"videoSeconds":60,"dailyPublicPosts":NSNull(),"proAudienceEnabled":false] }
         return policy
     }
     func emptyContent() -> JSONObject {
         var posts: JSONObject=[:]
-        if let url=EncryptedWebResources.shared.url(forResource:"content-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject] {for post in list {if let id=post["id"] as? String {posts[id]=post}}}
+        if let url=CognitiveFlexibility.shared.url(forResource:"content-demo",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let list=try? JSONSerialization.jsonObject(with:data) as? [JSONObject] {for post in list {if let id=post["id"] as? String {posts[id]=post}}}
         return ["version":1,"safetyVersion":1,"fixtureVersion":(try? suppliedDemoConfiguration())?["version"] ?? 0,"posts":posts,"comments":[:],"echoes":[:],"events":[:],"collections":[:],"operations":[:],"preferences":[:],"hidden":[:],"blocks":[:],"reports":[:],"quota":[:],"files":[:]]
     }
     func content(_ state: JSONObject) -> JSONObject { state["content"] as? JSONObject ?? emptyContent() }
@@ -133,7 +133,7 @@ extension LocalRepository {
         if method=="publish" {removeStaging(flowID:string("draftId"));contentDrafts.removeValue(forKey:string("draftId"))}
         var output=try contentSnapshot(next);if let resultID {output["resultId"]=resultID};return output
     }
-    var contentInterestIDs: Set<String> { guard let url=EncryptedWebResources.shared.url(forResource:"choices",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let all=try? JSONSerialization.jsonObject(with:data) as? JSONObject else {return []};return Set(array(all["interests"]).compactMap{$0["id"] as? String}) }
+    var contentInterestIDs: Set<String> { guard let url=CognitiveFlexibility.shared.url(forResource:"choices",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let all=try? JSONSerialization.jsonObject(with:data) as? JSONObject else {return []};return Set(array(all["interests"]).compactMap{$0["id"] as? String}) }
     func promoteContentMedia(_ id: String, viewer: String, content c: inout JSONObject, copied: inout [URL]) throws {
         var files=object(c["files"]);if let existing=files[id] as? JSONObject {try require(existing["ownerId"] as? String==viewer,"MEDIA_MISSING");return}
         guard let staged=staging[id],contentDrafts[staged.flow]==viewer else {throw EluvaError("MEDIA_MISSING")}
@@ -148,7 +148,7 @@ extension LocalRepository {
         try validateMediaFlow(draftID);try require(contentDrafts[draftID] != nil,"DRAFT_EXPIRED");try require(data.count<=(contentPolicy["videoBytes"] as? Int ?? 52428800),"MEDIA_TOO_LARGE")
         let id=UUID().uuidString.lowercased(),brand=String(data:data.dropFirst(8).prefix(4),encoding:.ascii) ?? "",ext=brand=="qt  " ? "mov" : "mp4",url=root.appendingPathComponent("Staging").appendingPathComponent(id+"."+ext)
         do{try data.write(to:url,options:[.atomic,.completeFileProtection])}catch{throw EluvaError("STORAGE_FAILED")}
-        let asset=AVURLAsset(url:url),limit=Double(contentPolicy["videoSeconds"] as? Int ?? 60),callback=ContentImportCompletion(completion)
+        let asset=AVURLAsset(url:url),limit=Double(contentPolicy["videoSeconds"] as? Int ?? 60),callback=PerceptualSensitivity(completion)
         Task {
             do {
                 async let duration=asset.load(.duration)

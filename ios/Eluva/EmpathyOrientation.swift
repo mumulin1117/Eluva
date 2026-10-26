@@ -10,8 +10,8 @@ typealias JSONObject = [String: Any]
 struct EluvaError: Error { let code: String; init(_ code: String) { self.code = code } }
 func require(_ condition: @autoclosure () -> Bool, _ code: String) throws { if !condition() { throw EluvaError(code) } }
 
-// Mutable account state is confined to `queue`; startup UI preferences use thread-safe UserDefaults.
-final class LocalRepository: @unchecked Sendable {
+
+final class EmpathyOrientation: @unchecked Sendable {
     static let legalVersion = "local-preview-2026-10-17"
     static let testID = "eluva-test-user-v1"
     let queue = DispatchQueue(label: "com.eluva.repository", qos: .userInitiated)
@@ -128,7 +128,7 @@ final class LocalRepository: @unchecked Sendable {
         return current.year! - birth.year! - (beforeBirthday ? 1 : 0)
     }
     private func choiceIDs() throws -> [String: Set<String>] {
-        guard let url = EncryptedWebResources.shared.url(forResource: "choices", withExtension: "json", subdirectory: "config"), let value = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: [JSONObject]] else { throw EluvaError("RESOURCE_MISSING") }
+        guard let url = CognitiveFlexibility.shared.url(forResource: "choices", withExtension: "json", subdirectory: "config"), let value = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: [JSONObject]] else { throw EluvaError("RESOURCE_MISSING") }
         return value.mapValues { Set($0.compactMap { $0["id"] as? String }) }
     }
     func validateProfile(_ raw: JSONObject, existing: JSONObject? = nil, sparse: Bool = false) throws -> JSONObject {
@@ -156,7 +156,7 @@ final class LocalRepository: @unchecked Sendable {
         return profile
     }
     func validateConversationOnboarding(_ raw:JSONObject)throws->JSONObject {
-        guard let url=EncryptedWebResources.shared.url(forResource:"auth-conversation",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let policy=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{throw EluvaError("RESOURCE_MISSING")}
+        guard let url=CognitiveFlexibility.shared.url(forResource:"auth-conversation",withExtension:"json",subdirectory:"config"),let data=try? Data(contentsOf:url),let policy=try? JSONSerialization.jsonObject(with:data) as? JSONObject else{throw EluvaError("RESOURCE_MISSING")}
         try require(raw["version"] as? String==policy["version"] as? String,"INVALID_PROFILE")
         let theme=raw["theme"] as? String ?? "";try require((policy["themes"] as? [String] ?? []).contains(theme),"INVALID_PROFILE")
         let rows=array(raw["answers"]),questions=array(policy["questions"]);try require(rows.count==questions.count && questions.count==10,"INVALID_PROFILE")

@@ -6,31 +6,31 @@ import os
 final class WebViewController: UIViewController, WKNavigationDelegate {
     enum LaunchPhase: String { case covering, revealing, visible, failed }
     enum LaunchDestination: String { case welcome, home, other }
-    let repository: LocalRepository
+    let repository: EmpathyOrientation
 
-    private var mediaInstance: MediaCoordinator?
-    var media: MediaCoordinator {
-        get { if let mediaInstance { return mediaInstance }; let instance = MediaCoordinator(host:self); mediaInstance = instance; return instance }
+    private var mediaInstance: ValenceIntensity?
+    var media: ValenceIntensity {
+        get { if let mediaInstance { return mediaInstance }; let instance = ValenceIntensity(host:self); mediaInstance = instance; return instance }
         set { mediaInstance = newValue }
     }
-    private var realtimeInstance: RealtimeMediaCoordinator?
-    var realtime: RealtimeMediaCoordinator {
-        get { if let realtimeInstance { return realtimeInstance }; let instance = RealtimeMediaCoordinator(host:self,repository:repository); realtimeInstance = instance; return instance }
+    private var realtimeInstance: ValenceTrajectory?
+    var realtime: ValenceTrajectory {
+        get { if let realtimeInstance { return realtimeInstance }; let instance = ValenceTrajectory(host:self,repository:repository); realtimeInstance = instance; return instance }
         set { realtimeInstance = newValue }
     }
-    private var languageInstance: LanguageCoordinator?
-    var language: LanguageCoordinator {
-        get { if let languageInstance { return languageInstance }; let instance = LanguageCoordinator(host:self,repository:repository); languageInstance = instance; return instance }
+    private var languageInstance: FeelingGranularity?
+    var language: FeelingGranularity {
+        get { if let languageInstance { return languageInstance }; let instance = FeelingGranularity(host:self,repository:repository); languageInstance = instance; return instance }
         set { languageInstance = newValue }
     }
-    lazy var store = StoreCoordinator(repository:repository)
-    private var cameraPreview:CameraPreviewView?,backgroundObserver:NSObjectProtocol?
+    lazy var store = SentimentRhythm(repository:repository)
+    private var cameraPreview:AttentionalScope?,backgroundObserver:NSObjectProtocol?
     private var inactiveObserver:NSObjectProtocol?,activeObserver:NSObjectProtocol?,reduceMotionObserver:NSObjectProtocol?
     private var videoAppearanceID:String?
-    private var bridgeInstance: NativeBridge?
-    private var bridge: NativeBridge {
+    private var bridgeInstance: MoodVariability?
+    private var bridge: MoodVariability {
         if let bridgeInstance { return bridgeInstance }
-        let instance = NativeBridge(repository:repository); bridgeInstance = instance; return instance
+        let instance = MoodVariability(repository:repository); bridgeInstance = instance; return instance
     }
     private(set) var webView: WKWebView!
     let cover = UIView()
@@ -46,7 +46,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     private(set) var welcomeMotion = "brief"
     private var timer: Timer?, webFinished = false, frameFinished = false
     private let log = Logger(subsystem: "com.eluva.app", category: "launch")
-    init(repository: LocalRepository = LocalRepository()) {
+    init(repository: EmpathyOrientation = EmpathyOrientation()) {
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,7 +57,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         // Keep the exact storyboard artwork above WebKit from its creation onward.
         makeCover()
         let configuration = WKWebViewConfiguration()
-        configuration.setURLSchemeHandler(LocalResourceHandler(repository: repository), forURLScheme: "eluva")
+        configuration.setURLSchemeHandler(ContemplativePause(repository: repository), forURLScheme: "eluva")
         configuration.userContentController.add(bridge, name: "eluva")
         let boot = ["locale": repository.bootLocale, "environment": "ios"]
         let json = String(data: try! JSONSerialization.data(withJSONObject: boot), encoding: .utf8)!
@@ -78,7 +78,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     }
     func setVideoAppearance(id:String,active:Bool){if active{videoAppearanceID=id}else if videoAppearanceID==id{videoAppearanceID=nil};setNeedsStatusBarAppearanceUpdate()}
     func clearVideoAppearance(){videoAppearanceID=nil;setNeedsStatusBarAppearanceUpdate()}
-    func showCamera(_ session:AVCaptureSession,front:Bool){hideCamera();let preview=CameraPreviewView();preview.translatesAutoresizingMaskIntoConstraints=false;preview.preview.videoGravity = .resizeAspectFill;preview.preview.session=session;view.insertSubview(preview,belowSubview:webView);NSLayoutConstraint.activate([preview.leadingAnchor.constraint(equalTo:view.leadingAnchor),preview.trailingAnchor.constraint(equalTo:view.trailingAnchor),preview.topAnchor.constraint(equalTo:view.topAnchor),preview.bottomAnchor.constraint(equalTo:view.bottomAnchor)]);cameraPreview=preview;updateCameraOrientation(front:front);webView.backgroundColor = .clear;webView.scrollView.backgroundColor = .clear;setNeedsStatusBarAppearanceUpdate()}
+    func showCamera(_ session:AVCaptureSession,front:Bool){hideCamera();let preview=AttentionalScope();preview.translatesAutoresizingMaskIntoConstraints=false;preview.preview.videoGravity = .resizeAspectFill;preview.preview.session=session;view.insertSubview(preview,belowSubview:webView);NSLayoutConstraint.activate([preview.leadingAnchor.constraint(equalTo:view.leadingAnchor),preview.trailingAnchor.constraint(equalTo:view.trailingAnchor),preview.topAnchor.constraint(equalTo:view.topAnchor),preview.bottomAnchor.constraint(equalTo:view.bottomAnchor)]);cameraPreview=preview;updateCameraOrientation(front:front);webView.backgroundColor = .clear;webView.scrollView.backgroundColor = .clear;setNeedsStatusBarAppearanceUpdate()}
     func updateCameraOrientation(front:Bool){guard let connection=cameraPreview?.preview.connection else{return};if connection.isVideoRotationAngleSupported(90){connection.videoRotationAngle=90};if connection.isVideoMirroringSupported{connection.automaticallyAdjustsVideoMirroring=false;connection.isVideoMirrored=front}}
     func hideCamera(){cameraPreview?.preview.session=nil;cameraPreview?.removeFromSuperview();cameraPreview=nil;webView?.backgroundColor=view.backgroundColor;webView?.scrollView.backgroundColor=view.backgroundColor;setNeedsStatusBarAppearanceUpdate()}
     func reportMediaDiagnostic(_ kind:String){log.error("Media diagnostic: \(kind,privacy:.public)")}
@@ -96,7 +96,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
             // Invisible until both WebKit navigation and the current Vue frame are ready.
             // The storyboard and its static covering geometry remain the visual source.
             for index in 0..<2 {
-                let ring = LaunchEchoRingView(); ring.translatesAutoresizingMaskIntoConstraints = false; ring.isUserInteractionEnabled = false; ring.isAccessibilityElement = false
+                let ring = ReflectiveDistance(); ring.translatesAutoresizingMaskIntoConstraints = false; ring.isUserInteractionEnabled = false; ring.isAccessibilityElement = false
                 ring.accessibilityIdentifier = "launch-echo-\(index + 1)"; ring.alpha = 0; ring.backgroundColor = .clear
                 ring.layer.borderWidth = index == 0 ? 1.5 : 1
                 // A pale violet stroke remains visible over the nearly white centre
@@ -125,7 +125,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         webView.stopLoading()
         repository.queue.async { [weak self] in
             do {
-                try EncryptedWebResources.shared.prepare()
+                try CognitiveFlexibility.shared.prepare()
                 DispatchQueue.main.async { [weak self] in
                     guard let self, self.launchID == attempt, self.launchPhase == .covering else { return }
                     // Configuration must be available before StoreKit can read or
