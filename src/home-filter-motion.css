@@ -1,0 +1,6 @@
+.modal-backdrop.home-filter-backdrop{background:rgba(0,0,0,.53);transition:background-color 260ms ease-out}
+.modal-panel.home-filter-panel{transform:translateY(0);transform-origin:center bottom;transition:transform 340ms cubic-bezier(.22,.68,.18,1);will-change:transform}
+.home-filter-backdrop[data-modal-motion=opening],.home-filter-backdrop[data-modal-motion=closing]{background:rgba(0,0,0,0)}
+.home-filter-backdrop[data-modal-motion=opening]>.home-filter-panel,.home-filter-backdrop[data-modal-motion=closing]>.home-filter-panel{transform:translateY(calc(100% + var(--safe-bottom) + 24px))}
+.home-filter-backdrop[data-modal-motion=closing]{pointer-events:none}
+@media(prefers-reduced-motion:reduce){.modal-backdrop.home-filter-backdrop,.modal-panel.home-filter-panel{transition:none;will-change:auto}}

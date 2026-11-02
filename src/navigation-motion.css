@@ -19,6 +19,17 @@
 :root[data-navigation-motion=dismiss]::view-transition-new(eluva-page){animation-name:eluva-page-return-in;animation-duration:320ms;z-index:1}
 :root[data-navigation-motion=fade]::view-transition-old(eluva-page){animation-name:eluva-page-fade-out;animation-duration:200ms}
 :root[data-navigation-motion=fade]::view-transition-new(eluva-page){animation-name:eluva-page-fade-in;animation-duration:200ms}
+:root[data-navigation-shared-post=expand]::view-transition-old(eluva-page){animation-name:eluva-shared-source-hold;animation-duration:520ms;z-index:1}
+:root[data-navigation-shared-compose=expand]::view-transition-old(eluva-page){animation-name:eluva-shared-source-hold;animation-duration:560ms;z-index:1}
+:root[data-navigation-shared-post=expand]::view-transition-new(eluva-page){animation-name:eluva-shared-page-expand;animation-duration:520ms;z-index:2}
+:root[data-navigation-shared-compose=expand]::view-transition-new(eluva-page){animation-name:eluva-shared-page-expand;animation-duration:560ms;z-index:2}
+:root[data-navigation-shared-post=collapse]::view-transition-old(eluva-page){animation-name:eluva-shared-page-collapse;animation-duration:460ms;z-index:2}
+:root[data-navigation-shared-compose=collapse]::view-transition-old(eluva-page){animation-name:eluva-shared-page-collapse;animation-duration:500ms;z-index:2}
+:root[data-navigation-shared-post=collapse]::view-transition-new(eluva-page){animation-name:eluva-shared-destination-in;animation-duration:460ms;z-index:1}
+:root[data-navigation-shared-compose=collapse]::view-transition-new(eluva-page){animation-name:eluva-shared-destination-in;animation-duration:500ms;z-index:1}
+:root[data-navigation-shared-post] .navigation-page-host,:root[data-navigation-shared-compose] .navigation-page-host{pointer-events:none}
+.navigation-shared-fallback-surface{position:fixed;top:var(--visual-top,0);left:0;width:100vw;height:var(--visual-height,100dvh);z-index:70;pointer-events:none;background:#fefcff url('/images/p2/content-background.png') center/cover no-repeat;overflow:hidden;will-change:clip-path,opacity}
+.navigation-shared-fallback-surface>.page-shell{height:100%;width:100%}
 ::view-transition-old(eluva-tabs){animation:eluva-page-fade-out 160ms ease-out both;mix-blend-mode:normal}
 ::view-transition-new(eluva-tabs){animation:eluva-page-fade-in 200ms ease-out both;mix-blend-mode:normal}
 @keyframes eluva-page-forward{from{opacity:.84;transform:translateX(36px)}to{opacity:1;transform:none}}
@@ -31,4 +42,8 @@
 @keyframes eluva-page-drop{from{opacity:1;transform:none}to{opacity:0;transform:translateY(48px)}}
 @keyframes eluva-page-fade-in{from{opacity:0}to{opacity:1}}
 @keyframes eluva-page-fade-out{from{opacity:1}to{opacity:0}}
-@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+@keyframes eluva-shared-source-hold{from{opacity:1}to{opacity:.92}}
+@keyframes eluva-shared-page-expand{from{opacity:.12;clip-path:circle(0 at var(--navigation-shared-x) var(--navigation-shared-y))}to{opacity:1;clip-path:circle(var(--navigation-shared-radius) at var(--navigation-shared-x) var(--navigation-shared-y))}}
+@keyframes eluva-shared-page-collapse{from{opacity:1;clip-path:circle(var(--navigation-shared-radius) at var(--navigation-shared-x) var(--navigation-shared-y))}to{opacity:0;clip-path:circle(0 at var(--navigation-shared-x) var(--navigation-shared-y))}}
+@keyframes eluva-shared-destination-in{from{opacity:.72}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}.navigation-shared-fallback-surface{display:none}}

@@ -4,6 +4,7 @@
 .ac-avatar{display:block;flex:0 0 36px;width:36px;height:36px;object-fit:contain}
 .ac-avatar-hidden{visibility:hidden}
 .ac-guide-portrait{position:relative;display:block;flex:none;width:36px;height:36px;isolation:isolate}
+.ac-guide-presence{position:absolute;right:-1px;bottom:-1px;z-index:1;display:block;width:11px;height:11px;border:2px solid #fff;border-radius:50%;background:#34c759;pointer-events:none}
 .auth-conversation[data-welcome-relay=receiving] .ac-guide-portrait::before,.auth-conversation[data-welcome-relay=receiving] .ac-guide-portrait::after{content:'';position:absolute;inset:-3px;border:1px solid #d8b6ff;border-radius:50%;pointer-events:none;animation:ac-welcome-ring .32s ease-out both}
 .auth-conversation[data-welcome-relay=receiving] .ac-guide-portrait::after{border-color:#fff;animation-delay:60ms;animation-duration:.26s}
 .auth-conversation[data-welcome-relay=receiving] .ac-guide-portrait>.ac-avatar{animation:ac-welcome-avatar .32s ease-out both}
@@ -12,6 +13,7 @@
 @keyframes ac-welcome-avatar{0%{transform:scale(.98);filter:drop-shadow(0 0 0 #d5b7ff00)}45%{transform:scale(1.025);filter:drop-shadow(0 0 5px #c9a0ff66)}100%{transform:none;filter:none}}
 .ac-header strong{display:block;font:500 14px/21px 'Poppins',sans-serif}
 .ac-header small{display:block;font:400 12px/18px 'Poppins',sans-serif;color:#68646c}
+.ac-header small.ac-guide-typing{color:#945aff}
 
 /* Only this region scrolls. The composer yields space to the keyboard via the app viewport. */
 .ac-transcript{flex:1;min-height:0;width:100%;max-width:560px;margin:0 auto;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-width:none;scroll-padding:12px}
@@ -88,7 +90,7 @@
 .ac-composer .ac-options{justify-content:space-between}
 .ac-reset-cancel{align-self:flex-start}
 
-/* Small motion belongs to newly arriving messages and actual pending requests only. */
+/* Guide output and pending requests use the same conversation indicator. */
 .ac-message-enter-active{transition:opacity .24s ease-out,transform .24s ease-out}
 .ac-message-enter-from{opacity:0;transform:translateY(7px)}
 .ac-messages>.ac-incoming:first-child.ac-message-enter-from{transform:translate(8px,6px)}

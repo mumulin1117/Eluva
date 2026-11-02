@@ -23,7 +23,9 @@ export function installTouchPolicy(page = document) {
     const element = elementAt(event.target)
     if (element?.closest('img,svg,button') || !isEditableTarget(element)) event.preventDefault()
   }
-  const listeners = [['contextmenu', contextMenu], ['selectstart', selection], ['dragstart', drag]]
-  for (const [type, listener] of listeners) page.addEventListener(type, listener, true)
+  const doubleClick = event => { if (!isEditableTarget(event.target)) event.preventDefault() }
+  const scaleGesture = event => { if (event.cancelable) event.preventDefault() }
+  const listeners = [['contextmenu', contextMenu], ['selectstart', selection], ['dragstart', drag], ['dblclick', doubleClick], ['gesturestart', scaleGesture], ['gesturechange', scaleGesture]]
+  for (const [type, listener] of listeners) page.addEventListener(type, listener, { capture: true, passive: false })
   return () => { for (const [type, listener] of listeners) page.removeEventListener(type, listener, true) }
 }

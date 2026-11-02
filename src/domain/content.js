@@ -75,7 +75,7 @@ export function discoveryEligible(root, post, viewer) {
   }
 }
 export function feedPosts(posts, filter = defaultFeedFilter(), { viewerId = null } = {}) {
-  return posts.filter(p => p.authorId !== viewerId && p.discoveryEligible !== false && !p.visibility.private && p.visibility.discover && (filter.media === 'all' || (filter.media === 'text' ? !p.media.length : p.media.some(m => m.kind === filter.media))) && (filter.topic === 'all' || p.tagIds.includes(filter.topic)))
+  return posts.filter(p => p.authorId !== viewerId && p.lit !== true && p.discoveryEligible !== false && !p.visibility.private && p.visibility.discover && (filter.media === 'all' || (filter.media === 'text' ? !p.media.length : p.media.some(m => m.kind === filter.media))) && (filter.topic === 'all' || p.tagIds.includes(filter.topic)))
 }
 export const discoveryBatchLimit = 5
 // Select a bounded circular batch without changing the authoritative post list.

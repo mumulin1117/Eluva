@@ -19,13 +19,16 @@ import { DiscoveryPresentation } from '../services/discovery-presentation.js'
 import { layoutDiscoverySignals,signalColor } from '../services/discovery-signals.js'
 import { paintLoading } from '../services/loading-presentation.js'
 import '../home-discovery-motion.css'
+import '../home-filter-motion.css'
 const hasDiscoverable=computed(hasDiscoverablePosts)
 const ready=computed(()=>content.loaded&&content.ownerId===state.user?.id)
-const sourcePosts=computed(discovered)
+const retainedFeed=ref(null)
+const sourcePosts=computed(()=>retainedFeed.value||discovered())
 const empty=computed(()=>ready.value&&sourcePosts.value.length===0)
 const filteredEmpty=computed(()=>empty.value&&hasDiscoverable.value)
 const enteringComposer=ref(false),refreshFeedback=ref(''),readOperation=ref(''),readPending=ref(!ready.value)
-const map=ref(null),filterOpen=ref(false),helpOpen=ref(false),filter=ref(defaultFeedFilter())
+const map=ref(null),filterPhase=ref('closed'),helpOpen=ref(false),filter=ref(defaultFeedFilter())
+const filterOpen=computed(()=>filterPhase.value!=='closed')
 const guideOpen=ref(false),entryReadSucceeded=ref(false)
 const openingId=ref('')
 let openingCard=null,directOpening=false
@@ -43,7 +46,7 @@ const beacons=computed(()=>sourcePosts.value.filter(post=>motion.value.litIds.in
 function signalStyle(id){const index=Math.max(0,sourcePosts.value.findIndex(post=>post.id===id));return {'--signal-color':signalColor(index),'--beacon-hue':index*8+'deg'}}
 function countLabel(n){return t(n===1?'p2.resonanceCountOne':'p2.resonanceCount',{n})}
 const sourceSignature=computed(()=>[feedKey.value,...sourcePosts.value.map(post=>post.id)].join('|'))
-let generation=0,disposed=false,modalObserver,intersectionObserver,presentationOwner=state.user?.id,presentedSource=''
+let generation=0,disposed=false,modalObserver,intersectionObserver,presentationOwner=state.user?.id,presentedSource='',filterFrame,filterTimer
 const motionQuery=window.matchMedia('(prefers-reduced-motion: reduce)')
 const presentation=new DiscoveryPresentation({stepMs:1000,settleMs:1000,changed(value){
  if(disposed)return
@@ -71,8 +74,9 @@ function syncPresentation(){presentationOwner=state.user?.id;presentedSource=sou
 function presentResult(token){presentationOwner=state.user?.id;presentedSource=sourceSignature.value;presentation.resolve([...sourcePosts.value].reverse(),{token})}
 function feedElement(){return document.querySelector('.home-shell .discovery-list')}
 function cancelCardOpen(){
- const pending=openingCard;if(!pending)return
+ const pending=openingCard;if(!pending){retainedFeed.value=null;return}
  openingCard=null;openingId.value='';pending.animation?.cancel()
+ retainedFeed.value=null
  presentation.hold('card-open',false)
 }
 function availableCard(post){
@@ -87,29 +91,7 @@ async function openPost(post){
  try{await router.push({name:'post',params:{id:post.id},query:{from:'/home'}})}
  finally{directOpening=false}
 }
-async function echo(post){
- const card=availableCard(post);if(!card)return
- const scroller=card.closest('.page-content')
- const pending={id:post.id,owner:state.user?.id,source:sourceSignature.value,path:router.currentRoute.value.fullPath,card,animation:null,scroll:{height:scroller.scrollHeight,top:scroller.scrollTop}}
- const current=()=>openingCard===pending&&!disposed&&router.currentRoute.value.name==='home'&&pending.owner===state.user?.id&&pending.source===sourceSignature.value&&pending.path===router.currentRoute.value.fullPath&&pending.card.isConnected&&!pagePaused.value&&canNavigate()&&!state.ui.busy&&posts.value.some(x=>x.id===pending.id)
- openingCard=pending;openingId.value=post.id;presentation.hold('card-open',true)
- try{
-  // Hold the card from the first tap, but confirm the real Light-Up write
-  // before its success glow. A visual cancellation never rolls back a commit.
-  const ok=await mutateContent('echo',{postId:pending.id,lit:true})
-  if(!ok||!current())return
-  if(!motionQuery.matches){
-   const style=getComputedStyle(card),base=style.boxShadow,color=style.getPropertyValue('--signal-color').trim()||signalStyle(post.id)['--signal-color']
-   try{
-    pending.animation=card.animate([{boxShadow:base},{offset:.4,boxShadow:`0 0 0 3px #fff5d9, 0 0 42px 12px ${color}, 0 0 72px 12px ${color}, inset 0 0 14px ${color}`},{boxShadow:base}],{duration:1500,easing:'ease-in-out',iterations:1,fill:'none'})
-    pending.animation.id='home-light-up-'+post.id
-   }catch{/* An unavailable animation API must not make the card unusable. */}
-   if(pending.animation)await pending.animation.finished
-  }
-  if(current())await router.push({name:'post',params:{id:pending.id},query:{from:'/home'}})
- }catch{/* Cancellation discards navigation; the existing page remains usable. */}
- finally{if(openingCard===pending)cancelCardOpen()}
-}
+async function openLightUp(post){await openPost(post)}
 function positionSignals(){
  const shell=document.querySelector('.home-shell'),area=shell?.querySelector('.discovery-beacons')?.getBoundingClientRect()
  if(!area)return
@@ -237,6 +219,8 @@ onMounted(async()=>{
  await restoreFeed()
 })
 onBeforeUnmount(()=>{
+ if(filterFrame!==undefined)cancelAnimationFrame(filterFrame)
+ clearTimeout(filterTimer)
  cancelCardOpen()
  presentation.finish()
  disposed=true;generation++;presentation.dispose();modalObserver?.disconnect();intersectionObserver?.disconnect()
@@ -246,8 +230,21 @@ onBeforeUnmount(()=>{
 })
 function openHelp(event){if(helpOpen.value||!ready.value||guideOpen.value)return;cancelCardOpen();event?.currentTarget?.focus({preventScroll:true});helpOpen.value=true}
 async function compose(){if(enteringComposer.value||state.ui.busy||!canNavigate())return;cancelCardOpen();enteringComposer.value=true;try{newPostDraft('/home');await router.push('/compose')}finally{enteringComposer.value=false}}
-function openFilter(){clearDecorations();presentation.finish();readOperation.value='';filter.value={...content.preferences.feedFilter||defaultFeedFilter()};filterOpen.value=true}
-async function saveFilter(){if(await mutateContent('preferences',{feedFilter:{...filter.value}})){entryReadSucceeded.value=true;filterOpen.value=false;refreshFeedback.value='';content.feedScroll=0;await restoreFeed()}}
+async function openFilter(){
+ if(filterOpen.value)return
+ clearDecorations();presentation.finish();readOperation.value='';filter.value={...content.preferences.feedFilter||defaultFeedFilter()};filterPhase.value='opening'
+ await nextTick()
+ if(disposed||filterPhase.value!=='opening')return
+ filterFrame=requestAnimationFrame(()=>{filterFrame=undefined;if(filterPhase.value==='opening')filterPhase.value='open'})
+}
+function finishFilterClose(){if(filterPhase.value!=='closing')return;clearTimeout(filterTimer);filterTimer=undefined;filterPhase.value='closed'}
+function closeFilter(){
+ if(filterPhase.value==='closed'||filterPhase.value==='closing'||state.ui.busy)return
+ if(filterFrame!==undefined){cancelAnimationFrame(filterFrame);filterFrame=undefined}
+ if(motionQuery.matches){filterPhase.value='closed';return}
+ filterPhase.value='closing';clearTimeout(filterTimer);filterTimer=setTimeout(finishFilterClose,450)
+}
+async function saveFilter(){if(await mutateContent('preferences',{feedFilter:{...filter.value}})){entryReadSucceeded.value=true;closeFilter();refreshFeedback.value='';content.feedScroll=0;await restoreFeed()}}
 async function resetFilter(){readOperation.value='';if(await mutateContent('preferences',{feedFilter:defaultFeedFilter()})){entryReadSucceeded.value=true;refreshFeedback.value='';content.feedScroll=0;await restoreFeed()}}
 async function finishGuide(){if(await mutateContent('preferences',{guideDone:true})){content.guideStep=null;guideOpen.value=false}}
 </script>
@@ -265,7 +262,7 @@ async function finishGuide(){if(await mutateContent('preferences',{guideDone:tru
  <LoadingSkeleton v-if="!ready&&readPending" variant="home" class="discovery-loading" :label="t('p2.loading')"/>
  <div v-else-if="!ready" class="content-state" :data-error-code="state.ui.error"><p>{{ t('p2.loadFailed') }}</p><ActionButton @click="readHome()">{{ t('retry') }}</ActionButton></div>
  <section v-else-if="sourcePosts.length" class="discovery-panel" :aria-busy="motion.busy">
-  <TransitionGroup tag="div" name="discovery-cards" class="discovery-list" @leave="removeCard" @scroll="content.feedScroll=$event.target.scrollLeft"><PostCard v-for="post in posts" :key="post.id" :post="post" :echo-busy="openingId===post.id" :interaction-disabled="!!openingId" :data-post-id="post.id" :style="signalStyle(post.id)" :data-glow-id="glowingIds.includes(post.id)?post.id:undefined" :data-open-feedback="openingId===post.id?true:undefined" :aria-busy="openingId===post.id?true:undefined" :class="{'discovery-card-reveal':motion.activeId===post.id,'discovery-card-landing':arrival?.id===post.id,'discovery-card-glow':glowingIds.includes(post.id)}" @open="openPost(post)" @echo="echo(post)"/></TransitionGroup>
+  <TransitionGroup tag="div" name="discovery-cards" class="discovery-list" @leave="removeCard" @scroll="content.feedScroll=$event.target.scrollLeft"><PostCard v-for="post in posts" :key="post.id" :post="post" :echo-busy="openingId===post.id" :interaction-disabled="!!openingId" :data-post-id="post.id" :style="signalStyle(post.id)" :data-glow-id="glowingIds.includes(post.id)?post.id:undefined" :data-open-feedback="openingId===post.id?true:undefined" :aria-busy="openingId===post.id?true:undefined" :class="{'discovery-card-reveal':motion.activeId===post.id,'discovery-card-landing':arrival?.id===post.id,'discovery-card-glow':glowingIds.includes(post.id)}" @open="openPost(post)" @echo="openLightUp(post)"/></TransitionGroup>
  </section>
  <div v-if="ready&&content.draft&&dirtyPost()" class="home-local-tools"><button class="text-link" @click="compose">{{ t('p2.continueDraft') }}</button></div>
  <template #tabs><div v-if="empty" class="home-empty-footer"><HomeEmptyPanel :filtered="filteredEmpty" :busy="!!state.ui.busy||discovering" :entering="enteringComposer" :feedback="refreshFeedback" @compose="compose" @reset="resetFilter"/><AppTabBar :lights="content.events.length"/></div><AppTabBar v-else :lights="content.events.length"/></template>
@@ -273,4 +270,4 @@ async function finishGuide(){if(await mutateContent('preferences',{guideDone:tru
 </ContentShell>
 <HomeHelpModal v-if="helpOpen" @close="helpOpen=false"/>
 <AppModal v-if="guideOpen&&content.guideStep!==null&&!content.preferences.guideDone" :title="t('p2.guideTitle')" :coach-side="content.guideStep%2?'right':'left'" :coach-target="guideTargets[content.guideStep]" :closable="!state.ui.busy" @close="finishGuide"><div class="home-guide" :data-guide-step="content.guideStep"><p>{{ t('p2.guide'+content.guideStep) }}</p><span>{{ t('p2.guideStep',{n:content.guideStep+1}) }}</span></div><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="finishGuide">{{ t('p2.guideSkip') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="content.guideStep===3?finishGuide():content.guideStep++">{{ t(content.guideStep===3?'p2.guideDone':'p2.next') }}</ActionButton></template></AppModal>
-<AppModal v-if="filterOpen" :closable="!state.ui.busy" :title="t('p2.feedFilters')" @close="filterOpen=false"><p class="sheet-hint">{{ t('p2.feedHint') }}</p><fieldset :disabled="!!state.ui.busy"><legend>{{ t('p2.filters') }}</legend><div class="chips"><button v-for="id in ['all','image','video','text']" :key="id" class="chip" :class="{selected:filter.media===id}" :aria-pressed="filter.media===id" @click="filter.media=id">{{ t('p2.'+({image:'images'}[id]||id)) }}</button></div></fieldset><fieldset class="sheet-field"><legend>{{ t('p2.topics') }}</legend><select class="plain-select" :disabled="!!state.ui.busy" v-model="filter.topic" :aria-label="t('p2.topics')"><option value="all">{{ t('p2.all') }}</option><option v-for="x in choices.interests" :key="x.id" :value="x.id">{{ x[state.locale] }}</option></select></fieldset><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="filterOpen=false">{{ t('cancel') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="saveFilter">{{ t('save') }}</ActionButton></template></AppModal></template>
+<AppModal v-if="filterOpen" variant="home-filter" :motion-state="filterPhase" :closable="!state.ui.busy" :title="t('p2.feedFilters')" @close="closeFilter" @motionend="finishFilterClose"><p class="sheet-hint">{{ t('p2.feedHint') }}</p><fieldset :disabled="!!state.ui.busy"><legend>{{ t('p2.filters') }}</legend><div class="chips"><button v-for="id in ['all','image','video','text']" :key="id" class="chip" :class="{selected:filter.media===id}" :aria-pressed="filter.media===id" @click="filter.media=id">{{ t('p2.'+({image:'images'}[id]||id)) }}</button></div></fieldset><fieldset class="sheet-field"><legend>{{ t('p2.topics') }}</legend><select class="plain-select" :disabled="!!state.ui.busy" v-model="filter.topic" :aria-label="t('p2.topics')"><option value="all">{{ t('p2.all') }}</option><option v-for="x in choices.interests" :key="x.id" :value="x.id">{{ x[state.locale] }}</option></select></fieldset><template #footer><ActionButton secondary :disabled="!!state.ui.busy" @click="closeFilter">{{ t('cancel') }}</ActionButton><ActionButton class="purple-gradient" :busy="!!state.ui.busy" @click="saveFilter">{{ t('save') }}</ActionButton></template></AppModal></template>

@@ -48,7 +48,7 @@ function declaration(source, marker) {
   return source.slice(start, end)
 }
 
-const webSource = await readFile(join(nativeRoot, 'WebViewController.swift'), 'utf8')
+const webSource = await readFile(join(nativeRoot, 'ElunostalgiaSpectrumer.swift'), 'utf8')
 const packageSource = await readFile(join(nativeRoot, 'CognitiveFlexibility.swift'), 'utf8')
 const codecSource = await readFile(join(nativeRoot, 'ValenceCurve.swift'), 'utf8')
 const nativeDeclarations = [

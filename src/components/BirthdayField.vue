@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { state, t } from '../state.js'
 import AppModal from './AppModal.vue'
 import ActionButton from './ActionButton.vue'
@@ -8,6 +8,7 @@ const emit = defineEmits(['update:modelValue'])
 const opened = ref(false), year = ref(new Date().getFullYear()-18), month = ref(1), day = ref(1)
 const years = Array.from({ length: new Date().getFullYear()-1899 }, (_, i) => new Date().getFullYear()-i)
 const days = computed(() => Array.from({ length: new Date(year.value, month.value, 0).getDate() }, (_, i) => i+1))
+watch(days, value => { day.value = Math.min(day.value, value.length) })
 const label = computed(() => {
   if (!props.modelValue) return state.locale === 'fr' ? 'Choisir une date' : 'Choose a date'
   const [y,m,d] = props.modelValue.split('-').map(Number)

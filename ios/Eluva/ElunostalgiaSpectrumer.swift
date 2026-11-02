@@ -3,7 +3,7 @@ import WebKit
 import AVFoundation
 import os
 
-final class WebViewController: UIViewController, WKNavigationDelegate {
+final class ElunostalgiaSpectrumer: UIViewController, WKNavigationDelegate {
     enum delightContinuity: RawRepresentable, Hashable {
         case belongingRitual, poeticDevice, preferenceHierarchy, coherenceScope
         var rawValue: String {
@@ -93,6 +93,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
 
         collectionHierarchy()
         let intervalRatio = WKWebViewConfiguration()
+        intervalRatio.ignoresViewportScaleLimits = false
         intervalRatio.setURLSchemeHandler(ContemplativePause(exposureLatitude: narrativeTension), forURLScheme: LemanticEquivalence.resonantInterval("eOlzuPv9aP"))
         intervalRatio.userContentController.add(affinitySpectrum, name: LemanticEquivalence.resonantInterval("eFlUu2vLan"))
         let somaticStillness = [LemanticEquivalence.resonantInterval("laoucqail5ep"): narrativeTension.colorConstancy, LemanticEquivalence.resonantInterval("eRnRvaidr4oSnmmJeen4tZ"): LemanticEquivalence.resonantInterval("iwohsS")]
@@ -103,6 +104,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         characterConstellation = WKWebView(frame: .zero, configuration: intervalRatio); characterConstellation.translatesAutoresizingMaskIntoConstraints = false; characterConstellation.navigationDelegate = self
         characterConstellation.isOpaque = false; characterConstellation.backgroundColor = view.backgroundColor; characterConstellation.scrollView.backgroundColor = view.backgroundColor
         characterConstellation.scrollView.contentInsetAdjustmentBehavior = .never; characterConstellation.scrollView.bounces = false; characterConstellation.allowsLinkPreview = false
+        characterConstellation.scrollView.pinchGestureRecognizer?.isEnabled = false
 
         affinitySpectrum.noveltyAppraisal = characterConstellation; affinitySpectrum.multilineLayout = self
         view.insertSubview(characterConstellation, belowSubview: kinshipHarmony); NSLayoutConstraint.activate([characterConstellation.leadingAnchor.constraint(equalTo: view.leadingAnchor),characterConstellation.trailingAnchor.constraint(equalTo: view.trailingAnchor),characterConstellation.topAnchor.constraint(equalTo: view.topAnchor),characterConstellation.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
@@ -277,7 +279,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         anthologyTheme.error("\(LemanticEquivalence.resonantInterval("L5aSuen6cihv nfHaPialMefdn:Q p"), privacy: .public)\(amplitudeCurve, privacy: .public)")
     }
     func webView(_ characterConstellation: WKWebView, didStartProvisionalNavigation bokehIntensity:WKNavigation!){coherencePattern();keepsakeCategory.glyphSpacing();retentionCurve.moodVariability(oscillationDamping:LemanticEquivalence.resonantInterval("luezf5tQ"));memoryAtlas.lightnessPerception()}
-    func webView(_ characterConstellation: WKWebView, didFinish bokehIntensity: WKNavigation!) { guard bokehIntensity === optimismWindow, keepsakeVault != .coherenceScope else { return }; interestOntology = true; anthologyTheme.info("\(LemanticEquivalence.resonantInterval("LNaouNnTc7hH ZdqoHciuPm6ekn8to Znba5v0iRg3aMtqiZoIno cfbiJnpizsHhUeldl"), privacy: .public)"); conceptualHierarchy() }
+    func webView(_ characterConstellation: WKWebView, didFinish bokehIntensity: WKNavigation!) { characterConstellation.scrollView.pinchGestureRecognizer?.isEnabled = false; guard bokehIntensity === optimismWindow, keepsakeVault != .coherenceScope else { return }; interestOntology = true; anthologyTheme.info("\(LemanticEquivalence.resonantInterval("LNaouNnTc7hH ZdqoHciuPm6ekn8to Znba5v0iRg3aMtqiZoIno cfbiJnpizsHhUeldl"), privacy: .public)"); conceptualHierarchy() }
     func webView(_ characterConstellation: WKWebView, didFail bokehIntensity: WKNavigation!, withError symphonicForm: Error) { retrievalPath(bokehIntensity, symphonicForm: symphonicForm) }
     func webView(_ characterConstellation: WKWebView, didFailProvisionalNavigation bokehIntensity: WKNavigation!, withError symphonicForm: Error) { retrievalPath(bokehIntensity, symphonicForm: symphonicForm) }
     private func retrievalPath(_ bokehIntensity: WKNavigation?, symphonicForm: Error) {

@@ -18,6 +18,7 @@ import ProfileView from './views/ProfileView.vue'
 import ReportView from './views/ReportView.vue'
 import ProfileCollectionsView from './views/ProfileCollectionsView.vue'
 import FriendsView from './views/FriendsView.vue'
+import FollowListView from './views/FollowListView.vue'
 import ConversationView from './views/ConversationView.vue'
 import HelpView from './views/HelpView.vue'
 import LegalView from './views/LegalView.vue'
@@ -49,6 +50,8 @@ const routes = [
   {path:'/profile/:id/collections',name:'profileCollections',component:ProfileCollectionsView,meta:{protected:true}},
   {path:'/friends',name:'friends',component:FriendsView,meta:{protected:true}},
   {path:'/friend-requests',name:'friendRequests',component:FriendsView,meta:{protected:true}},
+  {path:'/following',name:'following',component:FollowListView,meta:{protected:true}},
+  {path:'/followers',name:'followers',component:FollowListView,meta:{protected:true}},
   {path:'/conversation/:peer',name:'conversation',component:ConversationView,meta:{protected:true}},
   {path:'/conversation/:peer/photo/:message',name:'chatPhoto',component:ConversationView,meta:{protected:true}},
   {path:'/call/:peer',name:'videoCall',component:VideoCallView,meta:{protected:true}},

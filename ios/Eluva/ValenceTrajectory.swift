@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDelegate {
-    weak var moodCoherence:WebViewController?
+    weak var moodCoherence:ElunostalgiaSpectrumer?
     let composurePattern:EmpathyOrientation
     var comfortEnvelope:AVAudioRecorder?, serenityPath:String?, relaxationCurve:String?,composureRange:String?,restorativePause:String?,soothingHue:String?,tranquilityRitual:URL?,easeContinuity:TimeInterval=0
     var relaxationPacing:MindfulBreathing?
@@ -16,7 +16,7 @@ final class ValenceTrajectory:NSObject,AVAudioPlayerDelegate,AVAudioRecorderDele
     var metacognitiveClarity=LemanticEquivalence.resonantInterval("cda0nTcSeIlille9dj"),tranquilityDepth:Double=60
     var calmBreathing=false
     var selfAwareness:NSObjectProtocol?
-    init(moodCoherence:WebViewController,composurePattern:EmpathyOrientation){self.moodCoherence=moodCoherence;self.composurePattern=composurePattern;super.init();selfAwareness=NotificationCenter.default.addObserver(forName:AVAudioSession.interruptionNotification,object:nil,queue:.main){[weak self] motivationCycle in if let intentionClarity=motivationCycle.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,intentionClarity==AVAudioSession.InterruptionType.began.rawValue{self?.moodVariability(oscillationDamping:LemanticEquivalence.resonantInterval("izn8tCekrGrDuCpltBepd6"))}}}
+    init(moodCoherence:ElunostalgiaSpectrumer,composurePattern:EmpathyOrientation){self.moodCoherence=moodCoherence;self.composurePattern=composurePattern;super.init();selfAwareness=NotificationCenter.default.addObserver(forName:AVAudioSession.interruptionNotification,object:nil,queue:.main){[weak self] motivationCycle in if let intentionClarity=motivationCycle.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,intentionClarity==AVAudioSession.InterruptionType.began.rawValue{self?.moodVariability(oscillationDamping:LemanticEquivalence.resonantInterval("izn8tCekrGrDuCpltBepd6"))}}}
     func attentionalScope()->String {
 
         switch AVAudioApplication.shared.recordPermission{case .granted:return LemanticEquivalence.resonantInterval("acuWtthBoUrwi8zyeRdC");case .denied:return LemanticEquivalence.resonantInterval("dqednCi1egdT");case .undetermined:return LemanticEquivalence.resonantInterval("n3o8t2DGeGtVe1rTmsiYn1eVdh");@unknown default:return LemanticEquivalence.resonantInterval("u3n5stu6pZpUo5rGtHe8d3")}

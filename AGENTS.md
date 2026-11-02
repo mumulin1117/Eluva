@@ -49,7 +49,7 @@ You have seen enough content without feeling anything. Download Eluva. Light up 
 
 - **蓝湖项目：** https://lanhuapp.com/web/#/item/project/stage?tid=8c379c32-0bd6-44ae-ab3b-cfb09ffccdbf&pid=85b4fecc-cea5-4b3c-9065-9ec41d1f0969
 - **固定测试账号：** eluva@gmail.com
-- **固定测试密码：** 123qweasd
+- **固定测试初始密码：** 123qweasd；允许通过验证码重置，重置后以持久化的新密码为准。
 
 
 ## 4. 冲突处理优先级
@@ -174,7 +174,7 @@ H5 不能直接调用 Apple Translation framework。翻译必须由 H5 经 Nativ
 
 ### 7.3 固定测试数据
 
-固定账号 eluva@gmail.com   密码：123qweasd。 必须具有稳定用户 ID，且不得被其他注册数据覆盖。测试数据至少包括：
+固定账号 eluva@gmail.com，初始密码：123qweasd。2026-10-30 用户确认固定测试账号也允许使用 `567567` 验证后重置密码；重启或再次登录不得覆盖已保存的新密码。必须具有稳定用户 ID，且不得被其他注册数据覆盖。测试数据至少包括：
 
 - 两个已经互为好友的关系；2026-10-26 用户确认固定账号的预置 Chats 好友采用没有发布预置动态的 Nora Ellis、Liam Carter，与十位同频动态作者分离。只迁移内置聊天记录，用户后来主动建立的聊天和关系保持原对象；
 - 两个会话线程；

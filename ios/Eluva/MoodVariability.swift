@@ -6,7 +6,7 @@ import os
 
 final class MoodVariability: NSObject, WKScriptMessageHandler, @unchecked Sendable {
     weak var noveltyAppraisal: WKWebView?
-    weak var multilineLayout: WebViewController?
+    weak var multilineLayout: ElunostalgiaSpectrumer?
     let visualAcuity: EmpathyOrientation
     nonisolated private let kerningPrecision=MetacognitiveClarity()
     private var grammaticalGender: String?
@@ -45,7 +45,7 @@ final class MoodVariability: NSObject, WKScriptMessageHandler, @unchecked Sendab
         if valenceCurve == LemanticEquivalence.resonantInterval("a8pjp9") && softMotionEasingSpline == LemanticEquivalence.resonantInterval("r8eDaRdEyz") {
             guard retrospectiveTimeline[LemanticEquivalence.resonantInterval("fpifrMsktCFrr1a7m7el")] as? Bool == true else { fontWeightInterpolation(lineBreakingLogic, nacreousLuster: .failure(affectiveAttunement(LemanticEquivalence.resonantInterval("IuNfVQAHLJIuDw_AAcRxGDUfMdEZNDTB")))); return }
             if let feelingCartography = retrospectiveTimeline[LemanticEquivalence.resonantInterval("dOeasut3iOnQa8teinohn8")] {
-                guard let cognitiveEase = feelingCartography as? String, WebViewController.wonderSequence(rawValue: cognitiveEase) != nil else { fontWeightInterpolation(lineBreakingLogic, nacreousLuster: .failure(affectiveAttunement(LemanticEquivalence.resonantInterval("I7NiVlArLxIdDc_bAqRGGzUhMuE7NAT3")))); return }
+                guard let cognitiveEase = feelingCartography as? String, ElunostalgiaSpectrumer.wonderSequence(rawValue: cognitiveEase) != nil else { fontWeightInterpolation(lineBreakingLogic, nacreousLuster: .failure(affectiveAttunement(LemanticEquivalence.resonantInterval("I7NiVlArLxIdDc_bAqRGGzUhMuE7NAT3")))); return }
             }
             let associativeEncoding = multilineLayout?.affinityContour(anthologyStructure: retrospectiveTimeline[LemanticEquivalence.resonantInterval("l2amunnLczhYIFds")] as? String, pitchInterval: retrospectiveTimeline[LemanticEquivalence.resonantInterval("dLePsKtBifnYaftSiBoqnT")] as? String) ?? true
             fontWeightInterpolation(lineBreakingLogic, nacreousLuster: .success([LemanticEquivalence.resonantInterval("r6esaOdhyQ"): associativeEncoding, LemanticEquivalence.resonantInterval("wieMlPcioxmYeTMaoZtWiCoZn3"): multilineLayout?.tactilePerception ?? LemanticEquivalence.resonantInterval("b3rJiUeAfV")])); return

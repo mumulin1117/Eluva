@@ -51,8 +51,8 @@ export function profileFor(root,id,viewer){
 }
 export function relationship(root,viewer,peer){
   const s=socialState(root),pair=pairId(viewer,peer),request=Object.values(s.requests).find(x=>x.pair===pair)
-  const following=!!s.follows[viewer+':'+peer],mutual=following&&!!s.follows[peer+':'+viewer],connection=s.connections[pair]
-  return {blocked:isBlocked(root,viewer,peer),blockedByMe:!!contentState(root).blocks[viewer+':'+peer],following,friends:mutual,mutual,canMessage:mutual||connection?.status==='connected',connection:connection?{...connection,direction:connection.senderId===viewer?'sent':'received'}:null,request:request?{...request,direction:request.senderId===viewer?'sent':'received'}:null}
+  const following=!!s.follows[viewer+':'+peer],followedBy=!!s.follows[peer+':'+viewer],mutual=following&&followedBy,connection=s.connections[pair]
+  return {blocked:isBlocked(root,viewer,peer),blockedByMe:!!contentState(root).blocks[viewer+':'+peer],following,followedBy,friends:mutual,mutual,canMessage:mutual||connection?.status==='connected',connection:connection?{...connection,direction:connection.senderId===viewer?'sent':'received'}:null,request:request?{...request,direction:request.senderId===viewer?'sent':'received'}:null}
 }
 export function requirePeer(root,viewer,peer,{friend=false}={}){
   invariant(viewer!==peer,'SELF_ACTION');profileFor(root,peer,viewer);invariant(!isBlocked(root,viewer,peer),'USER_BLOCKED')

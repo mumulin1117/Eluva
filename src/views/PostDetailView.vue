@@ -20,15 +20,17 @@ import PostImageCarousel from '../components/PostImageCarousel.vue'
 import LoadingSkeleton from '../components/LoadingSkeleton.vue'
 import SocialSafety from '../components/SocialSafety.vue'
 import '../post-detail.css'
-const route=useRoute(),ready=ref(false),authorReady=ref(false),sheet=ref(''),navigating=ref(false),entryReveal=ref(false)
+const route=useRoute(),ready=ref(false),authorReady=ref(false),sheet=ref(''),navigating=ref(false),entryReveal=ref(false),replyMotion=ref('idle')
 const post=computed(()=>content.posts.find(x=>x.id===route.params.id)),isMine=computed(()=>post.value?.authorId===state.user?.id),revealed=computed(()=>post.value?.lit||isMine.value)
 const author=computed(()=>person(post.value?.authorId)),relation=computed(()=>author.value?.relationship),draft=computed(()=>introDraft(post.value?.authorId)),connection=computed(()=>relation.value?.connection)
 content.detailMediaIndices||={}
 const cacheKey=computed(()=>state.user?.id+':'+route.params.id),mediaIndex=computed({get:()=>content.detailMediaIndices[cacheKey.value]||0,set:value=>{content.detailMediaIndices[cacheKey.value]=value}})
 const mediaMode=computed(()=>route.name==='postMedia'),viewerIndex=computed(()=>{const n=Number(route.params.index);return Number.isInteger(n)&&n>=0&&n<(post.value?.media.length||0)?n:0}),currentMedia=computed(()=>post.value?.media[viewerIndex.value])
 const images=computed(()=>post.value?.media.every(x=>x.kind==='image')),replyWaiting=computed(()=>!relation.value?.canMessage&&!!connection.value),about=computed(()=>author.value?.aboutTranslations?.[state.locale]||author.value?.about||post.value?.author.about||t('s.noAbout'))
-let generation=0,releaseWait,loadingController
-onBeforeUnmount(()=>{generation++;loadingController?.abort();releaseWait?.()})
+let generation=0,releaseWait,loadingController,replyMotionTimer,disposed=false
+function clearReplyMotionTimer(){if(replyMotionTimer){window.clearTimeout(replyMotionTimer);replyMotionTimer=undefined}}
+function resetReplyMotion(){clearReplyMotionTimer();replyMotion.value='idle'}
+onBeforeUnmount(()=>{disposed=true;resetReplyMotion();generation++;loadingController?.abort();releaseWait?.()})
 function restorePost(){
  const owner=state.user?.id,id=String(route.params.id)
  if(!owner||!content.presentedPosts?.[id]||!content.loaded||content.ownerId!==owner||!social.loaded||social.ownerId!==owner||post.value?.id!==id||!author.value||relation.value?.blocked)return false
@@ -73,14 +75,42 @@ async function load(){
  }finally{pace?.cancel();if(current())ready.value=true}
 }
 onMounted(()=>{if(!restorePost())load()})
-watch(()=>route.params.id,()=>{sheet.value='';if(!restorePost())load()})
+watch(()=>route.params.id,()=>{resetReplyMotion();sheet.value='';if(!restorePost())load()})
 watch(viewerIndex,index=>{if(mediaMode.value)mediaIndex.value=index})
-watch(()=>relation.value?.blocked,blocked=>{if(blocked){sheet.value='';document.querySelectorAll('audio,video').forEach(x=>x.pause())}})
+watch(()=>relation.value?.blocked,blocked=>{if(blocked){resetReplyMotion();sheet.value='';document.querySelectorAll('audio,video').forEach(x=>x.pause())}})
 function back(){if(mediaMode.value)router.replace({name:'post',params:{id:route.params.id},query:route.query});else router.push(typeof route.query.from==='string'&&(['/home','/my-posts','/my-lights','/mine','/chats'].includes(route.query.from)||route.query.from.startsWith('/profile/')||route.query.from.startsWith('/collections/')||route.query.from.startsWith('/conversation/'))?route.query.from:'/home')}
 async function light(){if(!post.value.lit)await mutateContent('echo',{postId:post.value.id,lit:true})}
 async function chat(){if(navigating.value||state.ui.busy||!canNavigate())return;navigating.value=true;try{await router.push({name:'conversation',params:{peer:post.value.authorId},query:{from:route.fullPath}})}finally{navigating.value=false}}
 function reply(){if(state.ui.busy||navigating.value)return;if(relation.value?.blocked){state.ui.error='USER_BLOCKED';return}if(relation.value?.canMessage||connection.value?.direction==='received'&&connection.value.status==='pending')return chat();sheet.value=replyWaiting.value?'waiting':'reply'}
-async function send(){if(await socialAction('replyPost',{postId:post.value.id,body:draft.value.body,commitId:draft.value.commitId},{notice:''})){state.ui.notice='';draft.value.body='';draft.value.commitId=newId();sheet.value='sent'}}
+function finishReplyFlight(){
+ if(disposed||sheet.value!=='reply')return
+ clearReplyMotionTimer();replyMotion.value='idle';sheet.value='sent'
+}
+function advanceReplyMotion(phase){
+ if(disposed||sheet.value!=='reply'||replyMotion.value!==phase)return
+ clearReplyMotionTimer()
+ if(phase==='preparing'){
+  replyMotion.value='collapsing'
+  replyMotionTimer=window.setTimeout(()=>advanceReplyMotion('collapsing'),520)
+ }else if(phase==='collapsing'){
+  replyMotion.value='flying'
+  replyMotionTimer=window.setTimeout(()=>advanceReplyMotion('flying'),980)
+ }else if(phase==='flying')finishReplyFlight()
+}
+function replyMotionEnded(phase){advanceReplyMotion(phase)}
+function startReplyMotion(){
+ document.activeElement?.blur?.()
+ if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){finishReplyFlight();return}
+ replyMotion.value='preparing'
+ replyMotionTimer=window.setTimeout(()=>advanceReplyMotion('preparing'),220)
+}
+async function send(){
+ if(replyMotion.value!=='idle'||state.ui.busy||!post.value)return
+ const sent=await socialAction('replyPost',{postId:post.value.id,body:draft.value.body,commitId:draft.value.commitId},{notice:''})
+ if(!sent||disposed||sheet.value!=='reply')return
+ state.ui.notice='';draft.value.body='';draft.value.commitId=newId();await nextTick();startReplyMotion()
+}
+function closeReply(){if(replyMotion.value==='idle')sheet.value=''}
 function closeReplyNotice(){sheet.value='';nextTick(()=>document.querySelector('.detail-reply-button')?.focus({preventScroll:true}))}
 function viewMedia(index){if(state.ui.busy||!canNavigate()||navigating.value)return;mediaIndex.value=index;router.push({name:'postMedia',params:{id:post.value.id,index},query:route.query})}
 function changeMedia(delta){const n=post.value.media.length,index=(viewerIndex.value+delta+n)%n;router.replace({name:'postMedia',params:{id:post.value.id,index},query:route.query})}
@@ -110,8 +140,8 @@ function changeMedia(delta){const n=post.value.media.length,index=(viewerIndex.v
   </div>
  </article>
 </ContentShell>
-<AppModal v-if="sheet==='reply'&&post" sheet blur-on-blank :title="t('p2.reply')" :closable="!state.ui.busy" :dismiss-on-backdrop="false" @close="sheet=''"><label class="sr-only" for="reply-input">{{ t('s.connectionPlaceholder') }}</label><textarea id="reply-input" class="connection-reply-input" v-model="draft.body" :disabled="!!state.ui.busy" :placeholder="t('s.connectionPlaceholder')"/><p class="character-counter">{{ characterCount(draft.body) }} / 500</p><p class="field-hint">{{ t('s.connectionIntroHint') }}</p><p v-if="state.ui.error" class="error-banner" role="alert" :data-error-code="state.ui.error">{{ t('errors.'+state.ui.error) }}</p><template #headerAction><ActionButton class="purple-gradient sheet-save" :busy="!!state.ui.busy" :disabled="!draft.body.trim()||characterCount(draft.body)>500||!!state.ui.busy" @click="send">{{ t('s.send') }}</ActionButton></template></AppModal>
-<AppModal v-if="sheet==='waiting'||sheet==='sent'" centered variant="connection" :title="t(sheet==='sent'?'s.connectionSent':'p2.reply')" @close="closeReplyNotice"><p>{{ t(connection?.status==='declined'?'s.connectionDeclined':'s.connectionWaiting') }}</p><template #footer><ActionButton @click="closeReplyNotice">{{ t('done') }}</ActionButton></template></AppModal>
+<AppModal v-if="sheet==='reply'&&post" sheet blur-on-blank variant="reply-send" :motion-state="replyMotion" :title="t('p2.reply')" :closable="!state.ui.busy&&replyMotion==='idle'" :dismiss-on-backdrop="false" @close="closeReply" @motionend="replyMotionEnded"><label class="sr-only" for="reply-input">{{ t('s.connectionPlaceholder') }}</label><textarea id="reply-input" class="connection-reply-input" v-model="draft.body" :disabled="!!state.ui.busy||replyMotion!=='idle'" :placeholder="t('s.connectionPlaceholder')"/><p class="character-counter">{{ characterCount(draft.body) }} / 500</p><p class="field-hint">{{ t('s.connectionIntroHint') }}</p><p v-if="state.ui.error" class="error-banner" role="alert" :data-error-code="state.ui.error">{{ t('errors.'+state.ui.error) }}</p><template #headerAction><ActionButton class="purple-gradient sheet-save" :busy="!!state.ui.busy" :disabled="!draft.body.trim()||characterCount(draft.body)>500||!!state.ui.busy||replyMotion!=='idle'" @click="send">{{ t('s.send') }}</ActionButton></template></AppModal>
+<AppModal v-if="sheet==='waiting'||sheet==='sent'" centered :variant="sheet==='sent'?'reply-sent':'connection'" :title="t(sheet==='sent'?'s.connectionSent':'p2.reply')" @close="closeReplyNotice"><p>{{ t(connection?.status==='declined'?'s.connectionDeclined':'s.connectionWaiting') }}</p><template #footer><ActionButton @click="closeReplyNotice">{{ t('done') }}</ActionButton></template></AppModal>
 <AppModal v-if="sheet==='more'&&post&&isMine" :title="t('p2.safety')" @close="sheet=''"><div class="source-actions"><ActionButton secondary @click="sheet='delete'">{{ t('p5.deletePost') }}</ActionButton></div></AppModal>
 <DeletePostDialog v-if="sheet==='delete'&&post" :post-id="post.id" @close="sheet=''" @deleted="sheet='';back()"/>
 

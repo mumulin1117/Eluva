@@ -13,13 +13,14 @@ import BirthdayField from './BirthdayField.vue'
 import AppIcon from './AppIcon.vue'
 const route=useRoute()
 if(!state.auth)state.auth={phase:'choice',messages:['welcome','intro','promise','visit'].map(key=>({role:'guide',key:'ac.'+key})),quizIndex:0,remainingMs:5000,answers:[],scrollTop:null,follow:true,bioLocale:state.locale,revealed:0,sequence:0,edit:null,bioEdited:false}
-const a=state.auth,d=computed(()=>state.draft),scroller=ref(null),entry=ref(null),showPassword=ref(false),scrollAway=ref(false),ready=ref(false)
+const a=state.auth,d=computed(()=>state.draft),scroller=ref(null),entry=ref(null),confirmEntry=ref(null),composing=ref(false),showPassword=ref(false),scrollAway=ref(false),ready=ref(false)
 a.sequence||=0
 a.edit??=null
 a.bioEdited??=false
 for(const m of a.messages) m.id||='auth-message-'+(++a.sequence)
 a.revealed??=a.messages.length
-let timer,layoutObserver,anchorFrame=0,settleFrame=0,lastMetrics='',last=performance.now(),nextReveal=last+100,settleAt=last,alive=true,answering=false,viewportAnchoring=false
+const guidePause=700
+let timer,layoutObserver,anchorFrame=0,settleFrame=0,passwordFrame=0,lastMetrics='',last=performance.now(),nextReveal=last+guidePause,settleAt=last,alive=true,answering=false,viewportAnchoring=false,pendingEntryFocus=null,entryFocusRevision=0
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)')
 const welcomeRelay=createWelcomeRelay(),welcome=ref({phase:'waiting',held:true,paused:true})
 function syncWelcome(){
@@ -32,8 +33,12 @@ function syncWelcome(){
 function launchChanged(event){if(event.detail?.launchId&&event.detail.launchId!==window.__ELUVA_BOOT__?.launchId)return;syncWelcome()}
 const busy=computed(()=>!!state.ui.busy),phase=computed(()=>a.phase),editing=computed(()=>a.edit)
 const locked=computed(()=>busy.value||!ready.value||welcome.value.held)
+const entryLocked=computed(()=>!ready.value||welcome.value.held)
 const question=computed(()=>a.edit?.field.startsWith('quiz:')?quizQuestions.find(q=>q.id===a.edit.field.slice(5)):quizQuestions[a.quizIndex])
 const messages=computed(()=>a.messages.slice(0,a.revealed))
+const guidePending=computed(()=>a.messages.slice(a.revealed).some(m=>m.role==='guide'))
+const guideTyping=computed(()=>!welcome.value.held&&!welcome.value.paused&&(busy.value||guidePending.value||(!ready.value&&messages.value.at(-1)?.role==='guide')))
+const typingBubble=computed(()=>guideTyping.value&&(busy.value||guidePending.value))
 const secret=computed(()=>['password','loginPassword','resetPassword'].includes(phase.value)),codePhase=computed(()=>['code','resetCode'].includes(phase.value))
 const stage=computed(()=>({name:1,birthday:2,password:3,theme:4,gender:5,quizIntro:6,quiz:6,bioReview:6,bioEdit:6})[phase.value]||0)
 const phaseLabel=computed(()=>stage.value===6?t('ac.quiz')+(phase.value==='quiz'?' ('+(a.quizIndex+1)+'/10)':''):t('ac.'+({name:'name',birthday:'birthday',password:'password',theme:'theme',gender:'gender'}[phase.value]||'guideName')))
@@ -48,7 +53,7 @@ const field=computed({get(){
 }})
 const birthdayValue=computed({get:()=>a.edit?.field==='birthday'?a.edit.value:d.value?.birthday||'',set:v=>{if(a.edit?.field==='birthday')a.edit.value=v;else d.value.birthday=v}})
 const placeholder=computed(()=>t('ac.'+({name:'namePlaceholder',password:'passwordPlaceholder',loginPassword:'passwordPlaceholder',resetPassword:'passwordPlaceholder',bioEdit:'bioPlaceholder'}[phase.value]||'emailPlaceholder')))
-const disabled=computed(()=>locked.value||(phase.value!=='bioEdit'&&!field.value.trim())||(codePhase.value&&field.value.length!==6)||(phase.value==='bioEdit'&&textLength(field.value)>300)||(phase.value==='resetPassword'&&!state.reset.confirm))
+const disabled=computed(()=>locked.value||composing.value||(phase.value!=='bioEdit'&&!field.value.trim())||(codePhase.value&&field.value.length!==6)||(phase.value==='bioEdit'&&textLength(field.value)>300)||(phase.value==='resetPassword'&&!state.reset.confirm))
 const theme=computed(()=>a.edit?.field==='theme'?a.edit.value:d.value?.theme||'purple'),background=computed(()=>({purple:"url('/images/auth-background.png')",pink:"url('/images/p5/theme-pink.png')",orange:"url('/images/p5/theme-orange.png')",cyan:"url('/images/p5/theme-cyan.png')"})[theme.value])
 const editPrompt=computed(()=>{
  if(!a.edit)return ''
@@ -56,14 +61,31 @@ const editPrompt=computed(()=>{
  return t('ac.'+({email:phase.value==='code'?'codePrompt':phase.value==='password'?'passwordPrompt':'emailPrompt',loginEmail:'loginEmailPrompt',resetEmail:'resetEmailPrompt',name:'namePrompt',birthday:'birthdayPrompt',password:'passwordPrompt',theme:'themePrompt',gender:'genderPrompt',bio:'bioIntro'}[a.edit.field]||'namePrompt'),{name:d.value?.displayName})
 })
 function active(edit=a.edit,current=phase.value){return alive&&state.auth===a&&a.edit===edit&&phase.value===current}
+function focusEntry(){
+ if(!pendingEntryFocus||locked.value||!inputPhase.value||!a.follow||state.ui.modal||document.hidden)return
+ const target=pendingEntryFocus,current=phase.value,edit=a.edit
+ nextTick(()=>{
+  if(pendingEntryFocus!==target||!active(edit,current)||locked.value||!a.follow||state.ui.modal||document.hidden)return
+  const el=target==='confirm'?confirmEntry.value:entry.value
+  if(!el?.isConnected||el.disabled||el.readOnly)return
+  pendingEntryFocus=null;el.focus({preventScroll:true})
+ })
+}
+function requestEntryFocus(target='entry'){pendingEntryFocus=target;focusEntry()}
+function togglePassword(){
+ const el=entry.value,focused=document.activeElement===el,start=el?.selectionStart,end=el?.selectionEnd,direction=el?.selectionDirection,current=phase.value,edit=a.edit
+ cancelAnimationFrame(passwordFrame)
+ showPassword.value=!showPassword.value
+ if(focused)nextTick(()=>{if(active(edit,current)&&entry.value===el&&!locked.value){el.focus({preventScroll:true});passwordFrame=requestAnimationFrame(()=>{passwordFrame=0;if(active(edit,current)&&entry.value===el&&document.activeElement===el&&!locked.value&&start!==null&&end!==null)el.setSelectionRange(start,end,direction)})}})
+}
 function text(m){if(m.kind==='age')return t('yearsOld',{n:ageOn(m.birthday)});if(m.kind==='quiz')return quizQuestions.find(q=>q.id===m.questionId)?.[state.locale];if(m.kind==='answer')return answeredLabel(m,state.locale);return m.key?t(m.key,m.values||{}):m.text}
-function add(role,value,fieldName){a.messages.push({id:'auth-message-'+(++a.sequence),role,...(typeof value==='string'?{key:value}:value),...(fieldName?{field:fieldName}:{})});if(role==='user')a.revealed=a.messages.length;ready.value=false;nextReveal=performance.now()+140;settleAt=performance.now()+240}
-function move(next,prompt,response,fieldName){if(!alive)return;if(response)add('user',response,fieldName||({email:'email',loginEmail:'loginEmail',resetEmail:'resetEmail',name:'name',birthday:'birthday',password:'password',theme:'theme',gender:'gender'}[phase.value]));a.phase=next;if(prompt)for(const p of Array.isArray(prompt)?prompt:[prompt])add('guide',p);showPassword.value=false;state.ui.error=null;state.ui.notice='';bottom()}
+function add(role,value,fieldName){a.messages.push({id:'auth-message-'+(++a.sequence),role,...(typeof value==='string'?{key:value}:value),...(fieldName?{field:fieldName}:{})});if(role==='user')a.revealed=a.messages.length;ready.value=false;nextReveal=performance.now()+guidePause;settleAt=performance.now()+240}
+function move(next,prompt,response,fieldName){if(!alive)return;if(response)add('user',response,fieldName||({email:'email',loginEmail:'loginEmail',resetEmail:'resetEmail',name:'name',birthday:'birthday',password:'password',theme:'theme',gender:'gender'}[phase.value]));a.phase=next;if(prompt)for(const p of Array.isArray(prompt)?prompt:[prompt])add('guide',p);showPassword.value=false;state.ui.error=null;state.ui.notice='';pendingEntryFocus=inputPhase.value?'entry':null;bottom()}
 function bottom(force=false){nextTick(()=>{if(scroller.value&&(force||a.follow)){scroller.value.scrollTop=scroller.value.scrollHeight;scrollAway.value=false}})}
 function scrollMetrics(){const el=scroller.value;return el?[el.scrollHeight,el.clientHeight,el.clientWidth].join(':'):''}
 function onScroll(){if(!scroller.value||viewportAnchoring)return;const metrics=scrollMetrics();if(a.follow&&lastMetrics&&metrics!==lastMetrics){resizeConversation();return}lastMetrics=metrics;const el=scroller.value;a.follow=el.scrollHeight-el.scrollTop-el.clientHeight<72;scrollAway.value=!a.follow;a.scrollTop=el.scrollTop}
 function resizeConversation(){if(!alive||(!a.follow&&!viewportAnchoring))return;viewportAnchoring=true;cancelAnimationFrame(anchorFrame);cancelAnimationFrame(settleFrame);bottom(true);anchorFrame=requestAnimationFrame(()=>{bottom(true);settleFrame=requestAnimationFrame(()=>{if(alive){viewportAnchoring=false;lastMetrics=scrollMetrics();onScroll()}})})}
-function dismiss(e){if(!isInteractiveTarget(e.target))document.activeElement?.blur?.()}
+function dismiss(e){if(!isInteractiveTarget(e.target)){entryFocusRevision++;pendingEntryFocus=null;document.activeElement?.blur?.()}}
 function choose(kind){if(locked.value||!state.consent)return;a.follow=true;if(kind==='register'){startDraft();d.value.theme||='purple';move('email','ac.emailPrompt','ac.first')}else move('loginEmail','ac.loginEmailPrompt','ac.returning')}
 function latest(fieldName){return a.messages.findLast(m=>m.role==='user'&&m.field===fieldName)}
 function canEdit(m){if(!m.field||latest(m.field)!==m)return false;if(m.field==='loginEmail')return phase.value==='loginPassword'||a.edit?.resumePhase==='loginPassword';if(m.field==='resetEmail')return phase.value.startsWith('reset');return !!d.value&&!['loginEmail','loginPassword','resetEmail','resetCode','resetPassword','accountExists'].includes(phase.value)}
@@ -73,9 +95,9 @@ function editAnswer(fieldName){
  const m=latest(fieldName),q=fieldName.startsWith('quiz:')?a.answers.find(x=>x.questionId===fieldName.slice(5)):null
  const values={email:d.value?.email,loginEmail:state.login.email,resetEmail:state.reset.email,name:d.value?.displayName,birthday:d.value?.birthday,theme:d.value?.theme,gender:d.value?.gender,password:'',bio:d.value?.about}
  a.edit={token:++a.sequence,field:fieldName,value:q?.optionId||values[fieldName]||'',resumePhase:phase.value,scrollTop:scroller.value?.scrollTop||0,follow:a.follow,needsPassword:!!d.value?.passwordSet,flowId:null,code:'',password:''}
- a.phase=q?'quiz':fieldName==='bio'?'bioEdit':fieldName;showPassword.value=false;state.ui.error=null;a.follow=true;ready.value=false;settleAt=performance.now()+240;bottom(true);nextTick(()=>entry.value?.focus())
+ a.phase=q?'quiz':fieldName==='bio'?'bioEdit':fieldName;showPassword.value=false;state.ui.error=null;a.follow=true;ready.value=false;settleAt=performance.now()+240;bottom(true);requestEntryFocus()
 }
-function restoreEdit(){const e=a.edit;if(!e)return;a.phase=e.resumePhase;a.edit=null;a.focusField=e.field;showPassword.value=false;state.ui.error=null;ready.value=false;settleAt=performance.now()+120;nextTick(()=>{if(scroller.value){scroller.value.scrollTop=e.scrollTop;a.follow=e.follow;onScroll()}})}
+function restoreEdit(){const e=a.edit;if(!e)return;pendingEntryFocus=null;a.phase=e.resumePhase;a.edit=null;a.focusField=e.field;showPassword.value=false;state.ui.error=null;ready.value=false;settleAt=performance.now()+120;nextTick(()=>{if(scroller.value){scroller.value.scrollTop=e.scrollTop;a.follow=e.follow;onScroll()}})}
 async function cancelEdit(){if(busy.value||!a.edit)return;const e=a.edit,current=phase.value;if(e.flowId){const ok=await run('auth-edit-cancel',async signal=>{await bridge.call('auth','cancelRegistration',{flowId:e.flowId},{signal})});if(!ok||!active(e,current))return}restoreEdit()}
 async function finishEmailEdit(e,signal){
  const previous=d.value.flowId;Object.assign(d.value,{flowId:e.flowId,email:e.email,verified:true,passwordSet:e.needsPassword,password:'',code:''});replaceAnswer('email',{text:e.email});const resume=e.resumePhase;restoreEdit();
@@ -88,10 +110,10 @@ async function submitEdit(signal,e,current){
    const address=normalizeEmail(e.value);if(!validEmail(address))fail('INVALID_EMAIL')
    if(address===normalizeEmail(d.value.email)){if(e.flowId)await bridge.call('auth','cancelRegistration',{flowId:e.flowId},{signal});if(active(e,current))restoreEdit();return}
    if(!e.flowId||e.email!==address){if(e.flowId)await bridge.call('auth','cancelRegistration',{flowId:e.flowId},{signal});const r=await bridge.call('auth','beginRegistration',{email:address,version:conversationVersion},{signal});if(!active(e,current))return;e.flowId=r.flowId;e.email=r.email}
-   await bridge.call('auth','startVerification',{flowId:e.flowId,email:e.email},{signal});if(!active(e,current))return;e.code='';a.phase='code';ready.value=false;settleAt=performance.now()+240
+   await bridge.call('auth','startVerification',{flowId:e.flowId,email:e.email},{signal});if(!active(e,current))return;e.code='';a.phase='code';ready.value=false;settleAt=performance.now()+240;requestEntryFocus()
   }else if(current==='code'){
    await bridge.call('auth','verify',{flowId:e.flowId,purpose:'signup',code:e.code},{signal});if(!active(e,current))return
-   if(e.needsPassword){a.phase='password';ready.value=false;settleAt=performance.now()+240}else await finishEmailEdit(e,signal)
+   if(e.needsPassword){a.phase='password';ready.value=false;settleAt=performance.now()+240;requestEntryFocus()}else await finishEmailEdit(e,signal)
   }else if(current==='password'){
    validateCredentials(e.email,e.password);await bridge.call('auth','setRegistrationPassword',{flowId:e.flowId,password:e.password},{signal});if(!active(e,current))return;e.password='';await finishEmailEdit(e,signal)
   }
@@ -106,8 +128,8 @@ async function submitEdit(signal,e,current){
  }else if(e.field==='bio'){d.value.about=e.value;a.bioEdited=true;restoreEdit()}
  bottom()
 }
-async function submit(){
- if(disabled.value)return;const current=phase.value,e=a.edit;a.follow=true
+async function submit(event){
+ if(disabled.value||event?.isComposing)return;const current=phase.value,e=a.edit,focusRevision=entryFocusRevision;a.follow=true
  const ok=await run('auth',async(signal,finished)=>{
   if(e){await submitEdit(signal,e,current);return}
   if(current==='email'){
@@ -132,10 +154,11 @@ async function submit(){
   }
  },{critical:!e&&['loginPassword','resetPassword'].includes(current)})
  if(!ok&&active(e,current)&&state.ui.error==='ACCOUNT_EXISTS'&&current==='email'&&!e){const value=d.value.email;state.ui.error=null;move('accountExists','ac.exists',{text:value})}
+ if(!ok&&active(e,current)&&focusRevision===entryFocusRevision)requestEntryFocus(state.ui.error==='PASSWORD_MISMATCH'?'confirm':'entry')
  bottom()
 }
 async function resend(){if(locked.value)return;const e=a.edit,current=phase.value;await run('auth-code',async signal=>{await bridge.call('auth','resend',{flowId:e?.field==='email'?e.flowId:current==='resetCode'?state.reset.flowId:d.value.flowId,purpose:current==='resetCode'?'reset':'signup'},{signal});if(active(e,current))notify('resent')})}
-function changeEmail(){if(locked.value)return;if(a.edit?.field==='email'){a.phase='email';ready.value=false;settleAt=performance.now()+120;return}editAnswer(phase.value==='resetCode'?'resetEmail':'email')}
+function changeEmail(){if(locked.value)return;if(a.edit?.field==='email'){a.phase='email';ready.value=false;settleAt=performance.now()+120;requestEntryFocus();return}editAnswer(phase.value==='resetCode'?'resetEmail':'email')}
 function useLogin(){if(locked.value)return;state.login.email=d.value.email;move('loginPassword','ac.loginPasswordPrompt','ac.loginChoice')}
 function forgot(){if(locked.value)return;state.reset.email=state.login.email;move('resetEmail','ac.resetEmailPrompt',{key:'forgotPassword'})}
 function newAccount(){if(locked.value)return;startDraft();d.value.email=state.login.email;d.value.theme||='purple';move('email','ac.emailPrompt','ac.first')}
@@ -161,18 +184,19 @@ async function complete(){if(locked.value||a.edit)return;const current=phase.val
  const r=await bridge.call('auth','completeRegistration',{flowId:d.value.flowId,commitId:d.value.commitId,communityAccepted:true,profile:profilePayload(),onboarding:{version:conversationVersion,theme:d.value.theme,answers:a.answers.map(({questionId,status,optionId,elapsedMs})=>({questionId,status,optionId,elapsedMs}))}},{signal});if(!active(null,current))return;await hydrateUser(r);if(!active(null,current))return;finished();await router.replace('/home');state.draft=null;state.auth=null
  },{critical:true})}
 function consentChange(){if(state.consent)saveConsent(false);else state.ui.modal='eula'}
-function visibilityChanged(){last=performance.now();nextReveal=last+140;syncWelcome()}
+function visibilityChanged(){last=performance.now();nextReveal=last+guidePause;syncWelcome()}
 function currentPrompt(){a.follow=true;bottom(true)}
 function tick(){
  const now=performance.now(),delta=Math.max(0,Math.min(250,now-last));last=now
  syncWelcome()
- if(document.hidden||state.ui.modal||welcome.value.held){nextReveal=now+140;return}
- if(a.revealed<a.messages.length){if(motion.matches)a.revealed=a.messages.length;else if(now>=nextReveal){a.revealed++;nextReveal=now+380}settleAt=now+(motion.matches?0:240);ready.value=false;bottom()}
+ if(document.hidden||state.ui.modal||welcome.value.held){nextReveal=now+guidePause;return}
+ if(a.revealed<a.messages.length){if(motion.matches)a.revealed=a.messages.length;else if(now>=nextReveal){a.revealed++;nextReveal=now+guidePause}settleAt=now+(motion.matches?0:240);ready.value=false;bottom()}
  else if(!ready.value&&now>=settleAt){ready.value=true;bottom();if(a.focusField){const target=a.focusField;a.focusField=null;nextTick(()=>scroller.value?.querySelector('[data-edit-field="'+target+'"]')?.focus({preventScroll:true}))}}
  if(phase.value==='quiz'&&ready.value&&!busy.value&&!a.edit&&a.follow){a.remainingMs=Math.max(0,a.remainingMs-delta);if(!a.remainingMs)answer(null,'timeout')}
 }
-watch(()=>[a.revealed,state.ui.error,busy.value],()=>bottom())
-watch(()=>phase.value,()=>{showPassword.value=false;last=performance.now()})
+watch(()=>[a.revealed,state.ui.error,busy.value,typingBubble.value],()=>bottom())
+watch(()=>phase.value,()=>{composing.value=false;showPassword.value=false;last=performance.now()})
+watch(()=>[locked.value,phase.value],focusEntry,{flush:'post'})
 watch(()=>[state.ui.modal,phase.value],syncWelcome)
 onMounted(()=>{
  syncWelcome();window.addEventListener('eluva:launch-prepared',launchChanged);window.addEventListener('eluva:launch-visible',launchChanged);motion.addEventListener('change',syncWelcome)
@@ -181,23 +205,23 @@ onMounted(()=>{
  else if(route.name!=='welcome'&&a.phase==='choice'){startDraft();d.value.theme||='purple';move('email','ac.emailPrompt','ac.first')}
  ready.value=a.revealed===a.messages.length&&!welcome.value.held;lastMetrics=scrollMetrics();layoutObserver=new ResizeObserver(resizeConversation);if(scroller.value){layoutObserver.observe(scroller.value);layoutObserver.observe(scroller.value.querySelector('.ac-log'))}document.addEventListener('visibilitychange',visibilityChanged);window.addEventListener('resize',resizeConversation);window.visualViewport?.addEventListener('resize',resizeConversation);window.visualViewport?.addEventListener('scroll',resizeConversation);timer=setInterval(tick,50)
 })
-onBeforeUnmount(()=>{alive=false;clearInterval(timer);layoutObserver?.disconnect();cancelAnimationFrame(anchorFrame);cancelAnimationFrame(settleFrame);window.removeEventListener('eluva:launch-prepared',launchChanged);window.removeEventListener('eluva:launch-visible',launchChanged);motion.removeEventListener('change',syncWelcome);document.removeEventListener('visibilitychange',visibilityChanged);window.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('scroll',resizeConversation);if(scroller.value)a.scrollTop=scroller.value.scrollTop})
+onBeforeUnmount(()=>{alive=false;clearInterval(timer);layoutObserver?.disconnect();cancelAnimationFrame(anchorFrame);cancelAnimationFrame(settleFrame);cancelAnimationFrame(passwordFrame);window.removeEventListener('eluva:launch-prepared',launchChanged);window.removeEventListener('eluva:launch-visible',launchChanged);motion.removeEventListener('change',syncWelcome);document.removeEventListener('visibilitychange',visibilityChanged);window.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('resize',resizeConversation);window.visualViewport?.removeEventListener('scroll',resizeConversation);if(scroller.value)a.scrollTop=scroller.value.scrollTop})
 </script>
 <template>
- <section class="auth-conversation page-shell" :data-auth-phase="phase" :data-ac-ready="ready" :data-welcome-relay="welcome.phase" :data-welcome-paused="welcome.paused" :data-preview="theme" :style="{backgroundImage:background}" @click="dismiss">
-  <header class="ac-header"><span class="ac-guide-portrait" aria-hidden="true"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false"/></span><div><strong>{{ t('ac.guideName') }}</strong><small>{{ t('ac.guideStatus') }}</small></div></header>
+ <section class="auth-conversation page-shell" :data-auth-phase="phase" :data-ac-ready="ready" :data-guide-typing="guideTyping" :data-welcome-relay="welcome.phase" :data-welcome-paused="welcome.paused" :data-preview="theme" :style="{backgroundImage:background}" @click="dismiss">
+  <header class="ac-header"><span class="ac-guide-portrait" aria-hidden="true"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false"/><span class="ac-guide-presence"/></span><div><strong>{{ t('ac.guideName') }}</strong><small :class="{'ac-guide-typing':guideTyping}">{{ t(guideTyping?'ac.guideTyping':'ac.guideStatus') }}</small></div></header>
   <main ref="scroller" class="ac-transcript" :aria-label="t('ac.guideName')" @scroll.passive="onScroll"><div class="ac-log">
    <TransitionGroup name="ac-message" tag="div" class="ac-messages" role="log" aria-live="polite" aria-relevant="additions text">
     <div v-for="(m,i) in messages" :key="m.id" class="ac-row" :class="m.role==='user'?'ac-outgoing':'ac-incoming'">
-     <img v-if="m.role==='guide'" class="ac-avatar" :class="{'ac-avatar-hidden':messages[i+1]?.role==='guide'}" src="/images/auth-guide-avatar.png" alt="" draggable="false" aria-hidden="true"/>
+     <img v-if="m.role==='guide'" class="ac-avatar" :class="{'ac-avatar-hidden':messages[i+1]?.role==='guide'||(i===messages.length-1&&typingBubble)}" src="/images/auth-guide-avatar.png" alt="" draggable="false" aria-hidden="true"/>
      <article v-if="m.kind==='profile'" class="ac-profile-card"><div class="ac-profile-identity"><img src="/images/default-avatar.svg" alt=""/><div><strong>{{ d.displayName }}</strong><small>{{ t('yearsOld',{n:ageOn(d.birthday)}) }}</small></div></div><div class="ac-profile-tags"><span v-for="row in a.answers.filter(x=>x.status==='answered'&&['quick-quiz-01','quick-quiz-04','quick-quiz-09','quick-quiz-10'].includes(x.questionId))" :key="row.questionId">{{ answeredLabel(row,state.locale) }}</span></div></article>
      <div v-else class="ac-message-body"><p class="ac-bubble">{{ m.kind==='bio'?(d.about||t('ac.noBio')):m.kind==='gender'?(choices.genders.find(x=>x.id===m.genderId)?.[state.locale]||t('notProvided')):text(m) }}</p><button v-if="canEdit(m)" class="ac-message-edit" :data-edit-field="m.field" :disabled="locked||!!editing" @click="editAnswer(m.field)">{{ t(m.field==='password'?'ac.passwordResetAction':'ac.editReply') }}</button></div>
      <span v-if="m.role==='user'" class="ac-accepted" aria-hidden="true"><AppIcon name="check" :size="12"/><AppIcon name="check" :size="12"/></span>
     </div>
    </TransitionGroup>
    <div v-if="editing" class="ac-row ac-incoming ac-edit-prompt"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false"/><div class="ac-message-body"><span class="ac-editing-label">{{ t('ac.editing') }}</span><p class="ac-bubble">{{ editPrompt }}</p></div></div>
-   <div v-if="busy" class="ac-row ac-incoming ac-request" role="status" :aria-label="t('working')"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false"/><span class="ac-bubble ac-typing" aria-hidden="true"><i/><i/><i/></span></div>
-   <p v-if="state.ui.error" class="ac-error error-banner" role="alert" :data-error-code="state.ui.error">{{ t('errors.'+state.ui.error) }}</p>
+   <div v-if="typingBubble" class="ac-row ac-incoming ac-guide-output" :class="{'ac-request':busy}" role="status" :aria-label="t('ac.guideTyping')"><img class="ac-avatar" src="/images/auth-guide-avatar.png" alt="" draggable="false" aria-hidden="true"/><span class="ac-bubble ac-typing" aria-hidden="true"><i/><i/><i/></span></div>
+   <p v-if="state.ui.error" id="auth-error" class="ac-error error-banner" role="alert" :data-error-code="state.ui.error">{{ t('errors.'+state.ui.error) }}</p>
    <section v-if="ready" class="ac-answer-card" :data-current-question="phase==='quiz'?question.id:undefined">
     <div v-if="stage&&!editing" class="ac-progress"><span>{{ stage }}/6 {{ phaseLabel }}</span><div aria-hidden="true"><i v-for="n in 6" :key="n" :class="{active:n===stage}"/></div></div>
     <label v-if="['choice','email','loginEmail'].includes(phase)&&!editing" class="agreement-row ac-agreement"><input type="checkbox" :checked="state.consent" :disabled="busy" @click.prevent="consentChange"/><span>{{ t('agreementPrefix') }} <button class="text-link" type="button" :disabled="busy" @click.prevent="openLegal('terms')">{{ t('terms') }}</button> {{ t('and') }} <button class="text-link" type="button" :disabled="busy" @click.prevent="openLegal('privacy')">{{ t('privacy') }}</button></span></label>
@@ -214,10 +238,10 @@ onBeforeUnmount(()=>{alive=false;clearInterval(timer);layoutObserver?.disconnect
   </div></main>
   <button v-if="scrollAway" class="ac-current" @click="currentPrompt">{{ t('ac.current') }}</button>
   <footer v-if="inputPhase" class="ac-composer ac-controls">
-   <form class="ac-form" @submit.prevent="submit" novalidate>
-    <template v-if="codePhase"><label class="sr-only" for="auth-code">{{ t('verificationCode') }}</label><div class="ac-code-entry"><div class="code-control"><div class="code-slots" aria-hidden="true"><span v-for="i in 6" :key="i" :class="{active:i===Math.min(field.length+1,6)}">{{ field[i-1] }}</span></div><input id="auth-code" ref="entry" v-model="field" class="code-input" :disabled="locked" inputmode="numeric" autocomplete="one-time-code" maxlength="6" :aria-invalid="state.ui.error==='INVALID_VERIFICATION_CODE'"/></div><button class="ac-send ac-submit" :disabled="disabled" :aria-label="t('ac.codeAction')"><img :src="disabled?'/images/auth-send.png':'/images/auth-send-active.png'" alt="" draggable="false"/></button></div><div class="code-links"><button type="button" class="ac-link" :disabled="locked" @click="resend">{{ t('ac.getCode') }}</button><button type="button" class="ac-link" :disabled="locked" @click="changeEmail">{{ t('ac.differentEmail') }}</button></div><p class="ac-hint">{{ t('codeHint') }}</p></template>
-    <template v-else><label class="sr-only" for="auth-entry">{{ placeholder }}</label><div class="ac-entry" :class="{'ac-multiline':phase==='bioEdit'}"><textarea v-if="phase==='bioEdit'" id="auth-entry" ref="entry" v-model="field" :disabled="locked" rows="2" :placeholder="placeholder"/><input v-else id="auth-entry" ref="entry" v-model="field" :disabled="locked" :type="secret&&!showPassword?'password':phase.toLowerCase().includes('email')?'email':'text'" :autocomplete="secret?(phase==='loginPassword'?'current-password':'new-password'):phase==='name'?'nickname':'email'" autocapitalize="none" :spellcheck="false" :placeholder="placeholder"/><button v-if="secret" type="button" class="ac-eye" :aria-label="t(showPassword?'hide':'show')" :aria-pressed="showPassword" :disabled="locked" @click="showPassword=!showPassword"><AppIcon :name="showPassword?'eyeOff':'eye'"/></button><button class="ac-send" :disabled="disabled" :aria-label="t(editing?'ac.updateAnswer':phase==='loginPassword'?'login':phase==='bioEdit'?'save':'ac.send')"><img :src="disabled?'/images/auth-send.png':'/images/auth-send-active.png'" alt="" draggable="false"/></button></div>
-     <template v-if="phase==='resetPassword'"><label class="sr-only" for="auth-confirm">{{ t('confirmNewPassword') }}</label><div class="ac-entry"><input id="auth-confirm" v-model="state.reset.confirm" type="password" autocomplete="new-password" :placeholder="t('ac.confirmPlaceholder')" :disabled="locked"/></div></template>
+   <form class="ac-form" @submit.prevent="submit" @compositionstart="composing=true" @compositionend="composing=false" novalidate>
+    <template v-if="codePhase"><label class="sr-only" for="auth-code">{{ t('verificationCode') }}</label><div class="ac-code-entry"><div class="code-control"><div class="code-slots" aria-hidden="true"><span v-for="i in 6" :key="i" :class="{active:i===Math.min(field.length+1,6)}">{{ field[i-1] }}</span></div><input id="auth-code" ref="entry" v-model="field" class="code-input" :disabled="entryLocked" :readonly="busy" :aria-describedby="state.ui.error?'auth-error':undefined" inputmode="numeric" enterkeyhint="next" autocomplete="one-time-code" maxlength="6" :aria-invalid="state.ui.error==='INVALID_VERIFICATION_CODE'"/></div><button class="ac-send ac-submit" :disabled="disabled" :aria-label="t('ac.codeAction')"><img :src="disabled?'/images/auth-send.png':'/images/auth-send-active.png'" alt="" draggable="false"/></button></div><div class="code-links"><button type="button" class="ac-link" :disabled="locked" @click="resend">{{ t('ac.getCode') }}</button><button type="button" class="ac-link" :disabled="locked" @click="changeEmail">{{ t('ac.differentEmail') }}</button></div><p class="ac-hint">{{ t('codeHint') }}</p></template>
+    <template v-else><label class="sr-only" for="auth-entry">{{ placeholder }}</label><div class="ac-entry" :class="{'ac-multiline':phase==='bioEdit'}"><textarea v-if="phase==='bioEdit'" id="auth-entry" ref="entry" v-model="field" :disabled="entryLocked" :readonly="busy" :aria-invalid="!!state.ui.error" :aria-describedby="state.ui.error?'auth-error':undefined" enterkeyhint="done" rows="2" :placeholder="placeholder"/><input v-else id="auth-entry" ref="entry" v-model="field" :disabled="entryLocked" :readonly="busy" :aria-invalid="!!state.ui.error" :aria-describedby="state.ui.error?'auth-error':undefined" :enterkeyhint="phase==='loginPassword'?'go':'next'" :type="secret&&!showPassword?'password':phase.toLowerCase().includes('email')?'email':'text'" :autocomplete="secret?(phase==='loginPassword'?'current-password':'new-password'):phase==='name'?'nickname':'email'" autocapitalize="none" :spellcheck="false" :placeholder="placeholder"/><button v-if="secret" type="button" class="ac-eye" :aria-label="t(showPassword?'hide':'show')" :aria-pressed="showPassword" :disabled="locked" @pointerdown.prevent @click="togglePassword"><AppIcon :name="showPassword?'eyeOff':'eye'"/></button><button class="ac-send" :disabled="disabled" :aria-label="t(editing?'ac.updateAnswer':phase==='loginPassword'?'login':phase==='bioEdit'?'save':'ac.send')"><img :src="disabled?'/images/auth-send.png':'/images/auth-send-active.png'" alt="" draggable="false"/></button></div>
+     <template v-if="phase==='resetPassword'"><label class="sr-only" for="auth-confirm">{{ t('confirmNewPassword') }}</label><div class="ac-entry"><input id="auth-confirm" ref="confirmEntry" v-model="state.reset.confirm" type="password" autocomplete="new-password" :placeholder="t('ac.confirmPlaceholder')" :disabled="entryLocked" :readonly="busy" :aria-invalid="state.ui.error==='PASSWORD_MISMATCH'" :aria-describedby="state.ui.error?'auth-error':undefined" enterkeyhint="go"/></div></template>
      <p v-if="['password','resetPassword'].includes(phase)" class="ac-hint">{{ t('passwordHint') }}</p><p v-if="phase==='name'" class="ac-hint">{{ t('ac.nameNote') }}</p><div v-if="phase==='loginPassword'" class="ac-options"><button type="button" class="ac-link" :disabled="locked" @click="forgot">{{ t('forgotPassword') }}</button><button v-if="state.ui.error==='ACCOUNT_NOT_FOUND'" type="button" class="ac-link" :disabled="locked" @click="newAccount">{{ t('ac.createInstead') }}</button></div><p v-if="phase==='bioEdit'" class="ac-hint">{{ textLength(field) }}/300</p>
     </template>
     <button v-if="phase.startsWith('reset')&&!editing" type="button" class="ac-link ac-reset-cancel" :disabled="busy" @click="cancelReset">{{ t('ac.cancelReset') }}</button>

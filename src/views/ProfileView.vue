@@ -57,7 +57,7 @@ async function load(){
  }finally{pace?.cancel();if(current())ready.value=true}
 }
 onMounted(()=>{if(!restoreProfile())load()});watch(()=>route.params.id,()=>{sheet.value='';selected.value=0;photoFailed.value=false;if(!restoreProfile())load()})
-function back(){router.push(allowedReturnPath(route.query.from,{fallback:'/home',exact:['/mine','/chats','/chats/lights','/friends','/friend-requests'],prefix:['/post/','/conversation/']}))}
+function back(){router.push(allowedReturnPath(route.query.from,{fallback:'/home',exact:['/mine','/chats','/chats/lights','/friends','/friend-requests','/following','/followers'],prefix:['/post/','/conversation/']}))}
 const openPost=id=>router.push({name:'post',params:{id},query:{from:route.fullPath}})
 const openMedia=(id,index)=>router.push({name:'postMedia',params:{id,index},query:{from:route.fullPath}})
 const imageKey=id=>'profile:'+state.user?.id+':'+id

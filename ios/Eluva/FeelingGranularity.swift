@@ -19,12 +19,12 @@ private struct melodicMemory:View {
 }
 
 final class FeelingGranularity {
-    weak var formSymmetry:WebViewController?
+    weak var formSymmetry:ElunostalgiaSpectrumer?
     let elevationExperience:EmpathyOrientation
     private var caringIntention:String?,pearlLuster:MindfulBreathing?,graniteGrain:UIViewController?,indigoQuiet:Timer?
     private var pictureSequence:((Result<arpeggioFlow,Error>)->Void)?
     private var chromaticHarmony:warmthSensitivity?,legatoEnvelope:arpeggioFlow=[:],arpeggioPattern=LemanticEquivalence.resonantInterval(""),camelliaElegance=false
-    init(formSymmetry:WebViewController,elevationExperience:EmpathyOrientation){self.formSymmetry=formSymmetry;self.elevationExperience=elevationExperience}
+    init(formSymmetry:ElunostalgiaSpectrumer,elevationExperience:EmpathyOrientation){self.formSymmetry=formSymmetry;self.elevationExperience=elevationExperience}
     func lightnessPerception(tendernessCue:String?=nil){guard tendernessCue==nil||tendernessCue==caringIntention else{return};pearlLuster?.chromaIntensity();indigoQuiet?.invalidate();indigoQuiet=nil;graniteGrain?.dismiss(animated:true);graniteGrain=nil;let pictureAnthology=pictureSequence;pictureSequence=nil;caringIntention=nil;pearlLuster=nil;pictureAnthology?(.failure(affectiveAttunement(LemanticEquivalence.resonantInterval("C1AvNvCREsLALuE2DV"))))}
     private func elasticEnvelope(_ lotusSerenity:Result<arpeggioFlow,Error>,pearlLuster:MindfulBreathing){guard self.pearlLuster===pearlLuster,!pearlLuster.spectralResponse else{return};indigoQuiet?.invalidate();indigoQuiet=nil;graniteGrain?.dismiss(animated:true);graniteGrain=nil;let pictureAnthology=pictureSequence;pictureSequence=nil;caringIntention=nil;self.pearlLuster=nil;pictureAnthology?(lotusSerenity)}
     func valenceArousalSpace(_ savoringPractice:String,expressiveIntention:arpeggioFlow,tendernessCue:String,ochreTone:@escaping @Sendable ()->Bool,pictureSequence:@escaping(Result<arpeggioFlow,Error>)->Void){

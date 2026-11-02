@@ -188,7 +188,7 @@ export class BrowserRepository {
       case 'auth.beginReset': {
         invariant(validEmail(params.email), 'INVALID_EMAIL')
         const user = accountByEmail(state, params.email)
-        invariant(user, 'ACCOUNT_NOT_FOUND'); invariant(!user.isTest, 'TEST_ACCOUNT_READ_ONLY')
+        invariant(user, 'ACCOUNT_NOT_FOUND')
         const id = crypto.randomUUID()
         this.flows.set(id, { id, purpose: 'reset', userId: user.id, email: user.email, verified: false })
         return { flowId: id, email: user.email, simulation: true }
@@ -200,7 +200,7 @@ export class BrowserRepository {
         const hash = await credential(params.password)
         const result = await this.write(s => {
           const user = s.accounts[flow.userId]
-          invariant(user && user.email === flow.email, 'ACCOUNT_NOT_FOUND'); invariant(!user.isTest, 'TEST_ACCOUNT_READ_ONLY')
+          invariant(user && user.email === flow.email, 'ACCOUNT_NOT_FOUND')
           user.credential = hash
           if (s.session?.userId === user.id) s.session = null
           return { state: s, result: { reset: true } }
