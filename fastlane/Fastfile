@@ -15,6 +15,9 @@ match_type = {
   "ad-hoc" => "adhoc",
   "app-store" => "appstore"
 }[export_method]
+match_git_url = ENV.fetch("MATCH_GIT_URL", "https://github.com/mhldapp/ios-certificates.git").to_s.strip
+match_git_basic_authorization = ENV["MATCH_GIT_BASIC_AUTHORIZATION"].to_s.strip
+developer_team_id = ENV.fetch("DEVELOPER_TEAM_ID", "XZY7SLZM58").to_s.strip
 
 app_name = ENV["APP_NAME"].to_s.strip
 pgy_api_key = ENV["pgy_api_key"].to_s.strip
@@ -32,19 +35,26 @@ platform :ios do
     UI.important "export_method = #{export_method}"
     UI.important "match_type = #{match_type}"
 
-    match(
+    match_options = {
+      git_url: match_git_url,
       git_branch: username,
       type: match_type,
       app_identifier: [bundle_id],
-      force_for_new_devices: match_type == "adhoc",
-      readonly: false
-    )
+      team_id: developer_team_id,
+      force_for_new_devices: match_type == "adhoc" && !is_ci,
+      readonly: is_ci
+    }
+    match_options[:git_basic_authorization] = match_git_basic_authorization unless match_git_basic_authorization.empty?
+    match(**match_options)
 
-    team_id = ENV["sigh_#{bundle_id}_#{match_type}_team-id"].to_s.strip
+    matched_team_id = ENV["sigh_#{bundle_id}_#{match_type}_team-id"].to_s.strip
+    team_id = matched_team_id.empty? ? developer_team_id : matched_team_id
     profile_name = ENV["sigh_#{bundle_id}_#{match_type}_profile-name"].to_s.strip
     profiles = lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING]
 
-    UI.user_error!("match did not provide a development team ID") if team_id.empty?
+    unless team_id == developer_team_id
+      UI.user_error!("match returned development team #{team_id}, expected #{developer_team_id}")
+    end
     UI.user_error!("match did not provide a provisioning profile name") if profile_name.empty?
     unless profiles.is_a?(Hash) && profiles[bundle_id].to_s == profile_name
       UI.user_error!("match did not provide the expected provisioning profile mapping for #{bundle_id}")
@@ -214,6 +224,10 @@ platform :ios do
     missing_names = required_values.select { |_, value| value.empty? }.keys
     UI.user_error!("Missing required environment variables: #{missing_names.join(", ")}") unless missing_names.empty?
 
+    unless developer_team_id.match?(/\A[A-Z0-9]{10}\z/)
+      UI.user_error!("DEVELOPER_TEAM_ID must be a 10-character Apple Developer Team ID")
+    end
+
     if asc_key_content.to_s.empty?
       UI.user_error!("App Store Connect API key file is not configured") unless File.file?(asc_key_path)
       app_store_connect_api_key(
@@ -239,6 +253,10 @@ platform :ios do
     }
     missing_names = required_values.select { |_, value| value.empty? }.keys
     UI.user_error!("Missing required environment variables: #{missing_names.join(", ")}") unless missing_names.empty?
+
+    if is_ci && match_git_basic_authorization.empty?
+      UI.user_error!("MATCH_GIT_BASIC_AUTHORIZATION is required in CI to read #{match_git_url}")
+    end
 
     unless ["ad-hoc", "app-store"].include?(export_method)
       UI.user_error!("EXPORT_METHOD must be 'ad-hoc' or 'app-store'")
