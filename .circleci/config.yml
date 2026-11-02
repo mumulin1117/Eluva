@@ -17,8 +17,6 @@ jobs:
       FL_OUTPUT_DIR: build
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
-      MATCH_GIT_URL: https://github.com/mhldapp/ios-certificates.git
-      DEVELOPER_TEAM_ID: XZY7SLZM58
 
       # Fastfile 会自动识别唯一的 App 工程、Target、共享 Scheme 和同级 Workspace。
       # 只有仓库包含多个候选项时，才在 CircleCI 环境变量中设置：
@@ -29,8 +27,7 @@ jobs:
       # ASC_KEY_ID
       # ASC_ISSUER_ID
       # ASC_KEY_CONTENT
-      # MATCH_PASSWORD
-      # MATCH_GIT_BASIC_AUTHORIZATION（Base64 编码的 GitHub 用户名和 PAT；PAT 需对证书库具有 Contents: Read 权限）
+      # MATCH_PASSWORD（如果 Fastfile 使用 match）
 
     steps:
       - checkout
@@ -40,15 +37,6 @@ jobs:
           command: |
             mkdir -p "$FL_OUTPUT_DIR"
             xcodebuild -version
-
-      - run:
-          name: Verify certificates repository access
-          command: |
-            if [ -z "${MATCH_GIT_BASIC_AUTHORIZATION:-}" ]; then
-              echo "MATCH_GIT_BASIC_AUTHORIZATION is missing. Add it in CircleCI Project Settings -> Environment Variables."
-              exit 1
-            fi
-            GIT_TERMINAL_PROMPT=0 git -c http.extraHeader="Authorization: Basic ${MATCH_GIT_BASIC_AUTHORIZATION}" ls-remote "$MATCH_GIT_URL" HEAD >/dev/null
 
       # CircleCI 的 Xcode 镜像已经预装多个 Ruby 版本，直接切换即可，
       # 不再通过 Homebrew 安装 rbenv / ruby-build 并重新编译 Ruby。
