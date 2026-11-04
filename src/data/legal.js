@@ -1,4 +1,3 @@
-// Product presentation copy; operator details and release legal review are tracked in project documentation.
 export const legal = {
   "en": {
     "terms": [
@@ -86,89 +85,89 @@ export const legal = {
       ]
     ]
   },
-  "fr": {
+  "de": {
     "terms": [
       [
-        "Bienvenue sur Eluva",
-        "Eluva s’adresse aux adultes de 18 ans ou plus. Partagez des moments, découvrez des pensées qui vous parlent et créez des liens en discutant."
+        "Willkommen bei Eluva",
+        "Eluva richtet sich an Erwachsene ab 18 Jahren. Teilen Sie Momente, entdecken Sie Gedanken, die Sie berühren, und knüpfen Sie durch Gespräche neue Verbindungen."
       ],
       [
-        "Votre compte",
-        "Fournissez des informations exactes et gardez votre mot de passe confidentiel. Terminez la création de votre compte avant de vous connecter. Vous êtes responsable de ce que vous partagez."
+        "Ihr Konto",
+        "Machen Sie korrekte Angaben und halten Sie Ihr Passwort geheim. Schließen Sie die Kontoeinrichtung ab, bevor Sie sich anmelden. Sie sind für die Inhalte verantwortlich, die Sie teilen."
       ],
       [
-        "Respect et sécurité",
-        "Respectez les personnes et leurs limites. Le harcèlement, les menaces, l’exploitation, l’usurpation d’identité et les contenus illicites ne sont pas autorisés. Utilisez le signalement et le blocage pour les contenus ou échanges indésirables."
+        "Respekt und Sicherheit",
+        "Respektieren Sie andere Menschen und ihre Grenzen. Belästigung, Drohungen, Ausbeutung, Identitätsvortäuschung und rechtswidrige Inhalte sind nicht erlaubt. Nutzen Sie die Melde- und Blockierfunktionen bei unerwünschten Inhalten oder Interaktionen."
       ],
       [
-        "Vos contenus et vos choix",
-        "Partagez uniquement des contenus qui vous appartiennent ou que vous êtes autorisé à utiliser. Choisissez qui peut voir chaque publication. Les publications privées ne sont visibles que par vous ; les autres choix s’appliquent au public sélectionné."
+        "Ihre Inhalte und Entscheidungen",
+        "Teilen Sie nur Inhalte, die Ihnen gehören oder für deren Nutzung Sie eine Erlaubnis haben. Legen Sie für jeden Beitrag fest, wer ihn sehen darf. Private Beiträge sind nur für Sie sichtbar; für andere Sichtbarkeitsoptionen gilt die von Ihnen ausgewählte Zielgruppe."
       ],
       [
-        "Gestion du compte",
-        "Modifiez votre profil et gérez les comptes bloqués dans les paramètres. La déconnexion conserve votre compte. La suppression retire définitivement le compte sélectionné et ses contenus associés selon l’écran de confirmation."
+        "Konto verwalten",
+        "Bearbeiten Sie Ihr Profil und verwalten Sie blockierte Konten in den Einstellungen. Beim Abmelden bleibt Ihr Konto erhalten. Beim Löschen eines Kontos werden das ausgewählte Konto und die zugehörigen Inhalte entsprechend der Bestätigungsseite dauerhaft entfernt."
       ],
       [
-        "Achats",
-        "Les produits disponibles et leurs prix sont affichés avant l’achat. Apple traite les achats intégrés. Les pièces consommables ne peuvent être ni retirées ni transférées. Vérifiez les achats disponibles avant de renouveler une transaction interrompue."
+        "Käufe",
+        "Verfügbare Produkte und Preise werden vor dem Kauf angezeigt. In-App-Käufe werden von Apple verarbeitet. Verbrauchbare Coins können weder ausgezahlt noch übertragen werden. Prüfen Sie vorhandene Käufe, bevor Sie eine unterbrochene Transaktion erneut starten."
       ]
     ],
     "privacy": [
       [
-        "Informations fournies",
-        "Vos informations de compte, profil, publications, messages et préférences permettent les fonctions utilisées. Ajoutez uniquement ce que vous souhaitez partager. Votre e-mail et votre date de naissance complète ne figurent pas sur votre profil public."
+        "Von Ihnen bereitgestellte Informationen",
+        "Ihre Kontodaten, Ihr Profil, Ihre Beiträge, Nachrichten und Einstellungen ermöglichen die von Ihnen genutzten Funktionen. Geben Sie nur Informationen an, die Sie teilen möchten. Ihre E-Mail-Adresse und Ihr vollständiges Geburtsdatum werden nicht in Ihrem öffentlichen Profil angezeigt."
       ],
       [
-        "Visibilité",
-        "Votre profil affiche le nom, les photos, la présentation, les centres d’intérêt et l’âge choisis. La visibilité des publications détermine qui peut les consulter. Le changement de langue de l’interface ne réécrit pas vos contenus originaux."
+        "Sichtbarkeit",
+        "Ihr Profil zeigt den von Ihnen gewählten Namen, Fotos, Ihre Beschreibung, Interessen und Ihr Alter. Die Sichtbarkeit eines Beitrags bestimmt, wer Ihre Inhalte sehen kann. Ein Wechsel der Oberflächensprache verändert Ihre ursprünglichen Inhalte nicht."
       ],
       [
-        "Médias et autorisations",
-        "L’accès aux photos, à la caméra et au micro est demandé lorsque vous choisissez la fonction correspondante. Vous pouvez le refuser ou le modifier dans les réglages système. Seuls les médias sélectionnés sont ajoutés à vos contenus."
+        "Medien und Berechtigungen",
+        "Berechtigungen für Fotos, Kamera und Mikrofon werden erst angefragt, wenn Sie die entsprechende Funktion auswählen. Sie können den Zugriff ablehnen oder später in den Systemeinstellungen ändern. Nur von Ihnen ausgewählte Medien werden zu Ihren Inhalten hinzugefügt."
       ],
       [
-        "Messages et sécurité",
-        "Une présentation seule ne permet pas de poursuivre les échanges. Vous pouvez continuer après un suivi mutuel ou une réponse effective à une présentation. Le blocage empêche de nouvelles interactions. Pour un signalement ou un commentaire, fournissez les détails utiles sans mot de passe ni information sensible inutile."
+        "Nachrichten und Sicherheit",
+        "Eine Kontaktanfrage allein ermöglicht noch keine fortlaufenden Nachrichten. Sie können weiterschreiben, wenn Sie einander folgen oder eine Kontaktanfrage tatsächlich beantwortet wurde. Durch Blockieren werden neue Interaktionen verhindert. Fügen Sie Meldungen oder Feedback relevante Details hinzu und geben Sie keine Passwörter oder unnötigen sensiblen Informationen an."
       ],
       [
-        "Vos contrôles",
-        "Modifiez vos informations, gérez la visibilité des contenus et consultez les comptes bloqués depuis votre profil et les paramètres. La déconnexion conserve votre compte. Lisez la confirmation avant de supprimer définitivement un compte admissible."
+        "Ihre Kontrollmöglichkeiten",
+        "Bearbeiten Sie Ihre Angaben, verwalten Sie die Sichtbarkeit Ihrer Inhalte und prüfen Sie blockierte Konten über Ihr Profil und die Einstellungen. Beim Abmelden bleibt Ihr Konto erhalten. Prüfen Sie die Bestätigung, bevor Sie ein berechtigtes Konto dauerhaft löschen."
       ],
       [
-        "Aide",
-        "Consultez Help Buddy pour comprendre les fonctions et organiser vos commentaires sur votre expérience."
+        "Hilfe",
+        "Nutzen Sie Help Buddy, um Informationen zu Funktionen zu erhalten und Feedback zu Ihrer Nutzung zu übermitteln."
       ]
     ],
     "community": [
       [
-        "Soyez bienveillant",
-        "Respectez les autres. N’exercez aucune pression pour discuter, partager des médias ou révéler des informations personnelles."
+        "Seien Sie respektvoll",
+        "Behandeln Sie andere Menschen mit Respekt. Setzen Sie niemanden unter Druck, zu schreiben, Medien zu teilen oder persönliche Informationen preiszugeben."
       ],
       [
-        "Respectez les limites",
-        "Aucun harcèlement, menace, discrimination, usurpation d’identité ou partage d’informations privées sur autrui. L’exploitation sexuelle, les contenus illicites et les comportements dangereux ne sont pas autorisés."
+        "Achten Sie Grenzen",
+        "Belästigen, bedrohen oder diskriminieren Sie niemanden. Täuschen Sie keine Identität vor und teilen Sie keine privaten Informationen anderer Personen. Sexuelle Ausbeutung, rechtswidrige Inhalte und schädigendes Verhalten sind nicht erlaubt."
       ],
       [
-        "Partagez de manière responsable",
-        "Utilisez des contenus qui vous appartiennent ou que vous êtes autorisé à partager. Évitez les messages indésirables, les arnaques et les affirmations trompeuses sur votre identité ou vos qualifications."
+        "Teilen Sie verantwortungsvoll",
+        "Verwenden Sie nur Inhalte, die Ihnen gehören oder die Sie teilen dürfen. Vermeiden Sie Spam, Betrug und irreführende Angaben zu Ihrer Identität oder Ihren Qualifikationen."
       ],
       [
-        "Contrôles de sécurité",
-        "Envoyez un signalement avec un motif clair lorsqu’un contenu ou un comportement vous préoccupe. Vous pouvez bloquer une personne immédiatement et gérer votre liste dans les paramètres. Respectez une présentation refusée ou restée sans réponse."
+        "Sicherheitsfunktionen",
+        "Senden Sie eine Meldung mit einem klaren Grund, wenn Sie Inhalte oder Verhalten bedenklich finden. Sie können eine Person sofort blockieren und Ihre Blockliste in den Einstellungen verwalten. Respektieren Sie abgelehnte oder unbeantwortete Kontaktanfragen."
       ]
     ],
     "eula": [
       [
-        "Utiliser Eluva",
-        "Eluva est destiné aux adultes de 18 ans ou plus. Utilisez ses fonctions de manière responsable et respectez les Conditions d’utilisation et les Règles de la communauté."
+        "Eluva verwenden",
+        "Eluva richtet sich an Erwachsene ab 18 Jahren. Nutzen Sie die Funktionen verantwortungsvoll und beachten Sie die Nutzungsbedingungen und Community-Richtlinien."
       ],
       [
-        "Vos choix",
-        "Choisissez les informations et médias partagés. Vous contrôlez la visibilité des publications et les autorisations facultatives. Gardez vos identifiants confidentiels."
+        "Ihre Entscheidungen",
+        "Sie entscheiden, welche Informationen und Medien Sie teilen. Sie kontrollieren die Sichtbarkeit Ihrer Beiträge und optionale Geräteberechtigungen. Halten Sie Ihre Zugangsdaten geheim."
       ],
       [
-        "Sécurité et gestion du compte",
-        "Signalez un contenu indésirable, bloquez un compte, modifiez votre profil et gérez vos paramètres. Consultez les confirmations avant de supprimer un contenu ou votre compte."
+        "Sicherheit und Kontoverwaltung",
+        "Melden Sie unerwünschte Inhalte, blockieren Sie Konten, bearbeiten Sie Ihr Profil und verwalten Sie Ihre Einstellungen. Prüfen Sie Bestätigungsdialoge, bevor Sie Inhalte oder Ihr Konto löschen."
       ]
     ]
   }

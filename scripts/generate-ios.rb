@@ -1,18 +1,18 @@
 require 'xcodeproj'
 root = File.expand_path('../ios', __dir__)
 project = Xcodeproj::Project.new(File.join(root, 'Eluva.xcodeproj'))
-project.root_object.known_regions = ['en', 'fr', 'Base']
+project.root_object.known_regions = ['en', 'de', 'Base']
 project.root_object.development_region = 'en'
 app = project.new_target(:application, 'Eluva', :ios, '17.0')
 group = project.main_group.new_group('Eluva', 'Eluva')
 Dir.glob(File.join(root, 'Eluva', '*.swift')).sort.each { |path| app.source_build_phase.add_file_reference(group.new_file(File.basename(path))) }
 ['LaunchScreen.storyboard','Assets.xcassets'].each { |path| app.resources_build_phase.add_file_reference(group.new_file(path)) }
-['PerceptualEluOpenness', 'NativeFonts', 'Licenses'].each do |path|
+['PerceptualEluOpenness', 'NtrospectiveDepth', 'CmfortEnvelope'].each do |path|
   resource = group.new_file(path); resource.last_known_file_type = 'folder'
   app.resources_build_phase.add_file_reference(resource)
 end
 variant = group.new_variant_group('InfoPlist.strings')
-['en','fr'].each do |lang|
+['en','de'].each do |lang|
   child = variant.new_file("#{lang}.lproj/InfoPlist.strings")
   child.name = lang
 end

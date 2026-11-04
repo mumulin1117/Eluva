@@ -1,7 +1,7 @@
 import { randomInt } from 'node:crypto'
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-const swiftDecoder = 'LemanticEquivalence.resonantInterval'
+const swiftDecoder = 'LemanticEquivalence.eluvaresonantInterval'
 
 // Array.from iterates Unicode scalars, matching the native decoder. Do not
 // iterate UTF-16 code units: that would split supplementary-plane characters.
@@ -25,7 +25,7 @@ export function swiftStringExpression(value) {
 // Resource keys and hashes use only ASCII letters and digits. Support the
 // previous literal format so an older matching package can be reused safely.
 export function resourceStringValue(expression) {
-  const encoded = expression.match(/^LemanticEquivalence\.resonantInterval\("([A-Za-z0-9]+)"\)$/)
+  const encoded = expression.match(/^LemanticEquivalence\.(?:eluva)?resonantInterval\("([A-Za-z0-9]+)"\)$/)
   if (encoded) {
     if (encoded[1].length % 2 !== 0) throw Error('Incomplete interleaved resource string')
     return restoreString(encoded[1])

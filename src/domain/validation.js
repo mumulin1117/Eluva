@@ -43,7 +43,7 @@ export function validateProfile(profile, choices, today = new Date(), existing =
 }
 export function verifyCode(value) { invariant(String(value) === VERIFICATION_CODE, 'INVALID_VERIFICATION_CODE'); return true }
 export function matchLocale(preferred, saved) {
-  if (['en', 'fr'].includes(saved)) return saved
-  for (const code of preferred) { const base = String(code).toLowerCase().replace('_', '-').split('-')[0]; if (['en', 'fr'].includes(base)) return base }
+  if (['en', 'de'].includes(saved)) return saved
+  for (const code of preferred) { const base = String(code).toLowerCase().replace('_', '-').split('-')[0]; if (['en', 'de'].includes(base)) return base }
   return 'en'
 }

@@ -25,13 +25,14 @@ const expectedByPayload = new Map(baseline?.map(row => [row.encoded, row.value])
 const nativeCases = []
 for (const file of (await readdir(nativeRoot)).filter(name => name.endsWith('.swift')).sort()) {
   const source = await readFile(join(nativeRoot, file), 'utf8')
-  const calls = source.matchAll(/LemanticEquivalence\.resonantInterval\("(?:[^"\\]|\\.)*"\)/g)
+  const calls = source.matchAll(/LemanticEquivalence\.(?:eluva)?resonantInterval\("(?:[^"\\]|\\.)*"\)/g)
   for (const call of calls) {
     // Decode the Swift literal by compiling the exact source below. JSON is
     // only used for the baseline, never to interpret Swift escape sequences.
     nativeCases.push({ file, expression: call[0] })
   }
 }
+assert(nativeCases.length > 0, 'Native decoder expressions must be covered')
 if (baseline) assert.equal(nativeCases.length, baseline.length, 'Native coverage changed')
 
 function declaration(source, marker) {
@@ -107,7 +108,7 @@ print("Validated \\(checked) native expressions, \\(samples.count) Unicode/escap
   // The baseline is emitted in syntax traversal order; source order differs
   // only for strings nested in interpolation. Match by exact encoded payload
   // and compile a payload-reading pass to build the ordered expectations.
-  const payloadMain = 'import Foundation\nvar values: [String] = []\n' + nativeCases.map(row => `values.append(${row.expression.replace('LemanticEquivalence.resonantInterval(', '').slice(0, -1)})`).join('\n') + '\nFileHandle.standardOutput.write(try JSONSerialization.data(withJSONObject: values))\n'
+  const payloadMain = 'import Foundation\nvar values: [String] = []\n' + nativeCases.map(row => `values.append(${row.expression.replace(/^LemanticEquivalence\.(?:eluva)?resonantInterval\(/, '').slice(0, -1)})`).join('\n') + '\nFileHandle.standardOutput.write(try JSONSerialization.data(withJSONObject: values))\n'
   const payloadPath = join(directory, 'payload.swift')
   const payloadBinary = join(directory, 'payloads')
   await writeFile(payloadPath, payloadMain)
@@ -156,7 +157,7 @@ print("Validated \\(checked) native expressions, \\(samples.count) Unicode/escap
   const sync = () => run(process.execPath, [join(fixtureRoot, 'scripts/sync-ios.mjs')], { env: { ...process.env, ELUVA_EVIDENCE_DIR: evidence } })
   sync()
   const generatedSource = await readFile(join(fixtureRoot, 'ios/Eluva/MoodAwarenessCoherence.swift'), 'utf8')
-  assert.equal([...generatedSource.matchAll(/= LemanticEquivalence\.resonantInterval\("[A-Za-z0-9]+"\)/g)].length, 4)
+  assert.equal([...generatedSource.matchAll(/= LemanticEquivalence\.eluvaresonantInterval\("[A-Za-z0-9]+"\)/g)].length, 4)
   const firstPackage = JSON.parse(await readFile(join(evidence, 'resource-package.json'), 'utf8'))
   assert.equal(firstPackage.reused, false)
   sync()

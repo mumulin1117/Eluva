@@ -23,7 +23,7 @@ xcodebuild -project Eluva.xcodeproj -scheme Eluva -configuration Debug \
 
 ## 内置 H5
 
-- `Eluva/PerceptualEluOpenness/resources.eluva`：生产 H5 资源先以 raw DEFLATE 压缩，再经过两层独立 AES-256-GCM 加密。
+- `Eluva/PerceptualEluOpenness/EluOpenness.eluva`：生产 H5 资源先以 raw DEFLATE 压缩，再经过两层独立 AES-256-GCM 加密。
 - `Eluva/ResourcePackageKey.swift`：与密文包配套的随机密钥和完整性参数。两组密钥各40位，包含数字和字母。不可单独替换密文包或此文件。
 - `Eluva/EncryptedWebResources.swift`：后台校验、解密和解包；缓存损坏自动重建，失败沿用启动页重试。
 - `Eluva/NativeFonts`：仅保留原生启动失败提示使用的 Poppins Regular、重试按钮使用的 Plus Jakarta Sans SemiBold 两个字体文件。H5 所用的其他字体随加密包加载，无需在此重复复制。

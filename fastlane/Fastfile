@@ -170,7 +170,7 @@ platform :ios do
     sku = options[:sku].to_s.strip
     sku = bundle_id if sku.empty?
     language = options[:language].to_s.strip
-    language = ENV.fetch("APP_LANGUAGE", "ja").to_s.strip if language.empty? # ja, en-US, ko, fr-FR, de-DE
+    language = ENV.fetch("APP_LANGUAGE", "en-US").to_s.strip if language.empty? # en-US, de-DE
 
     UI.user_error!("FASTLANE_USER is required") if username.empty?
     UI.user_error!("BUNDLE_ID is required") if bundle_id.empty?

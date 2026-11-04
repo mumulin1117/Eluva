@@ -32,7 +32,7 @@ export function languageSource(root,type,id,viewer,{transcript=false,source='en'
  invariant(!!item.body?.trim(),'NO_TEXT');return {original:item.body,fingerprint:item.body}
 }
 export const languageKey=(viewer,type,id,kind,lang)=>[viewer,type,id,kind,lang].join(':')
-export function validateLanguageResult(row){invariant(['en','fr'].includes(row.source)&&['en','fr'].includes(row.target)&&['translation','transcript'].includes(row.kind)&&typeof row.text==='string'&&row.text.trim()&&row.text.length<=20000,'LANGUAGE_FAILED')}
+export function validateLanguageResult(row){invariant(['en','de'].includes(row.source)&&['en','de'].includes(row.target)&&['translation','transcript'].includes(row.kind)&&typeof row.text==='string'&&row.text.trim()&&row.text.length<=20000,'LANGUAGE_FAILED')}
 
 // Validate real PCM WAV bytes in the browser preview; arbitrary base64 is never treated as voice.
 export function wavDuration(bytes){

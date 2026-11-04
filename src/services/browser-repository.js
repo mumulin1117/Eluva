@@ -33,7 +33,7 @@ const accountByEmail = (state, email) => Object.values(state.accounts).find(user
 
 function initialAccountFixtures() {
   return { friends: ['demo-friend-echo', 'demo-friend-notes'], requests: [{ id: 'demo-request-in', direction: 'received' }, { id: 'demo-request-out', direction: 'sent' }],
-    threads: ['echo', 'notes'].map((name, i) => ({ id: 'demo-thread-' + name, participantId: 'demo-friend-' + name, title: { en: 'Conversation', fr: 'Conversation' }, messages: [
+    threads: ['echo', 'notes'].map((name, i) => ({ id: 'demo-thread-' + name, participantId: 'demo-friend-' + name, title: { en: 'Conversation', de: 'Unterhaltung' }, messages: [
       { id: name + '-text', kind: 'text', body: { ...presentationFixture.greeting }, sentByMe: false },
     ] })) }
 }
@@ -138,7 +138,7 @@ export class BrowserRepository {
       }
       case 'app.ready': return { ready: true }
       case 'preferences.locale': {
-        invariant(['en', 'fr'].includes(params.locale), 'INVALID_ARGUMENT')
+        invariant(['en', 'de'].includes(params.locale), 'INVALID_ARGUMENT')
         const result = await this.write(s => { s.preferences.locale = params.locale; return { state: s, result: { locale: params.locale } } }, signal)
         try { localStorage.setItem('eluva.locale', params.locale) } catch { /* IndexedDB is authoritative */ }
         return result

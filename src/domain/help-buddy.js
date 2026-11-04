@@ -6,7 +6,7 @@ const normalized=value=>String(value||'').normalize('NFKC').trim().replace(/\s+/
 // must not keep the old topic and produce an unrelated answer.
 export function helpTopic(body){
  const value=normalized(body)
- for(const topic of ['how','posting','privacy'])for(const locale of ['en','fr'])if(value===normalized(socialMessages[locale][topic]))return topic
+ for(const topic of ['how','posting','privacy'])for(const locale of ['en','de'])if(value===normalized(socialMessages[locale][topic]))return topic
  return 'feedback'
 }
 export function helpReplyDue(item){

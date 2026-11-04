@@ -3,6 +3,7 @@ import { demoFixtureVersion,demoScope,demoPeople,demoPosts,demoConversations,dem
 // Migrate only exact shipped copy, never arbitrary text containing a keyword.
 export function upgradePresentation(root) {
   if((root.presentationVersion||0)>=presentationFixture.version)return
+  if(root.preferences?.locale==='fr')root.preferences.locale='en'
   const migrateCopy=(root.presentationVersion||0)<4
   const account=root.accounts?.[demoScope]
   if(migrateCopy&&account?.isTest&&account.profile?.displayName==='Eluva Demo')account.profile.displayName=presentationFixture.accountName
@@ -24,7 +25,7 @@ export function upgradePresentation(root) {
     const name=['echo','notes'].find(name=>thread.id==='demo-thread-'+name&&thread.participantId==='demo-friend-'+name)
     if(name)thread.messages=(thread.messages||[]).filter(m=>!(m.id===name+'-voice'&&m.kind==='voice'&&!m.mediaId&&m.asset==='demo/local-voice.wav'&&m.sentByMe===true))
     const peer=demoPeople.find(p=>p.id===thread.participantId)
-    if(migrateCopy&&peer&&thread.title?.en?.startsWith('Local demo '))thread.title={en:peer.displayName,fr:peer.displayName}
+    if(migrateCopy&&peer&&thread.title?.en?.startsWith('Local demo '))thread.title={en:peer.displayName,de:peer.displayName}
     for(const message of thread.messages||[])if(migrateCopy&&message.kind==='text'&&message.body?.en===old)message.body={...presentationFixture.greeting}
   }
   upgradeDemoChatPeers(root)
@@ -43,7 +44,7 @@ function upgradeDemoChatPeers(root) {
       fixture.friends=[...new Set((fixture.friends||[]).map(id=>id===oldPeer?peer:id))]
       for(const thread of fixture.threads||[])if(thread.id===item.legacyThreadId&&thread.participantId===oldPeer){
         thread.id=item.threadId;thread.participantId=peer
-        const name=demoPeople.find(p=>p.id===peer).displayName;thread.title={en:name,fr:name}
+        const name=demoPeople.find(p=>p.id===peer).displayName;thread.title={en:name,de:name}
       }
     }
     const oldThread=social?.threads?.[item.legacyThreadId]

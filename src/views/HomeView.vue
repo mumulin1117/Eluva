@@ -96,7 +96,7 @@ function positionSignals(){
  const shell=document.querySelector('.home-shell'),area=shell?.querySelector('.discovery-beacons')?.getBoundingClientRect()
  if(!area)return
  const key=area.width+'|'+area.height;if(signalLayoutSize===key)return
- // Reserve the whole count row so singular/plural and French copy cannot move
+ // Reserve the whole count row so singular/plural and German copy cannot move
  // the already lit lamps or grow underneath them during this batch.
  const avoid=[...shell.querySelectorAll('.share-island,.resonance-orbits>img,.resonance-count')].map(element=>{const r=element.getBoundingClientRect();return {x:element.matches('.resonance-count')?0:r.left-area.left,y:r.top-area.top,width:element.matches('.resonance-count')?area.width:r.width,height:r.height}})
  beaconPositions.value=layoutDiscoverySignals({width:area.width,height:area.height,avoid})

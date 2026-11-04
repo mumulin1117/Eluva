@@ -11,7 +11,7 @@ const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const iosRoot = join(projectRoot, 'ios/Eluva')
 const sourceRoot = join(projectRoot, 'dist')
 const packageRoot = join(iosRoot, 'PerceptualEluOpenness')
-const packagePath = join(packageRoot, 'resources.eluva')
+const packagePath = join(packageRoot, 'EluOpenness.eluva')
 const keyPath = join(iosRoot, 'MoodAwarenessCoherence.swift')
 const keyIdentifiers = { inner: 'tempoCalibration', outer: 'polyphonicLayer', packageSHA256: 'symphonicForm', manifestSHA256: 'pitchInterval', archiveBytes: 'hapticEnvelope' }
 const evidenceRoot = resolve(projectRoot, process.env.ELUVA_EVIDENCE_DIR || '.build/evidence')
@@ -176,26 +176,26 @@ await mkdir(packageRoot, { recursive: true })
 const staging = join(iosRoot, `.resource-sync-${process.pid}-${randomBytes(6).toString('hex')}`)
 await mkdir(staging)
 try {
-  await mkdir(join(staging, 'NativeFonts'))
+  await mkdir(join(staging, 'NtrospectiveDepth'))
   let notices = 'Third-party notices for native fonts\n\n'
   for (const font of nativeFonts) {
-    await cp(join(sourceRoot, 'fonts', font.file), join(staging, 'NativeFonts', font.file))
+    await cp(join(sourceRoot, 'fonts', font.file), join(staging, 'NtrospectiveDepth', font.file))
     // Keep each source notice complete, including its copyright and OFL text.
     notices += `=== ${font.name} ===\n\n${await readFile(join(sourceRoot, 'fonts', font.license), 'utf8')}\n`
   }
   await writeFile(join(staging, 'ThirdPartyNotices.txt'), notices)
   if (!reused) {
-    await writeFile(join(staging, 'resources.eluva'), packageBytes)
+    await writeFile(join(staging, 'EluOpenness.eluva'), packageBytes)
     await writeFile(join(staging, 'MoodAwarenessCoherence.swift'), swiftSource(keys))
     // Each rename is atomic. If interrupted between the two, the embedded hash
     // fails closed, and the next build regenerates the mismatched pair.
-    await rename(join(staging, 'resources.eluva'), packagePath)
+    await rename(join(staging, 'EluOpenness.eluva'), packagePath)
     await rename(join(staging, 'MoodAwarenessCoherence.swift'), keyPath)
   }
-  await mkdir(join(iosRoot, 'Licenses'), { recursive: true })
-  await rename(join(staging, 'ThirdPartyNotices.txt'), join(iosRoot, 'Licenses', 'ThirdPartyNotices.txt'))
-  await rm(join(iosRoot, 'NativeFonts'), { recursive: true, force: true })
-  await rename(join(staging, 'NativeFonts'), join(iosRoot, 'NativeFonts'))
+  await mkdir(join(iosRoot, 'CmfortEnvelope'), { recursive: true })
+  await rename(join(staging, 'ThirdPartyNotices.txt'), join(iosRoot, 'CmfortEnvelope', 'ThirdPartyNotices.txt'))
+  await rm(join(iosRoot, 'NtrospectiveDepth'), { recursive: true, force: true })
+  await rename(join(staging, 'NtrospectiveDepth'), join(iosRoot, 'NtrospectiveDepth'))
   const imageRoot = join(iosRoot, 'Assets.xcassets/LaunchBackground.imageset')
   await mkdir(imageRoot, { recursive: true })
   await cp(join(projectRoot, 'public/images/auth-background.png'), join(imageRoot, 'background@2x.png'))

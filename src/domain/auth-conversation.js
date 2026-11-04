@@ -13,13 +13,13 @@ export function validateOnboarding(raw){
  return {version:conversationPolicy.version,theme:raw.theme,answers}
 }
 export function suggestedBio(answers,locale){
- const a=id=>answers.find(x=>x.questionId===id&&x.status==='answered')?.optionId,fr=locale==='fr',parts=[]
+ const a=id=>answers.find(x=>x.questionId===id&&x.status==='answered')?.optionId,de=locale==='de',parts=[]
  const social=a('quick-quiz-01'),pace=a('quick-quiz-04'),choice=a('quick-quiz-05'),free=a('quick-quiz-06'),trip=a('quick-quiz-09'),mbti=a('quick-quiz-10')
- if(social)parts.push(fr?(social==='introvert'?'Plutôt introverti.':'Plutôt extraverti.'):(social==='introvert'?'An introvert at heart.':'An extrovert at heart.'))
- if(pace==='slow-warmup')parts.push(fr?'Je prends mon temps pour m’ouvrir.':'I take my time to open up.')
- if(choice)parts.push(fr?(choice==='intuition'?'Je suis mon intuition.':'J’aime réfléchir avec logique.'):(choice==='intuition'?'I trust my intuition.':'I like thinking things through.'))
- if(free)parts.push(fr?(free==='alone'?'J’apprécie les moments tranquilles.':'J’aime passer du temps avec mes amis.'):(free==='alone'?'I enjoy quiet time to myself.':'I enjoy spending time with friends.'))
- if(trip)parts.push(fr?(trip==='planner'?'J’aime préparer mes voyages.':'En voyage, je suis mes envies.'):(trip==='planner'?'I like planning my trips.':'On trips, I go with the flow.'))
+ if(social)parts.push(de?(social==='introvert'?'Im Herzen introvertiert.':'Im Herzen extrovertiert.'):(social==='introvert'?'An introvert at heart.':'An extrovert at heart.'))
+ if(pace==='slow-warmup')parts.push(de?'Ich brauche etwas Zeit, um mich zu öffnen.':'I take my time to open up.')
+ if(choice)parts.push(de?(choice==='intuition'?'Ich vertraue meiner Intuition.':'Ich denke Entscheidungen gern logisch durch.'):(choice==='intuition'?'I trust my intuition.':'I like thinking things through.'))
+ if(free)parts.push(de?(free==='alone'?'Ich genieße ruhige Zeit für mich.':'Ich verbringe gern Zeit mit Freunden.'):(free==='alone'?'I enjoy quiet time to myself.':'I enjoy spending time with friends.'))
+ if(trip)parts.push(de?(trip==='planner'?'Ich plane Reisen gern im Voraus.':'Auf Reisen lasse ich mich gern treiben.'):(trip==='planner'?'I like planning my trips.':'On trips, I go with the flow.'))
  if(mbti)parts.push('MBTI: '+mbti+'.')
  return parts.join(' ')
 }

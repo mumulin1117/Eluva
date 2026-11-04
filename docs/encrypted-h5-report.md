@@ -10,7 +10,7 @@
 | 文件 | 本轮作用 |
 | --- | --- |
 | `scripts/sync-ios.mjs` | 核对构建清单，压缩、两次独立加密、解密回验，生成配套密钥，复用相同内容包，同步原生字体和启动资源，移除旧生成Web目录。 |
-| `ios/Eluva/PerceptualEluOpenness/resources.eluva` | 替代原Web明文资源；265个生产文件均在包内。 |
+| `ios/Eluva/PerceptualEluOpenness/EluOpenness.eluva` | 替代原Web明文资源；265个生产文件均在包内。 |
 | `ios/Eluva/ResourcePackageKey.swift` | 自动生成两组独立40位随机字母数字密钥、包摘要、清单摘要和解压长度；不依赖外部配置。 |
 | `ios/Eluva/EncryptedWebResources.swift` | 原生后台认证解密、流式解压、路径与逐文件校验、原子发布、缓存复用和修复。 |
 | `ios/Eluva/LocalResources.swift` | WKURLSchemeHandler改用已验证的解包根目录，保留URL协议、MIME、Range、CORS和取消语义。 |

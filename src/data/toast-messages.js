@@ -1,14 +1,20 @@
 export const toastMessages = {
-  en: {
-    dismiss: 'Dismiss notification', profileUpdated: 'Your profile is up to date.',
-    themeUpdated: 'Your new theme is ready.', collectionCreated: 'Your collection is ready.',
-    lightsRead: 'All Light-Ups are marked as read.', connected: 'You’re now connected. Say hello!',
-    requestDeclined: 'Request declined.',
+  "en": {
+    "dismiss": "Dismiss notification",
+    "profileUpdated": "Your profile is up to date.",
+    "themeUpdated": "Your new theme is ready.",
+    "collectionCreated": "Your collection is ready.",
+    "lightsRead": "All Light-Ups are marked as read.",
+    "connected": "You’re now connected. Say hello!",
+    "requestDeclined": "Request declined."
   },
-  fr: {
-    dismiss: 'Fermer la notification', profileUpdated: 'Votre profil est à jour.',
-    themeUpdated: 'Votre nouveau thème est prêt.', collectionCreated: 'Votre collection est prête.',
-    lightsRead: 'Toutes les illuminations sont marquées comme lues.', connected: 'Vous êtes maintenant en contact. Dites bonjour !',
-    requestDeclined: 'Demande refusée.',
-  },
+  "de": {
+    "dismiss": "Hinweis schließen",
+    "profileUpdated": "Dein Profil ist auf dem neuesten Stand.",
+    "themeUpdated": "Dein neues Design ist bereit.",
+    "collectionCreated": "Deine Sammlung ist bereit.",
+    "lightsRead": "Alle Light-Ups sind als gelesen markiert.",
+    "connected": "Du bist jetzt verbunden. Sag Hallo!",
+    "requestDeclined": "Anfrage abgelehnt."
+  }
 }

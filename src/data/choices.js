@@ -1,9 +1,219 @@
-const item = (id, en, fr) => ({ id, en, fr })
 export const choices = {
-  genders: [item('woman','Woman','Femme'),item('man','Man','Homme'),item('nonbinary','Non-binary','Non binaire'),item('private','Prefer not to say','Préfère ne pas préciser')],
-  years: [item('year-1','Year 1','1re année'),item('year-2','Year 2','2e année'),item('year-3','Year 3','3e année'),item('year-4','Year 4','4e année'),item('postgraduate','Postgraduate','Cycle supérieur')],
-  majors: [item('arts','Arts & humanities','Arts et lettres'),item('business','Business','Commerce'),item('computing','Computer science','Informatique'),item('engineering','Engineering','Ingénierie'),item('health','Health sciences','Sciences de la santé'),item('science','Sciences','Sciences'),item('social','Social sciences','Sciences sociales'),item('other','Other','Autre')],
-  interests: [item('music','Music','Musique'),item('photos','Photography','Photographie'),item('books','Books','Lecture'),item('art','Art','Art'),item('film','Film','Cinéma'),item('coffee','Coffee','Café'),item('sport','Sports','Sport'),item('games','Gaming','Jeux vidéo'),item('nature','Nature','Nature'),item('cooking','Cooking','Cuisine'),item('travel','Travel','Voyage'),item('volunteer','Volunteering','Bénévolat')],
-  goals: [item('friends','Meet campus friends','Rencontrer des amis sur le campus'),item('daily','Share everyday moments','Partager les petits moments'),item('interests','Find shared interests','Échanger autour de passions communes'),item('languages','Language exchange','Échange linguistique')],
-  icebreakers: [item('small-joy','What small thing made your day?','Quel petit détail a illuminé votre journée ?'),item('campus-place','Where do you feel most at home on campus?','Où vous sentez-vous bien sur le campus ?'),item('repeat-song','Which song would you share today?','Quelle chanson partageriez-vous aujourd’hui ?'),item('learn','What would you love to learn together?','Qu’aimeriez-vous apprendre ensemble ?'),item('weekend','What does a restful weekend look like to you?','À quoi ressemble un week-end reposant pour vous ?'),item('book','What story has stayed with you?','Quelle histoire vous a marqué ?'),item('coffee-talk','What could you talk about over coffee?','De quoi pourriez-vous parler autour d’un café ?'),item('new-thing','What is something you tried for the first time?','Qu’avez-vous essayé pour la première fois ?')],
+  "genders": [
+    {
+      "id": "woman",
+      "en": "Woman",
+      "de": "Frau"
+    },
+    {
+      "id": "man",
+      "en": "Man",
+      "de": "Mann"
+    },
+    {
+      "id": "nonbinary",
+      "en": "Non-binary",
+      "de": "Nichtbinär"
+    },
+    {
+      "id": "private",
+      "en": "Prefer not to say",
+      "de": "Lieber nicht sagen"
+    }
+  ],
+  "years": [
+    {
+      "id": "year-1",
+      "en": "Year 1",
+      "de": "1. Studienjahr"
+    },
+    {
+      "id": "year-2",
+      "en": "Year 2",
+      "de": "2. Studienjahr"
+    },
+    {
+      "id": "year-3",
+      "en": "Year 3",
+      "de": "3. Studienjahr"
+    },
+    {
+      "id": "year-4",
+      "en": "Year 4",
+      "de": "4. Studienjahr"
+    },
+    {
+      "id": "postgraduate",
+      "en": "Postgraduate",
+      "de": "Weiterführendes Studium"
+    }
+  ],
+  "majors": [
+    {
+      "id": "arts",
+      "en": "Arts & humanities",
+      "de": "Kunst und Geisteswissenschaften"
+    },
+    {
+      "id": "business",
+      "en": "Business",
+      "de": "Wirtschaftswissenschaften"
+    },
+    {
+      "id": "computing",
+      "en": "Computer science",
+      "de": "Informatik"
+    },
+    {
+      "id": "engineering",
+      "en": "Engineering",
+      "de": "Ingenieurwesen"
+    },
+    {
+      "id": "health",
+      "en": "Health sciences",
+      "de": "Gesundheitswissenschaften"
+    },
+    {
+      "id": "science",
+      "en": "Sciences",
+      "de": "Naturwissenschaften"
+    },
+    {
+      "id": "social",
+      "en": "Social sciences",
+      "de": "Sozialwissenschaften"
+    },
+    {
+      "id": "other",
+      "en": "Other",
+      "de": "Sonstiges"
+    }
+  ],
+  "interests": [
+    {
+      "id": "music",
+      "en": "Music",
+      "de": "Musik"
+    },
+    {
+      "id": "photos",
+      "en": "Photography",
+      "de": "Fotografie"
+    },
+    {
+      "id": "books",
+      "en": "Books",
+      "de": "Bücher"
+    },
+    {
+      "id": "art",
+      "en": "Art",
+      "de": "Kunst"
+    },
+    {
+      "id": "film",
+      "en": "Film",
+      "de": "Film"
+    },
+    {
+      "id": "coffee",
+      "en": "Coffee",
+      "de": "Kaffee"
+    },
+    {
+      "id": "sport",
+      "en": "Sports",
+      "de": "Sport"
+    },
+    {
+      "id": "games",
+      "en": "Gaming",
+      "de": "Gaming"
+    },
+    {
+      "id": "nature",
+      "en": "Nature",
+      "de": "Natur"
+    },
+    {
+      "id": "cooking",
+      "en": "Cooking",
+      "de": "Kochen"
+    },
+    {
+      "id": "travel",
+      "en": "Travel",
+      "de": "Reisen"
+    },
+    {
+      "id": "volunteer",
+      "en": "Volunteering",
+      "de": "Freiwilligentätigkeit"
+    }
+  ],
+  "goals": [
+    {
+      "id": "friends",
+      "en": "Meet campus friends",
+      "de": "Freunde auf dem Campus finden"
+    },
+    {
+      "id": "daily",
+      "en": "Share everyday moments",
+      "de": "Teile alltägliche Momente"
+    },
+    {
+      "id": "interests",
+      "en": "Find shared interests",
+      "de": "Gemeinsame Interessen finden"
+    },
+    {
+      "id": "languages",
+      "en": "Language exchange",
+      "de": "Sprachaustausch"
+    }
+  ],
+  "icebreakers": [
+    {
+      "id": "small-joy",
+      "en": "What small thing made your day?",
+      "de": "Welche Kleinigkeit hat deinen Tag schöner gemacht?"
+    },
+    {
+      "id": "campus-place",
+      "en": "Where do you feel most at home on campus?",
+      "de": "Wo fühlst du dich auf dem Campus am meisten zu Hause?"
+    },
+    {
+      "id": "repeat-song",
+      "en": "Which song would you share today?",
+      "de": "Welchen Song würdest du heute teilen?"
+    },
+    {
+      "id": "learn",
+      "en": "What would you love to learn together?",
+      "de": "Was würdest du gerne zusammen lernen?"
+    },
+    {
+      "id": "weekend",
+      "en": "What does a restful weekend look like to you?",
+      "de": "Wie sieht ein erholsames Wochenende für dich aus?"
+    },
+    {
+      "id": "book",
+      "en": "What story has stayed with you?",
+      "de": "Welche Geschichte ist dir besonders im Gedächtnis geblieben?"
+    },
+    {
+      "id": "coffee-talk",
+      "en": "What could you talk about over coffee?",
+      "de": "Worüber könntest du bei einem Kaffee lange sprechen?"
+    },
+    {
+      "id": "new-thing",
+      "en": "What is something you tried for the first time?",
+      "de": "Was hast du zum ersten Mal probiert?"
+    }
+  ]
 }
