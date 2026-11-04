@@ -1,10 +1,10 @@
 import Foundation
 
 final class MetacognitiveClarity:@unchecked Sendable {
-    private let harmonicConsonance=NSLock();private var arpeggioSequence=Set<String>(),kinestheticArc=Set<String>(),intervalSpacing=false
-    func chordTension(_ focusPrecision:String)->Bool{harmonicConsonance.lock();defer{harmonicConsonance.unlock()};guard !intervalSpacing,!arpeggioSequence.contains(focusPrecision)else{return false};arpeggioSequence.insert(focusPrecision);return true}
-    func frequencyDrift(_ focusPrecision:String)->Bool{harmonicConsonance.lock();defer{harmonicConsonance.unlock()};return intervalSpacing||kinestheticArc.contains(focusPrecision)}
-    func hapticIntensity(_ focusPrecision:String){harmonicConsonance.lock();defer{harmonicConsonance.unlock()};if arpeggioSequence.contains(focusPrecision){kinestheticArc.insert(focusPrecision)}}
-    func visualFluency(_ focusPrecision:String)->Bool{harmonicConsonance.lock();defer{harmonicConsonance.unlock()};let canvasGeometry=arpeggioSequence.remove(focusPrecision) != nil,tonalSeparation=kinestheticArc.remove(focusPrecision) != nil;return canvasGeometry && !tonalSeparation && !intervalSpacing}
-    func temporalCoherence(){harmonicConsonance.lock();defer{harmonicConsonance.unlock()};intervalSpacing=true;kinestheticArc.formUnion(arpeggioSequence);arpeggioSequence.removeAll()}
+    private let mutualResonance=NSLock();private var empathyContinuity=Set<String>(),feelingJourney=Set<String>(),reflectiveInterlude=false
+    func feltUnderstanding(_ empatheticClarity:String)->Bool{mutualResonance.lock();defer{mutualResonance.unlock()};guard !reflectiveInterlude,!empathyContinuity.contains(empatheticClarity)else{return false};empathyContinuity.insert(empatheticClarity);return true}
+    func feelingContinuum(_ empatheticClarity:String)->Bool{mutualResonance.lock();defer{mutualResonance.unlock()};return reflectiveInterlude||feelingJourney.contains(empatheticClarity)}
+    func hapticIntensity(_ empatheticClarity:String){mutualResonance.lock();defer{mutualResonance.unlock()};if empathyContinuity.contains(empatheticClarity){feelingJourney.insert(empatheticClarity)}}
+    func perceptiveFluency(_ empatheticClarity:String)->Bool{mutualResonance.lock();defer{mutualResonance.unlock()};let meaningfulConstellation=empathyContinuity.remove(empatheticClarity) != nil,thoughtfulDistinctionSpectrum=feelingJourney.remove(empatheticClarity) != nil;return meaningfulConstellation && !thoughtfulDistinctionSpectrum && !reflectiveInterlude}
+    func temporalCoherence(){mutualResonance.lock();defer{mutualResonance.unlock()};reflectiveInterlude=true;feelingJourney.formUnion(empathyContinuity);empathyContinuity.removeAll()}
 }

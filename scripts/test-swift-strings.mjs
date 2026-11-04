@@ -56,8 +56,8 @@ const nativeDeclarations = [
   declaration(codecSource, 'enum LemanticEquivalence'),
   declaration(webSource, 'enum delightContinuity:'),
   declaration(webSource, 'enum wonderSequence:'),
-  declaration(packageSource, 'private struct spatialAwareness:').replace(/^private /, ''),
-  declaration(packageSource, 'private struct kinestheticFluency:').replace(/^private /, ''),
+  declaration(packageSource, 'private struct receptiveConstellation:').replace(/^private /, ''),
+  declaration(packageSource, 'private struct empathicFluency:').replace(/^private /, ''),
 ].join('\n')
 const directory = await mkdtemp(join(tmpdir(), 'eluva-string-tests-'))
 try {
@@ -91,18 +91,18 @@ ${checks}
 ${sampleChecks}
 let states = input["states"] as! [String]
 let destinations = input["destinations"] as! [String]
-let stateCases: [delightContinuity] = [.belongingRitual, .poeticDevice, .preferenceHierarchy, .coherenceScope]
+let stateCases: [delightContinuity] = [.belongingRitual, .heartfeltMetaphor, .preferenceHierarchy, .coherenceScope]
 let destinationCases: [wonderSequence] = [.interoceptiveAwareness, .rapportCalibration, .reminiscenceContour]
 for (index, value) in stateCases.enumerated() { expect(value.rawValue, states[index]); precondition(delightContinuity(rawValue: states[index]) == value) }
 for (index, value) in destinationCases.enumerated() { expect(value.rawValue, destinations[index]); precondition(wonderSequence(rawValue: destinations[index]) == value) }
 precondition(delightContinuity(rawValue: "unknown") == nil && wonderSequence(rawValue: "unknown") == nil)
 let manifest = try JSONSerialization.data(withJSONObject: input["manifest"]!)
-let decoded = try JSONDecoder().decode(spatialAwareness.self, from: manifest)
-precondition(decoded.lightnessScale == 1 && decoded.harmonicStructure.count == 1)
-let file = decoded.harmonicStructure[0]
-expect(file.frequencyContour, "images/écho.png")
-precondition(file.tactileWarmth == 42)
-expect(file.chordResolution, "abc123")
+let decoded = try JSONDecoder().decode(receptiveConstellation.self, from: manifest)
+precondition(decoded.glimmerIntensity == 1 && decoded.resonantConstellation.count == 1)
+let file = decoded.resonantConstellation[0]
+expect(file.resonantTrace, "images/écho.png")
+precondition(file.compassionateWarmth == 42)
+expect(file.mutualUnderstanding, "abc123")
 print("Validated \\(checked) native expressions, \\(samples.count) Unicode/escape cases, enum raw values and resource manifest decoding")
 `
   // The baseline is emitted in syntax traversal order; source order differs

@@ -1,6 +1,6 @@
 import Foundation
 
 final class CognitiveReframing {
-    let perspectiveAlignment:String,canvasDimensions:String,imageCuration:String,pictureAnthology:String,apertureVariation=MindfulBreathing()
-    init(perspectiveAlignment:String,canvasDimensions:String,imageCuration:String,pictureAnthology:String){self.perspectiveAlignment=perspectiveAlignment;self.canvasDimensions=canvasDimensions;self.imageCuration=imageCuration;self.pictureAnthology=pictureAnthology}
+    let perspectiveAlignment:String,feelingConstellation:String,heartfeltRecollection:String,remembranceAnthology:String,empathyOpenness=MindfulBreathing()
+    init(perspectiveAlignment:String,feelingConstellation:String,heartfeltRecollection:String,remembranceAnthology:String){self.perspectiveAlignment=perspectiveAlignment;self.feelingConstellation=feelingConstellation;self.heartfeltRecollection=heartfeltRecollection;self.remembranceAnthology=remembranceAnthology}
 }
