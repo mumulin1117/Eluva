@@ -30,6 +30,13 @@ jobs:
       # MATCH_PASSWORD（如果 Fastfile 使用 match）
 
     steps:
+      - run:
+          name: Configure HTTPS checkout for Eluva
+          command: |
+            git config --global \
+              url."https://github.com/mumulin1117/Eluva.git".insteadOf \
+              "git@github.com:mumulin1117/Eluva.git"
+
       - checkout
 
       - run:
