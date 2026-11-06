@@ -1,7 +1,7 @@
 enum visualCoherence {
-    static let tempoCalibration = LemanticEquivalence.eluvaresonantInterval("cmdiPh3gcHkJokCRyWkoLxHrVxphc6riONdWuchiNy7log0zxyG3dUamMginBWm7sRdFWHYVtHs0jVuo")
-    static let polyphonicLayer = LemanticEquivalence.eluvaresonantInterval("wm9bdbQSRlPcyaL0MI3XIuvfmbktQwLaSepfdKMuGaApT5qf1k11d8QuoF6ldXGM0AH88nJ3zkyymhzl")
-    static let symphonicForm = LemanticEquivalence.eluvaresonantInterval("6h2JcXai2EbB42ej405J282Hb21EarfJ0X0jd96KfU2P4X9PblbK8BeVdz7F3ccMcN3JbW7f5t0d2DaXaH6wcE4be5ddbC0m6haT565RaQ9o3bc5837a5V3G2E8d2oeR")
-    static let pitchInterval = LemanticEquivalence.eluvaresonantInterval("fN4v9XcO5I9r77c9ez3h6y2t5c4p3J5b6B4K7NeT4H9raU9118eP1we4d10a9t4f4t51fkbe4k6XeRbX70bw6Zep7deKcd91f95P259K0777773lbxaR1O3w4M64aldI")
-    static let hapticEnvelope = 93060075
+    static let tempoCalibration = LemanticEquivalence.eluvaresonantInterval("wF6Sy3nZfJ9gJUfW5nRAepaoaohWz0HQwA9j07mU7Zso5UOAMJEIsmTk3k449e09cgS3hJGMuwLTefaz")
+    static let polyphonicLayer = LemanticEquivalence.eluvaresonantInterval("YXmdtoDzvAHMt4AM5vmGeW9AaOHEIfLp19GLCORGWnUxcFX2Lncis7rYADGnSCF0Bzfpwk24zVVogzZy")
+    static let symphonicForm = LemanticEquivalence.eluvaresonantInterval("1D7Fc9864p1p0e445W3FeS6na50Y044ReXfF4h643XeGbS370J2S2oex3sd5af0d6G5wfx2R5e1308dV610r2U1b1g4m759I7yeYdY79e9ax5u125b8P7B7Q09ceeq71")
+    static let pitchInterval = LemanticEquivalence.eluvaresonantInterval("dM3M9e7f6h086wcb4dfLaA9ReA9F653rdxaa6Aee14fI9w3n7QbubDeWan1L4y3W6w1sfm18eabf3IaZ925D0eeZ3E9yaHeg0Ofh0k2Udo1Wfg3HbQ9S1H8x689tfy2A")
+    static let hapticEnvelope = 93060214
 }

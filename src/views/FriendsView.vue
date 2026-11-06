@@ -1,5 +1,5 @@
 <script setup>
-import { computed,onMounted,ref } from 'vue'
+import { computed,nextTick,onMounted,ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { allowedReturnPath } from '../domain/navigation.js'
 import { router } from '../router.js'
@@ -12,10 +12,17 @@ import ActionButton from '../components/ActionButton.vue'
 import AppModal from '../components/AppModal.vue'
 const route=useRoute(),isRequests=computed(()=>route.name==='friendRequests'),direction=ref(route.query.direction==='sent'?'sent':'received'),ignore=ref(null),commits={}
 onMounted(()=>loadSocial({reuse:true}))
-const friends=computed(()=>social.profiles.filter(p=>p.relationship?.friends&&!p.relationship.blocked)),requests=computed(()=>social.requests.filter(r=>r.direction===direction.value).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)))
+const friends=computed(()=>social.profiles.filter(p=>p.relationship?.friends&&!p.relationship.blocked)),requests=computed(()=>social.requests.filter(r=>r.direction===direction.value&&(r.direction!=='received'||r.status!=='ignored')).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)))
 const pending=computed(()=>social.requests.filter(r=>r.direction==='received'&&r.status==='pending'&&!r.blocked).length)
 const peer=r=>r.direction==='received'?r.senderId:r.recipientId
-async function resolve(r,method){const key=r.id+':'+method;commits[key]||=newId();if(await socialAction(method,{requestId:r.id,commitId:commits[key]}))ignore.value=null}
+async function resolve(r,method){
+ const key=r.id+':'+method,dismiss=method==='ignore'&&ignore.value?.id===r.id
+ commits[key]||=newId()
+ if(dismiss){ignore.value=null;await nextTick()}
+ const ok=await socialAction(method,{requestId:r.id,commitId:commits[key]})
+ if(ok)ignore.value=null
+ else if(dismiss)ignore.value=r
+}
 function change(value){direction.value=value;router.replace({name:'friendRequests',query:{...route.query,direction:value}})}
 const date=value=>new Intl.DateTimeFormat(state.locale,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(value))
 function profile(id){router.push({name:'profile',params:{id},query:{from:route.fullPath}})}

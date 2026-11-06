@@ -51,7 +51,7 @@ export async function run(name, action, { critical = false, preserveError = fals
   catch (error) { const normalized = asAppError(error); if (normalized.code !== 'CANCELLED') state.ui.error = normalized.code; return false }
   finally { if (active === operation) { active = null; state.ui.busy = '' } }
 }
-export function canNavigate() { return !active?.critical || active.done }
+export function canNavigate() { return !state.ui.busy || !active?.critical || active.done }
 export function cancelTransient() { if (active && !active.done && !active.critical) active.controller.abort() }
 export async function hydrateUser(result) {
   const user = result.user
